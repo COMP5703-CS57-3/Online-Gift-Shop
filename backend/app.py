@@ -23,8 +23,8 @@ gift_shop = Api(the_test_blueprint_page, title="Online gift shop",
 # def index():
 #     return "<h1>this test blueprint page is for Online Gift Shop backend test</h1>"
 
-# add login_founction's namespace
-# gift_shop.add_namespace(login_founction, "/login_signup")
+# add login_function's namespace
+# gift_shop.add_namespace(login_function, "/login_signup")
 
 def add_namespace():
     gift_shop.add_namespace(login_signup_namespace, "/login_signup")
@@ -56,7 +56,7 @@ def delete_database():
     database.drop_all()
 
 
-# use command to run the backend sevice
+# use command to run the backend service
 @manager_command.command
 def run():
     app.run()
