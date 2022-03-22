@@ -38,7 +38,8 @@
     commit 提交本地更新
     push 更新远程仓库
 commit会确认远程仓库和本地更新的不同，提交者需要确认每一个更改后才能push  
-在push时需要选择想要更新的文件，选择想要更新的commit版本  
+在push时需要选择想要更新的文件，选择想要更新的commit版本 
+![img.png](readme_resources/img_7.png)
 基本流程 打开软件先update->编写完成使用commit->确认无误后使用push，规律的使用update尽可能的避免版本冲突  
 
 
