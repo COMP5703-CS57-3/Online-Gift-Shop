@@ -67,9 +67,9 @@ mac路径：/etc/hosts
 
 ### 配置react快捷运行
 找到运行配置  
-点击edit configuration
-![img_1.png](readme_resources/img_8.png)
-配置运行名，package.json,和start命令，确定
+点击edit configuration  
+![img_1.png](readme_resources/img_8.png)  
+配置运行名，package.json,和start命令，  
 ![img.png](readme_resources/img_9.png)
 在后续运行项目时需要启动前端和后端
 
