@@ -73,6 +73,6 @@ mac路径：/etc/hosts
 ![img.png](readme_resources/img_9.png)
 在后续运行项目时需要启动前端和后端
 
-### 地址栏输入127.0.0.1:5000得到的是由react框架build出的模板效果
+### 地址栏输入127.0.0.1:5000/index得到的是由react框架build出的模板效果
 
     
