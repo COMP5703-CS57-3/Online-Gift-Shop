@@ -33,7 +33,9 @@ def add_namespace():
 
 add_namespace()
 
-app = Flask(__name__)
+app = Flask(__name__,
+            template_folder='../frontend/build',
+            static_folder='../frontend/build/static',)
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = aws_endpoint
@@ -63,7 +65,7 @@ def run():
     app.run()
 
 
-@app.route('/')
+@app.route('/index')
 def index():
     return render_template('index.html')
 

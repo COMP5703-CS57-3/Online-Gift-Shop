@@ -8,9 +8,6 @@ class App extends React.Component {
             <div className="container">
                 <h1 className="center-align">
                     Hello<br/>
-                    <span className="waves-effect waves-light btn">
-                        <i className="material-icons right">cloud</i>Login
-                    </span>
                 </h1>
             </div>
         );
