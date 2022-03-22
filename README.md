@@ -18,13 +18,14 @@
 ### 检查项目当前使用的虚拟环境路径是否为项目根目录下的venv文件夹
 ### 如果不是，点击add
 ![img_3.png](readme_resources/img_3.png)
-### 选择从existing environment中添加，找到右侧的...，点击，找到项目根目录添加
+### 选择从new environment中添加，找到右侧的文件夹图标，点击，找到项目根目录，添加venv文件夹，点击创建
 ![img_4.png](readme_resources/img_4.png)
-### 此时虚拟环境中应该包含了项目所需要的python包
-### 如果没有，在项目结构目录中找到venv->Scripts，在此处右键单击，选择open in->terminal 
+### 此时虚拟环境中还不包含项目所需要的python包
+### 在项目结构目录中找到venv->Scripts，在此处右键单击，选择open in->terminal 
 ![img_5.png](readme_resources/img_5.png)
-### 执行以下命令激活虚拟环境，然后按照requirements.txt安装python库
+### 执行以下命令激活虚拟环境
     activate.bat
+###然后前往requirements.txt所在目录安装python库
     pip install -r requirements.txt
 ### *注意，每次执行命令行python命令前都要注意是否在正确的虚拟环境中 （venv）*
 ![img_6.png](readme_resources/img_6.png)
