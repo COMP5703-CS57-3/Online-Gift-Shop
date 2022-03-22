@@ -6,6 +6,7 @@ from flask import Blueprint
 from flask_cors import CORS
 from flask_restplus import Api
 from flask_script import Manager
+from flask import Flask, render_template
 
 # from main.namespace import add_namespace
 
@@ -60,6 +61,11 @@ def delete_database():
 @manager_command.command
 def run():
     app.run()
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
