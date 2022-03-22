@@ -38,7 +38,11 @@
     pip install -r requirements.txt
 *注意，每次执行命令行python命令前都要注意是否在正确的虚拟环境中 （venv）*
 ![img_6.png](readme_resources/img_6.png)
-# 6. git操作
+# 6. 安装node依赖
+在前端根目录下执行  
+
+    npm install 
+# 7. git操作
 连接上远程git库后软件右上角会显示三个命令  
 
     update 接收远程仓库的更新
