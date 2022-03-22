@@ -18,7 +18,7 @@
 检查项目当前使用的虚拟环境路径是否为项目根目录下的venv文件夹  
 如果不是，点击add  
 ![img_3.png](readme_resources/img_3.png)
-选择从new environment中添加，找到右侧的文件夹图标，点击，找到项目根目录，添加venv文件夹，点击创建 
+选择从new environment中添加，找到右侧的文件夹图标，点击，找到项目后端根目录，添加venv文件夹，点击创建 
 ![img_4.png](readme_resources/img_4.png)
 此时虚拟环境中还不包含项目所需要的python包  
 在项目结构目录中找到venv->Scripts，在此处右键单击，选择open in->terminal   
@@ -63,6 +63,15 @@ mac路径：/etc/hosts
     140.82.112.4     github.com
     199.232.69.194    github.global.ssl.fastly.net
 备份原文件后将新文件移动到原目录
+
+
+### 配置react快捷运行
+找到运行配置  
+点击edit configuration
+![img_1.png](readme_resources/img_8.png)
+配置运行名，package.json,和start命令，确定
+![img.png](readme_resources/img_9.png)
+在后续运行项目时需要启动前端和后端
 
 
     
