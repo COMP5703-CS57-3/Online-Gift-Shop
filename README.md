@@ -50,6 +50,19 @@ commit会确认远程仓库和本地更新的不同，提交者需要确认每�
 在以下网址上生成个人token，推荐勾选所有权限
     https://github.com/settings/tokens
 将生成的token复制到pycharm中
+### pycharm 显示OpenSSL SSL_read: Connection was reset, errno 10054 或者 timeout错误
+打开git command 输入  
+
+    git config --global http.sslVerify false
+找到 host文件
+windows路径：C:\Windows\System32\drivers\etc\host  
+mac路径：/etc/hosts  
+复制原文件，到别的位置，进行修改  
+在文件的最下方写入
+
+    140.82.112.4     github.com
+    199.232.69.194    github.global.ssl.fastly.net
+备份原文件后将新文件移动到原目录
 
 
     
