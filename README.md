@@ -71,7 +71,7 @@ mac路径：/etc/hosts
 ![img_1.png](readme_resources/img_8.png)  
 配置运行名，package.json,和start命令，  
 ![img.png](readme_resources/img_9.png)
-在后续运行项目时需要启动前端和后端
+
 
 ### 地址栏输入127.0.0.1:5000/index得到的是由react框架build出的模板效果
 
