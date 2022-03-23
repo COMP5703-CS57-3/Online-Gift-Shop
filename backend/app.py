@@ -35,14 +35,14 @@ add_namespace()
 
 app = Flask(__name__,
             template_folder='../frontend/build',
-            static_folder='../frontend/build/static',)
+            static_folder='../frontend/build/static', )
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = aws_endpoint
 database.init_app(app)
 # using flask's object app register blueprint
 app.register_blueprint(the_test_blueprint_page)
-
+CORS(app, resources={r'/*': {'origins': '*'}})  # cross domain
 # Use flask_script's manager function to write commands
 manager_command = Manager(app)
 
