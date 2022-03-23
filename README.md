@@ -1,6 +1,6 @@
 # 1. 安装pycharm
 
-# 2. 安装git 安装node.js
+# 2. 安装git&安装node.js
 
     git 参考 https://www.cnblogs.com/xueweisuoyong/p/11914045.html
     node.js 参考 https://www.runoob.com/nodejs/nodejs-install-setup.html
