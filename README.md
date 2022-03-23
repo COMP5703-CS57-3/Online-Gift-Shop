@@ -1,13 +1,20 @@
 # 1. 安装pycharm
-# 2. 安装git
-    参考 https://www.cnblogs.com/xueweisuoyong/p/11914045.html
+
+# 2. 安装git 安装node.js
+
+    git 参考 https://www.cnblogs.com/xueweisuoyong/p/11914045.html
+    node.js 参考 https://www.runoob.com/nodejs/nodejs-install-setup.html
+
 # 3. 在pycharm中配置git和github
+
 点击file栏，找到settings，点击version control表单，点击github    
 ![img.png](readme_resources/img.png)
 点击左下角加号，授权登录账户，不要勾选ssh选项  
 点击git，检查系统的git有没有被检测到，点击test进行测试，如果没有检测到，需要手动添加  
 ![img_1.png](readme_resources/img_1.png)
+
 # 4. 导入项目
+
 在pycharm顶栏找到VCS，点击import from version control    
 输入从网页复制的repository的url  
 ![img_2.png](readme_resources/img_2.png)
