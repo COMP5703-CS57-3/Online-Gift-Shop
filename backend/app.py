@@ -42,7 +42,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = aws_endpoint
 database.init_app(app)
 # using flask's object app register blueprint
 app.register_blueprint(the_test_blueprint_page)
-CORS(app, resources={r'/*': {'origins': '*'}})  # cross domain
+CORS(app)  # cross domain
 # Use flask_script's manager function to write commands
 manager_command = Manager(app)
 
