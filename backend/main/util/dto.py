@@ -34,6 +34,11 @@ class login_part_dto:
         'id': fields.Integer,
         'message': fields.String,
     })
+    user_login_200_ouput_format = login_founction_namespace.model("user_login_200_ouput_format", {
+        'id': fields.Integer,
+        'user_name': fields.String,
+        'message': fields.String,
+    })
 
     # the change password input/output format
     user_change_password_expectation_input_format = login_founction_namespace.model("user_change_password_expectation_input_format", {
