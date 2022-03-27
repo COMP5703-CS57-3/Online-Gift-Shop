@@ -1,0 +1,32 @@
+[{
+  "id": 123456789,
+  "name": "gift for test 1",
+  "price": 123,
+  "discount_price": 123,
+  "discount_state": 123,
+  "description": "test description",
+  "category": "no category",
+  "cover_url": "cover_url",
+  "show_url1": "show_url",
+  "show_url2": "show_url",
+  "show_url3": "show_url",
+  "show_url4": "show_url",
+  "sales": "show_url",
+  "income": "show_url"
+},{
+  "id": 123457777,
+  "name": "gift for test 2",
+  "price":33333,
+  "discount_price":3333,
+  "discount_state": 133,
+  "description": "test description 2",
+  "category": "no category",
+  "cover_url": "cover_url",
+  "show_url1": "show_url",
+  "show_url2": "show_url",
+  "show_url3": "show_url",
+  "show_url4": "show_url",
+  "sales": "show_url",
+  "income": "show_url"
+}
+]
