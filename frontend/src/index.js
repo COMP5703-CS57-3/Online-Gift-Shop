@@ -3,6 +3,8 @@ import axios from 'axios'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Button from '@mui/material/Button';
+import Cart from "./Components/Cart";
+import giftdata from "./data/giftlist.json";
 
 function UserLogin(props) {
     return (
@@ -142,3 +144,4 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App/>, document.getElementById('root'))
+//ReactDOM.render(<Cart giftlist={giftdata} />, document.getElementById('root'))
