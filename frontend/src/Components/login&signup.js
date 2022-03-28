@@ -1,7 +1,6 @@
 //index.js
 import axios from 'axios'
 import React from 'react'
-import ReactDOM from 'react-dom'
 import Button from '@mui/material/Button';
 
 function UserLogin(props) {
@@ -23,14 +22,27 @@ function GuestLogin(props) {
 
 }
 
+
 function Signup(props) {
     return (
         <div className="container">
-            Nickname:<input name="Username" onChange={(val) => props.HandleChange(val)}/> <br/>
-            Email:<input name="Email" onChange={(val) => props.HandleChange(val)}/> <br/>
-            Phone Number:<input name="Phone" onChange={(val) => props.HandleChange(val)}/> <br/>
-            Password:<input name="Password" onChange={(val) => props.HandleChange(val)}/> <br/>
-            Confirm password<input name="ConfirmedPwd" onChange={(val) => props.HandleChange(val)}/> <br/>
+            Nickname:<input name="Username" onChange={(val) => props.HandleChange(val)}/>
+            {props.props.isShow ? (
+                <span>{props.props.errNick}</span>
+            ) : null} <br/>
+            Email:<input name="Email" onChange={(val) => props.HandleChange(val)}/> {props.props.isShow ? (
+            <span>{props.props.errEmail}</span>
+        ) : null} <br/>
+            Phone Number:<input name="Phone" onChange={(val) => props.HandleChange(val)}/> {props.props.isShow ? (
+            <span>{props.props.errNumber}</span>
+        ) : null} <br/>
+            Password:<input name="Password" onChange={(val) => props.HandleChange(val)}/> {props.props.isShow ? (
+            <span>{props.props.errPwd}</span>
+        ) : null} <br/>
+            Confirm password<input name="ConfirmedPwd"
+                                   onChange={(val) => props.HandleChange(val)}/> {props.props.isShow ? (
+            <span>{props.props.errCPwd}</span>
+        ) : null} <br/>
         </div>
     )
 
@@ -61,8 +73,37 @@ function SLPart(props) {
             )
         }
     } else {
-        return <Signup HandleChange={props.HandleChange}/>
+        return <Signup props={props} HandleChange={props.HandleChange}/>
     }
+}
+
+function checkNickName(val) {
+    const reg = new RegExp(/[[a-zA-Z0-9_]+/);
+    if (val.length > 12) {
+        return "Nick name is limited to 12 characters"
+    } else if (val.length === 0) {
+        return "Nick name is empty"
+    } else if (val.length < 6) {
+        return "Nick name should be at least 6 characters"
+    } else if (val.match(reg).length !== val.length) {
+        return "Nick name should only allow a-zA-z0-9_"
+    } else {
+        return true
+    }
+
+
+}
+
+function checkEmail(val) {
+    return true
+}
+
+function checkPhone(val) {
+    return true
+}
+
+function checkPassword(val, val_twice) {
+    return true
 }
 
 export default class Login extends React.Component {
@@ -76,7 +117,13 @@ export default class Login extends React.Component {
             Password: "",
             Username: "",
             Phone: "",
-            ConfirmedPwd: ""
+            ConfirmedPwd: "",
+            isShow: false,
+            errNick: "",
+            errEmail: "",
+            errPhone: "",
+            errPwd: "",
+            errCPwd: "",
         }
     }
 
@@ -110,8 +157,32 @@ export default class Login extends React.Component {
                 console.log(this.state.InviteCode)
             }
         } else {
+            const res_name = checkNickName(this.state.Username)
+            const res_email = checkEmail(this.state.Email)
+            const res_phone = checkPhone(this.state.Phone)
+            const res_password = checkPassword(this.state.Password, this.state.ConfirmedPwd)
+
+            if (res_name === true && res_email === true && res_phone === true && res_password === true) {
+                this.setState({isShow: false})
+                console.log("send message to backend")
+            } else {
+                // console.log(res_name)
+                this.setState({
+                    isShow: true,
+                    errNick: res_name,
+                    errEmail: res_email,
+                    errPhone: res_phone,
+                    errPwd: res_password["Pwd"],
+                    errCPwd: res_password["CPwd"],
+                }, () => {
+                    console.log(this.state)
+                })
+
+
+            }
             //^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+
-            console.log(this.state)
+
+            // console.log(this.state)
         }
 
     }
@@ -130,7 +201,16 @@ export default class Login extends React.Component {
                     <div id="LoginPart">
                         <SLPart HandleChange={this.HandleChange}
                                 WantLogin={this.state.WantLogin}
-                                Login={this.state.Login}/>
+                                Login={this.state.Login}
+                                isShow={this.state.isShow}
+                                errNick={this.state.errNick}
+                                errEmail={this.state.errEmail}
+                                errPhone={this.state.errPhone}
+                                errPwd={this.state.errPwd}
+                                errCPwd={this.state.errCPwd}
+
+
+                        />
 
                     </div>
                 </div>
@@ -141,4 +221,4 @@ export default class Login extends React.Component {
     }
 }
 
-ReactDOM.render(<Login/>, document.getElementById('root'))
+// ReactDOM.render(<Login/>, document.getElementById('root'))
