@@ -4,7 +4,7 @@ backend documentation for Mac
 2. go to the Pycharm terminal
 <img width="1421" alt="截屏2022-03-28 下午4 15 05" src="https://user-images.githubusercontent.com/101176546/160355544-4a31ca14-6280-4e78-951f-e9039ad23f58.png">
 3. type command 'python3 -m venv env' to create env file.
-
+<img width="764" alt="截屏2022-03-28 下午4 32 00" src="https://user-images.githubusercontent.com/101176546/160358472-ec7424ac-fc56-49c1-8788-9b5a511c5db4.png">
 4. type command 'source env/bin/activate' to enter the virtual environment.
 <img width="1307" alt="截屏2022-03-28 下午4 30 42" src="https://user-images.githubusercontent.com/101176546/160358248-4d144630-5dbf-4186-857a-0edac847cb44.png">
 5. type command 'pip3 install -r requirements.txt' to install requirenment.txt
