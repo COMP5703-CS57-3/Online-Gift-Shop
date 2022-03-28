@@ -1,7 +1,9 @@
+import giftdata from "../data/giftlist.json";
 import React,{useState} from "react";
 import Giftlist from "./Giftlist";
 
 export default function Cart({giftlist,style}){
+    giftlist=giftdata
     const [items, setItems] = useState(giftlist);
     return(
         <Giftlist

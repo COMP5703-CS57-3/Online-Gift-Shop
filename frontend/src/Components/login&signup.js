@@ -3,8 +3,6 @@ import axios from 'axios'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Button from '@mui/material/Button';
-import Cart from "./Components/Cart";
-import giftdata from "./data/giftlist.json";
 
 function UserLogin(props) {
     return (
@@ -67,7 +65,7 @@ function SLPart(props) {
     }
 }
 
-class App extends React.Component {
+export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -143,5 +141,4 @@ class App extends React.Component {
     }
 }
 
-ReactDOM.render(<App/>, document.getElementById('root'))
-//ReactDOM.render(<Cart giftlist={giftdata} />, document.getElementById('root'))
+ReactDOM.render(<Login/>, document.getElementById('root'))
