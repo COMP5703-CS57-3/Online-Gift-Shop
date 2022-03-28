@@ -1,0 +1,10 @@
+/*background*/
+.img{
+    position: absolute;
+    left: 0px;
+    top: 1080px;
+    width: 1080px;
+    height: 1920px;
+    transform: rotate(-90deg);
+    background-image: url("./src/picture/background.png");
+}
