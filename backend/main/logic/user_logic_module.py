@@ -6,6 +6,7 @@ from ..service.sign_up import signup_method
 from ..service.change_password import change_password_method
 from ..service.get_validation import get_validation_method
 from ..service.forget_password import forget_password_method
+from ..service.get_user_email_information import get_user_email_information
 from ..util.dto import login_part_dto
 from flask_restplus import Resource
 from flask_restplus import marshal
@@ -102,3 +103,17 @@ class ForgetPassword(Resource):
         else:
             return marshal(output_json.response_data, login_part_dto.user_forget_password_output_format), 200
 
+@login_signup_namespace.route('/get_user_email_by_password')
+class UserShowInformation(Resource):
+    @staticmethod
+    @login_signup_namespace.expect(login_part_dto.user_get_information_input_format)
+    @login_signup_namespace.response(200, 'information successfully get',
+                                         model=login_part_dto.user_get_information_output_format)
+    @login_signup_namespace.response(400, 'failed request',
+                                         model=login_part_dto.user_get_information_output_format)
+    def post():
+        output_json = get_user_email_information(json.loads(request.data))
+        if output_json.status_code == 200:
+            return marshal(output_json, login_part_dto.user_get_information_output_format), 200
+        else:
+            return marshal(output_json, login_part_dto.user_get_information_output_format), 400
