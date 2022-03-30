@@ -11,6 +11,8 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
+import {Link} from "react-router";
+
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -92,7 +94,7 @@ export default function AccountMenu() {
           <ListItemIcon>
             <PersonAdd fontSize="small" />
           </ListItemIcon>
-          Grust Whish List
+          Guest Wish List
         </MenuItem>
         <MenuItem>
           <ListItemIcon>
@@ -104,7 +106,7 @@ export default function AccountMenu() {
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Logout
+          <Link to="/login" >Login</Link>
         </MenuItem>
       </Menu>
     </React.Fragment>
