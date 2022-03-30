@@ -7,7 +7,7 @@ function UserLogin(props) {
     return (
         <div className="container">
             Email:<input name="Email" onChange={(val) => props.HandleChange(val)}/> <br/>
-            Password:<input name="Password" onChange={(val) => props.HandleChange(val)}/> <br/>
+            Password:<input type= "password" id= "password" name="Password" onChange={(val) => props.HandleChange(val)}/><br/>
         </div>
     )
 }
@@ -136,20 +136,9 @@ export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            Login: "1",
-            WantLogin: "1",
             InviteCode: "",
             Email: "",
             Password: "",
-            Username: "",
-            Phone: "",
-            ConfirmedPwd: "",
-            isShow: false,
-            errNick: "",
-            errEmail: "",
-            errPhone: "",
-            errPwd: "",
-            errCPwd: "",
         }
     }
 
@@ -163,23 +152,39 @@ export default class Login extends React.Component {
     HandleClick = () => {
         if (this.state.Login === "1") {
             if (this.state.WantLogin === "1") {
-                // console.log(this.state.Username,this.state.Password)
-                axios.post('http://localhost:5000/login_signup/login', {
-                    user_email: this.state.Email,
-                    user_password: this.state.Password
-                }).then((response) => {
-                    let status = response;
-                    console.log(status, 1)
-                    if (status.data.message === 'Information waiting for confirmation') {
-                        console.log("Success!")
-                    } else {
-                        console.log("Error!")
-                    }
-                })
-                    .catch((response) => {
-                        console.log(response, 2)
-                    });
-            } else {
+                if (this.state.Password===""){
+                    alert("please input password")
+                }
+                else{
+                    // console.log(this.state.Username,this.state.Password)
+                    axios.post('http://localhost:5000/login_signup/login', {
+                        user_email: this.state.Email,
+                        user_password: this.state.Password
+                    }).then((response) => {
+                        let status = response;
+                        console.log(status, 1)
+                        if (status.data.message === 'Information waiting for confirmation') {
+                            console.log("Success!")
+                        } else {
+                            console.log("Error!")
+                        }
+                    })
+                        .catch((response) => {
+                            if (response.toString().indexOf("403")!==-1){
+                                alert("User did not exit, please sign up first")
+                            }else if (response.toString().indexOf("404")!==-1){
+                                alert("Unknown Error")
+                            }
+                            else if (response.toString().indexOf("400")!==-1){
+                                alert("Please input correct password")
+                            }
+                        });
+                }
+            }
+            else {
+                if (this.state.InviteCode===""){
+                    alert("please input invite code")
+                }
                 console.log(this.state.InviteCode)
             }
         } else {
@@ -203,6 +208,8 @@ export default class Login extends React.Component {
                 }, () => {
                     // console.log(this.state)
                 })
+
+
             }
         }
     }
