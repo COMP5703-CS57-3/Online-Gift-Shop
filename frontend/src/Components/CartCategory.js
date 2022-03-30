@@ -8,6 +8,12 @@ export default function CartCategory(){
     return(
         <CategoryG
             giftlist = {items}
+            onRemoveItems={
+                id=>{
+                    const newItems = items.filter(item=>item.id!==id);
+                    setItems(newItems);
+                }
+            }
         />
     )
 }

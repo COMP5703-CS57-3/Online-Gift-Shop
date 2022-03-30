@@ -7,13 +7,14 @@ import Index from "./Components/index.js"
 import Cart from "./Components/Cart";
 import Login from "./Components/login&signup"
 import homepage from "./homepage/Homepage"
+import CartCategory from "./Components/CartCategory";
 
 
 
 ReactDOM.render((
   <Router history={browserHistory} >
       <Route path="/" component={homepage}/>
-        <Route path="cart" component={Cart}/>
+        <Route path="cartcategory" component={CartCategory}/>
       <Route path="login" component={Login}/>
 
           {/*<Route path="users" component={Users}>*/}
