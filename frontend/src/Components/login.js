@@ -13,20 +13,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import axios from "axios";
-import {Link} from "react-router";
-
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import {Link} from "react-router-dom";
+import Copyright from "./cpright";
+import InviteCode from "./invitecode";
 
 const theme = createTheme();
 
@@ -70,7 +59,7 @@ export default class LogIn extends React.Component {
             }).then((response) => {
                 let status = response;
                 console.log(status, 1)
-                if (status.data.message === 'Information waiting for confirmation') {
+                if (status.data.message === '"User login successfully"') {
                     console.log("Success!")
                 } else {
                     console.log("Error!")
@@ -92,6 +81,7 @@ export default class LogIn extends React.Component {
     render() {
         return (
             <ThemeProvider theme={theme}>
+
                 <Container component="main" maxWidth="xs">
                     <CssBaseline/>
                     <Box
@@ -108,6 +98,7 @@ export default class LogIn extends React.Component {
                         <Typography component="h1" variant="h5">
                             Sign In
                         </Typography>
+
                         <Box component="form"  noValidate sx={{mt: 1}}>
                             <TextField
                                 margin="normal"
@@ -144,23 +135,26 @@ export default class LogIn extends React.Component {
                             >
                                 Sign In
                             </Button>
+
                             <Grid container>
                                 <Grid item xs>
-                                    <Link to="findpwd" variant="body2">
+                                    <Link to={{pathname: "/findpwd" }}>
                                         Forgot password?
                                     </Link>
                                 </Grid>
                                 <Grid item>
-                                    <Link to="signup" variant="body2">
-                                        {"Sign Up"}
+                                    <Link to={{pathname: "/signup" }}>
+                                        Sign Up
                                     </Link>
                                 </Grid>
                             </Grid>
                         </Box>
+
                     </Box>
                     <Copyright sx={{mt: 8, mb: 4}}/>
-                </Container>
+                </Container><InviteCode/>
             </ThemeProvider>
+
         );
     }
 }

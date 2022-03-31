@@ -5,28 +5,18 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-
+import Copyright from "./cpright";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {Link} from "react-router";
-import {checkEmail, checkNickName, checkPassword, checkPhone} from "../logic/ValCheck";
 
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import {checkEmail, checkNickName, checkPassword, checkPhone} from "../logic/ValCheck";
+import {Link} from "react-router-dom";
+import {Alert, Collapse} from "@mui/material";
+import axios from "axios";
 
 const theme = createTheme();
 
@@ -40,11 +30,11 @@ export default class SignUp extends React.Component {
             Phone: "",
             ConfirmedPwd: "",
             isShow: false,
-            errNick: "",
-            errEmail: "",
-            errPhone: "",
-            errPwd: "",
-            errCPwd: "",
+            errNick: true,
+            errEmail: true,
+            errPhone: true,
+            errPwd: true,
+            errCPwd: true,
         }
     }
 
@@ -54,6 +44,8 @@ export default class SignUp extends React.Component {
         // console.log(name,value)
         // console.log(this)
         this.setState({[name]: value},)
+
+
     }
     HandleClick = () => {
         const res_name = checkNickName(this.state.Username)
@@ -61,26 +53,47 @@ export default class SignUp extends React.Component {
         const res_phone = checkPhone(this.state.Phone)
         const res_password = checkPassword(this.state.Password, this.state.ConfirmedPwd)
 
-        if (res_name === true && res_email === true && res_phone === true && res_password === true) {
-            this.setState({isShow: false})
-            console.log("send message to backend")
+        if (res_name === true && res_email === true && res_phone === true && res_password["Pwd"] === true && res_password["CPwd"] === true) {
+            axios.post('http://localhost:5000/login_signup/sign_up', {
+                user_name:this.state.Username,
+                user_email: this.state.Email,
+                user_mobile:this.state.Phone,
+                user_password: this.state.Password
+            }).then((response) => {
+                console.log(response, 1)
+                if (response.data.message === '"User successfully sign up"') {
+                    console.log("Success!")
+                } else {
+                    console.log("Error!")
+                }
+            })
+                .catch((response) => {
+                    // if (response.toString().indexOf("403") !== -1) {
+                    //     alert("User did not exit, please sign up first")
+                    // } else if (response.toString().indexOf("404") !== -1) {
+                    //     alert("Unknown Error")
+                    // } else if (response.toString().indexOf("400") !== -1) {
+                    //     alert("Please input correct password")
+                    // }
+                    console.log(response,2)
+                });
         } else {
             console.log(res_phone)
             this.setState({
-                isShow: true,
-                errNick: res_name === true ? "" : res_name,
-                errEmail: res_email === true ? "" : res_email,
-                errPhone: res_phone === true ? "" : res_phone,
-                errPwd: res_password["Pwd"] === true ? "" : res_password["Pwd"],
-                errCPwd: res_password["CPwd"] === true ? "" : res_password["CPwd"],
+                // isShow: true,
+                errNick: res_name,
+                errEmail: res_email,
+                errPhone: res_phone,
+                errPwd: res_password["Pwd"],
+                errCPwd: res_password["CPwd"],
             }, () => {
-                // console.log(this.state)
             })
 
         }
     }
 
     render() {
+
         return (
             <ThemeProvider theme={theme}>
                 <Container component="main" maxWidth="xs">
@@ -104,33 +117,54 @@ export default class SignUp extends React.Component {
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="email"
+
                                 label="Nick Name"
-                                name="Email"
+                                name="Username"
                                 // autoComplete="email"
                                 autoFocus
                                 onChange={(e) => this.HandleChange(e)}
                             />
+                            <Collapse in={this.state.errNick !== true}>
+                                <Alert
+                                    severity="info"
+                                >
+                                    {this.state.errNick}
+                                </Alert>
+                            </Collapse>
                             <TextField
                                 margin="normal"
                                 required
                                 fullWidth
-                                name="Password"
+                                name="Email"
                                 label="Email Address"
-                                id="password"
+                                // id="password"
                                 // autoComplete="current-password"
                                 onChange={(e) => this.HandleChange(e)}
                             />
+                            <Collapse in={this.state.errEmail !== true}>
+                                <Alert
+                                    severity="info"
+                                >
+                                    {this.state.errEmail}
+                                </Alert>
+                            </Collapse>
                             <TextField
                                 margin="normal"
                                 required
                                 fullWidth
-                                name="Password"
+                                name="Phone"
                                 label="Phone Number"
-                                id="password"
+                                // id="password"
                                 // autoComplete="current-password"
                                 onChange={(e) => this.HandleChange(e)}
                             />
+                            <Collapse in={this.state.errPhone !== true}>
+                                <Alert
+                                    severity="info"
+                                >
+                                    {this.state.errPhone}
+                                </Alert>
+                            </Collapse>
                             <TextField
                                 margin="normal"
                                 required
@@ -142,22 +176,37 @@ export default class SignUp extends React.Component {
                                 // autoComplete="current-password"
                                 onChange={(e) => this.HandleChange(e)}
                             />
+                            <Collapse in={this.state.errPwd !== true}>
+                                <Alert
+                                    severity="info"
+                                >
+                                    {this.state.errPwd}
+                                </Alert>
+                            </Collapse>
                             <TextField
                                 margin="normal"
                                 required
                                 fullWidth
-                                name="Password"
+                                name="ConfirmedPwd"
                                 label="Please Confirm Password"
                                 type="password"
                                 // id="Cpassword"
                                 // autoComplete="current-password"
                                 onChange={(e) => this.HandleChange(e)}
                             />
+                            <Collapse in={this.state.errCPwd !== true}>
+                                <Alert
+                                    severity="info"
+                                >
+                                    {this.state.errCPwd}
+                                </Alert>
+                            </Collapse>
 
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary"/>}
                                 label="Remember me"
                             />
+                            <Box component="span" fullWidth sx={{p: 8,}}/>
                             <Button
                                 fullWidth
                                 variant="contained"
@@ -168,7 +217,8 @@ export default class SignUp extends React.Component {
                             </Button>
                             <Grid container>
                                 <Grid item>
-                                    <Link to="signup" variant="body2">
+
+                                    <Link to={{pathname: "/login"}}>
                                         Sign In
                                     </Link>
                                 </Grid>

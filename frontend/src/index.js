@@ -1,10 +1,11 @@
 import ReactDOM from 'react-dom'
 // import {browserHistory, IndexRoute} from 'react-router'
 // import { Router, Route, Link } from 'react-router'
-import {Route, BrowserRouter, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Homepage from "./homepage/Homepage"
 import CartCategory from "./Components/CartCategory";
-import AccountMenu from "./homepage/Header";
+import LogIn from "./Components/login";
+import SignUp from "./Components/signup";
 
 
 ReactDOM.render((
@@ -27,8 +28,9 @@ ReactDOM.render((
             <Route path="/" element={<Homepage/>}>
                 <Route path='' element={<CartCategory/>}/>
                 {/*<Route path='c' element={<CartCategory/>}/>*/}
-
             </Route>
+            <Route path="/login" element={<LogIn/>}/>
+            <Route path="/signup" element={<SignUp/>}/>
         </Routes>
     </BrowserRouter>
 ), document.getElementById('root'))
