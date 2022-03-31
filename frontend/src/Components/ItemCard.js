@@ -6,9 +6,12 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete'
 import {useCart} from "../tools/useCart";
+import { useNavigate } from "react-router-dom";
 
 export default function ItemCard({id,name,description}) {
     const{removeItems} = useCart();
+    let navigate = useNavigate();
+    const nav =()=> navigate("/cart/"+id);
   return (
     <Card variant="outlined" sx={{ maxWidth: 400,mt:1,mx:1}}>
       <CardContent>
@@ -29,7 +32,7 @@ export default function ItemCard({id,name,description}) {
         <Button variant="outlined" startIcon={<DeleteIcon />} onClick={()=>removeItems(id)}>
             Delete
         </Button>
-        <Button size="small">Learn More</Button>
+        <Button size="small" onClick={nav}>Learn More</Button>
       </CardActions>
     </Card>
   );

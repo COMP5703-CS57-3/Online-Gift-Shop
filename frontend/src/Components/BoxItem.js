@@ -2,8 +2,12 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import { alpha } from '@mui/material/styles';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import Button from "@mui/material/Button";
+import {useNavigate} from "react-router-dom";
 
 export default function BoxItem({id,name,price,category}) {
+    let navigate = useNavigate();
+    const nav =()=> navigate("/cart/"+id);
   return (
     <Box
       sx={{
@@ -66,6 +70,7 @@ export default function BoxItem({id,name,price,category}) {
         >
             {category}
         </Box>
+          <Button size="small" onClick={nav}>Learn More</Button>
       </Box>
     </Box>
   );

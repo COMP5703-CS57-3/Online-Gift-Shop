@@ -9,6 +9,8 @@ import SignUp from "./Components/signup";
 import {Rotate90DegreesCcw} from "@mui/icons-material";
 import NoMatch from "./Components/nomatch";
 import Cart from "./Components/Cart";
+import GiftDetail from "./Components/GiftDetail";
+import DetailContentProvider from "./Components/DetailContentProvider";
 
 
 
@@ -34,7 +36,9 @@ ReactDOM.render((
                 <Route path='/cart' element={<Cart/>}/>
                 {/*<Route path='c' element={<CartCategory/>}/>*/}
             </Route>
+
             <Route path="/login" element={<LogIn/>}/>
+            <Route path="/cart/:id" element={<DetailContentProvider/>}/>
             <Route path="/signup" element={<SignUp/>}/>
             <Route path="*" element={<NoMatch/>}/>
         </Routes>
