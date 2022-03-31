@@ -8,6 +8,7 @@ import Background from "../picture/background.png";
 import MainBody from "./MainBody";
 
 
+
 export default class Homepage extends React.Component{
     render() {
         return(

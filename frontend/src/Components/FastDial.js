@@ -29,14 +29,14 @@ export default function FastDial() {
     }
     const [winWidth,winHeight]=autoSize()
     return (
-        <div  >
+        <div >
             <Box hidden={showComponent}>
                 <InviteCode sx={{boxShadow:2}}/>
             </Box>
-            <Box sx={{height: 20, transform: 'translateZ(0px)', flexGrow: 1}}>
+            <Box >
                 <SpeedDial
                     ariaLabel="Invite Code"
-                    sx={{position: 'absolute', bottom: 16, right: 16}}
+                    sx={{position: 'fixed', bottom: 16, right: 16}}
                     icon={<SpeedDialIcon/>}
                 >
                     {actions.map((action) => (
