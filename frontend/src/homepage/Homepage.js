@@ -1,19 +1,20 @@
 import React from "react"
 import ReactDOM from "react-dom";
 import AccountMenu from "./Header";
-import {IndexLink, Link} from "react-router";
+import {IndexLink, IndexRoute, Link} from "react-router";
+import CartCategory from "../Components/CartCategory";
+import {Outlet} from 'react-router-dom';
 
 
-
-export default class homepage extends React.Component{
+export default class Homepage extends React.Component{
     render() {
         return(
             <div>
                 <AccountMenu/>
-                <IndexLink to="/cart">Cart</IndexLink>&nbsp;
+                <Outlet />
+                {/*<IndexLink to="/cart">Cart</IndexLink>&nbsp;*/}
                 {/*<Link to="/login">Login</Link>&nbsp;*/}
-                <Link to="/accountmenu">AccountMenu</Link>
-
+                {/*<Link to="/accountmenu">AccountMenu</Link>*/}
             </div>
 
         )
