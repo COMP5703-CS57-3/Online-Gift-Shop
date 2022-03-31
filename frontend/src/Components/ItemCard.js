@@ -5,8 +5,10 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete'
+import {useCart} from "../tools/useCart";
 
-export default function ItemCard({id,name,description,onRemove=f=>f}) {
+export default function ItemCard({id,name,description}) {
+    const{removeItems} = useCart();
   return (
     <Card variant="outlined" sx={{ maxWidth: 400,mt:1,mx:1}}>
       <CardContent>
@@ -24,7 +26,7 @@ export default function ItemCard({id,name,description,onRemove=f=>f}) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button variant="outlined" startIcon={<DeleteIcon />} onClick={()=>onRemove(id)}>
+        <Button variant="outlined" startIcon={<DeleteIcon />} onClick={()=>removeItems(id)}>
             Delete
         </Button>
         <Button size="small">Learn More</Button>

@@ -3,17 +3,13 @@ import React,{useState} from "react";
 import Giftlist from "./Giftlist";
 import ReactDOM from "react-dom";
 import Login from "./login&signup";
+import CartProvider from "../tools/useCart";
+import CategoryC from "./CategoryC";
 
 export default function Cart(){
-    const [items, setItems] = useState(giftdata);
     return(
-        <Giftlist
-            giftlist = {items}
-            onRemoveItems={
-                id=>{
-                    const newItems = items.filter(item=>item.id!==id);
-                    setItems(newItems);
-            }}
-        />
+        <CartProvider login="test">
+            <CategoryC/>
+        </CartProvider>
     )
 }
