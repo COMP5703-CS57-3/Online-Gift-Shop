@@ -12,7 +12,7 @@ export default function CartCategory({login="test"}){
 
     useEffect(()=>{
         if(!login) return;
-        //if(login=="test") return;
+        // if(login=="test") return;
         setItems(giftdata);
     },[login]);
     useEffect(()=>{

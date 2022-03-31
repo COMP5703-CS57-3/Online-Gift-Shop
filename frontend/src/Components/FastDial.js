@@ -30,7 +30,7 @@ export default function FastDial() {
     const [winWidth,winHeight]=autoSize()
     return (
         <div  >
-            <Box hidden={showComponent} style={{bottom:winHeight/2,left:winWidth/2,zIndex:999}}>
+            <Box hidden={showComponent}>
                 <InviteCode sx={{boxShadow:2}}/>
             </Box>
             <Box sx={{height: 20, transform: 'translateZ(0px)', flexGrow: 1}}>

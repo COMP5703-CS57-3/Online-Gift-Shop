@@ -13,7 +13,8 @@ const style = {
         left: '50%',
         width: 400,
         transform: 'translate(-50%, -70%)',
-        background: '#fff'
+        background: '#fff',
+        zIndex:999
 }
 export default class InviteCode extends React.Component {
     constructor(props) {
@@ -30,17 +31,16 @@ export default class InviteCode extends React.Component {
 
     render() {
         return (
-                <Card sx={{...style,maxWidth: 345,background:'#fff'}} variant="outlined" >
+                <Card id="InviteCode"sx={{...style,maxWidth: 345,background:'#fff'}} variant="outlined" >
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
                             Invite Code
                         </Typography>
                         <TextField
-                            margin="normal"
+                            // margin="normal"
                             required
                             fullWidth
                             name="InviteCode"
-                            label="Please input your invite code"
                             onChange={(e) => this.HandleChange(e)}
                         />
                     </CardContent>
