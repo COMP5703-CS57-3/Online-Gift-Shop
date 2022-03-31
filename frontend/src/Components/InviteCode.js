@@ -31,7 +31,7 @@ export default class InviteCode extends React.Component {
 
     render() {
         return (
-                <Card id="InviteCode"sx={{...style,maxWidth: 345,background:'#fff'}} variant="outlined" >
+                <Card  sx={{...style,maxWidth: 345,background:'#fff'}} variant="outlined" >
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
                             Invite Code
