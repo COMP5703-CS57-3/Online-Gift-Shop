@@ -7,6 +7,14 @@ import Typography from '@mui/material/Typography';
 import {ClickAwayListener} from "@mui/material";
 import TextField from "@mui/material/TextField";
 
+const style = {
+    position: 'absolute',
+        top: '50%',
+        left: '50%',
+        width: 400,
+        transform: 'translate(-50%, -70%)',
+        background: '#fff'
+}
 export default class InviteCode extends React.Component {
     constructor(props) {
         super(props);
@@ -22,7 +30,7 @@ export default class InviteCode extends React.Component {
 
     render() {
         return (
-                <Card sx={{maxWidth: 345}} variant="outlined" >
+                <Card sx={{...style,maxWidth: 345,background:'#fff'}} variant="outlined" >
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
                             Invite Code
