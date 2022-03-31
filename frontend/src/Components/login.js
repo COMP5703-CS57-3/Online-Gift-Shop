@@ -15,7 +15,7 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import axios from "axios";
 import {Link} from "react-router-dom";
 import Copyright from "./cpright";
-import InviteCode from "./invitecode";
+import FastDial from "./FastDial";
 
 const theme = createTheme();
 
@@ -23,20 +23,8 @@ export default class LogIn extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            Login: "1",
-            WantLogin: "1",
-            InviteCode: "",
             Email: "",
             Password: "",
-            Username: "",
-            Phone: "",
-            ConfirmedPwd: "",
-            isShow: false,
-            errNick: "",
-            errEmail: "",
-            errPhone: "",
-            errPwd: "",
-            errCPwd: "",
         }
     }
 
@@ -152,7 +140,7 @@ export default class LogIn extends React.Component {
 
                     </Box>
                     <Copyright sx={{mt: 8, mb: 4}}/>
-                </Container><InviteCode/>
+                </Container><FastDial/>
             </ThemeProvider>
 
         );
