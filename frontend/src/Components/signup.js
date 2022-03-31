@@ -61,7 +61,7 @@ export default class SignUp extends React.Component {
                 user_password: this.state.Password
             }).then((response) => {
                 console.log(response, 1)
-                if (response.data.message === '"User successfully sign up"') {
+                if (response.data.message === 'User successfully sign up') {
                     console.log("Success!")
                 } else {
                     console.log("Error!")

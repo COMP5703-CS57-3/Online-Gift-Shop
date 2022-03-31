@@ -47,7 +47,7 @@ export default class LogIn extends React.Component {
             }).then((response) => {
                 let status = response;
                 console.log(status, 1)
-                if (status.data.message === '"User login successfully"') {
+                if (status.data.message === 'User login successfully') {
                     console.log("Success!")
                 } else {
                     console.log("Error!")

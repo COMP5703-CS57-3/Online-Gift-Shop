@@ -11,7 +11,7 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-import {Link} from "react-router";
+import {Link} from "react-router-dom";
 
 
 export default function AccountMenu() {
@@ -106,7 +106,7 @@ export default function AccountMenu() {
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          <Link to="/login" >Login</Link>
+          <Link to={{path:"/login"}} >Login</Link>
         </MenuItem>
       </Menu>
     </React.Fragment>

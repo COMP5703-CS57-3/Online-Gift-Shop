@@ -6,6 +6,8 @@ import Homepage from "./homepage/Homepage"
 import CartCategory from "./Components/CartCategory";
 import LogIn from "./Components/login";
 import SignUp from "./Components/signup";
+import {Rotate90DegreesCcw} from "@mui/icons-material";
+import NoMatch from "./Components/nomatch";
 
 
 ReactDOM.render((
@@ -31,6 +33,7 @@ ReactDOM.render((
             </Route>
             <Route path="/login" element={<LogIn/>}/>
             <Route path="/signup" element={<SignUp/>}/>
+            <Route path="*" element={<NoMatch/>}/>
         </Routes>
     </BrowserRouter>
 ), document.getElementById('root'))

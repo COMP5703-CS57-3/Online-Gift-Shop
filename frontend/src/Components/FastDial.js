@@ -16,9 +16,21 @@ const actions = [
 
 export default function FastDial() {
     const [showComponent, setShowComponent] = useState(true);
+    const autoSize=()=>{
+        let winWidth=0
+        let winHeight=0
+        if (window.innerWidth){
+            winWidth=window.innerWidth
+        }
+        if (window.innerHeight){
+            winHeight=window.innerHeight
+        }
+        return [winHeight,winWidth]
+    }
+    const [winWidth,winHeight]=autoSize()
     return (
-        <div>
-            <Box hidden={showComponent} >
+        <div  >
+            <Box hidden={showComponent} style={{bottom:winHeight/2,left:winWidth/2,zIndex:999}}>
                 <InviteCode sx={{boxShadow:2}}/>
             </Box>
             <Box sx={{height: 20, transform: 'translateZ(0px)', flexGrow: 1}}>
