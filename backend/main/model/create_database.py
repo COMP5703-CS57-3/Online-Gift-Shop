@@ -38,6 +38,8 @@ class Gifts(database.Model):
     gift_discount_state = database.Column(database.String(10), default='no')
     gift_description = database.Column(database.String(300))
     gift_category = database.Column(database.String(100))
+    gift_side_category1 = database.Column(database.String(100))
+    gift_side_category2 = database.Column(database.String(100))
     gift_cover_url = database.Column(database.String(500))
     gift_show_url1 = database.Column(database.String(500))
     gift_show_url2 = database.Column(database.String(500))
