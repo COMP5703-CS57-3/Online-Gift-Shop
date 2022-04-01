@@ -2,7 +2,7 @@ import giftdata from "../data/giftlist.json";
 import React,{useState} from "react";
 import Giftlist from "./Giftlist";
 import ReactDOM from "react-dom";
-import Login from "./login&signup";
+import Login from "./old version file/login&signup";
 import CartProvider from "../tools/useCart";
 import CategoryC from "./CategoryC";
 import GiftDetail from "./GiftDetail";

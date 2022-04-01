@@ -1,13 +1,12 @@
 import * as React from 'react';
+import {useState} from 'react';
 import Box from '@mui/material/Box';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import InviteCode from "./InviteCode";
 import {WebAssetOffOutlined} from "@mui/icons-material";
-import {useState} from "react";
-
-
+import {ClickAwayListener} from "@mui/material";
 
 
 // const withLink = (to, children) => <Link to={to}>{children}</Link>;
@@ -16,40 +15,31 @@ const actions = [
 
 export default function FastDial() {
     const [showComponent, setShowComponent] = useState(true);
-    const autoSize=()=>{
-        let winWidth=0
-        let winHeight=0
-        if (window.innerWidth){
-            winWidth=window.innerWidth
-        }
-        if (window.innerHeight){
-            winHeight=window.innerHeight
-        }
-        return [winHeight,winWidth]
-    }
-    const [winWidth,winHeight]=autoSize()
+
     return (
-        <div >
-            <Box hidden={showComponent}>
-                <InviteCode sx={{boxShadow:2}}/>
-            </Box>
-            <Box >
-                <SpeedDial
-                    ariaLabel="Invite Code"
-                    sx={{position: 'fixed', bottom: 16, right: 16}}
-                    icon={<SpeedDialIcon/>}
-                >
-                    {actions.map((action) => (
-                        <SpeedDialAction
-                            key={action.name}
-                            icon={action.icon}
-                            tooltipTitle={action.name}
-                            tooltipOpen
-                            onClick={()=>setShowComponent(!showComponent)}
-                        />
-                    ))}
-                </SpeedDial>
-            </Box>
-        </div>
+        <ClickAwayListener onClickAway={() => setShowComponent(true)}>
+            <div>
+                <Box hidden={showComponent}>
+                    <InviteCode sx={{boxShadow: 2}}/>
+                </Box>
+                <Box>
+                    <SpeedDial
+                        ariaLabel="Invite Code"
+                        sx={{position: 'fixed', bottom: 16, right: 16}}
+                        icon={<SpeedDialIcon/>}
+                    >
+                        {actions.map((action) => (
+                            <SpeedDialAction
+                                key={action.name}
+                                icon={action.icon}
+                                tooltipTitle={action.name}
+                                tooltipOpen
+                                onClick={() => setShowComponent(!showComponent)}
+                            />
+                        ))}
+                    </SpeedDial>
+                </Box>
+            </div>
+        </ClickAwayListener>
     );
 }

@@ -11,6 +11,7 @@ from ..util.dto import login_part_dto
 from flask_restplus import Resource
 from flask_restplus import marshal
 from flask import request
+
 # login_signup_namespace is dto's namespace
 login_signup_namespace = login_part_dto.login_founction_namespace
 
@@ -21,15 +22,16 @@ class UserSignup(Resource):
     @staticmethod
     @login_signup_namespace.expect(login_part_dto.user_sign_up_expectation_input_format)
     @login_signup_namespace.response(200, 'User successfully sign up[200]',
-                                     model = login_part_dto.user_sign_up_output_format)
+                                     model=login_part_dto.user_sign_up_output_format)
     @login_signup_namespace.response(403, 'User already exits[403]',
-                                     model = login_part_dto.user_sign_up_output_format)
+                                     model=login_part_dto.user_sign_up_output_format)
     def post():
         output_json = signup_method(json.loads(request.data))
         if output_json.status_code == 200:
             return marshal(output_json, login_part_dto.user_sign_up_output_format), 200
         else:
             return marshal(output_json, login_part_dto.user_sign_up_output_format), 403
+
 
 # user login logic control module
 @login_signup_namespace.route("/login")
@@ -55,6 +57,7 @@ class UserLogin(Resource):
         else:
             return marshal(output_json, login_part_dto.user_login_ouput_format), 400
 
+
 # user change password logic control module
 @login_signup_namespace.route("/change_password")
 class ChangePassword(Resource):
@@ -71,21 +74,23 @@ class ChangePassword(Resource):
         else:
             return marshal(output_json.response_data, login_part_dto.user_change_password_output_format), 400
 
+
 # user get validation logic control module
 @login_signup_namespace.route("/get_validation")
 class GetValidation(Resource):
     @staticmethod
     @login_signup_namespace.expect(login_part_dto.user_get_validation_expectation_input_format)
     @login_signup_namespace.response(200, 'the validation code already sent to your email[200]',
-                                     model = login_part_dto.user_get_validation_output_format)
+                                     model=login_part_dto.user_get_validation_output_format)
     @login_signup_namespace.response(400, 'user did not exits[400]',
-                                     model = login_part_dto.user_get_validation_output_format)
+                                     model=login_part_dto.user_get_validation_output_format)
     def post():
         output_json = get_validation_method(json.loads(request.data))
         if output_json.status_code == 200:
             return marshal(output_json, login_part_dto.user_get_validation_output_format), 200
         else:
             return marshal(output_json, login_part_dto.user_get_validation_output_format), 400
+
 
 # user forget password logic control module
 @login_signup_namespace.route("/forget_password")
@@ -103,14 +108,15 @@ class ForgetPassword(Resource):
         else:
             return marshal(output_json.response_data, login_part_dto.user_forget_password_output_format), 200
 
+
 @login_signup_namespace.route('/get_user_email_by_password')
 class UserShowInformation(Resource):
     @staticmethod
     @login_signup_namespace.expect(login_part_dto.user_get_information_input_format)
     @login_signup_namespace.response(200, 'information successfully get',
-                                         model=login_part_dto.user_get_information_output_format)
+                                     model=login_part_dto.user_get_information_output_format)
     @login_signup_namespace.response(400, 'failed request',
-                                         model=login_part_dto.user_get_information_output_format)
+                                     model=login_part_dto.user_get_information_output_format)
     def post():
         output_json = get_user_email_information(json.loads(request.data))
         if output_json.status_code == 200:

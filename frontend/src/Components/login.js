@@ -16,6 +16,7 @@ import axios from "axios";
 import {Link} from "react-router-dom";
 import Copyright from "./cpright";
 import FastDial from "./FastDial";
+import {checkEmail} from "../logic/ValCheck";
 
 const theme = createTheme();
 
@@ -39,6 +40,8 @@ export default class LogIn extends React.Component {
 
         if (this.state.Password === "") {
             alert("please input password")
+        } else if (checkEmail(this.state.Email) !== true) {
+            alert("please input valid Email")
         } else {
             // console.log(this.state.Username,this.state.Password)
             axios.post('http://localhost:5000/login_signup/login', {
@@ -87,7 +90,7 @@ export default class LogIn extends React.Component {
                             Sign In
                         </Typography>
 
-                        <Box component="form"  noValidate sx={{mt: 1}}>
+                        <Box component="form" noValidate sx={{mt: 1}}>
                             <TextField
                                 margin="normal"
                                 required
@@ -97,7 +100,7 @@ export default class LogIn extends React.Component {
                                 name="Email"
                                 autoComplete="email"
                                 autoFocus
-                                onChange={(e)=>this.HandleChange(e)}
+                                onChange={(e) => this.HandleChange(e)}
                             />
                             <TextField
                                 margin="normal"
@@ -108,7 +111,7 @@ export default class LogIn extends React.Component {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
-                                onChange={(e)=>this.HandleChange(e)}
+                                onChange={(e) => this.HandleChange(e)}
                             />
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary"/>}
@@ -119,19 +122,19 @@ export default class LogIn extends React.Component {
                                 fullWidth
                                 variant="contained"
                                 sx={{mt: 3, mb: 2}}
-                                onClick={()=>this.HandleClick()}
+                                onClick={() => this.HandleClick()}
                             >
                                 Sign In
                             </Button>
 
                             <Grid container>
                                 <Grid item xs>
-                                    <Link to={{pathname: "/findpwd" }}>
+                                    <Link to={{pathname: "/findpwd"}}>
                                         Forgot password?
                                     </Link>
                                 </Grid>
                                 <Grid item>
-                                    <Link to={{pathname: "/signup" }}>
+                                    <Link to={{pathname: "/signup"}}>
                                         Sign Up
                                     </Link>
                                 </Grid>

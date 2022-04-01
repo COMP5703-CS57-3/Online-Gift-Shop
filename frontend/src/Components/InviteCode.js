@@ -8,7 +8,7 @@ import {ClickAwayListener} from "@mui/material";
 import TextField from "@mui/material/TextField";
 
 const style = {
-    position: 'absolute',
+    position: 'fixed',
         top: '50%',
         left: '50%',
         width: 400,

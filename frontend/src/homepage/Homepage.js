@@ -6,6 +6,7 @@ import CartCategory from "../Components/CartCategory";
 import {Outlet} from 'react-router-dom';
 import Background from "../picture/background.png";
 import MainBody from "./MainBody";
+import FastDial from "../Components/FastDial";
 
 
 
@@ -15,6 +16,7 @@ export default class Homepage extends React.Component{
             <div style={{width:'100%',height:'100%',backgroundImage:"url("+Background+")"}}>
                 <AccountMenu/>
                 <MainBody/>
+                <FastDial/>
                 {/*<Outlet />*/}
                 {/*<IndexLink to="/cart">Cart</IndexLink>&nbsp;*/}
                 {/*<Link to="/login">Login</Link>&nbsp;*/}
