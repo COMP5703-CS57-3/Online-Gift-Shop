@@ -44,4 +44,5 @@ def get_user_email_information(user_input_dictionary):
         output_json = make_response(output_message)
         output_json.status_code = status_code
         output_json.message = output_message['message']
+    database.session.close()
     return output_json

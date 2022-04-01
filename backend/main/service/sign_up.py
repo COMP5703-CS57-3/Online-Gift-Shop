@@ -20,6 +20,7 @@ def signup_method(user_input_dictionary):
         status_code = 200
         output_message['message'] = "User successfully sign up"
         # add the new user to the user table, the user's information is in 'user_input_dictionary'
+        # this row is absent, so directly add the data
         this_row_user_information = User(user_name=user_input_dictionary["user_name"],
                                          user_email=user_input_dictionary["user_email"],
                                          user_password=user_input_dictionary["user_password"],
@@ -27,6 +28,7 @@ def signup_method(user_input_dictionary):
         database.session.add(this_row_user_information)
         # commit database
         database.session.commit()
+    database.session.close()
     # use make_response function add output_message's infor and dictionary format to output_json
     output_json = make_response(output_message)
     # show 0 as user's id, if the email has signed up
@@ -36,6 +38,7 @@ def signup_method(user_input_dictionary):
     # show the new user's id to front-end
     else:
         new_user = User.query.filter_by(user_email=user_input_dictionary["user_email"]).first()
+        database.session.close()
         output_json.id = new_user.id
     # show message in output_json to front-end
     output_json.message = output_message['message']

@@ -27,6 +27,7 @@ def forget_password_method(user_input_dictionary):
             user.user_password = user_input_dictionary["user_new_password"]
             database.session.commit()
             response_data['message'] = "the password already upadate"
+    database.session.close()
     output_json = make_response(response_data)
     output_json.status_code = status_code
     output_json.response_data = response_data
