@@ -17,6 +17,7 @@ import {checkEmail, checkNickName, checkPassword, checkPhone} from "../logic/Val
 import {Link} from "react-router-dom";
 import {Alert, Collapse} from "@mui/material";
 import axios from "axios";
+import FastDial from "./FastDial";
 
 const theme = createTheme();
 
@@ -227,6 +228,7 @@ export default class SignUp extends React.Component {
                     </Box>
                     <Copyright sx={{mt: 8, mb: 4}}/>
                 </Container>
+                <FastDial/>
             </ThemeProvider>
         );
     }

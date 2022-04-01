@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
-import InviteCode from "./InviteCode";
+import InviteCode from "./FastDailContent/InviteCode";
 import {WebAssetOffOutlined} from "@mui/icons-material";
 import {ClickAwayListener} from "@mui/material";
 
