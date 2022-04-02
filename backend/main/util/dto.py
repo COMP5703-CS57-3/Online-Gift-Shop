@@ -7,7 +7,7 @@ from flask_restplus import Namespace
 from flask_restplus import fields
 
 
-# define the user, admin and product dto model
+
 class login_part_dto:
     login_founction_namespace = Namespace("The user logic module",
                                 description="test login, sign up, change password, get validation and forget password function here")
@@ -23,7 +23,6 @@ class login_part_dto:
         'id': fields.Integer,
         'message': fields.String,
     })
-
 
     # the login input/output format
     user_login_expectation_input_format = login_founction_namespace.model("user_login_expectation_input_format", {
@@ -124,6 +123,8 @@ class main_home_page_dto:
         'gift_discount_state': fields.String,
         'gift_description': fields.String,
         'gift_category': fields.String,
+        'gift_side_category1': fields.String,
+        'gift_side_category2': fields.String,
         'gift_cover_url': fields.String,
         'gift_show_url1':fields.String,
         'gift_show_url2': fields.String,

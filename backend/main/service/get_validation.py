@@ -21,8 +21,6 @@ def generate_verification_code(len=6):
     verification_code = ''.join(myslice)
     return verification_code
 
-
-
 # define the function that to process the user change password
 def get_validation_method(user_input_dictionary):
     response_data = {
