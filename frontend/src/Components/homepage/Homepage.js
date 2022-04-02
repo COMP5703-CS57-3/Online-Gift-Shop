@@ -1,8 +1,8 @@
 import React from "react"
 import AccountMenu from "./Header";
-import Background from "../picture/background.png";
+import Background from "../../picture/background.png";
 import MainBody from "./MainBody";
-import FastDial from "../Components/FastDial";
+import FastDial from "../FastDial";
 import SideBar from "./SideBar";
 
 

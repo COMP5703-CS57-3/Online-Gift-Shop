@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom'
 // import {browserHistory, IndexRoute} from 'react-router'
 // import { Router, Route, Link } from 'react-router'
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Homepage from "./homepage/Homepage"
+import Homepage from "./Components/homepage/Homepage"
 import CartCategory from "./Components/Category/CartCategory";
 import LogIn from "./Components/login";
 import SignUp from "./Components/signup";
