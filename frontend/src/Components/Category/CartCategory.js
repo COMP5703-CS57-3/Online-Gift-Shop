@@ -1,7 +1,7 @@
-import giftdata from "../data/giftlist.json";
+import giftdata from "../../data/giftlist.json";
 import React, {useEffect, useState} from "react";
 import CategoryG from "./CategoryG";
-import GiftProvider from "../tools/useGift";
+import GiftProvider from "../../tools/useGift";
 
 
 

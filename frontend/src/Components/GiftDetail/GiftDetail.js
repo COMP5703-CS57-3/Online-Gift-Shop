@@ -6,11 +6,11 @@ import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import {useParams} from "react-router-dom";
-import {useCart} from "../tools/useCart";
+import {useCart} from "../../tools/useCart";
 import {alpha} from "@mui/material/styles";
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 import {Button, Input} from "@mui/material";
-import Background from "../picture/background.png";
+import Background from "../../picture/background.png";
 
 export default function GiftDetail() {
     const [quantity,setQuantity] = useState(1);

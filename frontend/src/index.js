@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom'
 // import { Router, Route, Link } from 'react-router'
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Homepage from "./homepage/Homepage"
-import CartCategory from "./Components/CartCategory";
+import CartCategory from "./Components/Category/CartCategory";
 import LogIn from "./Components/login";
 import SignUp from "./Components/signup";
 import {Rotate90DegreesCcw} from "@mui/icons-material";
 import NoMatch from "./Components/nomatch";
-import Cart from "./Components/Cart";
-import GiftDetail from "./Components/GiftDetail";
-import DetailContentProvider from "./Components/DetailContentProvider";
+import Cart from "./Components/Cart/Cart";
+import GiftDetail from "./Components/GiftDetail/GiftDetail";
+import DetailContentProvider from "./Components/GiftDetail/DetailContentProvider";
 import Account from "./Components/account";
 
 

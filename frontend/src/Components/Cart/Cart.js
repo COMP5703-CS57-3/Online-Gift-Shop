@@ -1,5 +1,5 @@
 import React from "react";
-import CartProvider from "../tools/useCart";
+import CartProvider from "../../tools/useCart";
 import CategoryC from "./CategoryC";
 
 export default function Cart() {

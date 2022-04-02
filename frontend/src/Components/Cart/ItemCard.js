@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete'
-import {useCart} from "../tools/useCart";
+import {useCart} from "../../tools/useCart";
 import { useNavigate } from "react-router-dom";
 
 export default function ItemCard({id,name,description}) {
