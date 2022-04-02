@@ -88,7 +88,6 @@ class User_information_dto:
     user_information_update_input_format = user_information_namespace.model("user_information_update_input_format",{
         'id': fields.Integer,
         'user_name': fields.String,
-        'user_email': fields.String,
         'user_mobile': fields.String,
         'user_date_of_birth': fields.String,
         'user_address': fields.String,
