@@ -12,6 +12,7 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import {Link} from "react-router-dom";
+import Grid from "@mui/material/Grid";
 
 
 export default function AccountMenu() {
@@ -25,16 +26,17 @@ export default function AccountMenu() {
     };
     return (
         <React.Fragment>
-            <Box sx={{display: 'flex', textAlign: 'center', justifyContent: 'center'}}>
-                <Box sx={{display: 'flex', alignItems: 'center', textAlign: 'center',}}>
+            <Grid  container spacing={4} sx={{display: 'flex', textAlign: 'center', justifyContent: 'center'}}>
+                <Grid item xs={4} sx={{display: 'flex', alignItems: 'center', textAlign: 'center'}}>
                     <Typography sx={{minWidth: 150, padding: 2}}>Online Gift Shop</Typography>
-                </Box>
-                <Box sx={{display: 'flex', alignItems: 'center', textAlign: 'center', paddingLeft: 60}}>
+                </Grid>
+                <Grid item xs={2} sx={{display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent:'flex-end'}}>
                     <Typography sx={{minWidth: 100}}>Home</Typography>
                     <Typography sx={{minWidth: 100}}>Shop</Typography>
                     <Typography sx={{minWidth: 100}}>Contact</Typography>
                     <Typography sx={{minWidth: 100}}>Profile</Typography>
-                </Box>
+                </Grid >
+                    <Grid item={3}>
                 <Tooltip title="Account settings">
                     <IconButton
                         onClick={handleClick}
@@ -47,7 +49,9 @@ export default function AccountMenu() {
                         <Avatar sx={{width: 32, height: 32}}>M</Avatar>
                     </IconButton>
                 </Tooltip>
-            </Box>
+                </Grid>
+            </Grid>
+
             <Menu
                 anchorEl={anchorEl}
                 id="account-menu"

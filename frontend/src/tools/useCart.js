@@ -1,6 +1,6 @@
 import React, {createContext, useState, useContext, useEffect} from "react";
 import giftdata from "../data/giftlist.json";
-import {v4} from "uuid";
+// import {v4} from "uuid";
 
 const CartContext = createContext();
 export const useCart = ()=> useContext(CartContext);

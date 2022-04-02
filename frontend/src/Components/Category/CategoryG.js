@@ -8,8 +8,8 @@ import {useGift} from "../../tools/useGift";
 export default function CategoryG(){
     const {gifts} = useGift();
     return(
-        <div style={{marginLeft:"auto",marginRight:"auto",maxWidth:1500}}>
-            <h1>CategoryG</h1>
+        <div style={{marginRight:"auto",maxWidth:1500}}>
+            {/*<h1>CategoryG</h1>*/}
             <Box sx={{
                 display:"grid",
                 gap:1,
