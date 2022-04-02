@@ -15,6 +15,7 @@ import {Link} from "react-router-dom";
 import Grid from "@mui/material/Grid";
 
 
+
 export default function AccountMenu() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -26,17 +27,16 @@ export default function AccountMenu() {
     };
     return (
         <React.Fragment>
-            <Grid  container spacing={4} sx={{display: 'flex', textAlign: 'center', justifyContent: 'center'}}>
-                <Grid item xs={4} sx={{display: 'flex', alignItems: 'center', textAlign: 'center'}}>
-                    <Typography sx={{minWidth: 150, padding: 2}}>Online Gift Shop</Typography>
-                </Grid>
-                <Grid item xs={2} sx={{display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent:'flex-end'}}>
+            <Box  sx = {{display: 'flex',width:'100%',justifyContent: 'center'}} >
+                {/*<Grid item xs={4} sx={{display: 'flex', alignItems: 'center', textAlign: 'center',minWidth:200}}>*/}
+                {/*    <Typography >Online Gift Shop</Typography>*/}
+                {/*</Grid>*/}
+                <Box  sx={{display: 'flex', alignItems: 'center', textAlign: 'center'}}>
+                    <Typography sx={{minWidth: 200,paddingRight:75}}>Online Gift Shop</Typography>
                     <Typography sx={{minWidth: 100}}>Home</Typography>
                     <Typography sx={{minWidth: 100}}>Shop</Typography>
                     <Typography sx={{minWidth: 100}}>Contact</Typography>
                     <Typography sx={{minWidth: 100}}>Profile</Typography>
-                </Grid >
-                    <Grid item={3}>
                 <Tooltip title="Account settings">
                     <IconButton
                         onClick={handleClick}
@@ -49,8 +49,8 @@ export default function AccountMenu() {
                         <Avatar sx={{width: 32, height: 32}}>M</Avatar>
                     </IconButton>
                 </Tooltip>
-                </Grid>
-            </Grid>
+                </Box>
+            </Box>
 
             <Menu
                 anchorEl={anchorEl}

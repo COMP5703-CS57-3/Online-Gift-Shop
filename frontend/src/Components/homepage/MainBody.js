@@ -11,6 +11,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TreeView from '@mui/lab/TreeView';
 import TreeItem from '@mui/lab/TreeItem';
+import Grid from "@mui/material/Grid";
 
 
 
@@ -24,9 +25,9 @@ export default function MainBody({props}) {
 
   return (
       <Box sx = {{display: 'flex',width:'100%',justifyContent: 'center'}}>
-        <Box sx={{ width: '80%', typography: 'body1'}}>
+        <Box sx={{ width: '70%', typography: 'body1'}}>
           <TabContext value={value}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' ,paddingTop:3}}>
               <TabList onChange={handleChange} aria-label="menu lab" centered>
                 <Tab label="Kind One" value="1" />
                 <Tab label="Kind Two" value="2" />
@@ -34,11 +35,11 @@ export default function MainBody({props}) {
                   <Tab label="Kind Four" value="4" />
               </TabList>
             </Box>
-            <TabPanel value="1" style={{flexWrap:"nowrap",flexDirection:"row"}}>
-                <div style={{float:"left",flexBasis:"auto",flexWrap:"nowrap"}}><SideBar/></div>
-                <div style={{float:"right",flexBasis:"auto",maxWidth:"70%"}}><Outlet /></div>
+            <Grid container spacing={0} value="1" style={{flexWrap:"nowrap",flexDirection:"row"}}>
+                <Grid item xs={6} style={{float:"left",flexBasis:"auto",width:300}}><SideBar/></Grid>
+                <grid item xs={6} style={{float:"right",flexBasis:"auto",maxWidth:"80%"}}><Outlet /></grid>
                     {/*</div>*/}
-            </TabPanel>
+            </Grid>
             <TabPanel value="2">Product Two</TabPanel>
             <TabPanel value="3">Product Three</TabPanel>
               <TabPanel value="4">Product Four</TabPanel>
