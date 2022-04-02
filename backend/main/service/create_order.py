@@ -152,7 +152,7 @@ def process_order_create(order_inf):
                 product_with_incomes_id.gift_income = previous_total_incomes + item_each_income_dic[incomes_id]
 
             database.session.commit()
-            database.session.close()
+
             response_message['message'] = "the order is generated successfully"
             response_data['message'] = 'the order is generated successfully'
             response_data['wishlist_id'] = wishlist_id
@@ -161,4 +161,5 @@ def process_order_create(order_inf):
             resp = make_response(response_message)
             resp.status_code = status_code
             resp.response_data = response_data
+    database.session.close()
     return resp

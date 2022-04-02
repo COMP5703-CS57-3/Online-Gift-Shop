@@ -95,9 +95,10 @@ def show_main_homepage_gifts_in_sort_method(args):
         output_dictionary["message"] = "Gifts does not exist in the homepage"
         output_json = make_response(output_dictionary)
         output_json.status_code = status_code
-        output_json.message = output_dictionary["message"]
+        database.session.close()
         return output_json
     else:
+        database.session.close()
         return gifts
 
 

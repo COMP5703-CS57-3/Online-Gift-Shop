@@ -14,7 +14,6 @@ def login_method(user_input_dictionary):
     }
     # this is a login function, so need to check the user row in User table by user email
     user = User.query.filter_by(user_email=user_input_dictionary["user_email"]).first()
-    database.session.close()
     # database.engine.dispose()
     # this situation is the user did nodt exit
     if user is None:
@@ -52,4 +51,5 @@ def login_method(user_input_dictionary):
         output_json.message = output_message['message']
         # if user exits, will pass the user's id to front-end
         output_json.id = 0
+    database.session.close()
     return output_json

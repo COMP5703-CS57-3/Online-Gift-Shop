@@ -44,12 +44,12 @@ def create_wishlist(info):
                             )
     database.session.add(new_wishlist)
     database.session.commit()
-    database.session.close()
     status_code = 200
     response_data['wishlist_id'] = wishlist_id
     response_data['owner_id'] = owner_id
     resp = make_response(response_data)
     resp.status_code = status_code
+    database.session.close()
     return resp
 
 
@@ -79,12 +79,12 @@ def delete_wishlist(info):
     Wishlist.query.filter_by(wishlist_id=wishlist_id).delete()
     WishlistItems.query.filter_by(products_id=wishlist_id).delete()
     database.session.commit()
-    database.session.close()
     status_code = 200
     response_data['wishlist_id'] = wishlist_id
     response_data['owner_id'] = owner_id
     resp = make_response(response_data)
     resp.status_code = status_code
+    database.session.close()
     return resp
 
 
@@ -142,13 +142,13 @@ def add_items(info):
                             size=size, price=price, count=1)
     database.session.add(product)
     database.session.commit()
-    database.session.close()
     status_code = 200
     response_data['wishlist_id'] = wishlist_id
     response_data['owner_id'] = owner_id
     response_data['product_id'] = product_id
     resp = make_response(response_data)
     resp.status_code = status_code
+    database.session.close()
     return resp
 
 
@@ -190,13 +190,13 @@ def remove_item(info):
     product_id = info['product_id']
     WishlistItems.query.filter_by(products_id=product_id, wishlist_id=wishlist_id).delete()
     database.session.commit()
-    database.session.close()
     status_code = 200
     response_data['wishlist_id'] = wishlist_id
     response_data['owner_id'] = owner_id
     response_data['product_id'] = product_id
     resp = make_response(response_data)
     resp.status_code = status_code
+    database.session.close()
     return resp
 
 
@@ -322,9 +322,9 @@ def pay_wishlist(info):
                 response_message['message'] = 'Product ' + str(product_id) + ' out of stock.'
                 WishlistItems.query.filter_by(products_id=product_id, wishlist_id=wishlist_id).delete()
                 database.session.commit()
-                database.session.close()
                 resp = make_response(response_message)
                 resp.status_code = status_code
+                database.session.close()
                 return resp
             order_product = OrderItems(gift_name=product_name, item_cover_url=product_cover, size=size,
                                          count=count,
@@ -347,7 +347,6 @@ def pay_wishlist(info):
         update_wishlist.state = 'completed'
         update_wishlist.payer_fname = payer_first_name
         database.session.commit()
-        database.session.close()
         response_data['owner_id'] = owner_id
         response_data['wishlist_id'] = wishlist_id
         response_data['owner_first_name'] = owner_first_name
@@ -357,6 +356,7 @@ def pay_wishlist(info):
         resp = make_response(response_message)
         resp.status_code = status_code
         resp.response_data = response_data
+        database.session.close()
         return resp
     if check_state:
         status_code = 400
@@ -386,9 +386,9 @@ def pay_wishlist(info):
             response_message['message'] = 'Product ' + str(product_id) + ' out of stock.'
             WishlistItems.query.filter_by(products_id=product_id, wishlist_id=wishlist_id).delete()
             database.session.commit()
-            database.session.close()
             resp = make_response(response_message)
             resp.status_code = status_code
+            database.session.close()
             return resp
         order_product = OrderItems(gift_name=product_name, item_cover_url=product_cover, size=size,
                                                   count=count,
@@ -411,7 +411,6 @@ def pay_wishlist(info):
     update_wishlist.state = 'completed'
     update_wishlist.payer_fname = payer_first_name
     database.session.commit()
-    database.session.close()
     response_data['owner_id'] = owner_id
     response_data['wishlist_id'] = wishlist_id
     response_data['owner_first_name'] = owner_first_name
@@ -421,6 +420,7 @@ def pay_wishlist(info):
     resp = make_response(response_message)
     resp.status_code = status_code
     resp.response_data = response_data
+    database.session.close()
     return resp
 
 
@@ -503,7 +503,7 @@ def process_change_count(changeInf):
     if this_row_wishlist_item is None:
         response_message["message"] = "Input information not correct"
         status_code = 400
-        database.session.close()
+        # database.session.close()
     else:
         # the_product = Products.query.filter_by(id=pid).first()
         # the_price = the_product.price
@@ -511,9 +511,10 @@ def process_change_count(changeInf):
         this_row_wishlist_item.count = changeInf["count"]
         # cart.each_total_price = the_price * changeInf["count"]
         database.session.commit()
-        database.session.close()
+        # database.session.close()
 
     resp = make_response(response_message)
     resp.status_code = status_code
     resp.message = response_message['message']
+    database.session.close()
     return resp

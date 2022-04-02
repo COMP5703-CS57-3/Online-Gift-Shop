@@ -18,7 +18,7 @@ def process_delete_order(user_id, order_number):
     if the_order is None:
         response_data['message'] = "Input information not correct, please check your user id and order number"
         status_code = 403
-        database.session.close()
+        # database.session.close()
     else:
         # query orderproduct table to get all product rows and delete these information
         productList = OrderItems.query.filter_by(order_id=the_order.id).all()
@@ -26,9 +26,10 @@ def process_delete_order(user_id, order_number):
             database.session.delete(p)
         database.session.delete(the_order)
         database.session.commit()
-        database.session.close()
+        # database.session.close()
 
     resp = make_response(response_data)
     resp.status_code = status_code
     resp.message = response_data['message']
+    database.session.close()
     return resp
