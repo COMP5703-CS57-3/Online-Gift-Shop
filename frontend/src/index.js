@@ -11,6 +11,7 @@ import NoMatch from "./Components/nomatch";
 import Cart from "./Components/Cart";
 import GiftDetail from "./Components/GiftDetail";
 import DetailContentProvider from "./Components/DetailContentProvider";
+import Account from "./Components/account";
 
 
 
@@ -40,6 +41,7 @@ ReactDOM.render((
             <Route path="/login" element={<LogIn/>}/>
             <Route path="/cart/:id" element={<DetailContentProvider/>}/>
             <Route path="/signup" element={<SignUp/>}/>
+            <Route path="/account" element={<Account/>}/>
             <Route path="*" element={<NoMatch/>}/>
         </Routes>
     </BrowserRouter>
