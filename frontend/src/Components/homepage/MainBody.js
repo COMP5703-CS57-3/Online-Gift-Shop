@@ -24,7 +24,7 @@ export default function MainBody({props}) {
 
   return (
       <Box sx = {{display: 'flex',width:'100%',justifyContent: 'center'}}>
-        <Box sx={{ width: '65%', typography: 'body1'}}>
+        <Box sx={{ width: '80%', typography: 'body1'}}>
           <TabContext value={value}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <TabList onChange={handleChange} aria-label="menu lab" centered>
