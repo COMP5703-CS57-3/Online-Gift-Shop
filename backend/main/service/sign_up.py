@@ -28,7 +28,7 @@ def signup_method(user_input_dictionary):
         database.session.add(this_row_user_information)
         # commit database
         database.session.commit()
-    database.session.close()
+    # database.session.close()
     # use make_response function add output_message's infor and dictionary format to output_json
     output_json = make_response(output_message)
     # show 0 as user's id, if the email has signed up
@@ -38,10 +38,11 @@ def signup_method(user_input_dictionary):
     # show the new user's id to front-end
     else:
         new_user = User.query.filter_by(user_email=user_input_dictionary["user_email"]).first()
-        database.session.close()
+        # database.session.close()
         output_json.id = new_user.id
     # show message in output_json to front-end
     output_json.message = output_message['message']
     # manage statues code(403 or 200)
     output_json.status_code = status_code
+    database.session.close()
     return output_json

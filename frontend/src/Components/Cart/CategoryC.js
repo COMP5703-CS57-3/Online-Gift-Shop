@@ -1,8 +1,6 @@
 import React,{useState} from "react";
 import ItemCard from "./ItemCard"
-import BoxItem from "../Category/BoxItem";
 import Box from '@mui/material/Box';
-import Background from '../../picture/background.png'
 import {useCart} from "../../tools/useCart"
 
 export default function CategoryC(){

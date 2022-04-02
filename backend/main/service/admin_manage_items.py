@@ -53,10 +53,10 @@ def admin_add_gift_method(product_info):
         insert_size = Size(size=size, stock=size_stock, products_id=products_id)
         database.session.add(insert_size)
     database.session.commit()
-    database.session.close()
     response_data['product_id'] = products_id
     resp = make_response(response_data)
     resp.status_code = status_code
+    database.session.close()
     return resp
 
     # database.session.commit()
@@ -113,9 +113,8 @@ def admin_edit_gift_method(product_info):
         sizes[s].size = product_sizes[s]['size']
         sizes[s].stock = product_sizes[s]['size_stock']
     database.session.commit()
-    database.session.close()
     resp = make_response(response_data)
-    resp.status_code = status_code
+    database.session.close()
     return resp
 
 def admin_delete_gift_method(product_id):
@@ -129,6 +128,7 @@ def admin_delete_gift_method(product_id):
         resp = make_response(response_data)
         status_code = 404
         resp.status_code = status_code
+        database.session.close()
         return resp
     else:
         Gifts.query.filter_by(id=product_id).delete()
@@ -136,4 +136,5 @@ def admin_delete_gift_method(product_id):
         database.session.commit()
         resp = make_response(response_data)
         resp.status_code = status_code
+        database.session.close()
         return resp

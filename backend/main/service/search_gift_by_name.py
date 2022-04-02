@@ -7,7 +7,6 @@ from ..model.create_database import Gifts
 def search_gift_method(gift_name):
     gift_name = "%{}%".format(gift_name.lower())
     gifts = Gifts.query.filter(Gifts.gift_name.like(gift_name)).all()
-    database.session.close()
     # 'id': fields.Integer,
     # 'gift_name': fields.String,
     # 'gift_price': fields.Float,
@@ -40,6 +39,7 @@ def search_gift_method(gift_name):
         response_data["message"] = "The gift does not exist"
         no_gift_output = make_response(response_data)
         no_gift_output.status_code = status_code
+        database.session.close()
         return no_gift_output
     else:
         List = []
@@ -58,6 +58,7 @@ def search_gift_method(gift_name):
         search_dict["search_gifts"] = List
         search_dict_json = make_response(search_dict)
         search_dict_json = search_dict
+        database.session.close()
         return search_dict_json
 
 #        return Gift

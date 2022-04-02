@@ -11,8 +11,9 @@ export default class Homepage extends React.Component {
         return (
             <div style={{width: '100%', height: '100%', backgroundImage: "url(" + Background + ")"}}>
                 <AccountMenu/>
-                <div style={{float: "right", width: "69%",display:"inline"}}><MainBody/></div>
-                <div style={{paddingLeft:"3px",marginTop:"20px",float: "left", width: "30%", maxWidth: "320",display:"inline"}}><SideBar/></div>
+                <MainBody/>
+                {/*<div style={{float: "right", width: "69%",display:"inline"}}><MainBody/></div>*/}
+                {/*<div style={{paddingLeft:"3px",marginTop:"20px",float: "left", width: "30%", maxWidth: "320",display:"inline"}}><SideBar/></div>*/}
 
                 <FastDial/>
                 {/*<Outlet />*/}
