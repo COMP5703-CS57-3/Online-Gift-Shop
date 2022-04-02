@@ -21,8 +21,6 @@ def generate_verification_code(len=6):
     verification_code = ''.join(myslice)
     return verification_code
 
-
-
 # define the function that to process the user change password
 def get_validation_method(user_input_dictionary):
     response_data = {
@@ -59,6 +57,7 @@ def get_validation_method(user_input_dictionary):
             validation_information.validation_code = validation_code
             # ValidationInformation(validation_code=validation_code)
             database.session.commit()
+
         # The Validation table does not contain this email,
         # put email and validation code
         else:
@@ -89,13 +88,16 @@ def get_validation_method(user_input_dictionary):
             database.session.add(validationInf)
             database.session.commit()
 
+
     # the user email is absent in User table
     else:
         status_code = 400
         response_data['validation_code'] = "null"
         response_data['message'] = "user did not exits"
+
     output_json = make_response(response_data)
     output_json.status_code = status_code
     output_json.validation_code = response_data['validation_code']
     output_json.message = response_data['message']
+    database.session.close()
     return output_json

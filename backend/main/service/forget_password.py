@@ -30,4 +30,5 @@ def forget_password_method(user_input_dictionary):
     output_json = make_response(response_data)
     output_json.status_code = status_code
     output_json.response_data = response_data
+    database.session.close()
     return output_json
