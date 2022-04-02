@@ -4,16 +4,10 @@ import Grid from "@mui/material/Grid";
 import {AccountProfile} from "./account/account-profile";
 import {AccountProfileDetails} from "./account/account-profile-details";
 import Box from "@mui/material/Box";
-import Head from 'next/head';
 
 export default function Account() {
     return (
         <>
-            <Head>
-                <title>
-                    Account | Material Kit
-                </title>
-            </Head>
             <Box
                 component="main"
                 sx={{
