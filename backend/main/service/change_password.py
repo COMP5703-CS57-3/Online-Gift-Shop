@@ -23,24 +23,24 @@ def change_password_method(user_input_dictionary):
                 database.session.commit()
                 status_code = 200
                 output_message['message'] = "The password already updated"
-                database.session.close()
+                # database.session.close()
                 # database.close()
             else :
                 status_code = 400
                 output_message['message'] = "You cannot input your old password as your new password"
-                database.session.close()
+                # database.session.close()
                 # database.close()
         # if user input the incorrect old password
         else:
             output_message['message'] = "Please input correct old password"
             status_code = 400
             # database.close()
-            database.session.close()
+            # database.session.close()
     # the system did not has this user
     else:
         output_message['message'] = "User id doesn't correct, please input correct user id"
         status_code = 400
-        database.session.close()
+        # database.session.close()
         # database.close()
     # use make_response function add output_message's infor and dictionary format to output_json
     output_json = make_response(output_message)
@@ -48,4 +48,5 @@ def change_password_method(user_input_dictionary):
     output_json.status_code = status_code
     output_json.message = output_message['message']
     output_json.response_data = output_message
+    database.session.close()
     return output_json
