@@ -9,9 +9,12 @@ import SignUp from "./Components/signup";
 import {Rotate90DegreesCcw} from "@mui/icons-material";
 import NoMatch from "./Components/nomatch";
 import Cart from "./Components/Cart/Cart";
-import GiftDetail from "./Components/GiftDetail/GiftDetail";
-import DetailContentProvider from "./Components/GiftDetail/DetailContentProvider";
+import GiftDetail from "./Components/Detail/GiftDetail";
+import DetailContentProvider from "./Components/Detail/DetailContentProvider";
 import Account from "./Components/account";
+import WishListItem from "./Components/wishlist/WishListItem";
+import WishList from "./Components/wishlist/WishList";
+import WishListContentProvider from "./Components/Detail/WishListContentProvider";
 
 
 
@@ -35,9 +38,11 @@ ReactDOM.render((
             <Route path="/" element={<Homepage/>}>
                 <Route path='' element={<CartCategory/>}/>
                 <Route path='/cart' element={<Cart/>}/>
+                <Route path='/wishlist' element={<WishList/>}/>
                 {/*<Route path='c' element={<CartCategory/>}/>*/}
             </Route>
 
+            <Route path="/wishlist/:wishlist_id" element={<WishListContentProvider/>}/>
             <Route path="/login" element={<LogIn/>}/>
             <Route path="/cart/:id" element={<DetailContentProvider/>}/>
             <Route path="/signup" element={<SignUp/>}/>

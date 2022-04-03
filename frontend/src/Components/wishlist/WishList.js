@@ -1,12 +1,13 @@
-import React, {useEffect, useState} from "react";
-import GiftProvider from "../../tools/useGift";
+import React from "react";
+import CartProvider from "../../tools/useCart";
 
+import WishProvider from "../../tools/useWish";
+import CategoryW from "./CategoryW";
 
-
-export default function WishList(){
-    return(
-            <GiftProvider>
-                <CategoryG/>
-            </GiftProvider>
-    );
+export default function WishList() {
+    return (
+        <WishProvider>
+            <CategoryW/>
+        </WishProvider>
+    )
 }
