@@ -15,6 +15,7 @@ import Account from "./Components/account";
 import WishListItem from "./Components/wishlist/WishListItem";
 import WishList from "./Components/wishlist/WishList";
 import WishListContentProvider from "./Components/Detail/WishListContentProvider";
+import WishFormProvider from "./Components/wishlist/WishFormProvider";
 
 
 
@@ -45,6 +46,7 @@ ReactDOM.render((
             <Route path="/wishlist/:wishlist_id" element={<WishListContentProvider/>}/>
             <Route path="/login" element={<LogIn/>}/>
             <Route path="/cart/:id" element={<DetailContentProvider/>}/>
+            <Route path="/wishForm" element={<WishFormProvider/>}/>
             <Route path="/signup" element={<SignUp/>}/>
             <Route path="/account" element={<Account/>}/>
             <Route path="*" element={<NoMatch/>}/>

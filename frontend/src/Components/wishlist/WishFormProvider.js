@@ -1,14 +1,13 @@
 import giftdata from "../../data/giftlist.json";
 import React,{useState} from "react";
 import ReactDOM from "react-dom";
-import GiftDetail from "./GiftDetail";
 import WishProvider from "../../tools/useWish";
-import WishDetail from "./WishListDetail";
+import WishForm from "./WishForm";
 
-export default function WishListContentProvider(){
+export default function WishFormProvider(){
     return(
         <WishProvider login="test">
-            <WishDetail/>
+            <WishForm/>
         </WishProvider>
     )
 }
