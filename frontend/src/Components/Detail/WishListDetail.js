@@ -19,6 +19,7 @@ import giftdata from "../../data/giftlist.json";
 export default function WishListDetail() {
     let id = useParams();
     const [detail,setDetail] = useState();
+    const {deleteWish} = useWish();
     useEffect(()=>{
         fetch("http://127.0.0.1:5000/wishlist/search", {
             method: 'POST',
@@ -26,13 +27,12 @@ export default function WishListDetail() {
         }).then(res=>res.json()).then(setDetail);
     },[id]);
     let {product} = useWish();
-    console.log(Object.keys(detail))
     if (detail)
         return(
        <div style={{marginLeft:"auto",marginRight:"auto",maxWidth:1500}}>
             <h1>CategoryG</h1>
            <Box>
-               <p>{detail.id}</p>
+               <p>{detail.wishlist_id}</p>
                <p>{detail.wishlist_name}</p>
                <p>{detail.wishlist_description}</p>
                <p>{detail.first_name} {detail.last_name}</p>
@@ -47,6 +47,7 @@ export default function WishListDetail() {
                     <BoxItem key={i} {...gift}/>
                 ))}
             </Box>
+           <Button onClick={()=>deleteWish(detail.owner_id,detail.wishlist_id)}>delete this wish list</Button>
             {/*<div className="Category">*/}
             {/*    {giftlist.map((gift,i)=>(*/}
             {/*        // <Gift key={i} {...gift} onRemove={onRemoveItems}/>*/}

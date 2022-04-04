@@ -7,6 +7,7 @@ import WishListItem from "./WishListItem";
 
 export default function CategoryW(){
     const {wish} = useWish();
+    //console.log(wish);
     return(
         <div>
             <Box sx={{
@@ -14,7 +15,7 @@ export default function CategoryW(){
                 gap:1,
                 gridTemplateColumns:"repeat(2,1fr)"
             }}>
-                {wish.wishlists_inf.map((wishlist,i)=>(
+                {wish.map((wishlist,i)=>(
                     <WishListItem key={i} {...wishlist}/>
                 ))}
             </Box>

@@ -1,6 +1,7 @@
 import React, {createContext, useState, useContext, useEffect} from "react";
 import Wishlist2 from "../data/Wishlist2.json"
 import WishListItem from "../data/WIshListItems.json";
+import {useNavigate} from "react-router-dom";
 
 
 const WishContext = createContext();
@@ -20,10 +21,31 @@ export default function WishProvider({children,login}){
         fetch("http://127.0.0.1:5000/wishlist/show", {
             method: 'POST',
             body: JSON.stringify({owner_id:login})
-        }).then(res=>res.json()).then(setWish);
+        }).then(res=>res.json()).then(res=>{
+            setWish(res.wishlists_inf);
+            saveJSON(keyy,res.wishlists_inf);
+        });
         //json store in attribute wishlists_inf, please use wish.wishlists_inf represent array
-
     },[login])
+    let navi = useNavigate();
+    const deleteWish = (ownerId,wishId)=>{
+        const nav =()=> navi("/wishlist");
+        fetch("http://127.0.0.1:5000/wishlist/delete", {
+            method: 'POST',
+            body: JSON.stringify(
+                {
+                    owner_id:ownerId,
+                    wishlist_id:wishId
+                })
+        }).then(console.log).then(()=>{
+            const data = wish.filter(item=>item.wishlist_id!==wishId)
+            setWish(data);
+            saveJSON(keyy,data);
+            nav();
+        });
+        localStorage.clear();
+    }
+    console.log(wish)
     const createWish = (id,firstname,lastname,wishlistnameP,descriptionP,addressP,phoneP,postcodeP)=>{
         fetch("http://127.0.0.1:5000/wishlist/create", {
             method: 'POST',
@@ -65,12 +87,12 @@ export default function WishProvider({children,login}){
     // }
     if(wish)
         return(
-            <WishContext.Provider value={{wish,product,createWish}}>
+            <WishContext.Provider value={{wish,product,createWish,deleteWish}}>
                 {children}
             </WishContext.Provider>
         )
     return(
-            <WishContext.Provider value={{wish,product,createWish}}>
+            <WishContext.Provider value={{wish,product,createWish,deleteWish}}>
                 {wish && children}
             </WishContext.Provider>
         )
