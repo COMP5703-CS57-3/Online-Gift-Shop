@@ -21,7 +21,7 @@ export default function WishProvider({children,login}){
             method: 'POST',
             body: JSON.stringify({owner_id:login})
         }).then(res=>res.json()).then(setWish);
-        //json store in attribute wishlists_inf, please use wish.wishlists_inf represent array 
+        //json store in attribute wishlists_inf, please use wish.wishlists_inf represent array
     },[login])
     // const newWish = (title)=>{
     //     const newWishlist = [
@@ -52,5 +52,9 @@ export default function WishProvider({children,login}){
                 {children}
             </WishContext.Provider>
         )
-    return null
+    return(
+            <WishContext.Provider value={{product}}>
+                {wish && children}
+            </WishContext.Provider>
+        )
 }

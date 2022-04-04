@@ -1,4 +1,4 @@
-import React, {createContext, useState} from "react";
+import React, {createContext, useEffect, useState} from "react";
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import Grid from '@mui/material/Grid';
@@ -14,20 +14,36 @@ import Background from "../../picture/background.png";
 import {useWish} from "../../tools/useWish";
 import ItemCard from "../Cart/ItemCard";
 import BoxItem from "../Category/BoxItem";
+import giftdata from "../../data/giftlist.json";
 
-export default function WishDetail() {
-    let {id} = useParams();
-
+export default function WishListDetail() {
+    let id = useParams();
+    const [detail,setDetail] = useState();
+    useEffect(()=>{
+        fetch("http://127.0.0.1:5000/wishlist/search", {
+            method: 'POST',
+            body: JSON.stringify(id)
+        }).then(res=>res.json()).then(setDetail);
+    },[id]);
     let {product} = useWish();
-    return(
+    console.log(Object.keys(detail))
+    if (detail)
+        return(
        <div style={{marginLeft:"auto",marginRight:"auto",maxWidth:1500}}>
             <h1>CategoryG</h1>
+           <Box>
+               <p>{detail.id}</p>
+               <p>{detail.wishlist_name}</p>
+               <p>{detail.wishlist_description}</p>
+               <p>{detail.first_name} {detail.last_name}</p>
+
+           </Box>
             <Box sx={{
                 display:"grid",
                 gap:1,
                 gridTemplateColumns:"repeat(2,1fr)"
             }}>
-                {product.map((gift,i)=>(
+                {detail.products.map((gift,i)=>(
                     <BoxItem key={i} {...gift}/>
                 ))}
             </Box>
@@ -38,5 +54,6 @@ export default function WishDetail() {
             {/*    ))}*/}
             {/*</div>*/}
         </div>
-    );
+        );
+    return null;
 }
