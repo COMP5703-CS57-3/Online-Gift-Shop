@@ -5,9 +5,10 @@ import WishProvider from "../../tools/useWish";
 import WishForm from "./WishForm";
 
 export default function WishFormProvider(){
+    //
     return(
-        <WishProvider login="test">
-            <WishForm/>
+        <WishProvider login={1}>
+            <WishForm owner_id={1}/>
         </WishProvider>
     )
 }

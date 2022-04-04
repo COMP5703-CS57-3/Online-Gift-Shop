@@ -22,7 +22,24 @@ export default function WishProvider({children,login}){
             body: JSON.stringify({owner_id:login})
         }).then(res=>res.json()).then(setWish);
         //json store in attribute wishlists_inf, please use wish.wishlists_inf represent array
+
     },[login])
+    const createWish = (id,firstname,lastname,wishlistnameP,descriptionP,addressP,phoneP,postcodeP)=>{
+        fetch("http://127.0.0.1:5000/wishlist/create", {
+            method: 'POST',
+            body: JSON.stringify(
+                {
+                    owner_id:id,
+                    owner_first_name:firstname,
+                    owner_last_name:lastname,
+                    wishlist_name:wishlistnameP,
+                    description:descriptionP,
+                    address:addressP,
+                    phone:phoneP,
+                    postcode:postcodeP
+                })
+        }).then(console.log)
+    }
     // const newWish = (title)=>{
     //     const newWishlist = [
     //         ...wish,
@@ -48,12 +65,12 @@ export default function WishProvider({children,login}){
     // }
     if(wish)
         return(
-            <WishContext.Provider value={{wish,product}}>
+            <WishContext.Provider value={{wish,product,createWish}}>
                 {children}
             </WishContext.Provider>
         )
     return(
-            <WishContext.Provider value={{product}}>
+            <WishContext.Provider value={{wish,product,createWish}}>
                 {wish && children}
             </WishContext.Provider>
         )
