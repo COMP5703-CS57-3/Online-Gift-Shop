@@ -1,9 +1,7 @@
 from flask_restplus import Resource
 from flask_restplus import marshal
-from flask import request
 from ..service.search_gift_by_name import search_gift_method
 from ..util.dto import search_part_dto
-import json
 search_part_namespace = search_part_dto.search_part_namespace
 
 

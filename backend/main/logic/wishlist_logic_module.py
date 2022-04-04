@@ -1,5 +1,5 @@
-from flask_restplus import Namespace, Resource, marshal
-from flask import request, make_response, jsonify
+from flask_restplus import Resource, marshal
+from flask import request
 import json
 from ..service.wishlist import *
 from ..util.dto import WishlistDto

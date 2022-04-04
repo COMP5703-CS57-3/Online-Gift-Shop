@@ -1,9 +1,11 @@
-import json
 from flask_restplus import Resource
 from flask_restplus import marshal
 from flask import request
 from ..util.dto import main_home_page_dto
-from ..service.show_homepage import *
+from ..service.show_homepage import show_main_homepage_gifts_in_sort_method
+from ..service.show_homepage import show_main_homepage_method
+from ..service.show_homepage import show_top_category_method
+from ..service.show_homepage import show_side_category_method
 
 main_home_page_namespace = main_home_page_dto.main_home_page_namespace
 
@@ -27,3 +29,85 @@ class Home(Resource):
             return marshal(output_gifts, main_home_page_dto.main_homepage_gifts_list_output_format)
 
 
+top_categories = ['male','female','teenager','aged']
+side_categories1 = ['Life', 'Celebration','Holiday']
+side_categories2 = ['Clothes', 'Shoes','Electrics','Birth','Wedding','Christmas','National','Easter']
+the_sort_type = ['price-low-to-high', 'price-high-to-low', 'popular','discountprice']
+@main_home_page_namespace.route("/<top_category>, <sort>")
+class Category_design1(Resource):
+    @staticmethod
+    @main_home_page_namespace.response(200, 'success', model=main_home_page_dto.main_homepage_gifts_list_output_format)
+    @main_home_page_namespace.response(404, 'Not Found')
+    def get(top_category, sort):
+        gifts = show_top_category_method(top_category, sort)
+        try:
+            gifts.status_code
+            return gifts
+        except:
+            return marshal(gifts, main_home_page_dto.main_homepage_gifts_list_output_format)
+
+@main_home_page_namespace.route("/top_category")
+class Category_design2(Resource):
+    @staticmethod
+    @main_home_page_namespace.response(200, 'success',
+                                       model=main_home_page_dto.main_homepage_gifts_list_output_format)
+    @main_home_page_namespace.response(404, 'Not Found')
+    def get():
+        if 'top_type' in request.args.keys():
+            category = request.args['top_type'].lower()
+            if category in top_categories:
+                if 'gift_sort' in request.args.keys():
+                    sort = request.args['gift_sort'].lower()
+                    gifts = show_top_category_method(category, sort)
+                else:
+                    sort = 'do_not_sort'
+                    gifts = show_top_category_method(category, sort)
+                try:
+                    gifts.status_code
+                    return gifts
+                except:
+                    return marshal(gifts, main_home_page_dto.main_homepage_gifts_list_output_format)
+
+@main_home_page_namespace.route("/<top_category>, <side_category1>, <side_category2>, <sort>")
+class Category_side_design1(Resource):
+    @staticmethod
+    @main_home_page_namespace.response(200, 'success', model=main_home_page_dto.main_homepage_gifts_list_output_format)
+    @main_home_page_namespace.response(404, 'Not Found')
+    def get(top_category, side_category1,side_category2, sort):
+        gifts = show_side_category_method(top_category, side_category1, side_category2, sort)
+        try:
+            gifts.status_code
+            return gifts
+        except:
+            return marshal(gifts, main_home_page_dto.main_homepage_gifts_list_output_format)
+
+
+
+
+@main_home_page_namespace.route("/all_category")
+class Category_side_design2(Resource):
+    @staticmethod
+    @main_home_page_namespace.response(200, 'success',
+                                       model=main_home_page_dto.main_homepage_gifts_list_output_format)
+    @main_home_page_namespace.response(404, 'Not Found')
+    def get():
+        if 'top_type' in request.args.keys():
+            category = request.args['top_type'].lower()
+            if category in top_categories:
+                if 'side_type1' in request.args.keys():
+                    side_category1 = request.args['side_type1'].lower()
+                    if side_category1 in side_categories1:
+                        if 'side_type2' in request.args.keys():
+                            side_category2 = request.args['side_type2'].lower()
+                            if side_category2 in side_categories2:
+                                if 'gift_sort' in request.args.keys():
+                                    gift_sort = request.args['gift_sort'].lower()
+                                    gifts = show_side_category_method(category, side_category1, side_category2, gift_sort)
+                                else:
+                                    gift_sort = 'do_not_sort'
+                                    gifts = show_side_category_method(category, side_category1, side_category2, gift_sort)
+                                try:
+                                    gifts.status_code
+                                    return gifts
+                                except:
+                                    return marshal(gifts, main_home_page_dto.main_homepage_gifts_list_output_format)
