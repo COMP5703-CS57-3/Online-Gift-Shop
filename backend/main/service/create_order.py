@@ -25,9 +25,7 @@ def process_order_create(order_inf):
     }
     status_code = 200
     wishlist_id = order_inf["wishlist_id"]
-    # query the Wishlist table to get all Gifts information
     wishlist = WishlistItems.query.filter_by(wishlist_id=wishlist_id).all()
-    # check user's shopping Wishlist is empty or not
     if len(wishlist) == 0:
         response_message['message'] = "user's Wishlist is empty, please add product to Wishlist first"
         status_code = 404
@@ -35,7 +33,6 @@ def process_order_create(order_inf):
         resp.status_code = status_code
         resp.message = response_message['message']
     else:
-        # add user delivery information to order table
         order_time = datetime.datetime.now()
         order_number = ''.join(random.sample(string.ascii_letters + string.digits, 15))
         first_name = order_inf["first_name"]
@@ -54,10 +51,8 @@ def process_order_create(order_inf):
         database.session.refresh(each_order)
         oid = each_order.id
         product_list = order_inf["product_list"]
-        # check on time storage
         check_dic = {}
         out_of_stock_list = []
-        # if the user's product in the shopping cart is out of storage return out of stock product detail information
         for k in product_list:
             check_productID = k["product_id"]
             check_productName = k["product_name"]
@@ -90,7 +85,6 @@ def process_order_create(order_inf):
             resp.response_data = new_resp_data
         else:
             for p in product_list:
-                # add product information to orderProduct table
                 productID = p["product_id"]
                 product_name = p["product_name"]
                 cover_url = p["cover_url"]
@@ -104,7 +98,6 @@ def process_order_create(order_inf):
                                                   price=price, each_total_price=each_total_price,
                                                   productID=productID, order_id=orderID)
                 database.session.add(each_order_product)
-            # update the storage and sale of product
             item_each_sales_dic = {}
             item_each_income_dic = {}
             for item in product_list:
@@ -113,21 +106,16 @@ def process_order_create(order_inf):
                 the_count = item["count"]
                 the_price = item["price"]
                 the_each_total_price = the_price * the_count
-                # update the each product stock, sales, income in size table
                 product_with_size = Size.query.filter_by(gift_id=the_productID, size=the_size).first()
-                # update stock
                 previous_stock = product_with_size.stock
                 current_stock = previous_stock - the_count
                 product_with_size.stock = current_stock
-                # update individual_sales
                 previous_individual_sales = product_with_size.this_size_sales
                 current_individual_sales = previous_individual_sales + the_count
                 product_with_size.this_size_sales = current_individual_sales
-                # update individual_incomes
                 previous_individual_incomes = product_with_size.this_size_income
                 current_individual_incomes = previous_individual_incomes + the_each_total_price
                 product_with_size.this_size_income = current_individual_incomes
-                # database.session.commit()
 
                 if the_productID not in item_each_sales_dic.keys():
                     item_each_sales_dic[the_productID] = the_count
@@ -139,13 +127,11 @@ def process_order_create(order_inf):
                 else:
                     item_each_income_dic[the_productID] += the_each_total_price
 
-            # update the sales in products table
             for sales_id in item_each_sales_dic.keys():
                 product_with_sales_id = Gifts.query.filter_by(id=sales_id).first()
                 previous_total_sales = product_with_sales_id.gift_sales
                 product_with_sales_id.gift_sales = previous_total_sales + item_each_sales_dic[sales_id]
 
-            # update the income in products table
             for incomes_id in item_each_income_dic.keys():
                 product_with_incomes_id = Gifts.query.filter_by(id=incomes_id).first()
                 previous_total_incomes = product_with_incomes_id.gift_income

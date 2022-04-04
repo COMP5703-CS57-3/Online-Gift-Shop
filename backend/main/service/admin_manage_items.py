@@ -26,6 +26,8 @@ def admin_add_gift_method(product_info):
         discountstate = product_info["gift_discount_state"]
         description = product_info["gift_description"]
         main_category = product_info["gift_category"]
+        side_category1 = product_info["gift_side_category1"]
+        side_category2 = product_info["gift_side_category2"]
         cover_url = product_info["gift_cover_url"]
         url1 = product_info["gift_show_url1"]
         url2 = product_info["gift_show_url2"]
@@ -40,9 +42,9 @@ def admin_add_gift_method(product_info):
         database.session.close()
         return resp
     sales = 0
-    product = Gifts(gift_name=gift_name, gift_price=gift_price, gift_discount_price=gift_discount_price, gift_discount_state=gift_discount_state, gift_description=gift_description, gift_category=gift_category,
-              gift_cover_url=gift_cover_url, gift_show_url1=gift_show_url1, gift_show_url2=gift_show_url2, gift_show_url3=gift_show_url3,
-             gift_show_url4=gift_show_url4, sales=sales)
+    product = Gifts(gift_name=name, gift_price=price, gift_discount_price=discountprice, gift_discount_state=discountstate, gift_description=description, gift_category=main_category,
+              gift_side_category1=side_category1,gift_side_category2=side_category2,gift_cover_url=cover_url, gift_show_url1=url1, gift_show_url2=url2, gift_show_url3=url3,
+             gift_show_url4=url4, sales=sales)
     database.session.add(product)
     database.session.flush()
     database.session.refresh(product)
@@ -82,7 +84,9 @@ def admin_edit_gift_method(product_info):
         discountprice = product_info["gift_discount_price"]
         discountstate = product_info["gift_discount_state"]
         description = product_info["gift_description"]
-        main_category = product_info["gift_category"]
+        top_category = product_info["gift_category"]
+        side_category1 = product_info["gift_side_category1"]
+        side_category2 = product_info["gift_side_category2"]
         cover_url = product_info["gift_cover_url"]
         url1 = product_info["gift_show_url1"]
         url2 = product_info["gift_show_url2"]
@@ -96,17 +100,19 @@ def admin_edit_gift_method(product_info):
         resp.status_code = status_code
         database.session.close()
         return resp
-    product.gift_name = gift_name
-    product.gift_price = gift_price
-    product.gift_discount_price = gift_discount_price
-    product.gift_discount_state = gift_discount_state
-    product.gift_description = gift_description
-    product.gift_category = gift_category
-    product.gift_cover_url = gift_cover_url
-    product.gift_show_url1 = gift_show_url1
-    product.gift_show_url2 = gift_show_url2
-    product.gift_show_url3 = gift_show_url3
-    product.gift_show_url4 = gift_show_url4
+    product.gift_name = name
+    product.gift_price = price
+    product.gift_discount_price = discountprice
+    product.gift_discount_state = discountstate
+    product.gift_description = description
+    product.gift_category = top_category
+    product.gift_side_category1 = side_category1
+    product.gift_side_category2 = side_category2
+    product.gift_cover_url = cover_url
+    product.gift_show_url1 = url1
+    product.gift_show_url2 = url2
+    product.gift_show_url3 = url3
+    product.gift_show_url4 = url4
 
     sizes = Size.query.filter_by(products_id=product_info['id']).all()
     for s in range(len(sizes)):
