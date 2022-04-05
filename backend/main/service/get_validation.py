@@ -42,12 +42,12 @@ def get_validation_method(user_input_dictionary):
             app.config["MAIL_PORT"] = 465
             app.config['MAIL_USE_SSL'] = True
             app.config['MAIL_USE_TLS'] = False
-            app.config["MAIL_USERNAME"] = "519231856@qq.com"
+            app.config["MAIL_USERNAME"] = "zhengli74@qq.com"
             app.config["MAIL_PASSWORD"] = "ixsmrheedjkqbhdh"
             mail = Mail(app)
             user_email = user_input_dictionary["user_email"]
             msg = Message("Validation Code",
-                          sender="519231856@qq.com",
+                          sender="zhengli74@qq.com",
                           recipients=[user_email])
             output = "the Online Gift Shop's validation code is {code}"
             msg.body = output.format(code=validation_code)

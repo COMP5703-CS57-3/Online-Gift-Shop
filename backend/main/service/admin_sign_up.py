@@ -6,36 +6,37 @@ from ..model.create_database import Admin
 
 
 def admin_signup(admin_info):
-    response_data = {
-        "message": "success"
+    output_message = {
+        "message": "Information waiting for confirmation"
     }
     status_code = 200
+    admin_by_name = Admin.query.filter_by(admin_name=admin_info["admin_name"]).first()
     admin = Admin.query.filter_by(admin_email=admin_info["admin_email"]).first()
-    admin_username = Admin.query.filter_by(admin_name=admin_info["admin_name"]).first()
-    if admin_username:
-        response_data['message'] = "This username already exits"
+    output_message['message'] = "the admin successfully sign up"
+    if admin:
+        output_message['message'] = "This admin email already exits"
         status_code = 400
-    elif admin:
-        response_data['message'] = "This email already in use"
+    elif admin_by_name:
+        output_message['message'] = "This admin name already exits"
         status_code = 400
     else:
-        username = admin_info["admin_name"]
         email = admin_info["admin_email"]
-        password = admin_info["admin_password"]
-        mobile = admin_info["admin_mobile"]
-        valid_format = '@giftshop.com'
-        if email.endswith(valid_format):
-            admin = Admin(admin_name=username, admin_email=email, admin_password=password, admin_mobile=mobile)
+        admin_email_format = '@giftshop.com'
+        if email.endswith(admin_email_format):
+            admin = Admin(admin_name=admin_info["admin_name"],
+                          admin_email=admin_info["admin_email"],
+                          admin_password=admin_info["admin_password"],
+                          admin_mobile=admin_info["admin_mobile"])
             database.session.add(admin)
             database.session.commit()
         else:
-            response_data['message'] = "Invalid Email"
+            output_message['message'] = "please inpuit a valid admin email"
             status_code = 400
-    resp = make_response(response_data)
+    output_json = make_response(output_message)
     if status_code == 200:
         new_user = Admin.query.filter_by(admin_email=admin_info["admin_email"]).first()
-        resp.id = new_user.id
-    resp.status_code = status_code
-    resp.message = response_data['message']
+        output_json.id = new_user.id
+    output_json.status_code = status_code
+    output_json.message = output_message['message']
     database.session.close()
-    return resp
+    return output_json

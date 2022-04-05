@@ -11,17 +11,17 @@ def admin_login(admin_login_information):
     if admin is None:
         status_code = 404
         output_message["message"] = "the admin email: " + admin_login_information["admin_email"] + " does not exist"
-        resp = make_response(output_message)
-        resp.status_code = status_code
+        output_json = make_response(output_message)
+        output_json.status_code = status_code
         database.session.close()
-        return resp
+        return output_json
     elif admin.admin_password != admin_login_information["admin_password"]:
         status_code = 400
         output_message["message"] = "Incorrect Password"
-        resp = make_response(output_message)
-        resp.status_code = status_code
+        output_json = make_response(output_message)
+        output_json.status_code = status_code
         database.session.close()
-        return resp
+        return output_json
     else:
         output_message["message"] = "admin successfully login"
         database.session.close()

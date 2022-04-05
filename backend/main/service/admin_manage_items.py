@@ -6,18 +6,18 @@ from ..connect_to_aws import database
 
 
 def admin_add_gift_method(product_info):
-    response_data = {
+    output_message = {
         "message": "success",
         'product_id': ""
     }
     check_exist = Gifts.query.filter_by(name=product_info["gift_name"]).first()
     if check_exist:
-        response_data['message'] = "product already exists"
+        output_message['message'] = "product already exists"
         status_code = 400
-        resp = make_response(response_data)
-        resp.status_code = status_code
+        output_json = make_response(output_message)
+        output_json.status_code = status_code
         database.session.close()
-        return resp
+        return output_json
     status_code = 200
     try:
         name = product_info["gift_name"]
@@ -35,16 +35,27 @@ def admin_add_gift_method(product_info):
         url4 = product_info["gift_show_url4"]
         sizes = product_info["sizes"]
     except:
-        response_data['message'] = 'please check JSON format'
+        output_message['message'] = 'please check JSON format'
         status_code = 400
-        resp = make_response(response_data)
-        resp.status_code = status_code
+        output_json = make_response(output_message)
+        output_json.status_code = status_code
         database.session.close()
-        return resp
+        return output_json
     sales = 0
-    product = Gifts(gift_name=name, gift_price=price, gift_discount_price=discountprice, gift_discount_state=discountstate, gift_description=description, gift_category=main_category,
-              gift_side_category1=side_category1,gift_side_category2=side_category2,gift_cover_url=cover_url, gift_show_url1=url1, gift_show_url2=url2, gift_show_url3=url3,
-             gift_show_url4=url4, sales=sales)
+    product = Gifts(gift_name=name,
+                    gift_price=price,
+                    gift_discount_price=discountprice,
+                    gift_discount_state=discountstate,
+                    gift_description=description,
+                    gift_category=main_category,
+                    gift_side_category1=side_category1,
+                    gift_side_category2=side_category2,
+                    gift_cover_url=cover_url,
+                    gift_show_url1=url1,
+                    gift_show_url2=url2,
+                    gift_show_url3=url3,
+                    gift_show_url4=url4,
+                    sales=sales)
     database.session.add(product)
     database.session.flush()
     database.session.refresh(product)
@@ -52,32 +63,34 @@ def admin_add_gift_method(product_info):
     for s in sizes:
         size = s['size']
         size_stock = s['size_stock']
-        insert_size = Size(size=size, stock=size_stock, products_id=products_id)
+        insert_size = Size(size=size,
+                           stock=size_stock,
+                           products_id=products_id)
         database.session.add(insert_size)
     database.session.commit()
-    response_data['product_id'] = products_id
-    resp = make_response(response_data)
-    resp.status_code = status_code
+    output_message['product_id'] = products_id
+    output_json = make_response(output_message)
+    output_json.status_code = status_code
     database.session.close()
-    return resp
+    return output_json
 
     # database.session.commit()
 
 
 # Admin edit a product
 def admin_edit_gift_method(product_info):
-    response_data = {
+    output_message = {
         "message": "success"
     }
     status_code = 200
     product = Gifts.query.filter_by(id=product_info['id']).first()
     if not product:
-        response_data['message'] = 'product does not exist'
-        resp = make_response(response_data)
+        output_message['message'] = 'product does not exist'
+        output_json = make_response(output_message)
         status_code = 404
-        resp.status_code = status_code
+        output_json.status_code = status_code
         database.session.close()
-        return resp
+        return output_json
     try:
         name = product_info["gift_name"]
         price = product_info["gift_price"]
@@ -94,12 +107,12 @@ def admin_edit_gift_method(product_info):
         url4 = product_info["gift_show_url4"]
         product_sizes = product_info["sizes"]
     except:
-        response_data['message'] = 'please check JSON format'
+        output_message['message'] = 'please check JSON format'
         status_code = 400
-        resp = make_response(response_data)
-        resp.status_code = status_code
+        output_json = make_response(output_message)
+        output_json.status_code = status_code
         database.session.close()
-        return resp
+        return output_json
     product.gift_name = name
     product.gift_price = price
     product.gift_discount_price = discountprice
@@ -119,28 +132,28 @@ def admin_edit_gift_method(product_info):
         sizes[s].size = product_sizes[s]['size']
         sizes[s].stock = product_sizes[s]['size_stock']
     database.session.commit()
-    resp = make_response(response_data)
+    output_json = make_response(output_message)
     database.session.close()
-    return resp
+    return output_json
 
 def admin_delete_gift_method(product_id):
-    response_data = {
+    output_message = {
         "message": "success"
     }
     status_code = 200
     product = Gifts.query.filter_by(id=product_id).first()
     if not product:
-        response_data['message'] = 'product does not exist'
-        resp = make_response(response_data)
+        output_message['message'] = 'product does not exist'
+        output_json = make_response(output_message)
         status_code = 404
-        resp.status_code = status_code
+        output_json.status_code = status_code
         database.session.close()
-        return resp
+        return output_json
     else:
         Gifts.query.filter_by(id=product_id).delete()
         Size.query.filter_by(products_id=product_id).delete()
         database.session.commit()
-        resp = make_response(response_data)
-        resp.status_code = status_code
+        output_json = make_response(output_message)
+        output_json.status_code = status_code
         database.session.close()
-        return resp
+        return output_json
