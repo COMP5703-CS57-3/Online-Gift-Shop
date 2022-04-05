@@ -11,15 +11,18 @@ const saveJSON = (key,data)=>
 
 export default function CartProvider({children,login}){
     const [items,setItems] = useState(loadJSON("test"));
+    console.log(giftdata)
+    localStorage.clear()
+    //
     useEffect(()=>{
         if(!login) return;
         //if(login=="test") return;
         setItems(giftdata);
     },[login]);
     useEffect(()=>{
-        saveJSON("test",items);
+        //saveJSON("test",items);
     },[items])
-
+    console.log(items)
     const removeItems = id => setItems(items.filter(item=>item.id!==id));
     if(items)
         return (
@@ -27,9 +30,5 @@ export default function CartProvider({children,login}){
             {children}
         </CartContext.Provider>
         )
-    return(
-        <CartContext.Provider value={{items,removeItems}}>
-            {children}
-        </CartContext.Provider>
-    )
+    return null
 }
