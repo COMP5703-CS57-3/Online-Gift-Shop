@@ -43,9 +43,7 @@ export default function WishProvider({children,login}){
             saveJSON(keyy,data);
             nav();
         });
-        localStorage.clear();
     }
-    console.log(wish)
     const createWish = (id,firstname,lastname,wishlistnameP,descriptionP,addressP,phoneP,postcodeP)=>{
         const nav =()=> navi("/wishlist");
         fetch("http://127.0.0.1:5000/wishlist/create", {
@@ -72,6 +70,22 @@ export default function WishProvider({children,login}){
         });
 
     }
+
+    const addProduct = (ownerId,wishlistId,productId,productName,coverUrl,sizeA,priceA)=>{
+        fetch("http://127.0.0.1:5000/wishlist/add", {
+            method: 'POST',
+            body: JSON.stringify(
+                {
+                    owner_id: 0,
+                    wishlist_id: wishlistId,
+                    product_id: productId,
+                    product_name: productName,
+                    cover_url: coverUrl,
+                    size: sizeA,
+                    price: priceA
+                })
+        }).then(console.log);
+    }
     // const newWish = (title)=>{
     //     const newWishlist = [
     //         ...wish,
@@ -97,12 +111,12 @@ export default function WishProvider({children,login}){
     // }
     if(wish)
         return(
-            <WishContext.Provider value={{wish,product,createWish,deleteWish}}>
+            <WishContext.Provider value={{wish,product,createWish,deleteWish,addProduct}}>
                 {children}
             </WishContext.Provider>
         )
     return(
-            <WishContext.Provider value={{wish,product,createWish,deleteWish}}>
+            <WishContext.Provider value={{wish,product,createWish,deleteWish,addProduct}}>
                 {wish && children}
             </WishContext.Provider>
         )

@@ -9,17 +9,22 @@ import {useParams} from "react-router-dom";
 import {useCart} from "../../tools/useCart";
 import {alpha} from "@mui/material/styles";
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
-import {Button, Input} from "@mui/material";
+import {Button, Input, Select} from "@mui/material";
 import Background from "../../picture/background.png";
+import MenuItem from "@mui/material/MenuItem";
 
 export default function GiftDetail() {
     const [quantity,setQuantity] = useState(1);
     let {id} = useParams();
-
+//
     let {items} = useCart();
+    console.log(items);
     let foundGift = items.find(
        item => item.id == id
     );
+    const addToWishList = ()=>{
+
+    }
     return(
         <Box width="100%" height="100%">
             <Box width="80%" sx={{
@@ -98,6 +103,24 @@ export default function GiftDetail() {
                             Add to Cart
                         </Button>
                     </Box>
+                    <Box>
+                        <form onSubmit={addToWishList}>
+                            <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={1}
+                            label="Age"
+                          >
+                                <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                          </Select>
+                            <Button onClick={addToWishList}>
+                            Add to my wish list
+                            </Button>
+                        </form>
+                    </Box>
+
                 </Box>
             </Box>
         </Box>
