@@ -13,7 +13,7 @@ export default function CategoryG(){
             <Box sx={{
                 display:"grid",
                 gap:1,
-                gridTemplateColumns:"repeat(3,1fr)"
+                gridTemplateColumns:"repeat(2,1fr)"
             }}>
                 {gifts.map((gift,i)=>(
                     // <Gift key={i} {...gift} onRemove={onRemoveItems}/>

@@ -5,7 +5,7 @@ from ..util.dto import create_order_part_dto
 from ..service.create_order import process_order_create
 from ..service.delete_order import process_delete_order
 create_order_part_namespace = create_order_part_dto.create_order_part_namespace
-from flask import request, make_response
+from flask import request
 
 
 @create_order_part_namespace.route('/create')
