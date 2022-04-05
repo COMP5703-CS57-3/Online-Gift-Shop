@@ -106,8 +106,8 @@ class ChangeCount(Resource):
     @wishlist_ns.response(200, 'success', model=WishlistDto.wishlist_items_change_count_output_format)
     @wishlist_ns.response(400, 'Bad request')
     def put():
-        resp = process_change_count(json.loads(request.data))
-        if resp.status_code == 400:
-            return marshal(resp, WishlistDto.wishlist_items_change_count_output_format), 400
+        output_json = wishlist_change_count_method(json.loads(request.data))
+        if output_json.status_code == 200:
+            return marshal(output_json, WishlistDto.wishlist_items_change_count_output_format), 200
         else:
-            return marshal(resp, WishlistDto.wishlist_items_change_count_output_format), 200
+            return marshal(output_json, WishlistDto.wishlist_items_change_count_output_format), 400

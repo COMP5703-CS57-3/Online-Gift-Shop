@@ -132,10 +132,14 @@ def add_items(info):
     owner_id = info['owner_id']
     wishlist_id = info['wishlist_id']
     product_id = info['product_id']
-    product_name = info['product_name']
-    cover_url = info['cover_url']
+    this_gift = Gifts.query.filter_by(id=product_id).first()
+    product_name = this_gift.gift_name
+    cover_url = this_gift.gift_cover_url
+    #product_name = info['product_name']
+    #cover_url = info['cover_url']
     size = info['size']
-    price = info['price']
+    price = this_gift.gift_discount_price
+    #price = info['price']
     find_wishlistID = Wishlist.query.filter_by(wishlist_id=info['wishlist_id']).first()
     wishlistID = find_wishlistID.id
     product = WishlistItems(wishlist_id=wishlist_id, wishlistID = wishlistID,products_id=product_id, product_name=product_name, product_cover=cover_url,
@@ -488,33 +492,32 @@ def search(info):
     database.session.close()
     return resp
 
-def process_change_count(changeInf):
-    response_message = {
-        "message": "success"
+def wishlist_change_count_method(changeCountInformation):
+    output_message = {
+        "message": "Message information waiting for response"
     }
     status_code = 200
-    # get input information
-    uid = changeInf["wishlist_id"]
-    pid = changeInf["products_id"]
-    size = changeInf["size"]
-    # query cart table to get user information
-    this_row_wishlist_item = WishlistItems.query.filter_by(wishlist_id=uid, products_id=pid, size=size).first()
-    # check the cart is empty or not
-    if this_row_wishlist_item is None:
-        response_message["message"] = "Input information not correct"
+    this_row_wishlist_item = WishlistItems.query.filter_by(wishlist_id=changeCountInformation["wishlist_id"],
+                                                           products_id=changeCountInformation["products_id"],
+                                                           size=changeCountInformation["size"]).first()
+    output_message["message"] = "count changed"
+    if this_row_wishlist_item:
+        count = changeCountInformation["count"]
+        if count > 0:
+            this_row_wishlist_item.count = count
+            database.session.commit()
+            # database.session.close()
+        else:
+            output_message["message"] = "Input count must > 0"
+            status_code = 400
+            # database.session.close()
+    else:
+        output_message["message"] = "Input information not correct"
         status_code = 400
         # database.session.close()
-    else:
-        # the_product = Products.query.filter_by(id=pid).first()
-        # the_price = the_product.price
-        # change the amount of produnts and the total price
-        this_row_wishlist_item.count = changeInf["count"]
-        # cart.each_total_price = the_price * changeInf["count"]
-        database.session.commit()
-        # database.session.close()
-
-    resp = make_response(response_message)
-    resp.status_code = status_code
-    resp.message = response_message['message']
+    output_json = make_response(output_message)
+    output_json.status_code = status_code
+    output_json.message = output_message['message']
     database.session.close()
-    return resp
+    return output_json
+

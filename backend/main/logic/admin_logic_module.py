@@ -4,7 +4,7 @@ from flask import request
 import json
 from ..util.dto import admin_part_dto
 from ..service.admin_sign_up import admin_signup
-from ..service.admin_login import admin_login_v2
+from ..service.admin_login import admin_login
 from ..service.admin_manage_items import admin_add_gift_method
 from ..service.admin_manage_items import admin_edit_gift_method
 from ..service.admin_manage_items import admin_delete_gift_method
@@ -32,15 +32,15 @@ class Adminlogin(Resource):
     @admin_namespace.response(400, 'Bad Request')
     @admin_namespace.response(404, 'Not Found')
     def post():
-        admin = admin_login_v2(json.loads(request.data))
+        output_admin_information = admin_login(json.loads(request.data))
         try:
-            admin.status_code
-            return admin
+            output_admin_information.status_code
+            return output_admin_information
         except:
-            return marshal(admin, admin_part_dto.admin_login_output_format)
+            return marshal(output_admin_information, admin_part_dto.admin_login_output_format)
 
-@admin_namespace.route("/admin_manage_items")
-class AdminManage(Resource):
+@admin_namespace.route("/admin_add_items")
+class AddManage(Resource):
 
     @staticmethod
     @admin_namespace.expect(admin_part_dto.admin_add_gift_items_input_model)
@@ -48,6 +48,8 @@ class AdminManage(Resource):
         resp = admin_add_gift_method(json.loads(request.data))
         return resp
 
+@admin_namespace.route("/admin_edit_items")
+class EditManage(Resource):
     @staticmethod
     @admin_namespace.expect(admin_part_dto.admin_edit_gift_items_input_model)
     def put():

@@ -203,10 +203,10 @@ class WishlistDto:
         "owner_id": fields.Integer,
         "wishlist_id": fields.String,
         "product_id": fields.Integer,
-        "product_name": fields.String,
-        "cover_url": fields.String,
+        # "product_name": fields.String,
+        # "cover_url": fields.String,
         "size": fields.String,
-        "price": fields.Float,
+        # "price": fields.Float,
     })
     remove_item_model = wishlist_ns.model("remove_item_model", {
         "owner_id": fields.Integer,
