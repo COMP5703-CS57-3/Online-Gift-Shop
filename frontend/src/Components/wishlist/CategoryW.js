@@ -7,6 +7,7 @@ import WishListItem from "./WishListItem";
 
 export default function CategoryW(){
     const {wish} = useWish();
+
     //console.log(wish);
     return(
         <div>
