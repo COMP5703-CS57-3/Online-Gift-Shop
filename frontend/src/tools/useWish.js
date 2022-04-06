@@ -28,6 +28,7 @@ export default function WishProvider({children,login}){
         //json store in attribute wishlists_inf, please use wish.wishlists_inf represent array
     },[login])
     let navi = useNavigate();
+
     const deleteWish = (ownerId,wishId)=>{
         const nav =()=> navi("/wishlist");
         fetch("http://127.0.0.1:5000/wishlist/delete", {
@@ -71,18 +72,15 @@ export default function WishProvider({children,login}){
 
     }
 
-    const addProduct = (ownerId,wishlistId,productId,productName,coverUrl,sizeA,priceA)=>{
+    const addProduct = (ownerId,wishlistId,productId,sizeA)=>{
         fetch("http://127.0.0.1:5000/wishlist/add", {
             method: 'POST',
             body: JSON.stringify(
                 {
-                    owner_id: 0,
+                    owner_id: ownerId,
                     wishlist_id: wishlistId,
-                    product_id: productId,
-                    product_name: productName,
-                    cover_url: coverUrl,
-                    size: sizeA,
-                    price: priceA
+                    product_id: 1,
+                    size: sizeA
                 })
         }).then(console.log);
     }
