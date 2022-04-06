@@ -16,6 +16,7 @@ import WishListItem from "./Components/wishlist/WishListItem";
 import WishList from "./Components/wishlist/WishList";
 import WishListContentProvider from "./Components/Detail/WishListContentProvider";
 import WishFormProvider from "./Components/wishlist/WishFormProvider";
+import CategoryG from "./Components/Category/CategoryG";
 
 
 
@@ -37,7 +38,7 @@ ReactDOM.render((
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<Homepage/>}>
-                <Route path='' element={<CartCategory/>}/>
+                <Route path='' element={<CategoryG/>}/>
                 <Route path='/cart' element={<Cart/>}/>
                 <Route path='/wishlist' element={<WishList/>}/>
                 {/*<Route path='c' element={<CartCategory/>}/>*/}
