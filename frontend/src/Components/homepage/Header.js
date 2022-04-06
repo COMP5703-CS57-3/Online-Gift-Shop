@@ -12,8 +12,6 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import {Link} from "react-router-dom";
-import Grid from "@mui/material/Grid";
-
 
 
 export default function AccountMenu() {
@@ -27,28 +25,28 @@ export default function AccountMenu() {
     };
     return (
         <React.Fragment>
-            <Box  sx = {{display: 'flex',width:'100%',justifyContent: 'center'}} >
+            <Box sx={{display: 'flex', width: '100%', justifyContent: 'center'}}>
                 {/*<Grid item xs={4} sx={{display: 'flex', alignItems: 'center', textAlign: 'center',minWidth:200}}>*/}
                 {/*    <Typography >Online Gift Shop</Typography>*/}
                 {/*</Grid>*/}
-                <Box  sx={{display: 'flex', alignItems: 'center', textAlign: 'center'}}>
-                    <Typography sx={{minWidth: 200,paddingRight:75}}>Online Gift Shop</Typography>
+                <Box sx={{display: 'flex', alignItems: 'center', textAlign: 'center'}}>
+                    <Typography sx={{minWidth: 200, paddingRight: 75}}>Online Gift Shop</Typography>
                     <Typography sx={{minWidth: 100}}>Home</Typography>
                     <Typography sx={{minWidth: 100}}>Shop</Typography>
                     <Typography sx={{minWidth: 100}}>Contact</Typography>
                     <Typography sx={{minWidth: 100}}>Profile</Typography>
-                <Tooltip title="Account settings">
-                    <IconButton
-                        onClick={handleClick}
-                        size="small"
-                        sx={{ml: 2}}
-                        aria-controls={open ? 'account-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : undefined}
-                    >
-                        <Avatar sx={{width: 32, height: 32}}>M</Avatar>
-                    </IconButton>
-                </Tooltip>
+                    <Tooltip title="Account settings">
+                        <IconButton
+                            onClick={handleClick}
+                            size="small"
+                            sx={{ml: 2}}
+                            aria-controls={open ? 'account-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined}
+                        >
+                            <Avatar sx={{width: 32, height: 32}}>M</Avatar>
+                        </IconButton>
+                    </Tooltip>
                 </Box>
             </Box>
 
@@ -88,7 +86,7 @@ export default function AccountMenu() {
                 anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
             >
                 <MenuItem>
-                    <Avatar/> Profile
+                    <Avatar/> <Link style={{ textDecoration:'none'}} to={{pathname: "/account"}}>Profile</Link>
                 </MenuItem>
                 <MenuItem>
                     <Avatar/> My WhishList
@@ -111,7 +109,7 @@ export default function AccountMenu() {
                         <Logout fontSize="small"/>
                     </ListItemIcon>
                     <ListItemIcon>
-                        <Link to={{pathname: "/login"}}>
+                        <Link style={{ textDecoration:'none'}} to={{pathname: "/login"}}>
                             Sign In
                         </Link>
                     </ListItemIcon>

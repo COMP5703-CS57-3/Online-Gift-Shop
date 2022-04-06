@@ -47,6 +47,7 @@ export default function LogIn(props) {
                 console.log(status, 1)
                 if (status.data.message === 'User login successfully') {
                     console.log("Success!")
+                    sessionStorage.setItem("id",response.data.id)
                     navigate("/")
                 } else {
                     console.log("Error!")
