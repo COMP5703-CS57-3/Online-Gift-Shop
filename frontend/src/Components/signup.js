@@ -79,7 +79,6 @@ export default class SignUp extends React.Component {
                     console.log(response,2)
                 });
         } else {
-            console.log(res_phone)
             this.setState({
                 // isShow: true,
                 errNick: res_name,
@@ -129,7 +128,7 @@ export default class SignUp extends React.Component {
                                 <Alert
                                     severity="info"
                                 >
-                                    {this.state.errNick}
+                                    <span>{this.state.errNick}</span>
                                 </Alert>
                             </Collapse>
                             <TextField
@@ -146,7 +145,7 @@ export default class SignUp extends React.Component {
                                 <Alert
                                     severity="info"
                                 >
-                                    {this.state.errEmail}
+                                    <span>{this.state.errEmail}</span>
                                 </Alert>
                             </Collapse>
                             <TextField
@@ -163,7 +162,7 @@ export default class SignUp extends React.Component {
                                 <Alert
                                     severity="info"
                                 >
-                                    {this.state.errPhone}
+                                    <span>{this.state.errPhone}</span>
                                 </Alert>
                             </Collapse>
                             <TextField
@@ -181,7 +180,7 @@ export default class SignUp extends React.Component {
                                 <Alert
                                     severity="info"
                                 >
-                                    {this.state.errPwd}
+                                    <span>{this.state.errPwd}</span>
                                 </Alert>
                             </Collapse>
                             <TextField
@@ -199,7 +198,7 @@ export default class SignUp extends React.Component {
                                 <Alert
                                     severity="info"
                                 >
-                                    {this.state.errCPwd}
+                                    <span>{this.state.errCPwd}</span>
                                 </Alert>
                             </Collapse>
 

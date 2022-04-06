@@ -37,7 +37,7 @@ export default function MainBody({props}) {
             </Box>
             <Grid container spacing={0} value="1" style={{flexWrap:"nowrap",flexDirection:"row"}}>
                 <Grid item xs={6} style={{float:"left",flexBasis:"auto",width:300}}><SideBar/></Grid>
-                <grid item xs={6} style={{float:"right",flexBasis:"auto",maxWidth:"80%"}}><Outlet /></grid>
+                <Grid item xs={6} style={{float:"right",flexBasis:"auto",maxWidth:"80%"}}><Outlet /></Grid>
                     {/*</div>*/}
             </Grid>
             <TabPanel value="2">Product Two</TabPanel>

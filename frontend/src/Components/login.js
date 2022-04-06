@@ -5,7 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-
+import { useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -37,7 +37,7 @@ export default class LogIn extends React.Component {
         this.setState({[name]: value},)
     }
     HandleClick = () => {
-
+        const navi= useNavigate()
         if (this.state.Password === "") {
             alert("please input password")
         } else if (checkEmail(this.state.Email) !== true) {
@@ -52,6 +52,7 @@ export default class LogIn extends React.Component {
                 console.log(status, 1)
                 if (status.data.message === 'User login successfully') {
                     console.log("Success!")
+                    navi("/")
                 } else {
                     console.log("Error!")
                 }
