@@ -4,12 +4,15 @@ import Background from "../../picture/background.png";
 import MainBody from "./MainBody";
 import FastDial from "../FastDial";
 import SideBar from "./SideBar";
+import GiftProvider, {useGift} from "../../tools/useGift";
 
 
 export default class Homepage extends React.Component {
+
     render() {
         return (
-            <div style={{width: '100%', height: '100%', backgroundImage: "url(" + Background + ")"}}>
+            <GiftProvider>
+                <div style={{width: '100%', height: '100%', backgroundImage: "url(" + Background + ")"}}>
                 <AccountMenu/>
                 <MainBody/>
                 {/*<div style={{float: "right", width: "69%",display:"inline"}}><MainBody/></div>*/}
@@ -21,7 +24,7 @@ export default class Homepage extends React.Component {
                 {/*<Link to="/login">Login</Link>&nbsp;*/}
                 {/*<Link to="/accountmenu">AccountMenu</Link>*/}
             </div>
-
+            </GiftProvider>
         )
     }
 }

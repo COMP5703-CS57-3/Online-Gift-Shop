@@ -13,6 +13,8 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import {Link} from "react-router-dom";
 import Grid from "@mui/material/Grid";
+import {useGift} from "../../tools/useGift";
+import Button from "@mui/material/Button";
 
 
 
@@ -25,6 +27,10 @@ export default function AccountMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const {multiCategory} = useGift();
+    const click = ()=>{
+        multiCategory("male","Life","Clothes","price-low-to-high");
+    }
     return (
         <React.Fragment>
             <Box  sx = {{display: 'flex',width:'100%',justifyContent: 'center'}} >
@@ -51,7 +57,7 @@ export default function AccountMenu() {
                 </Tooltip>
                 </Box>
             </Box>
-
+            <Button onClick={click}>test only</Button>
             <Menu
                 anchorEl={anchorEl}
                 id="account-menu"
@@ -88,7 +94,7 @@ export default function AccountMenu() {
                 anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
             >
                 <MenuItem>
-                    <Avatar/> Profile
+                    <Avatar/> <Link style={{ textDecoration:'none'}} to={{pathname: "/account"}}>Profile</Link>
                 </MenuItem>
                 <MenuItem>
                     <Avatar/> My WhishList
@@ -111,7 +117,7 @@ export default function AccountMenu() {
                         <Logout fontSize="small"/>
                     </ListItemIcon>
                     <ListItemIcon>
-                        <Link to={{pathname: "/login"}}>
+                        <Link style={{ textDecoration:'none'}} to={{pathname: "/login"}}>
                             Sign In
                         </Link>
                     </ListItemIcon>

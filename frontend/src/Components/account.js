@@ -1,11 +1,12 @@
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import {AccountProfile} from "./account/account-profile";
+import AccountProfile from "./account/account-profile";
 import {AccountProfileDetails} from "./account/account-profile-details";
 import Box from "@mui/material/Box";
 
-export default function Account() {
+export default function Account(props) {
+    const id=sessionStorage.getItem("User_id")
     return (
         <>
             <Box
@@ -32,7 +33,7 @@ export default function Account() {
                             md={6}
                             xs={12}
                         >
-                            <AccountProfile/>
+                            <AccountProfile id={id}/>
                         </Grid>
                         <Grid
                             item
@@ -40,7 +41,7 @@ export default function Account() {
                             md={6}
                             xs={12}
                         >
-                            <AccountProfileDetails/>
+                            <AccountProfileDetails id={id}/>
                         </Grid>
                     </Grid>
                 </Container>

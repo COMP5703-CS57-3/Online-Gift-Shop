@@ -53,6 +53,7 @@
   },
   "devDependencies": {
     "@mui/lab": "^5.0.0-alpha.75",
+    "jquery": "^3.6.0",
     "prop-types": "^15.8.1"
   }
 }

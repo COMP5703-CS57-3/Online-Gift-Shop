@@ -6,6 +6,11 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+/backend/venv/
+/venv/
+/frontend/node_modules/
+/.idea/
+/backend/.idea/
 /frontend/build/
 
 # dependencies
@@ -29,10 +34,4 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-/backend/venv/
-/venv/
-/frontend/node_modules/
-/frontend/build/
-/.idea/
-/backend/.idea/
 

@@ -6,7 +6,7 @@ from ..connect_to_aws import database
 
 
 def process_delete_order(user_id, order_number):
-    response_data = {
+    output_message = {
         "message": "success"
     }
     status_code = 200
@@ -16,7 +16,7 @@ def process_delete_order(user_id, order_number):
     the_order = Order.query.filter_by(user_id=uid, order_number=orderNumber).first()
     # check the query order is eixst or not
     if the_order is None:
-        response_data['message'] = "Input information not correct, please check your user id and order number"
+        output_message['message'] = "Input information not correct, please check your user id and order number"
         status_code = 403
         # database.session.close()
     else:
@@ -28,8 +28,8 @@ def process_delete_order(user_id, order_number):
         database.session.commit()
         # database.session.close()
 
-    resp = make_response(response_data)
-    resp.status_code = status_code
-    resp.message = response_data['message']
+    output_json = make_response(output_message)
+    output_json.status_code = status_code
+    output_json.message = output_message['message']
     database.session.close()
-    return resp
+    return output_json

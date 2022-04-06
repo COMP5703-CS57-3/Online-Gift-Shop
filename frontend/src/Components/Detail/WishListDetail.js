@@ -15,6 +15,8 @@ import {useWish} from "../../tools/useWish";
 import ItemCard from "../Cart/ItemCard";
 import BoxItem from "../Category/BoxItem";
 import giftdata from "../../data/giftlist.json";
+import {useInput} from "../../tools/useInput";
+import ProductDetail from "./ProductDetail";
 
 export default function WishListDetail() {
     let id = useParams();
@@ -27,6 +29,7 @@ export default function WishListDetail() {
         }).then(res=>res.json()).then(setDetail);
     },[id]);
     let {product} = useWish();
+
     if (detail)
         return(
        <div style={{marginLeft:"auto",marginRight:"auto",maxWidth:1500}}>
@@ -44,7 +47,7 @@ export default function WishListDetail() {
                 gridTemplateColumns:"repeat(2,1fr)"
             }}>
                 {detail.products.map((gift,i)=>(
-                    <BoxItem key={i} {...gift}/>
+                    <ProductDetail key={i} para={gift} detail={detail}/>
                 ))}
             </Box>
            <Button onClick={()=>deleteWish(detail.owner_id,detail.wishlist_id)}>delete this wish list</Button>

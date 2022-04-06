@@ -259,6 +259,14 @@ class WishlistDto:
         "message": fields.String
     })
 
+    wishlist_send_email_input_format = wishlist_ns.model("wishlist_send_email_input_format", {
+        "wishlist_id": fields.String,
+        "receiver_email": fields.String,
+    })
+    wishlist_send_email_output_format = wishlist_ns.model("wishlist_send_email_output_format", {
+        "message": fields.String
+    })
+
 
 class admin_part_dto:
     admin_part_namespace = Namespace("The admin logic module",

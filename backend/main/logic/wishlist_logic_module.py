@@ -2,6 +2,7 @@ from flask_restplus import Resource, marshal
 from flask import request
 import json
 from ..service.wishlist import *
+from ..service.wishlist_send_email import wishlist_send_email_method
 from ..util.dto import WishlistDto
 
 wishlist_ns = WishlistDto.wishlist_ns
@@ -111,3 +112,19 @@ class ChangeCount(Resource):
             return marshal(output_json, WishlistDto.wishlist_items_change_count_output_format), 200
         else:
             return marshal(output_json, WishlistDto.wishlist_items_change_count_output_format), 400
+
+
+@wishlist_ns.route("/send_email")
+class SendEmail(Resource):
+    @staticmethod
+    @wishlist_ns.expect(WishlistDto.wishlist_send_email_input_format)
+    @wishlist_ns.response(200, 'the Email sent successfully[200]',
+                                     model = WishlistDto.wishlist_send_email_output_format)
+    @wishlist_ns.response(400, 'the Email sent failed[400]',
+                                     model = WishlistDto.wishlist_send_email_output_format)
+    def post():
+        output_json = wishlist_send_email_method(json.loads(request.data))
+        if output_json.status_code == 200:
+            return marshal(output_json, WishlistDto.wishlist_send_email_output_format), 200
+        else:
+            return marshal(output_json, WishlistDto.wishlist_send_email_output_format), 400

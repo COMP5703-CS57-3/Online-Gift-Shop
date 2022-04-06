@@ -14,7 +14,7 @@ import datetime
 
 
 def process_order_create(order_inf):
-    response_message = {
+    output_message = {
         "message": "success"
     }
     response_data = {
@@ -27,11 +27,11 @@ def process_order_create(order_inf):
     wishlist_id = order_inf["wishlist_id"]
     wishlist = WishlistItems.query.filter_by(wishlist_id=wishlist_id).all()
     if len(wishlist) == 0:
-        response_message['message'] = "user's Wishlist is empty, please add product to Wishlist first"
+        output_message['message'] = "user's Wishlist is empty, please add product to Wishlist first"
         status_code = 404
-        resp = make_response(response_message)
-        resp.status_code = status_code
-        resp.message = response_message['message']
+        output_json = make_response(output_message)
+        output_json.status_code = status_code
+        output_json.message = output_message['message']
     else:
         order_time = datetime.datetime.now()
         order_number = ''.join(random.sample(string.ascii_letters + string.digits, 15))
@@ -73,16 +73,16 @@ def process_order_create(order_inf):
             the_str = ""
             for n in check_dic.keys():
                 the_str += str(n) + " "
-            response_message['message'] = "product: " + the_str + "does not have enough stock"
+            output_message['message'] = "product: " + the_str + "does not have enough stock"
             new_resp_data = {
                 "message": "below product out of stock",
                 "product_list": out_of_stock_list
             }
             status_code = 403
-            resp = make_response(response_message)
-            resp.status_code = status_code
-            resp.message = response_message['message']
-            resp.response_data = new_resp_data
+            output_json = make_response(output_message)
+            output_json.status_code = status_code
+            output_json.message = output_message['message']
+            output_json.response_data = new_resp_data
         else:
             for p in product_list:
                 productID = p["product_id"]
@@ -93,10 +93,14 @@ def process_order_create(order_inf):
                 price = p["price"]
                 each_total_price = price * count
                 orderID = oid
-                each_order_product = OrderItems(gift_name=product_name, item_cover_url=cover_url, size=size,
-                                                  count=count,
-                                                  price=price, each_total_price=each_total_price,
-                                                  productID=productID, order_id=orderID)
+                each_order_product = OrderItems(gift_name=product_name,
+                                                item_cover_url=cover_url,
+                                                size=size,
+                                                count=count,
+                                                price=price,
+                                                each_total_price=each_total_price,
+                                                productID=productID,
+                                                order_id=orderID)
                 database.session.add(each_order_product)
             item_each_sales_dic = {}
             item_each_income_dic = {}
@@ -139,13 +143,13 @@ def process_order_create(order_inf):
 
             database.session.commit()
 
-            response_message['message'] = "the order is generated successfully"
+            output_message['message'] = "the order is generated successfully"
             response_data['message'] = 'the order is generated successfully'
             response_data['wishlist_id'] = wishlist_id
             response_data['user_id'] = uid
             response_data['order_number'] = order_number
-            resp = make_response(response_message)
-            resp.status_code = status_code
-            resp.response_data = response_data
+            output_json = make_response(output_message)
+            output_json.status_code = status_code
+            output_json.response_data = response_data
     database.session.close()
-    return resp
+    return output_json

@@ -12,18 +12,31 @@ import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutl
 import {Button, Input, Select} from "@mui/material";
 import Background from "../../picture/background.png";
 import MenuItem from "@mui/material/MenuItem";
+import {useWish} from "../../tools/useWish";
 
 export default function GiftDetail() {
     const [quantity,setQuantity] = useState(1);
+    const {wish} = useWish();
+    const {addProduct} = useWish();
+    const [targetWishList,setTargetWishlist] = useState(wish[0].wishlist_id);
     let {id} = useParams();
-//
+    const handleChange =(event)=>{
+        setTargetWishlist(event.target.value);
+    }
+
     let {items} = useCart();
     console.log(items);
     let foundGift = items.find(
        item => item.id == id
     );
+    const [sizeA,setSizeA] = useState("small");
+    const handleSizeChange =(event)=>{
+        setSizeA(event.target.value);
+    }
     const addToWishList = ()=>{
-
+        console.log(targetWishList);
+        console.log(foundGift.id)
+        addProduct(1,targetWishList,foundGift.id,sizeA);
     }
     return(
         <Box width="100%" height="100%">
@@ -86,9 +99,9 @@ export default function GiftDetail() {
                               Select size
                             </Typography>
                             <Stack direction="row" spacing={1}>
-                              <Chip label="Small" />
-                              <Chip color="primary" label="Medium" />
-                              <Chip label="Large" />
+                              <Chip onChange={handleSizeChange} label="Small" />
+                              <Chip onChange={handleSizeChange} color="primary" label="Medium" />
+                              <Chip onChange={handleSizeChange} label="Large" />
                             </Stack>
                           </Box>
                         </Box>
@@ -104,21 +117,19 @@ export default function GiftDetail() {
                         </Button>
                     </Box>
                     <Box>
-                        <form onSubmit={addToWishList}>
                             <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={1}
-                            label="Age"
-                          >
-                                <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
-                          </Select>
+                                value={targetWishList}
+                                label="targetWishlist"
+                                onChange={handleChange}
+                            >{wish.map((wishlist,i)=>(
+                                <MenuItem key={i} value={wishlist.wishlist_id}>
+                                    ID: {wishlist.wishlist_id}     list name: {wishlist.wishlist_name}
+                                </MenuItem>
+                            ))}
+                            </Select>
                             <Button onClick={addToWishList}>
                             Add to my wish list
                             </Button>
-                        </form>
                     </Box>
 
                 </Box>
