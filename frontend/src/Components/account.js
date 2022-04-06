@@ -2,7 +2,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import AccountProfile from "./account/account-profile";
-import {AccountProfileDetails} from "./account/account-profile-details";
+import AccountProfileDetails from "./account/account-profile-details";
 import Box from "@mui/material/Box";
 
 export default function Account(props) {
