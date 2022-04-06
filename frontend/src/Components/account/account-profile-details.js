@@ -109,6 +109,9 @@ export default class AccountProfileDetails extends React.Component {
                                 <TextField
                                     fullWidth
                                     label="Read Only"
+                                    InputProps={{
+                                        readOnly: true,
+                                    }}
                                     name="user_email"
                                     onChange={this.handleChange}
                                     required
