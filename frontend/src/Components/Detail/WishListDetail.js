@@ -39,7 +39,6 @@ export default function WishListDetail() {
                <p>{detail.first_name} {detail.last_name}</p>
 
            </Grid>
-           <Grid item sx={6}>
             <Box sx={{
                 display:"grid",
                 gap:1,
@@ -56,7 +55,6 @@ export default function WishListDetail() {
             {/*        <BoxItem key={i} {...gift}/>*/}
             {/*    ))}*/}
             {/*</div>*/}
-               </Grid>
         </Grid>
             </div>
         );
