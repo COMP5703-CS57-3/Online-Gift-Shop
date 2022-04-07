@@ -12,12 +12,13 @@ const saveJSON = (key,data)=>
     localStorage.setItem(key,JSON.stringify(data));
 
 export default function WishProvider({children,login}){
+    localStorage.clear();
     const keyy = "owner_wishlist:"+login
     const [wish,setWish] = useState(loadJSON(keyy));
     const [product,setProduct] = useState(WishListItem);
     useEffect(()=>{
         if(!login) return;
-        if(wish&&wish.owner_id === login) return;
+        // if(wish&&wish.owner_id === login) return;
         fetch("http://127.0.0.1:5000/wishlist/show", {
             method: 'POST',
             body: JSON.stringify({owner_id:login})
@@ -41,8 +42,10 @@ export default function WishProvider({children,login}){
                 })
         }).then(console.log).then(()=>{
             const data = wish.filter(item=>item.wishlist_id!==wishId)
-            setWish(data);
-            saveJSON(keyy,data);
+            if(!data){
+                setWish(data);
+                saveJSON(keyy,data);
+            }
             nav();
         });
     }
@@ -139,9 +142,10 @@ export default function WishProvider({children,login}){
                 {children}
             </WishContext.Provider>
         )
-    return(
-            <WishContext.Provider value={{wish,product,createWish,deleteWish,addProduct,changeCount,removeProduct}}>
-                {wish && children}
-            </WishContext.Provider>
-        )
+    return null
+    // return(
+    //         <WishContext.Provider value={{wish,product,createWish,deleteWish,addProduct,changeCount,removeProduct}}>
+    //             {children}
+    //         </WishContext.Provider>
+    //     )
 }
