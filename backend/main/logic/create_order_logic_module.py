@@ -5,6 +5,7 @@ from ..util.dto import create_order_part_dto
 from ..service.create_order import process_order_create
 from ..service.delete_order import process_delete_order
 from ..service.search_an_order import search_an_order_method
+from ..service.pay_an_order import pay_an_order_method
 create_order_part_namespace = create_order_part_dto.create_order_part_namespace
 from flask import request
 
@@ -52,3 +53,17 @@ class SearchAnOrder(Resource):
             return marshal(resp.response_data, create_order_part_dto.search_an_order_output_format)
         else:
             return resp
+
+@create_order_part_namespace.route('/pay_an_order/<an_order>')
+class PayAnOrder(Resource):
+    @staticmethod
+    #@create_order_part_namespace.expect(create_order_part_dto.search_an_order_input_format)
+    @create_order_part_namespace.response(200, 'success', create_order_part_dto.pay_an_order_output_format)
+    @create_order_part_namespace.response(400, 'Bad request', create_order_part_dto.pay_an_order_output_format)
+    def get(an_order):
+        # resp = search_an_order_method(json.loads(request.data))
+        resp = pay_an_order_method(an_order)
+        if resp.status_code == 200:
+            return marshal(resp, create_order_part_dto.pay_an_order_output_format), 200
+        else:
+            return marshal(resp, create_order_part_dto.pay_an_order_output_format), 400
