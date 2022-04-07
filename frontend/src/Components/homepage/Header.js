@@ -95,7 +95,7 @@ export default function AccountMenu() {
                     <Avatar/> <Link style={{ textDecoration:'none'}} to={{pathname: "/account"}}>Profile</Link>
                 </MenuItem>
                 <MenuItem>
-                    <Avatar/> My WhishList
+                    <Avatar/> <Link style={{textDecoration:'none'}} to={{pathname:"/wishlist"}}> My WhishList</Link>
                 </MenuItem>
                 <Divider/>
                 <MenuItem>

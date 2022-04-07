@@ -1,10 +1,5 @@
 import React, {createContext, useEffect, useState} from "react";
 import Box from '@mui/material/Box';
-import Chip from '@mui/material/Chip';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
 import {useParams} from "react-router-dom";
 import {useCart} from "../../tools/useCart";
 import {alpha} from "@mui/material/styles";
@@ -17,6 +12,8 @@ import BoxItem from "../Category/BoxItem";
 import giftdata from "../../data/giftlist.json";
 import {useInput} from "../../tools/useInput";
 import ProductDetail from "./ProductDetail";
+import {node} from "prop-types";
+import {Grid} from "@material-ui/core";
 
 export default function WishListDetail() {
     let id = useParams();
@@ -32,15 +29,17 @@ export default function WishListDetail() {
 
     if (detail)
         return(
-       <div style={{marginLeft:"auto",marginRight:"auto",maxWidth:1500}}>
-            <h1>CategoryG</h1>
-           <Box>
+            <div style={{width:"100%",height:1500,backgroundImage: "url(" + Background + ")",backgroundSize:"cover",backgroundRepeat:"no-repeat"}}>
+       <Grid style={{marginLeft:"auto",marginRight:"auto",maxWidth:1500,flexWrap:"nowrap",flexDirection:"row"}}>
+            <h1>WishList Detail</h1>
+           <Grid item sx={4} >
                <p>{detail.wishlist_id}</p>
                <p>{detail.wishlist_name}</p>
                <p>{detail.wishlist_description}</p>
                <p>{detail.first_name} {detail.last_name}</p>
 
-           </Box>
+           </Grid>
+           <Grid item sx={6}>
             <Box sx={{
                 display:"grid",
                 gap:1,
@@ -57,7 +56,9 @@ export default function WishListDetail() {
             {/*        <BoxItem key={i} {...gift}/>*/}
             {/*    ))}*/}
             {/*</div>*/}
-        </div>
+               </Grid>
+        </Grid>
+            </div>
         );
     return null;
 }
