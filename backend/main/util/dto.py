@@ -389,9 +389,9 @@ class search_part_dto:
     })
 
     search_gift_id_return_size_output_format = search_part_namespace.model("search_gift_id_return_size_output_format", {
-        'gift_id': fields.String,
-        'size': fields.Float,
-        'stock': fields.Float,
+        'gift_id': fields.Integer,
+        'size': fields.String,
+        'stock': fields.Integer,
         'this_size_sales': fields.String,
         'this_size_income': fields.String
     })
@@ -485,5 +485,8 @@ class create_order_part_dto:
         'user_id': fields.Integer,
         # 'total_price': fields.Float,
         'products': fields.List(fields.Nested(search_an_order_gift_output_format)),
+    })
+    pay_an_order_output_format = create_order_part_namespace.model("pay_an_order_output_format", {
+        "message": fields.String
     })
 
