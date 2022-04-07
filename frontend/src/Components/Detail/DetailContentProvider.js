@@ -7,13 +7,14 @@ import CategoryC from "../Cart/CategoryC";
 import GiftDetail from "./GiftDetail";
 import CategoryW from "../wishlist/CategoryW";
 import WishProvider from "../../tools/useWish";
+import GiftProvider from "../../tools/useGift";
 
 export default function DetailContentProvider(){
     return(
-        <CartProvider login="test">
+        <GiftProvider login="test">
             <WishProvider login={1}>
                 <GiftDetail/>
             </WishProvider>
-        </CartProvider>
+        </GiftProvider>
     )
 }

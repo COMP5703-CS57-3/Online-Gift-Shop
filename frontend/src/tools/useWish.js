@@ -16,7 +16,9 @@ export default function WishProvider({children,login}){
     const keyy = "owner_wishlist:"+login
     const [wish,setWish] = useState(loadJSON(keyy));
     const [product,setProduct] = useState(WishListItem);
+    const [loading,setLoading] = useState(true);
     useEffect(()=>{
+        setLoading(true)
         if(!login) return;
         // if(wish&&wish.owner_id === login) return;
         fetch("http://127.0.0.1:5000/wishlist/show", {
@@ -25,7 +27,7 @@ export default function WishProvider({children,login}){
         }).then(res=>res.json()).then(res=>{
             setWish(res.wishlists_inf);
             saveJSON(keyy,res.wishlists_inf);
-            console.log("leaking");
+            setLoading(false);
         });
         //json store in attribute wishlists_inf, please use wish.wishlists_inf represent array
     },[login])
@@ -83,7 +85,7 @@ export default function WishProvider({children,login}){
                 {
                     owner_id: ownerId,
                     wishlist_id: wishlistId,
-                    product_id: 1,
+                    product_id: productId,
                     size: sizeA
                 })
         }).then(console.log);
@@ -142,6 +144,9 @@ export default function WishProvider({children,login}){
                 {children}
             </WishContext.Provider>
         )
+    if(loading){
+        return <h2 style={{margin: "auto", textAlign: "center"}}>loading</h2>
+    }
     return null
     // return(
     //         <WishContext.Provider value={{wish,product,createWish,deleteWish,addProduct,changeCount,removeProduct}}>

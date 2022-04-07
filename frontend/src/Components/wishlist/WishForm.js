@@ -11,6 +11,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import countries from "../../data/CountrySelect";
 import states from "../../data/ProvinceSelect";
 import Button from "@mui/material/Button";
+import Background from "../../picture/background.png";
 
 export default function WishForm({owner_id}) {
     const [address1,setAddress1] = useState(countries[12].label.toString());
@@ -60,7 +61,8 @@ export default function WishForm({owner_id}) {
     return (
         <React.Fragment>
             <CssBaseline />
-            <Container maxWidth="md">
+            <Box style={{width:"100%",height:1500,backgroundImage: "url(" + Background + ")",backgroundSize:"cover",backgroundRepeat:"no-repeat"}}>
+                <Container  maxWidth="lg" style={{backgroundColor:"white"}} sx={{ boxShadow: 1,borderRadius: 2}}>
                 <Box sx={{height:'100vh'}}>
                     <Box component="form" onSubmit={submit}>
                         <h2 style={{marginLeft:0,marginRight:0,textAlign:"center"}}> Wish list creation form</h2>
@@ -131,8 +133,8 @@ export default function WishForm({owner_id}) {
                     {/*</form>*/}
                 </Box>
             </Container>
+            </Box>
         </React.Fragment>
-
 
 
     )
