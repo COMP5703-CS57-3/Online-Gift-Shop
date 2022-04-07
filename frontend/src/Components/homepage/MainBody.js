@@ -6,12 +6,9 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import {Outlet} from "react-router-dom";
 import SideBar from "./SideBar"
-import Button from '@mui/material/Button';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import TreeView from '@mui/lab/TreeView';
-import TreeItem from '@mui/lab/TreeItem';
+
 import Grid from "@mui/material/Grid";
+import {useGift} from "../../tools/useGift";
 
 
 
@@ -23,16 +20,39 @@ export default function MainBody({props}) {
     setValue(newValue);
   };
 
+   const {maleCategory} = useGift();
+   const {homeCategory} = useGift();
+   const {femaleCategory} = useGift();
+   const {teenagerCategory} = useGift();
+   const {agedCategory} = useGift();
+    const clickmale = ()=> {
+        maleCategory("male","price-low-to-high");
+    }
+        const click = ()=> {
+        homeCategory();
+    }
+            const clickfemale = ()=> {
+        femaleCategory("female", "price-low-to-high");
+    }
+            const clickyoung = ()=> {
+        teenagerCategory("teenager","price-low-to-high");
+    }
+            const clickelderly = ()=> {
+        agedCategory("aged", "price-low-to-high");
+    }
+
+
   return (
       <Box sx = {{display: 'flex',width:'100%',justifyContent: 'center'}}>
         <Box sx={{ width: '70%', typography: 'body1'}}>
           <TabContext value={value}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' ,paddingTop:3}}>
               <TabList onChange={handleChange} aria-label="menu lab" centered>
-                <Tab label="Kind One" value="1" />
-                <Tab label="Kind Two" value="2" />
-                <Tab label="Kind Three" value="3" />
-                  <Tab label="Kind Four" value="4" />
+                  <Tab label="Hot Products" value="1" onClick={click} />
+                <Tab label="Male" value="2" onClick={clickmale} />
+                <Tab label="Female" value="3" onClick={clickfemale} />
+                <Tab label="Young" value="4" onClick={clickyoung} />
+                  <Tab label="Elderly" value="5" onClick={clickelderly} />
               </TabList>
             </Box>
             <Grid container spacing={0} value="1" style={{flexWrap:"nowrap",flexDirection:"row"}}>
@@ -40,9 +60,9 @@ export default function MainBody({props}) {
                 <Grid item xs={6} style={{float:"right",flexBasis:"auto",maxWidth:"80%"}}><Outlet /></Grid>
                     {/*</div>*/}
             </Grid>
-            <TabPanel value="2">Product Two</TabPanel>
-            <TabPanel value="3">Product Three</TabPanel>
-              <TabPanel value="4">Product Four</TabPanel>
+            {/*<TabPanel value="2">Product Two</TabPanel>*/}
+            {/*<TabPanel value="3">Product Three</TabPanel>*/}
+            {/*  <TabPanel value="4">Product Four</TabPanel>*/}
           </TabContext>
         </Box>
       </Box>

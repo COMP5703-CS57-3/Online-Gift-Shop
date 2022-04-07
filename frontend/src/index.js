@@ -40,10 +40,10 @@ ReactDOM.render((
             <Route path="/" element={<Homepage/>}>
                 <Route path='' element={<CategoryG/>}/>
                 <Route path='/cart' element={<Cart/>}/>
-                <Route path='/wishlist' element={<WishList/>}/>
-                <Route path="/wishlist/:wishlist_id" element={<WishListContentProvider/>}/>
-                <Route path="/cart/:id" element={<DetailContentProvider/>}/>
             </Route>
+            <Route path='/wishlist' element={<WishList/>}/>
+            <Route path="/wishlist/:wishlist_id" element={<WishListContentProvider/>}/>
+            <Route path="/cart/:id" element={<DetailContentProvider/>}/>
             <Route path="/wishForm" element={<WishFormProvider/>}/>
             <Route path="/login" element={<LogIn/>}/>
             <Route path="/signup" element={<SignUp/>}/>
