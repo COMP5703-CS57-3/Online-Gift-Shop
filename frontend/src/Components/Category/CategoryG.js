@@ -7,6 +7,9 @@ import {useGift} from "../../tools/useGift";
 
 export default function CategoryG(){
     const {gifts} = useGift();
+    if(gifts===undefined){
+        return(<h2 style={{margin: "auto", textAlign: "center"}}> No gifts</h2>)
+    }
     return(
         <div style={{marginRight:"auto",maxWidth:1000}}>
             {/*<h1>CategoryG</h1>*/}
