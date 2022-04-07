@@ -4,7 +4,7 @@ import {
     Box,
     Button,
     Card,
-    CardActionArea, CardActions,
+    CardActions,
     CardContent,
     CardHeader,
     Divider,
@@ -15,8 +15,8 @@ import {
 import axios from "axios";
 import Stack from "@mui/material/Stack";
 import {AccountCircle} from "@mui/icons-material";
-import userEvent from "@testing-library/user-event";
-
+import {DatePicker, LocalizationProvider} from "@mui/lab";
+import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 const states = [
     {
         value: 'alabama',
@@ -58,7 +58,7 @@ export default class AccountProfileDetails extends React.Component {
                 "user_country": "",
                 "user_state": "",
                 "user_detail_street": "",
-                "user_address":""
+                "user_address": ""
             },
             isReadonly: true
         }
@@ -73,7 +73,7 @@ export default class AccountProfileDetails extends React.Component {
                 // console.log(r.data)
                 that.setState({"user": r.data, "isLoad": true})
                 that.setState({"new_user": {"id": r.data.id, "user_email": r.data.user_email}})
-                const address=r.data
+                const address = r.data
             })
             .catch(r => console.log(r))
     }
@@ -156,24 +156,34 @@ export default class AccountProfileDetails extends React.Component {
                                 md={6}
                                 xs={12}
                             >
-                                <TextField
-                                    fullWidth
-                                    label="Birthday"
-                                    helperText="Please input your birthday!"
-                                    name="user_date_of_birth"
-                                    onChange={this.handleChange}
-                                    required
-                                    InputProps={{
-                                        readOnly: this.state.isReadonly,
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <AccountCircle/>
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                    value={this.state.isReadonly ? this.state.user.user_date_of_birth : this.state.user.user_date_of_birth}
-                                    variant="outlined"
-                                />
+                                {/*<TextField*/}
+                                {/*    fullWidth*/}
+                                {/*    label="Birthday"*/}
+                                {/*    helperText="Please input your birthday!"*/}
+                                {/*    name="user_date_of_birth"*/}
+                                {/*    onChange={this.handleChange}*/}
+                                {/*    required*/}
+                                {/*    InputProps={{*/}
+                                {/*        readOnly: this.state.isReadonly,*/}
+                                {/*        startAdornment: (*/}
+                                {/*            <InputAdornment position="start">*/}
+                                {/*                <AccountCircle/>*/}
+                                {/*            </InputAdornment>*/}
+                                {/*        ),*/}
+                                {/*    }}*/}
+                                {/*    value={this.state.isReadonly ? this.state.user.user_date_of_birth : this.state.user.user_date_of_birth}*/}
+                                {/*    variant="outlined"*/}
+                                {/*/>*/}
+                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                    <DatePicker
+                                        label="Birthday"
+                                        value={this.state.user.user_date_of_birth}
+                                        onChange={(newValue) => {
+                                            this.handleChange()
+                                        }}
+                                        renderInput={(params) => <TextField {...params} />}
+                                    />
+                                </LocalizationProvider>
                             </Grid>
                             <Grid
                                 item
@@ -319,30 +329,31 @@ export default class AccountProfileDetails extends React.Component {
     HandleClick() {
         if (!this.state.isReadonly) {
             console.log(this.state.user)
-        }
-        else{
-            this.setState({new_user: {
-                "id": "",
-                "user_name": "",
-                "user_email": "",
-                "user_date_of_birth": "",
-                "user_mobile": "",
-                "user_country": "",
-                "user_state": "",
-                "user_detail_street": "",
-                "user_address":""
-            }})
+        } else {
+            this.setState({
+                new_user: {
+                    "id": "",
+                    "user_name": "",
+                    "user_email": "",
+                    "user_date_of_birth": "",
+                    "user_mobile": "",
+                    "user_country": "",
+                    "user_state": "",
+                    "user_detail_street": "",
+                    "user_address": ""
+                }
+            })
         }
         this.setState({isReadonly: !this.state.isReadonly})
     }
 
     ListState(user_country) {
         console.log(user_country)
-        if (user_country===""||user_country===undefined){
-            user_country="Australia"
+        if (user_country === "" || user_country === undefined) {
+            user_country = "Australia"
         }
-        for(let key in addrArea){
-            if (addrArea[key].country.label===user_country){
+        for (let key in addrArea) {
+            if (addrArea[key].country.label === user_country) {
                 return addrArea[key].states
             }
         }
