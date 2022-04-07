@@ -82,6 +82,13 @@ class login_part_dto:
         'message': fields.String,
     })
 
+    # return_role_by_email_input_format = login_founction_namespace.model("return_role_by_email_input_format", {
+    #     "email": fields.String,
+    # })
+    return_role_by_email_output_format = login_founction_namespace.model("return_role_by_email_output_format", {
+        "message": fields.String,
+    })
+
 class User_information_dto:
     user_information_namespace = Namespace("User's information module", description="update user's information in this module")
 
@@ -213,6 +220,12 @@ class WishlistDto:
         "wishlist_id": fields.String,
         "product_id": fields.Integer,
     })
+    remove_item_size_model = wishlist_ns.model("remove_item_size_model", {
+        # "owner_id": fields.Integer,
+        "wishlist_id": fields.String,
+        "product_id": fields.Integer,
+        "size": fields.Integer,
+    })
     show_wishlist_request_model = wishlist_ns.model("show_wishlist_request_model", {
         "owner_id": fields.Integer
     })
@@ -224,9 +237,9 @@ class WishlistDto:
         "count": fields.Integer,
         "price": fields.Float,
     })
-    pay_all_items_model = wishlist_ns.model("pay_all_items_model", {
+    pay_input_format = wishlist_ns.model("pay_input_format", {
         "owner_id": fields.Integer,
-        "order_time": fields.String,
+        # "order_time": fields.String,
         "owner_first_name": fields.String,
         "owner_last_name": fields.String,
         "wishlist_id": fields.String,
@@ -238,7 +251,7 @@ class WishlistDto:
         "total_price": fields.Float,
         "product_list": fields.List(fields.Nested(pay_each_item_model))
     })
-    wishlist_complete_model = wishlist_ns.model("wishlist_complete_model", {
+    pay_output_format = wishlist_ns.model("pay_output_format", {
         "owner_id": fields.Integer,
         "wishlist_id": fields.String,
         "owner_first_name": fields.String,
@@ -332,6 +345,30 @@ class admin_part_dto:
         'gift_show_url4': fields.String
     })
 
+    admin_return_all_users_output_format = admin_part_namespace.model("admin_return_all_users_output_format", {
+        'id': fields.Integer,
+        'user_name': fields.String,
+        'user_email': fields.String,
+        'user_mobile': fields.String,
+        'user_date_of_birth': fields.String,
+        'user_address': fields.String,
+    })
+    admin_return_no_user_output_format = admin_part_namespace.model("admin_return_no_user_output_format", {
+        'message': fields.String,
+    })
+
+    admin_search_a_user_output_format = admin_part_namespace.model("admin_search_a_user_output_format", {
+        'id': fields.Integer,
+        'user_name': fields.String,
+        'user_email': fields.String,
+        'user_mobile': fields.String,
+        'user_date_of_birth': fields.String,
+        'user_address': fields.String,
+    })
+    admin_search_no_user_output_format = admin_part_namespace.model("admin_search_no_user_output_format", {
+        'message': fields.String,
+    })
+
 class search_part_dto:
     search_part_namespace = Namespace("The search logic module",
                                 description="test search function here")
@@ -350,6 +387,35 @@ class search_part_dto:
     search_gift_list_output_format = search_part_namespace.model("search_gift_list_output_format", {
         'search_gifts': fields.List(fields.Nested(search_gift_output_format))
     })
+
+    search_gift_id_return_size_output_format = search_part_namespace.model("search_gift_id_return_size_output_format", {
+        'gift_id': fields.String,
+        'size': fields.Float,
+        'stock': fields.Float,
+        'this_size_sales': fields.String,
+        'this_size_income': fields.String
+    })
+
+    search_gift_id_output_format = search_part_namespace.model("search_gift_id_output_format", {
+        'id': fields.Integer,
+        'gift_name': fields.String,
+        'gift_price': fields.Float,
+        'gift_discount_price': fields.Float,
+        'gift_discount_state': fields.String,
+        'gift_description': fields.String,
+        'gift_category': fields.String,
+        'gift_side_category1': fields.String,
+        'gift_side_category2': fields.String,
+        'gift_cover_url': fields.String,
+        'gift_show_url1': fields.String,
+        'gift_show_url2': fields.String,
+        'gift_show_url3': fields.String,
+        'gift_show_url4': fields.String,
+        'gift_sales': fields.Integer,
+    })
+    # search_gift_id_list_output_format = search_part_namespace.model("search_gift_id_list_output_format", {
+    #     'search_gifts': fields.List(fields.Nested(search_gift_id_output_format))
+    # })
 
 class create_order_part_dto:
     create_order_part_namespace = Namespace("The create order logic module",
@@ -390,3 +456,34 @@ class create_order_part_dto:
     delete_order_output_format = create_order_part_namespace.model("delete_order_output_format", {
         "message": fields.String
     })
+
+    search_an_order_input_format = create_order_part_namespace.model("search_an_order_input_format", {
+        "order_number": fields.String,
+    })
+    search_an_order_gift_output_format = create_order_part_namespace.model("search_an_order_gift_output_format", {
+        "products_id": fields.Integer,
+        "product_name": fields.String,
+        "product_cover": fields.String,
+        "size": fields.String,
+        "price": fields.Float,
+        "count": fields.Integer
+    })
+    search_an_order_output_format = create_order_part_namespace.model("search_an_order_output_format", {
+        'id': fields.Integer,
+        'order_time': fields.String,
+        'order_total': fields.Float,
+        'order_number': fields.String,
+        'first_name': fields.String,
+        'last_name': fields.String,
+        'address': fields.String,
+        'phone': fields.String,
+        'postcode': fields.String,
+        'payer_id': fields.Integer,
+        'payer_name': fields.String,
+        'order_state': fields.String,
+        'wishlist_code': fields.String,
+        'user_id': fields.Integer,
+        # 'total_price': fields.Float,
+        'products': fields.List(fields.Nested(search_an_order_gift_output_format)),
+    })
+

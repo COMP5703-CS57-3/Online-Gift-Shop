@@ -27,10 +27,10 @@ export default class AccountProfile extends React.Component {
         const id = this.state.id === null ? sessionStorage.getItem("id") : id
         axios.get(`http://localhost:5000/user_information/user_profile/${id}`)
             .then(r => {
-                console.log(r.data)
+                // console.log(r.data)
                 that.setState({"user": r.data, "isLoad": true})
             })
-            .catch(r => console.log(r))
+            // .catch(r => console.log(r))
     }
 
     render() {

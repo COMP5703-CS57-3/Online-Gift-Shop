@@ -1,6 +1,22 @@
+import addrArea from "../../data/state";
 import * as React from 'react';
-import {Box, Button, Card, CardContent, CardHeader, Divider, Grid, TextField} from '@mui/material';
+import {
+    Box,
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    CardHeader,
+    Divider,
+    Grid,
+    InputAdornment,
+    TextField
+} from '@mui/material';
 import axios from "axios";
+import Stack from "@mui/material/Stack";
+import {AccountCircle} from "@mui/icons-material";
+import {DatePicker, LocalizationProvider} from "@mui/lab";
+import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 
 const states = [
     {
@@ -18,7 +34,7 @@ const states = [
 ];
 const sample = {
     "id": 4,
-    "user_name": "sdfasdfdsaf",
+    "user_name": "local",
     "user_email": "2910842215@qq.com",
     "user_date_of_birth": null,
     "user_mobile": "15636128575",
@@ -30,28 +46,85 @@ export default class AccountProfileDetails extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {user: {}, id: props.id, isLoad: false, new_user: {}}
+        this.state = {
+            user: {},
+            id: props.id,
+            isLoad: false,
+            new_user: {
+                "id": "",
+                "user_name": "",
+                "user_email": "",
+                "user_date_of_birth": "",
+                "user_mobile": "",
+                "user_country": "",
+                "user_state": "",
+                "user_detail_street": "",
+                "user_address": ""
+            },
+            isReadonly: true
+        }
     }
 
     UNSAFE_componentWillMount() {
         const that = this
-        const id = this.state.id === null ? sessionStorage.getItem("id") : id
+        let id = this.props.id === null ? sessionStorage.getItem("id") : id
         axios.get(`http://localhost:5000/user_information/user_profile/${id}`)
             .then(r => {
                 // console.log(r.data)
-                that.setState({"user": r.data, "isLoad": true})
+                const address = r.data.user_address ? r.data.user_address.split(",") : ['', '', '']
+                const user = Object.assign(r.data, {
+                    "user_country": address[0] === "" ? "Australia" : address[0],
+                    "user_state": address[1] === "" ? "New South Wales" : address[1],
+                    "user_detail_street": address[2]
+                })
+
+
+                that.setState({
+                    "user": user
+                })
+                that.setState({
+                    "new_user": user
+                })
+                that.setState({"isLoad": true})
+
             })
-            .catch(r => console.log(r))
+            .catch(r => {
+                const user = sample
+                const address = user.user_address ? user.user_address.split(",") : ['', '', '']
+                console.log("运行到这了")
+                that.setState({
+                    "user": Object.assign(user, {
+                        "user_country": address[0] === "" ? "Australia" : address[0],
+                        "user_state": address[1] === "" ? "New South Wales" : address[1],
+                        "user_detail_street": address[2]
+                    })
+                })
+                that.setState({
+                    "new_user": this.state.user
+                })
+                that.setState({"isLoad": true})
+
+            })
     }
 
     handleChange = (event) => {
-        this.setState({
-            user: {
-                [event.target.name]: event.target.value
-            }
-        });
+        console.log(this.state)
+        const data = this.state.new_user
+        if (event && event.target) {
+            data[[event.target.name]] = event.target.value
+
+            this.setState({
+                new_user: data
+            });
+        } else {
+            data["user_date_of_birth"] = event.toString().slice(0, -27)
+            this.setState({new_user: data})
+
+        }
+        console.log(this.state.user.user_date_of_birth)
 
     };
+
 
     render() {
         return (
@@ -77,13 +150,20 @@ export default class AccountProfileDetails extends React.Component {
                             >
                                 <TextField
                                     fullWidth
-                                    label="Read Only"
-
+                                    label="Nick Name"
                                     name="user_name"
-                                    onChange={this.handleChange}
+                                    onChange={(e) => this.handleChange(e)}
                                     required
-                                    value={this.state.user.user_name}
+                                    value={this.state.isReadonly ? this.state.user.user_name : this.state.new_user.user_name}
                                     variant="outlined"
+                                    InputProps={{
+                                        readOnly: this.state.isReadonly,
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <AccountCircle/>
+                                            </InputAdornment>
+                                        ),
+                                    }}
                                 />
                             </Grid>
                             <Grid
@@ -93,31 +173,40 @@ export default class AccountProfileDetails extends React.Component {
                             >
                                 <TextField
                                     fullWidth
-                                    label="Read Only"
-                                    name="lastName"
-                                    onChange={this.handleChange}
-                                    required
-                                    value={this.state.user.user_name}
-                                    variant="outlined"
-                                />
-                            </Grid>
-                            <Grid
-                                item
-                                md={6}
-                                xs={12}
-                            >
-                                <TextField
-                                    fullWidth
-                                    label="Read Only"
+                                    label="Email"
+                                    name="user_email"
+                                    onChange={(e) => this.handleChange(e)}
                                     InputProps={{
                                         readOnly: true,
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <AccountCircle/>
+                                            </InputAdornment>
+                                        ),
                                     }}
-                                    name="user_email"
-                                    onChange={this.handleChange}
                                     required
                                     value={this.state.user.user_email}
                                     variant="outlined"
                                 />
+                            </Grid>
+                            <Grid
+                                item
+                                md={6}
+                                xs={12}
+                            >
+                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                    <DatePicker
+                                        fullWidth
+                                        disabled={this.state.isReadonly}
+                                        label="Birthday"
+                                        value={this.state.isReadonly ? this.state.user.user_date_of_birth :this.state.new_user.user_date_of_birth}
+                                        onChange={(newVal) =>
+                                            this.handleChange(newVal)
+                                        }
+                                        renderInput={(params) => <TextField {...params}
+                                                                            helperText={params ? "" : "Please input your Birthday"}/>}
+                                    />
+                                </LocalizationProvider>
                             </Grid>
                             <Grid
                                 item
@@ -127,28 +216,56 @@ export default class AccountProfileDetails extends React.Component {
                                 <TextField
                                     fullWidth
                                     label="Phone Number"
-                                    name="phone"
-                                    onChange={this.handleChange}
-                                    value={this.state.user.user_email}
+                                    name="user_mobile"
+                                    onChange={(e) => this.handleChange(e)}
+                                    InputProps={{
+                                        readOnly: this.state.isReadonly,
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <AccountCircle/>
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    required
+                                    value={this.state.isReadonly ? this.state.user.user_mobile : this.state.new_user.user_mobile}
                                     variant="outlined"
                                 />
                             </Grid>
+                            <Divider/>
                             <Grid
                                 item
                                 md={6}
                                 xs={12}
                             >
                                 <TextField
-                                    helperText="Please input your address!"
+
                                     fullWidth
                                     label="Country"
-                                    name="country"
-                                    onChange={this.handleChange}
+                                    name="user_country"
+                                    onChange={(e) => this.handleChange(e)}
+                                    select
+                                    SelectProps={{native: true}}
                                     required
-                                    value={this.state.user.user_email}
+                                    disabled={this.state.isReadonly}
+                                    InputProps={{
+                                        readOnly: this.state.isReadonly,
+                                    }}
+                                    value={this.state.isReadonly ? this.state.user.user_country : this.state.new_user.user_country}
                                     variant="outlined"
-                                />
+                                >
+                                    {addrArea.map((option) => (
+                                        <option
+
+                                            key={option.country.value}
+                                            value={option.country.value}
+
+                                        >
+                                            {option.country.label}
+                                        </option>
+                                    ))}
+                                </TextField>
                             </Grid>
+
                             <Grid
                                 item
                                 md={6}
@@ -156,47 +273,123 @@ export default class AccountProfileDetails extends React.Component {
                             >
                                 <TextField
                                     fullWidth
-                                    label="Select State"
-                                    name="state"
-                                    onChange={this.handleChange}
+                                    label="State"
+                                    name="user_state"
+                                    onChange={(e) => this.handleChange(e)}
+                                    disabled={this.state.isReadonly}
                                     required
                                     select
                                     SelectProps={{native: true}}
-                                    value={this.state.user.user_email}
+                                    value={this.state.isReadonly ? this.state.user.user_state : this.state.new_user.user_state}
                                     variant="outlined"
                                 >
-                                    {states.map((option) => (
+                                    {this.ListState(this.state.new_user.user_country).map((option) => (
                                         <option
                                             key={option.value}
                                             value={option.value}
+                                            onClick={(e) => this.handleChange(e)}
                                         >
                                             {option.label}
                                         </option>
                                     ))}
                                 </TextField>
                             </Grid>
+                            <Grid
+                                item
+                                md={12}
+                                xs={12}
+                            >
+                                <TextField
+                                    fullWidth
+                                    label="Street"
+                                    name="user_detail_street"
+                                    onChange={(e) => this.handleChange(e)}
+                                    InputProps={{
+                                        readOnly: this.state.isReadonly,
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <AccountCircle/>
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    required
+                                    value={this.state.isReadonly ? this.state.user.user_detail_street : this.state.new_user.user_detail_street}
+                                    variant="outlined"
+                                />
+                            </Grid>
                         </Grid>
                     </CardContent>
-                    <Divider/>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'flex-end',
-                            p: 2
-                        }}
-                    >
-                        <Button
-                            color="primary"
-                            variant="contained"
+                    <CardActions>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'flex-end',
+                                p: 2
+                            }}
                         >
-                            Save details
-                        </Button>
-                    </Box>
+                            <Stack direction="row" spacing={2}>
+                                <Button
+                                    color="primary"
+                                    variant="contained"
+                                    onClick={() => this.Submit()}
+                                >
+                                    {this.state.isReadonly ? "Change Profiles" : "Save details"}
+                                </Button>
+                                {!this.state.isReadonly ? <Button
+                                    color="primary"
+                                    variant="contained"
+                                    onClick={() => this.setState({isReadonly: true})}
+                                >
+                                    {"Cancel"}
+                                </Button> : <div/>}
+                            </Stack>
+
+                        </Box>
+                    </CardActions>
                 </Card>
             </form>
         )
     }
 
 
+    Submit() {
+        if (!this.state.isReadonly) { //submit
+            // console.log(this.state.new_user)
+            const data = this.state.new_user
+            data["user_address"] = [data["user_country"], data["user_state"], data["user_detail_street"]].join(",")
+            // this.setState({new_user: this.state.user})
+            const that = this
+            // console.log(sessionStorage.getItem("id"))
+            axios.put("http://localhost:5000/user_information/user_profile/update_user_information", {
+
+                    "id": sessionStorage.getItem("id"),
+                    "user_name": data.user_name,
+                    "user_mobile": data.user_mobile,
+                    "user_date_of_birth": data.user_date_of_birth,
+                    "user_address": data.user_address
+                }
+            ).then(
+                that.setState({user: data, isReadonly: true}) //after axios
+                // console.log("success")
+            )
+
+        } else {
+            this.setState({isReadonly: false})
+        }
+
+    }
+
+
+    ListState(user_country) {
+        if (user_country === "" || user_country === undefined) {
+            user_country = "Australia"
+        }
+        for (let key in addrArea) {
+            if (addrArea[key].country.label === user_country) {
+                return addrArea[key].states
+            }
+        }
+        return states
+    }
 }
 

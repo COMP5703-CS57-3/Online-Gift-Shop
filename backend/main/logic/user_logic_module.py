@@ -7,6 +7,7 @@ from ..service.change_password import change_password_method
 from ..service.get_validation import get_validation_method
 from ..service.forget_password import forget_password_method
 from ..service.get_user_email_information import get_user_email_information
+from ..service.return_role_by_email import return_role_by_email_method
 from ..util.dto import login_part_dto
 from flask_restplus import Resource
 from flask_restplus import marshal
@@ -117,3 +118,21 @@ class UserShowInformation(Resource):
             return marshal(output_json, login_part_dto.user_get_information_output_format), 200
         else:
             return marshal(output_json, login_part_dto.user_get_information_output_format), 400
+
+
+@login_signup_namespace.route("/return_role_by_email/<email>")
+class ReturnRoleByEmail(Resource):
+    @staticmethod
+    @login_signup_namespace.response(200, 'success', model=login_part_dto.return_role_by_email_output_format)
+    @login_signup_namespace.response(400, 'failed request', model=login_part_dto.return_role_by_email_output_format)
+    def get(email):
+        seatch_output_result = return_role_by_email_method(email)
+        if seatch_output_result.status_code == 200:
+            return marshal(seatch_output_result, login_part_dto.return_role_by_email_output_format), 200
+        else:
+            return marshal(seatch_output_result, login_part_dto.return_role_by_email_output_format), 400
+        # try:
+        #     seatch_output_result.status_code
+        #     return seatch_output_result
+        # except:
+        #     return marshal(seatch_output_result, login_part_dto.search_gift_id_output_format)

@@ -60,17 +60,6 @@ class Size(database.Model):
     this_size_sales = database.Column(database.Integer, default=0)
     this_size_income = database.Column(database.Float, default=0.0)
 
-# class Cart(database.Model):
-#     __tablename__ = 'cart'
-#     id = database.Column(database.Integer, unique=True, primary_key=True)
-#     user_id = database.Column(database.Integer, database.ForeignKey('user.id', ondelete='CASCADE'))
-#     gift_id = database.Column(database.Integer, database.ForeignKey('gifts.id', ondelete='CASCADE'))
-#     count = database.Column(database.Integer)
-#     each_gift_all_price = database.Column(database.Float)
-#     gift_unique_id = database.Column(database.Integer)
-#     user_unique_id = database.Column(database.Integer)
-#     gift_size = database.Column(database.String(100))
-
 
 class Order(database.Model):
     __tablename__ = 'order'
@@ -83,6 +72,10 @@ class Order(database.Model):
     phone = database.Column(database.String(100))
     address = database.Column(database.String(500))
     postcode = database.Column(database.String(50))
+    payer_id = database.Column(database.Integer)
+    payer_name = database.Column(database.String(100))
+    order_state = database.Column(database.String(100))
+    wishlist_code = database.Column(database.String(100))
     user_id = database.Column(database.Integer, database.ForeignKey('user.id', ondelete='CASCADE'))
     # setting relationship
     order_item = database.relationship("OrderItems", backref='order_gift', cascade="all,delete")
@@ -99,6 +92,7 @@ class OrderItems(database.Model):
     productID = database.Column(database.Integer, database.ForeignKey('gifts.id', ondelete='CASCADE'))
     # productID = database.Column(database.Integer)
     order_id = database.Column(database.Integer, database.ForeignKey('order.id', ondelete='CASCADE'))
+    #order_number = database.Column(database.String(100))
 class Wishlist(database.Model):
     """this is wishlist table"""
     __tablename__ = 'wishlist'
@@ -128,3 +122,5 @@ class WishlistItems(database.Model):
     size = database.Column(database.String(50))
     price = database.Column(database.Float)
     count = database.Column(database.Integer)
+    this_gift_state = database.Column(database.String(100))
+    paid_count = database.Column(database.Integer)

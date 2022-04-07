@@ -10,7 +10,7 @@ def admin_add_gift_method(product_info):
         "message": "success",
         'product_id': ""
     }
-    check_exist = Gifts.query.filter_by(name=product_info["gift_name"]).first()
+    check_exist = Gifts.query.filter_by(gift_name=product_info["gift_name"]).first()
     if check_exist:
         output_message['message'] = "product already exists"
         status_code = 400
@@ -55,7 +55,7 @@ def admin_add_gift_method(product_info):
                     gift_show_url2=url2,
                     gift_show_url3=url3,
                     gift_show_url4=url4,
-                    sales=sales)
+                    gift_sales=sales)
     database.session.add(product)
     database.session.flush()
     database.session.refresh(product)
@@ -65,7 +65,7 @@ def admin_add_gift_method(product_info):
         size_stock = s['size_stock']
         insert_size = Size(size=size,
                            stock=size_stock,
-                           products_id=products_id)
+                           gift_id=products_id)
         database.session.add(insert_size)
     database.session.commit()
     output_message['product_id'] = products_id
@@ -127,7 +127,7 @@ def admin_edit_gift_method(product_info):
     product.gift_show_url3 = url3
     product.gift_show_url4 = url4
 
-    sizes = Size.query.filter_by(products_id=product_info['id']).all()
+    sizes = Size.query.filter_by(gift_id=product_info['id']).all()
     for s in range(len(sizes)):
         sizes[s].size = product_sizes[s]['size']
         sizes[s].stock = product_sizes[s]['size_stock']
@@ -151,7 +151,7 @@ def admin_delete_gift_method(product_id):
         return output_json
     else:
         Gifts.query.filter_by(id=product_id).delete()
-        Size.query.filter_by(products_id=product_id).delete()
+        Size.query.filter_by(gift_id=product_id).delete()
         database.session.commit()
         output_json = make_response(output_message)
         output_json.status_code = status_code

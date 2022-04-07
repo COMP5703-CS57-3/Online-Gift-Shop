@@ -17,6 +17,7 @@ import axios from "axios";
 import Copyright from "./cpright";
 import FastDial from "./FastDial";
 import {checkEmail} from "../logic/ValCheck";
+import Background from "../picture/background.png";
 
 const theme = createTheme();
 
@@ -67,6 +68,7 @@ export default function LogIn(props) {
 
 
     return (
+
         <ThemeProvider theme={theme}>
 
             <Container component="main" maxWidth="xs">
@@ -141,7 +143,6 @@ export default function LogIn(props) {
                 <Copyright sx={{mt: 8, mb: 4}}/>
             </Container><FastDial/>
         </ThemeProvider>
-
     );
 
 }

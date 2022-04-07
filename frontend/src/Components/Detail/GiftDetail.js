@@ -13,6 +13,7 @@ import {Button, Input, Select} from "@mui/material";
 import Background from "../../picture/background.png";
 import MenuItem from "@mui/material/MenuItem";
 import {useWish} from "../../tools/useWish";
+import {useGift} from "../../tools/useGift";
 
 export default function GiftDetail() {
     const [quantity,setQuantity] = useState(1);
@@ -24,19 +25,16 @@ export default function GiftDetail() {
         setTargetWishlist(event.target.value);
     }
 
-    let {items} = useCart();
-    console.log(items);
-    let foundGift = items.find(
+    let {gifts} = useGift();
+    let foundGift = gifts.find(
        item => item.id == id
     );
-    const [sizeA,setSizeA] = useState("small");
+    const [sizeA,setSizeA] = useState("S");
     const handleSizeChange =(event)=>{
         setSizeA(event.target.value);
     }
     const addToWishList = ()=>{
-        console.log(targetWishList);
-        console.log(foundGift.id)
-        addProduct(1,targetWishList,foundGift.id,sizeA);
+        addProduct(1,targetWishList,foundGift.id,"S");
     }
     return(
         <Box width="100%" height="100%">
@@ -58,7 +56,7 @@ export default function GiftDetail() {
                       // maxWidth: { xs: 350, sm:300,md: 250 },
                     }}
                     alt="pic"
-                    src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F08%2F56%2F5b3f3dc42d6af_610.jpg&refer=http%3A%2F%2Fpic.51yuansu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651300940&t=a529fa900fe5c67aee5faf5658e0ea36"
+                    src={foundGift.gift_cover_url}
                 />
             </Box>
             <Box width='45%'
@@ -68,10 +66,10 @@ export default function GiftDetail() {
                 padding:1
             }}>
                 <Box>
-                    <p>{foundGift.category}</p>
+                    <p>{foundGift.gift_category}</p>
                 </Box>
                 <Box>
-                    <h1 style={{textAlign:"left",letterSpacing:"2px",textTransform:"uppercase",fontSize:"32px"}}>{foundGift.name}</h1>
+                    <h1 style={{textAlign:"left",letterSpacing:"2px",textTransform:"uppercase",fontSize:"32px"}}>{foundGift.gift_name}</h1>
                 </Box>
                 <Box>
                     <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
@@ -79,12 +77,12 @@ export default function GiftDetail() {
                             <Grid container alignItems="center">
                               <Grid item xs>
                                 <Typography gutterBottom variant="h4" component="div">
-                                  DISCOUNT:${foundGift.discount_price}
+                                  DISCOUNT:${foundGift.gift_discount_price}
                                 </Typography>
                               </Grid>
                               <Grid item>
                                 <Typography gutterBottom variant="h6" component="div">
-                                 PRICE:${foundGift.price}
+                                 PRICE:${foundGift.gift_price}
                                 </Typography>
                               </Grid>
                             </Grid>

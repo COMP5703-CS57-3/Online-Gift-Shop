@@ -8,6 +8,10 @@ from ..service.admin_login import admin_login
 from ..service.admin_manage_items import admin_add_gift_method
 from ..service.admin_manage_items import admin_edit_gift_method
 from ..service.admin_manage_items import admin_delete_gift_method
+from ..service.admin_return_all_users import admin_return_all_users_methods
+from ..service.admin_search_a_user import admin_search_a_user_method
+from ..service.admin_search_a_user import admin_search_a_user_by_name_method
+from ..service.admin_search_a_user import admin_search_a_user_by_email_method
 admin_namespace = admin_part_dto.admin_part_namespace
 
 @admin_namespace.route("/admin_sign_up")
@@ -64,4 +68,62 @@ class AdminDelete(Resource):
         return resp
 
 
+@admin_namespace.route("/admin_return_all_users")
+class AdminReturnAllUsers(Resource):
+    @staticmethod
+    @admin_namespace.response(200, 'success', model=admin_part_dto.admin_return_all_users_output_format)
+    @admin_namespace.response(400, 'Not Found', model=admin_part_dto.admin_return_no_user_output_format)
+    def get():
+        output_gifts = admin_return_all_users_methods()
+        try:
+            output_gifts.status_code
+            return marshal(output_gifts, admin_part_dto.admin_return_no_user_output_format), 400
+        except:
+            return marshal(output_gifts, admin_part_dto.admin_return_all_users_output_format), 200
+        # if output_gifts.status_code == 200:
+        #     return marshal(output_gifts, admin_part_dto.admin_return_all_users_output_format), 200
+        # else:
+        #     return marshal(output_gifts, admin_part_dto.admin_return_no_user_output_format), 404
 
+@admin_namespace.route("/admin_search_a_user_by_id/<user_id>")
+class AdminSearchAUser(Resource):
+    @staticmethod
+    @admin_namespace.response(200, 'success', model=admin_part_dto.admin_search_a_user_output_format)
+    @admin_namespace.response(400, 'failed request', model=admin_part_dto.admin_search_no_user_output_format)
+    def get(user_id):
+        output_gifts = admin_search_a_user_method(user_id)
+        try:
+            output_gifts.status_code
+            return marshal(output_gifts, admin_part_dto.admin_search_no_user_output_format), 400
+        except:
+            return marshal(output_gifts, admin_part_dto.admin_search_a_user_output_format), 200
+        # if seatch_output_result.status_code == 200:
+        #     return marshal(seatch_output_result, admin_part_dto.admin_search_a_user_output_format), 200
+        # else:
+        #     return marshal(seatch_output_result, admin_part_dto.admin_search_no_user_output_format), 400
+
+@admin_namespace.route("/admin_search_a_user_by_name/<user_name>")
+class AdminSearchAUserByName(Resource):
+    @staticmethod
+    @admin_namespace.response(200, 'success', model=admin_part_dto.admin_search_a_user_output_format)
+    @admin_namespace.response(400, 'failed request', model=admin_part_dto.admin_search_no_user_output_format)
+    def get(user_name):
+        output_gifts = admin_search_a_user_by_name_method(user_name)
+        try:
+            output_gifts.status_code
+            return marshal(output_gifts, admin_part_dto.admin_search_no_user_output_format), 400
+        except:
+            return marshal(output_gifts, admin_part_dto.admin_search_a_user_output_format), 200
+
+@admin_namespace.route("/admin_search_a_user_by_email/<user_email>")
+class AdminSearchAUserByEmail(Resource):
+    @staticmethod
+    @admin_namespace.response(200, 'success', model=admin_part_dto.admin_search_a_user_output_format)
+    @admin_namespace.response(400, 'failed request', model=admin_part_dto.admin_search_no_user_output_format)
+    def get(user_email):
+        output_gifts = admin_search_a_user_by_email_method(user_email)
+        try:
+            output_gifts.status_code
+            return marshal(output_gifts, admin_part_dto.admin_search_no_user_output_format), 400
+        except:
+            return marshal(output_gifts, admin_part_dto.admin_search_a_user_output_format), 200

@@ -102,6 +102,23 @@ def add_items(info):
     check_product = Gifts.query.filter_by(id=info['product_id']).first()
     check_duplicate = WishlistItems.query.filter_by(wishlist_id=info['wishlist_id'], products_id=info['product_id']).first()
     check_size = WishlistItems.query.filter_by(wishlist_id=info['wishlist_id'], products_id=info['product_id'], size=info['size']).first()
+    check_wishlist_state = Wishlist.query.filter_by(wishlist_id=info['wishlist_id'], state='completed').first()
+    check_wishlist_state_part = Wishlist.query.filter_by(wishlist_id=info['wishlist_id'], state='partial').first()
+    if check_wishlist_state:
+        response_data['message'] = 'this wishlist has been completed, please create a new wishlist.'
+        status_code = 404
+        resp = make_response(response_data)
+        resp.status_code = status_code
+        database.session.close()
+        return resp
+    if check_wishlist_state_part:
+        response_data['message'] = 'this wishlist has been partial paid by your friends, if you want new gift. please create a new wishlist.'
+        status_code = 404
+        resp = make_response(response_data)
+        resp.status_code = status_code
+        database.session.close()
+        return resp
+
     if not check_owner:
         response_data['message'] = 'This user has no wishlist.'
         status_code = 404
@@ -128,7 +145,15 @@ def add_items(info):
             database.session.close()
             return resp
         else:
-            pass
+            response_data['message'] = 'This product does not have this size.'
+            response_data['owner_id'] = info['owner_id']
+            response_data['product_id'] = info['product_id']
+            response_data['wishlist_id'] = info['wishlist_id']
+            status_code = 404
+            resp = make_response(response_data)
+            resp.status_code = status_code
+            database.session.close()
+            return resp
     owner_id = info['owner_id']
     wishlist_id = info['wishlist_id']
     product_id = info['product_id']
@@ -142,10 +167,17 @@ def add_items(info):
     #price = info['price']
     find_wishlistID = Wishlist.query.filter_by(wishlist_id=info['wishlist_id']).first()
     wishlistID = find_wishlistID.id
+    this_gift_state = 'waiting'
+    paid_count = 0
     product = WishlistItems(wishlist_id=wishlist_id, wishlistID = wishlistID,products_id=product_id, product_name=product_name, product_cover=cover_url,
-                            size=size, price=price, count=1)
+                            size=size, price=price, count=1, this_gift_state=this_gift_state, paid_count= paid_count)
     database.session.add(product)
     database.session.commit()
+    # count = product.count
+    # each_total_price = price * count
+    # product = WishlistItems(each_total_price=each_total_price)
+    # database.session.add(product)
+    # database.session.commit()
     status_code = 200
     response_data['wishlist_id'] = wishlist_id
     response_data['owner_id'] = owner_id
@@ -203,6 +235,58 @@ def remove_item(info):
     database.session.close()
     return resp
 
+
+
+def remove_item_size(info):
+    response_data = {
+        "message": "success",
+        'owner_id': 'none',
+        "product_id": "none",
+        "wishlist_id": "none",
+        "size": "none"
+    }
+    #check_owner = Wishlist.query.filter_by(owner_id=info['owner_id']).first()
+    check_product = Gifts.query.filter_by(id=info['product_id']).first()
+    check_exists = WishlistItems.query.filter_by(wishlist_id=info['wishlist_id'],
+                                                    products_id=info['product_id'],
+                                                 size=info['size']).first()
+    # if not check_owner:
+    #     response_data['message'] = 'This user has no wishlist.'
+    #     status_code = 404
+    #     resp = make_response(response_data)
+    #     resp.status_code = status_code
+    #     database.session.close()
+    #     return resp
+    if not check_product:
+        response_data['message'] = 'This product does not exist.'
+        response_data['owner_id'] = info['owner_id']
+        status_code = 404
+        resp = make_response(response_data)
+        resp.status_code = status_code
+        database.session.close()
+        return resp
+    if not check_exists:
+        response_data['message'] = 'This product does not in this wishlist.'
+        status_code = 400
+        resp = make_response(response_data)
+        resp.status_code = status_code
+        database.session.close()
+        return resp
+    #owner_id = info['owner_id']
+    wishlist_id = info['wishlist_id']
+    product_id = info['product_id']
+    size = info['size']
+    WishlistItems.query.filter_by(products_id=product_id, wishlist_id=wishlist_id).delete()
+    database.session.commit()
+    status_code = 200
+    response_data['wishlist_id'] = wishlist_id
+    #response_data['owner_id'] = owner_id
+    response_data['product_id'] = product_id
+    response_data['size'] = size
+    resp = make_response(response_data)
+    resp.status_code = status_code
+    database.session.close()
+    return resp
 
 def show_all(info):
     status_code = 200
@@ -286,8 +370,17 @@ def pay_wishlist(info):
     product_list = info['product_list']
     order_number = ''.join(random.sample(string.ascii_letters + string.digits, 15))
     check_owner = Wishlist.query.filter_by(owner_id=owner_id, wishlist_id=wishlist_id).first()
-    check_payer = User.query.filter_by(id=payer_id).first()
+    # check_payer = User.query.filter_by(id=payer_id).first()
     check_state = Wishlist.query.filter_by(wishlist_id=wishlist_id, state='completed').first()
+    check_item_state_wating = WishlistItems.query.filter_by(wishlist_id=wishlist_id, this_gift_state='waiting').first()
+    check_item_is_not_empty = WishlistItems.query.filter_by(wishlist_id=wishlist_id).first()
+    if not check_item_is_not_empty:
+        status_code = 404
+        response_message['message'] = 'This wishlist is empty.'
+        resp = make_response(response_message)
+        resp.status_code = status_code
+        database.session.close()
+        return resp
     if not check_owner:
         status_code = 404
         response_message['message'] = 'This owner or wishlist does not exist.'
@@ -295,137 +388,149 @@ def pay_wishlist(info):
         resp.status_code = status_code
         database.session.close()
         return resp
-    if not check_payer:
-        # status_code = 404
-        # response_message['message'] = 'This payer does not exist.'
-        # resp = make_response(response_message)
-        # resp.status_code = status_code
-        # return resp
-        order_time = datetime.datetime.now()
-        order = Order(order_time=order_time, order_total=total_price, order_number=order_number,
-                      first_name=owner_first_name, last_name=owner_last_name, phone=phone,
-                      address=address, postcode=postcode)
-        # order = Order(user_id=payer_id, order_time=order_time, order_total=total_price, order_number=order_number,
-        #               first_name=owner_first_name, last_name=owner_last_name, phone=phone,
-        #               address=address, postcode=postcode)
 
-        database.session.add(order)
-        database.session.flush()
-        database.session.refresh(order)
-        oid = order.id
-        for product in product_list:
-            product_id = product['products_id']
-            product_name = product['product_name']
-            product_cover = product['product_cover']
-            size = product['size']
-            count = product['count']
-            price = product['price']
-            check_stock = Size.query.filter_by(gift_id=product_id, size=size).first()
-            if not check_stock or check_stock.stock < 1:
-                status_code = 400
-                response_message['message'] = 'Product ' + str(product_id) + ' out of stock.'
-                WishlistItems.query.filter_by(products_id=product_id, wishlist_id=wishlist_id).delete()
-                database.session.commit()
-                resp = make_response(response_message)
-                resp.status_code = status_code
-                database.session.close()
-                return resp
-            order_product = OrderItems(gift_name=product_name, item_cover_url=product_cover, size=size,
-                                         count=count,
-                                         price=price, each_total_price=price,
-                                         productID=product_id, order_id=oid)
-            database.session.add(order_product)
-            each_size = Size.query.filter_by(gift_id=product_id, size=size).first()
-            product_info = Gifts.query.filter_by(id=product_id).first()
-            each_stock = each_size.stock
-            each_sales = each_size.this_size_sales
-            each_income = each_size.this_size_income
-            each_size.stock = each_stock - 1
-            each_size.this_size_sales = each_sales + 1
-            each_size.this_size_income = each_income + price
-            product_sales = product_info.gift_sales
-            product_income = product_info.gift_income
-            product_info.gift_sales = product_sales + 1
-            product_info.gift_income = product_income + price
-        update_wishlist = Wishlist.query.filter_by(owner_id=owner_id, wishlist_id=wishlist_id).first()
-        update_wishlist.state = 'completed'
-        update_wishlist.payer_fname = payer_first_name
-        database.session.commit()
-        response_data['owner_id'] = owner_id
-        response_data['wishlist_id'] = wishlist_id
-        response_data['owner_first_name'] = owner_first_name
-        response_data['owner_last_name'] = owner_last_name
-        response_data['payer_first_name'] = payer_first_name
-        # response_data['payer_id'] = payer_id
-        resp = make_response(response_message)
-        resp.status_code = status_code
-        resp.response_data = response_data
-        database.session.close()
-        return resp
     if check_state:
         status_code = 400
         response_message['message'] = 'This wishlist is already completed.'
         resp = make_response(response_message)
         resp.status_code = status_code
+        database.session.close()
         return resp
-    order_time = datetime.datetime.now()
-    order = Order(user_id=payer_id, order_time=order_time, order_total=total_price, order_number=order_number,
-                  first_name=owner_first_name, last_name=owner_last_name, phone=phone,
-                  address=address, postcode=postcode)
-
-    database.session.add(order)
-    database.session.flush()
-    database.session.refresh(order)
-    oid = order.id
-    for product in product_list:
-        product_id = product['products_id']
-        product_name = product['product_name']
-        product_cover = product['product_cover']
-        size = product['size']
-        count = product['count']
-        price = product['price']
-        check_stock = Size.query.filter_by(gift_id=product_id, size=size).first()
-        if not check_stock or check_stock.stock < 1:
-            status_code = 400
-            response_message['message'] = 'Product ' + str(product_id) + ' out of stock.'
-            WishlistItems.query.filter_by(products_id=product_id, wishlist_id=wishlist_id).delete()
-            database.session.commit()
+    else:
+        if not check_item_state_wating:
+            status_code = 404
+            # update_wishlist = Wishlist.query.filter_by(owner_id=owner_id, wishlist_id=wishlist_id).first()
+            # update_wishlist.state = 'completed'
+            # database.session.commit()
+            response_message['message'] = 'all items have been paid or the wishlist is completed'
             resp = make_response(response_message)
             resp.status_code = status_code
             database.session.close()
             return resp
-        order_product = OrderItems(gift_name=product_name, item_cover_url=product_cover, size=size,
-                                                  count=count,
-                                                  price=price, each_total_price=price,
-                                                  productID=product_id, order_id=oid)
-        database.session.add(order_product)
-        each_size = Size.query.filter_by(gift_id=product_id, size=size).first()
-        product_info = Gifts.query.filter_by(id=product_id).first()
-        each_stock = each_size.stock
-        each_sales = each_size.this_size_sales
-        each_income = each_size.this_size_income
-        each_size.stock = each_stock - 1
-        each_size.this_size_income = each_sales + 1
-        each_size.individual_income = each_income + price
-        product_sales = product_info.gift_sales
-        product_income = product_info.gift_income
-        product_info.gift_sales = product_sales + 1
-        product_info.gift_income = product_income + price
-    update_wishlist = Wishlist.query.filter_by(owner_id=owner_id, wishlist_id=wishlist_id).first()
-    update_wishlist.state = 'completed'
-    update_wishlist.payer_fname = payer_first_name
-    database.session.commit()
-    response_data['owner_id'] = owner_id
-    response_data['wishlist_id'] = wishlist_id
-    response_data['owner_first_name'] = owner_first_name
-    response_data['owner_last_name'] = owner_last_name
-    response_data['payer_first_name'] = payer_first_name
-    response_data['payer_id'] = payer_id
-    resp = make_response(response_message)
-    resp.status_code = status_code
-    resp.response_data = response_data
-    database.session.close()
-    return resp
+        # list item里面有waiting的物品，开始选择支付
+        else:
+            order_time = datetime.datetime.now()
+            order_state = 'waiting'
+            order = Order(user_id=owner_id, order_time=order_time, order_total=total_price, order_number=order_number,
+                          first_name=owner_first_name, last_name=owner_last_name, phone=phone,
+                          address=address, postcode=postcode, wishlist_code = wishlist_id, payer_id = payer_id, payer_name = payer_first_name, order_state = order_state)
+            database.session.add(order)
+            database.session.flush()
+            database.session.refresh(order)
+            oid = order.id
+            for product in product_list:
+                product_id = product['products_id']
+                product_name = product['product_name']
+                product_cover = product['product_cover']
+                size = product['size']
+                count = product['count']
+                price = product['price']
+                wishlist_item_information = WishlistItems.query.filter_by(products_id=product_id,
+                                                                          wishlist_id=wishlist_id,
+                                                                          size=size).first()
+                system_count = wishlist_item_information.count
+                if system_count > count:
+                    check_stock = Size.query.filter_by(gift_id=product_id, size=size).first()
+                    if not check_stock or check_stock.stock < 1:
+                        status_code = 400
+                        response_message['message'] = 'Product ' + str(product_id) + ' out of stock.'
+                        WishlistItems.query.filter_by(products_id=product_id, wishlist_id=wishlist_id).delete()
+                        database.session.commit()
+                        resp = make_response(response_message)
+                        resp.status_code = status_code
+                        database.session.close()
+                        return resp
+                    order_product = OrderItems(gift_name=product_name, item_cover_url=product_cover, size=size,
+                                                              count=count,
+                                                              price=price, each_total_price=price,
+                                                              productID=product_id, order_id=oid)
+                    database.session.add(order_product)
+                    database.session.flush()
+                    database.session.refresh(order_product)
+                    each_size = Size.query.filter_by(gift_id=product_id, size=size).first()
+                    product_info = Gifts.query.filter_by(id=product_id).first()
+                    each_stock = each_size.stock
+                    each_sales = each_size.this_size_sales
+                    each_income = each_size.this_size_income
+                    each_size.stock = each_stock - 1
+                    each_size.this_size_income = each_sales + 1
+                    each_size.individual_income = each_income + price
+                    product_sales = product_info.gift_sales
+                    product_income = product_info.gift_income
+                    product_info.gift_sales = product_sales + 1
+                    product_info.gift_income = product_income + price
+                    wishlist_item_information.count = system_count - count
+                    update_wishlist = Wishlist.query.filter_by(owner_id=owner_id, wishlist_id=wishlist_id).first()
+                    update_wishlist.state = 'partial'
+                    wishlist_item_information.paid_count += count
+                elif system_count < count:
+                    status_code = 400
+                    response_message['message'] = 'your friends do not need to much gifts.'
+                    resp = make_response(response_message)
+                    resp.status_code = status_code
+                    database.session.close()
+                    return resp
+                else:
+                    check_stock = Size.query.filter_by(gift_id=product_id, size=size).first()
+                    if not check_stock or check_stock.stock < 1:
+                        status_code = 400
+                        response_message['message'] = 'Product ' + str(product_id) + ' out of stock.'
+                        WishlistItems.query.filter_by(products_id=product_id, wishlist_id=wishlist_id).delete()
+                        database.session.commit()
+                        resp = make_response(response_message)
+                        resp.status_code = status_code
+                        database.session.close()
+                        return resp
+                    order_product = OrderItems(gift_name=product_name, item_cover_url=product_cover, size=size,
+                                                              count=count,
+                                                              price=price, each_total_price=price,
+                                                              productID=product_id, order_id=oid)
+                    database.session.add(order_product)
+                    database.session.flush()
+                    database.session.refresh(order_product)
+                    each_size = Size.query.filter_by(gift_id=product_id, size=size).first()
+                    product_info = Gifts.query.filter_by(id=product_id).first()
+                    each_stock = each_size.stock
+                    each_sales = each_size.this_size_sales
+                    each_income = each_size.this_size_income
+                    each_size.stock = each_stock - 1
+                    each_size.this_size_income = each_sales + 1
+                    each_size.individual_income = each_income + price
+                    product_sales = product_info.gift_sales
+                    product_income = product_info.gift_income
+                    product_info.gift_sales = product_sales + 1
+                    product_info.gift_income = product_income + price
+                    wishlist_item_information.this_gift_state = "paid"
+                    wishlist_item_information.paid_count += count
+                    wishlist_item_information.count = 0
+
+                    update_wishlist = Wishlist.query.filter_by(owner_id=owner_id, wishlist_id=wishlist_id).first()
+                    update_wishlist.state = 'partial'
+                    find_this_item_state_wating = WishlistItems.query.filter_by(wishlist_id=wishlist_id,
+                                                                            this_gift_state='waiting').first()
+                    if not find_this_item_state_wating:
+                        update_wishlist = Wishlist.query.filter_by(owner_id=owner_id, wishlist_id=wishlist_id).first()
+                        update_wishlist.state = 'completed'
+                        database.session.commit()
+                    else:
+                        database.session.close()
+                        pass
+            update_wishlist = Wishlist.query.filter_by(owner_id=owner_id, wishlist_id=wishlist_id).first()
+            # update_wishlist.state = 'completed'
+            update_wishlist.payer_fname = payer_first_name
+            database.session.commit()
+            response_data['owner_id'] = owner_id
+            response_data['wishlist_id'] = wishlist_id
+            response_data['owner_first_name'] = owner_first_name
+            response_data['owner_last_name'] = owner_last_name
+            response_data['payer_first_name'] = payer_first_name
+            response_data['payer_id'] = payer_id
+            resp = make_response(response_message)
+            resp.status_code = status_code
+            resp.response_data = response_data
+            database.session.close()
+            return resp
+
 
 
 def search(info):

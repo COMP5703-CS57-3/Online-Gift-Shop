@@ -27,19 +27,17 @@ export default function AccountMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    const {multiCategory} = useGift();
+    const {homeCategory} = useGift();
     const click = ()=>{
-        multiCategory("male","Life","Clothes","price-low-to-high");
+        homeCategory();
     }
     return (
         <React.Fragment>
             <Box  sx = {{display: 'flex',width:'100%',justifyContent: 'center'}} >
-                {/*<Grid item xs={4} sx={{display: 'flex', alignItems: 'center', textAlign: 'center',minWidth:200}}>*/}
-                {/*    <Typography >Online Gift Shop</Typography>*/}
-                {/*</Grid>*/}
+
                 <Box  sx={{display: 'flex', alignItems: 'center', textAlign: 'center'}}>
                     <Typography sx={{minWidth: 200,paddingRight:75}}>Online Gift Shop</Typography>
-                    <Typography sx={{minWidth: 100}}>Home</Typography>
+                    <Button sx={{minWidth: 100}} onClick={click} >Home</Button>
                     <Typography sx={{minWidth: 100}}>Shop</Typography>
                     <Typography sx={{minWidth: 100}}>Contact</Typography>
                     <Typography sx={{minWidth: 100}}>Profile</Typography>
@@ -57,7 +55,7 @@ export default function AccountMenu() {
                 </Tooltip>
                 </Box>
             </Box>
-            <Button onClick={click}>test only</Button>
+            {/*<Button onClick={click}>test only</Button>*/}
             <Menu
                 anchorEl={anchorEl}
                 id="account-menu"
@@ -97,7 +95,7 @@ export default function AccountMenu() {
                     <Avatar/> <Link style={{ textDecoration:'none'}} to={{pathname: "/account"}}>Profile</Link>
                 </MenuItem>
                 <MenuItem>
-                    <Avatar/> My WhishList
+                    <Avatar/> <Link style={{textDecoration:'none'}} to={{pathname:"/wishlist"}}> My WhishList</Link>
                 </MenuItem>
                 <Divider/>
                 <MenuItem>

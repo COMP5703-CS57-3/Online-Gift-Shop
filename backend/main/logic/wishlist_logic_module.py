@@ -54,6 +54,17 @@ class RemoveFromWishlist(Resource):
         resp = remove_item(json.loads(request.data))
         return resp
 
+@wishlist_ns.route('/remove_size')
+class RemoveFromWishlistBySize(Resource):
+    @staticmethod
+    @wishlist_ns.expect(WishlistDto.remove_item_size_model)
+    @wishlist_ns.response(200, 'success')
+    @wishlist_ns.response(404, 'not found')
+    @wishlist_ns.response(400, 'Bad request')
+    def post():
+        resp = remove_item_size(json.loads(request.data))
+        return resp
+
 
 @wishlist_ns.route('/show')
 class ShowWishlist(Resource):
@@ -74,14 +85,14 @@ class ShowWishlist(Resource):
 @wishlist_ns.route('/pay')
 class PayWishlist(Resource):
     @staticmethod
-    @wishlist_ns.expect(WishlistDto.pay_all_items_model)
-    @wishlist_ns.response(200, 'success', WishlistDto.wishlist_complete_model)
+    @wishlist_ns.expect(WishlistDto.pay_input_format)
+    @wishlist_ns.response(200, 'success', WishlistDto.pay_output_format)
     @wishlist_ns.response(404, 'not found')
     @wishlist_ns.response(400, 'Bad request')
     def post():
         resp = pay_wishlist(json.loads(request.data))
         if resp.status_code == 200:
-            return marshal(resp.response_data, WishlistDto.wishlist_complete_model)
+            return marshal(resp.response_data, WishlistDto.pay_output_format)
         else:
             return resp
 

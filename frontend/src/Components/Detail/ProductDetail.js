@@ -7,33 +7,147 @@ import Box from "@mui/material/Box";
 import {TextField} from "@mui/material";
 import {useWish} from "../../tools/useWish";
 import {useInput} from "../../tools/useInput";
+import {alpha} from "@mui/material/styles";
+import {useNavigate} from "react-router-dom";
+import Stack from "@mui/material/Stack";
 
 
 
-export default function ProductDetail({para,detail}){
+export default function ProductDetail({products_id,product_name,product_cover,size,price,count,detail}){
     const {changeCount} = useWish();
     const {removeProduct} = useWish();
     const [countProps,resetCount] = useInput(1);
     const chang = ()=>{
-       changeCount(detail.wishlist_id,para.products_id,para.size,countProps.value)
+       changeCount(detail.wishlist_id,products_id,size,countProps.value)
     }//
     const remove = ()=>{
-       removeProduct(detail.owner_id,detail.wishlist_id,para.products_id)
-    }//
+       removeProduct(detail.owner_id,detail.wishlist_id,products_id)
+    }////
+    let navigate = useNavigate();
+    const nav =()=> navigate("/cart/"+products_id);
     return(
             <Box>
-                <BoxItem {...para}/>
-                <TextField
-                    {...countProps}
-                  id="outlined-number"
-                  label="Number"
-                  type="number"
-                  InputLabelProps={{
-                    shrink: true,
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: { xs: 'column',sm:'column', md: 'row' },
+                    alignItems: 'center',
+                    bgcolor: 'background.paper',
+                    overflow: 'hidden',
+                    borderRadius: '12px',
+                    boxShadow: 3,
+                    fontWeight: 'bold',
+                    maxWidth:  {xs:800,sm:750,md:700},
+                    minWidth:{xs:350,sm:490},
+                    mx: 2,
+                    mt: 3
                   }}
-                />
-                <Button onClick={chang}> change count</Button>
-                <Button onClick={remove}> remove the gift</Button>
-            </Box>
+                >
+                  <Box
+                    component="img"
+                    sx={{
+                      height: 233,
+                      width: 350,
+                      maxHeight: { xs: 233, md: 200 },
+                      maxWidth: { xs: 350, sm:300,md: 250 },
+                    }}
+                    alt="pic"
+                    src={product_cover}
+                  />
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: { xs: 'center', md: 'flex-start'},
+                      m: 2,
+                      minWidth: { md: 350 },
+                      maxWidth:{md:400}
+                    }}
+                  >
+                      <Stack direction="column"
+                          justifyContent="space-around"
+                          alignItems="flex-start">
+
+                      <Stack direction="row"
+                             justifyContent="space-between"
+                             alignItems="center"
+                             spacing={2}
+                      sx={{md:2}}>
+                          <Box component="span" sx={{ fontSize: 16, mt: 0.5 }}>
+                            {product_name}
+                        </Box>
+                        <Box component="span" sx={{ color: 'primary.main', fontSize: 22 }}>
+                            ${price}
+                        </Box>
+                      </Stack>
+                          <Stack direction="row"
+                             justifyContent="flex-start"
+                             alignItems="center"
+                             spacing={6}
+                      sx={{mt:1}}>
+                          <Box
+                      sx={{
+                        mt: 0.5,
+                        p: 0.5,
+                        backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.1),
+                        borderRadius: '5px',
+                        color: 'primary.main',
+                        fontWeight: 'medium',
+                        display: 'flex',
+                        fontSize: 12,
+                        alignItems: 'center',
+                        '& svg': {
+                          fontSize: 21,
+                          mr: 0.5,
+                        },
+                      }}
+                    >
+                        Size:{size}
+                    </Box>
+                               <Box
+                      sx={{
+                        mt: 0.5,
+                        p: 0.5,
+                        backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.1),
+                        borderRadius: '5px',
+                        color: 'primary.main',
+                        fontWeight: 'medium',
+                        display: 'flex',
+                        fontSize: 12,
+                        alignItems: 'center',
+                        '& svg': {
+                          fontSize: 21,
+                          mr: 0.5,
+                        },
+                      }}
+                    >
+                        Count:{count}
+                    </Box>
+                          <Button size="small" onClick={nav}>Learn More</Button>
+                      </Stack>
+                      <TextField
+                                {...countProps}
+                              id="outlined-number"
+                              label="Number"
+                              type="number"
+                              InputLabelProps={{
+                                shrink: true,
+                              }}
+                          sx={{mt:2,maxWidth:150,maxHeight:25}}
+                      />
+                       <Stack direction="row"
+                             justifyContent="flex-start"
+                             alignItems="center"
+                             spacing={2}
+                       sx={{mt:4}}>
+                          <Button onClick={chang}> change count</Button>
+                          <Button onClick={remove}> remove the gift</Button>
+                      </Stack>
+
+
+                      </Stack>
+                  </Box>
+                </Box>
+            </Box>//
     );
 }//

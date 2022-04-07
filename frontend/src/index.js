@@ -17,6 +17,8 @@ import WishList from "./Components/wishlist/WishList";
 import WishListContentProvider from "./Components/Detail/WishListContentProvider";
 import WishFormProvider from "./Components/wishlist/WishFormProvider";
 import CategoryG from "./Components/Category/CategoryG";
+import MainBody from "./Components/homepage/MainBody";
+import React from "react";
 
 
 
@@ -38,16 +40,15 @@ ReactDOM.render((
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<Homepage/>}>
+                {/*<Route path='' element={ <MainBody/>}/>*/}
                 <Route path='' element={<CategoryG/>}/>
                 <Route path='/cart' element={<Cart/>}/>
-                <Route path='/wishlist' element={<WishList/>}/>
-                {/*<Route path='c' element={<CartCategory/>}/>*/}
             </Route>
-
+            <Route path='/wishlist' element={<WishList/>}/>
             <Route path="/wishlist/:wishlist_id" element={<WishListContentProvider/>}/>
-            <Route path="/login" element={<LogIn/>}/>
             <Route path="/cart/:id" element={<DetailContentProvider/>}/>
             <Route path="/wishForm" element={<WishFormProvider/>}/>
+            <Route path="/login" element={<LogIn/>}/>
             <Route path="/signup" element={<SignUp/>}/>
             <Route path="/account" element={<Account/>}/>
             <Route path="*" element={<NoMatch/>}/>
