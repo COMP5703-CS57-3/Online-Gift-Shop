@@ -415,6 +415,7 @@ def pay_wishlist(info):
                           first_name=owner_first_name, last_name=owner_last_name, phone=phone,
                           address=address, postcode=postcode, wishlist_code = wishlist_id, payer_id = payer_id, payer_name = payer_first_name, order_state = order_state)
             database.session.add(order)
+            database.session.commit()
             database.session.flush()
             database.session.refresh(order)
             oid = order.id
@@ -445,6 +446,7 @@ def pay_wishlist(info):
                                                               price=price, each_total_price=price,
                                                               productID=product_id, order_id=oid)
                     database.session.add(order_product)
+                    database.session.commit()
                     database.session.flush()
                     database.session.refresh(order_product)
                     each_size = Size.query.filter_by(gift_id=product_id, size=size).first()
@@ -463,6 +465,8 @@ def pay_wishlist(info):
                     update_wishlist = Wishlist.query.filter_by(owner_id=owner_id, wishlist_id=wishlist_id).first()
                     update_wishlist.state = 'partial'
                     wishlist_item_information.paid_count += count
+                    database.session.commit()
+                    database.session.close()
                 elif system_count < count:
                     status_code = 400
                     response_message['message'] = 'your friends do not need to much gifts.'
@@ -486,6 +490,7 @@ def pay_wishlist(info):
                                                               price=price, each_total_price=price,
                                                               productID=product_id, order_id=oid)
                     database.session.add(order_product)
+                    database.session.commit()
                     database.session.flush()
                     database.session.refresh(order_product)
                     each_size = Size.query.filter_by(gift_id=product_id, size=size).first()
@@ -503,7 +508,8 @@ def pay_wishlist(info):
                     wishlist_item_information.this_gift_state = "paid"
                     wishlist_item_information.paid_count += count
                     wishlist_item_information.count = 0
-
+                    database.session.commit()
+                    database.session.close()
                     update_wishlist = Wishlist.query.filter_by(owner_id=owner_id, wishlist_id=wishlist_id).first()
                     update_wishlist.state = 'partial'
                     find_this_item_state_wating = WishlistItems.query.filter_by(wishlist_id=wishlist_id,
@@ -512,6 +518,7 @@ def pay_wishlist(info):
                         update_wishlist = Wishlist.query.filter_by(owner_id=owner_id, wishlist_id=wishlist_id).first()
                         update_wishlist.state = 'completed'
                         database.session.commit()
+                        database.session.close()
                     else:
                         database.session.close()
                         pass
