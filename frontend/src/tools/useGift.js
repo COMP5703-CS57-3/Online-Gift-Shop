@@ -14,6 +14,7 @@ export default function GiftProvider({children}){
             setGifts(res.gifts);
         }).then(console.log);
     }
+
     return(
         <GiftContext.Provider value={{gifts,multiCategory}}>
             {children}

@@ -1,9 +1,9 @@
 import {useState} from "react";
 
-export const useInput = initialValue =>{
+export const useOptionInput = initialValue =>{
     const [value,setValue] = useState(initialValue);
     return[
-        {value,onChange:e=>setValue(e.target.value)},
+        {inputValue:value,onChange:e=>setValue(e.target.value)},
         ()=>setValue(initialValue)
     ];
 }
