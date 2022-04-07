@@ -9,7 +9,7 @@ export default class SubHomepage extends React.Component {
     render() {
         return (
             <GiftProvider>
-                    <div style={{width: '100%', height: '100%', backgroundImage: "url(" + Background + ")"}}>
+                    <div style={{width: '100%', height: 1500, backgroundImage: "url(" + Background + ")"}}>
                     <AccountMenu/>
                     <outlet/>
                     <FastDial/>
