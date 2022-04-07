@@ -1,6 +1,21 @@
+import addrArea from "../../data/state";
 import * as React from 'react';
-import {Box, Button, Card, CardContent, CardHeader, Divider, Grid, TextField} from '@mui/material';
+import {
+    Box,
+    Button,
+    Card,
+    CardActionArea, CardActions,
+    CardContent,
+    CardHeader,
+    Divider,
+    Grid,
+    InputAdornment,
+    TextField
+} from '@mui/material';
 import axios from "axios";
+import Stack from "@mui/material/Stack";
+import {AccountCircle} from "@mui/icons-material";
+import userEvent from "@testing-library/user-event";
 
 const states = [
     {
@@ -30,28 +45,48 @@ export default class AccountProfileDetails extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {user: {}, id: props.id, isLoad: false, new_user: {}}
+        this.state = {
+            user: {},
+            id: props.id,
+            isLoad: false,
+            new_user: {
+                "id": "",
+                "user_name": "",
+                "user_email": "",
+                "user_date_of_birth": "",
+                "user_mobile": "",
+                "user_country": "",
+                "user_state": "",
+                "user_detail_street": "",
+                "user_address":""
+            },
+            isReadonly: true
+        }
     }
 
     UNSAFE_componentWillMount() {
         const that = this
-        const id = this.state.id === null ? sessionStorage.getItem("id") : id
+        let id = this.state.id === null ? sessionStorage.getItem("id") : id
+        console.log(id)
         axios.get(`http://localhost:5000/user_information/user_profile/${id}`)
             .then(r => {
                 // console.log(r.data)
                 that.setState({"user": r.data, "isLoad": true})
+                that.setState({"new_user": {"id": r.data.id, "user_email": r.data.user_email}})
+                const address=r.data
             })
             .catch(r => console.log(r))
     }
 
     handleChange = (event) => {
         this.setState({
-            user: {
+            new_user: {
                 [event.target.name]: event.target.value
             }
         });
 
     };
+
 
     render() {
         return (
@@ -77,13 +112,20 @@ export default class AccountProfileDetails extends React.Component {
                             >
                                 <TextField
                                     fullWidth
-                                    label="Read Only"
-
+                                    label="Nick Name"
                                     name="user_name"
                                     onChange={this.handleChange}
                                     required
-                                    value={this.state.user.user_name}
+                                    value={this.state.isReadonly ? this.state.user.user_name : this.state.new_user.user_name}
                                     variant="outlined"
+                                    InputProps={{
+                                        readOnly: this.state.isReadonly,
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <AccountCircle/>
+                                            </InputAdornment>
+                                        ),
+                                    }}
                                 />
                             </Grid>
                             <Grid
@@ -93,26 +135,43 @@ export default class AccountProfileDetails extends React.Component {
                             >
                                 <TextField
                                     fullWidth
-                                    label="Read Only"
-                                    name="lastName"
-                                    onChange={this.handleChange}
-                                    required
-                                    value={this.state.user.user_name}
-                                    variant="outlined"
-                                />
-                            </Grid>
-                            <Grid
-                                item
-                                md={6}
-                                xs={12}
-                            >
-                                <TextField
-                                    fullWidth
-                                    label="Read Only"
+                                    label="Email"
                                     name="user_email"
                                     onChange={this.handleChange}
+                                    InputProps={{
+                                        readOnly: true,
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <AccountCircle/>
+                                            </InputAdornment>
+                                        ),
+                                    }}
                                     required
                                     value={this.state.user.user_email}
+                                    variant="outlined"
+                                />
+                            </Grid>
+                            <Grid
+                                item
+                                md={6}
+                                xs={12}
+                            >
+                                <TextField
+                                    fullWidth
+                                    label="Birthday"
+                                    helperText="Please input your birthday!"
+                                    name="user_date_of_birth"
+                                    onChange={this.handleChange}
+                                    required
+                                    InputProps={{
+                                        readOnly: this.state.isReadonly,
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <AccountCircle/>
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    value={this.state.isReadonly ? this.state.user.user_date_of_birth : this.state.user.user_date_of_birth}
                                     variant="outlined"
                                 />
                             </Grid>
@@ -124,28 +183,54 @@ export default class AccountProfileDetails extends React.Component {
                                 <TextField
                                     fullWidth
                                     label="Phone Number"
-                                    name="phone"
+                                    name="user_mobile"
                                     onChange={this.handleChange}
-                                    value={this.state.user.user_email}
+                                    InputProps={{
+                                        readOnly: this.state.isReadonly,
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <AccountCircle/>
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    required
+                                    value={this.state.isReadonly ? this.state.user.user_mobile : this.state.new_user.user_mobile}
                                     variant="outlined"
                                 />
                             </Grid>
+                            <Divider/>
                             <Grid
                                 item
                                 md={6}
                                 xs={12}
                             >
                                 <TextField
-                                    helperText="Please input your address!"
+
                                     fullWidth
                                     label="Country"
-                                    name="country"
+                                    name="user_country"
                                     onChange={this.handleChange}
+                                    select
+                                    SelectProps={{native: true}}
                                     required
-                                    value={this.state.user.user_email}
+                                    disabled={this.state.isReadonly}
+                                    InputProps={{
+                                        readOnly: this.state.isReadonly,
+                                    }}
+                                    value={this.state.isReadonly ? this.state.user.user_country : this.state.new_user.user_country}
                                     variant="outlined"
-                                />
+                                >
+                                    {addrArea.map((option) => (
+                                        <option
+                                            key={option.country.value}
+                                            value={option.country.value}
+                                        >
+                                            {option.country.label}
+                                        </option>
+                                    ))}
+                                </TextField>
                             </Grid>
+
                             <Grid
                                 item
                                 md={6}
@@ -153,16 +238,17 @@ export default class AccountProfileDetails extends React.Component {
                             >
                                 <TextField
                                     fullWidth
-                                    label="Select State"
-                                    name="state"
+                                    label="State"
+                                    name="user_state"
                                     onChange={this.handleChange}
+                                    disabled={this.state.isReadonly}
                                     required
                                     select
                                     SelectProps={{native: true}}
-                                    value={this.state.user.user_email}
+                                    value={this.state.isReadonly ? this.state.user.user_state : this.state.new_user.user_state}
                                     variant="outlined"
                                 >
-                                    {states.map((option) => (
+                                    {this.ListState(this.state.new_user.user_country).map((option) => (
                                         <option
                                             key={option.value}
                                             value={option.value}
@@ -172,28 +258,95 @@ export default class AccountProfileDetails extends React.Component {
                                     ))}
                                 </TextField>
                             </Grid>
+                            <Grid
+                                item
+                                md={12}
+                                xs={12}
+                            >
+                                <TextField
+                                    fullWidth
+                                    label="Street"
+                                    name="user_detail_street"
+                                    onChange={this.handleChange}
+                                    InputProps={{
+                                        readOnly: this.state.isReadonly,
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <AccountCircle/>
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    required
+                                    value={this.state.isReadonly ? this.state.user.user_detail_street : this.state.new_user.user_detail_street}
+                                    variant="outlined"
+                                />
+                            </Grid>
                         </Grid>
                     </CardContent>
-                    <Divider/>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'flex-end',
-                            p: 2
-                        }}
-                    >
-                        <Button
-                            color="primary"
-                            variant="contained"
+                    <CardActions>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'flex-end',
+                                p: 2
+                            }}
                         >
-                            Save details
-                        </Button>
-                    </Box>
+                            <Stack direction="row" spacing={2}>
+                                <Button
+                                    color="primary"
+                                    variant="contained"
+                                    onClick={() => this.HandleClick()}
+                                >
+                                    {this.state.isReadonly ? "Change Profiles" : "Save details"}
+                                </Button>
+                                {!this.state.isReadonly ? <Button
+                                    color="primary"
+                                    variant="contained"
+                                    onClick={() => this.setState({isReadonly: true})}
+                                >
+                                    {"Cancel"}
+                                </Button> : <div/>}
+                            </Stack>
+
+                        </Box>
+                    </CardActions>
                 </Card>
             </form>
         )
     }
 
 
+    HandleClick() {
+        if (!this.state.isReadonly) {
+            console.log(this.state.user)
+        }
+        else{
+            this.setState({new_user: {
+                "id": "",
+                "user_name": "",
+                "user_email": "",
+                "user_date_of_birth": "",
+                "user_mobile": "",
+                "user_country": "",
+                "user_state": "",
+                "user_detail_street": "",
+                "user_address":""
+            }})
+        }
+        this.setState({isReadonly: !this.state.isReadonly})
+    }
+
+    ListState(user_country) {
+        console.log(user_country)
+        if (user_country===""||user_country===undefined){
+            user_country="Australia"
+        }
+        for(let key in addrArea){
+            if (addrArea[key].country.label===user_country){
+                return addrArea[key].states
+            }
+        }
+        return states
+    }
 }
 

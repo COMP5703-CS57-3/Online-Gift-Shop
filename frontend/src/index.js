@@ -41,13 +41,14 @@ ReactDOM.render((
                 <Route path='' element={<CategoryG/>}/>
                 <Route path='/cart' element={<Cart/>}/>
                 <Route path='/wishlist' element={<WishList/>}/>
-                {/*<Route path='c' element={<CartCategory/>}/>*/}
+                <Route path="/wishlist/:wishlist_id" element={<WishListContentProvider/>}/>
+                <Route path="/cart/:id" element={<DetailContentProvider/>}/>
+                <Route path="/wishForm" element={<WishFormProvider/>}/>
             </Route>
 
-            <Route path="/wishlist/:wishlist_id" element={<WishListContentProvider/>}/>
+
             <Route path="/login" element={<LogIn/>}/>
-            <Route path="/cart/:id" element={<DetailContentProvider/>}/>
-            <Route path="/wishForm" element={<WishFormProvider/>}/>
+
             <Route path="/signup" element={<SignUp/>}/>
             <Route path="/account" element={<Account/>}/>
             <Route path="*" element={<NoMatch/>}/>
