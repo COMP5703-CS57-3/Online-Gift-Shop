@@ -5,7 +5,7 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 
-export default function BoxItem({id,name,price,category}) {
+export default function BoxItem({id,gift_name,gift_price,gift_category,gift_cover_url}) {
     let navigate = useNavigate();
     const nav =()=> navigate("/cart/"+id);
   return (
@@ -33,7 +33,8 @@ export default function BoxItem({id,name,price,category}) {
           maxWidth: { xs: 350, sm:300,md: 250 },
         }}
         alt="pic"
-        src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F08%2F56%2F5b3f3dc42d6af_610.jpg&refer=http%3A%2F%2Fpic.51yuansu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651300940&t=a529fa900fe5c67aee5faf5658e0ea36"
+        src= {gift_cover_url}
+        // src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F08%2F56%2F5b3f3dc42d6af_610.jpg&refer=http%3A%2F%2Fpic.51yuansu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651300940&t=a529fa900fe5c67aee5faf5658e0ea36"
       />
       <Box
         sx={{
@@ -46,10 +47,10 @@ export default function BoxItem({id,name,price,category}) {
         }}
       >
         <Box component="span" sx={{ fontSize: 16, mt: 1 }}>
-            {name}
+            {gift_name}
         </Box>
         <Box component="span" sx={{ color: 'primary.main', fontSize: 22 }}>
-          ${price}
+          ${gift_price}
         </Box>
         <Box
           sx={{
@@ -68,7 +69,7 @@ export default function BoxItem({id,name,price,category}) {
             },
           }}
         >
-            {category}
+            {gift_category}
         </Box>
           <Button size="small" onClick={nav}>Learn More</Button>
       </Box>
