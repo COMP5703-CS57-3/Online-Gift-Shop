@@ -18,7 +18,7 @@ export default function ProductDetail({products_id,product_name,product_cover,si
     const {removeProduct} = useWish();
     const [countProps,resetCount] = useInput(1);
     const chang = ()=>{
-       changeCount(detail.wishlist_id,products_id,size,countProps.value)
+       changeCount(detail.wishlist_id,products_id,size,parseInt(countProps.value))
     }//
     const remove = ()=>{
        removeProduct(detail.owner_id,detail.wishlist_id,products_id)
