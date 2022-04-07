@@ -19,25 +19,32 @@ export default function MainBody({props}) {
 
     setValue(newValue);
   };
-
+   const {setTopBar} = useGift();
    const {maleCategory} = useGift();
    const {homeCategory} = useGift();
    const {femaleCategory} = useGift();
    const {teenagerCategory} = useGift();
    const {agedCategory} = useGift();
     const clickmale = ()=> {
+        setTopBar("male");
         maleCategory("male","price-low-to-high");
-    }
+
+    }//
         const click = ()=> {
         homeCategory();
     }
             const clickfemale = ()=> {
+        setTopBar("female");
         femaleCategory("female", "price-low-to-high");
+
     }
             const clickyoung = ()=> {
+        setTopBar("teenager");
         teenagerCategory("teenager","price-low-to-high");
+
     }
-            const clickelderly = ()=> {
+    const clickelderly = ()=> {
+        setTopBar("aged");
         agedCategory("aged", "price-low-to-high");
     }
 

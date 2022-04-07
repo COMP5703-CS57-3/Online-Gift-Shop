@@ -10,8 +10,8 @@ import {useGift} from "../../tools/useGift";
 export default function ControlledTreeView() {
   const [expanded, setExpanded] = React.useState([]);
   const [selected, setSelected] = React.useState([]);
+  const {topBar,SideCategory} = useGift();
   // 笨方法传筛选，可以改成if条件
-  const {sideCategory} = useGift();
   const {maleCategory} = useGift();
    const {homeCategory} = useGift();
    const {femaleCategory} = useGift();
@@ -39,28 +39,28 @@ export default function ControlledTreeView() {
   };
 
     const c1 = ()=> {
-        maleCategory("male","Life","C","price-low-to-high");
+        SideCategory(topBar,"Life, Clothes","price-low-to-high");
     }
     const c2= ()=> {
-        homeCategory();
+        SideCategory(topBar,"Life, Shoes","price-low-to-high");
     }
     const c3= ()=> {
-        femaleCategory("female", "price-low-to-high");
+        SideCategory(topBar,"Life, Electronic","price-low-to-high");
     }
     const c4 = ()=> {
-        teenagerCategory("teenager","price-low-to-high");
+        SideCategory(topBar,"Celebration, Birthday","price-low-to-high");
     }
     const c5 = ()=> {
-        agedCategory("aged", "price-low-to-high");
+        SideCategory(topBar,"Celebration, Wedding","price-low-to-high");
     }
         const c6 = ()=> {
-        agedCategory("aged", "price-low-to-high");
+        SideCategory(topBar,"Holiday, Christmas","price-low-to-high");
     }
         const c7 = ()=> {
-        agedCategory("aged", "price-low-to-high");
+        SideCategory(topBar,"Holiday, National Day","price-low-to-high");
     }
         const c8 = ()=> {
-        agedCategory("aged", "price-low-to-high");
+        SideCategory(topBar,"Holiday, Easter","price-low-to-high");
     }
 
 

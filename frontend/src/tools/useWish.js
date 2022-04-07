@@ -12,8 +12,9 @@ const saveJSON = (key,data)=>
     localStorage.setItem(key,JSON.stringify(data));
 
 export default function WishProvider({children,login}){
+    localStorage.clear();
     const keyy = "owner_wishlist:"+login
-    const [wish,setWish] = useState();
+    const [wish,setWish] = useState(loadJSON(keyy));
     const [product,setProduct] = useState(WishListItem);
     useEffect(()=>{
         if(!login) return;
@@ -41,8 +42,10 @@ export default function WishProvider({children,login}){
                 })
         }).then(console.log).then(()=>{
             const data = wish.filter(item=>item.wishlist_id!==wishId)
-            setWish(data);
-            saveJSON(keyy,data);
+            if(!data){
+                setWish(data);
+                saveJSON(keyy,data);
+            }
             nav();
         });
     }
