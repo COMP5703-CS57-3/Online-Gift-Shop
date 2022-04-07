@@ -4,7 +4,7 @@ from ..model.create_database import Gifts
 
 
 
-def search_gift_method(gift_name):
+def search_gift_name_method(gift_name):
     gift_name = "%{}%".format(gift_name.lower())
     gifts = Gifts.query.filter(Gifts.gift_name.like(gift_name)).all()
     # 'id': fields.Integer,
