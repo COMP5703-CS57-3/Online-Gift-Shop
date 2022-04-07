@@ -4,11 +4,12 @@ import Grid from "@mui/material/Grid";
 import AccountProfile from "./account/account-profile";
 import AccountProfileDetails from "./account/account-profile-details";
 import Box from "@mui/material/Box";
+import Background from "../picture/background.png";
 
 export default function Account(props) {
     const id=sessionStorage.getItem("User_id")
     return (
-        <>
+        <div style={{width: '100%', height: 1500, backgroundImage: "url(" + Background + ")",backgroundRepeat:"no-repeat"}}>
             <Box
                 component="main"
                 sx={{
@@ -46,6 +47,6 @@ export default function Account(props) {
                     </Grid>
                 </Container>
             </Box>
-        </>
+        </div>
     );
 }
