@@ -369,6 +369,74 @@ class admin_part_dto:
         'message': fields.String,
     })
 
+    admin_return_wishlist_items_output_format = admin_part_namespace.model("admin_return_wishlist_items_output_format", {
+        'belong_to_which_wishlist': fields.Integer,
+        'wishlist_id': fields.String,
+        'product_id': fields.Integer,
+        'product_name': fields.String,
+        'product_cover': fields.String,
+        'size': fields.String,
+        'price': fields.Float,
+        'count': fields.Integer,
+        'this_gift_state': fields.String,
+        'paid_count': fields.Integer,
+    })
+    admin_return_all_wishlist_output_format = admin_part_namespace.model("admin_return_all_wishlist_output_format", {
+        'id': fields.Integer,
+        'wishlist_id': fields.String,
+        'owner_id': fields.String,
+        'wishlist_name': fields.String,
+        'wishlist_description': fields.String,
+        'first_name': fields.String,
+        'last_name': fields.String,
+        'address': fields.String,
+        'phone': fields.String,
+        'postcode': fields.String,
+        'state': fields.String,
+        'payer_fname': fields.String,
+        # 'total_price': fields.Float,
+        'products': fields.List(fields.Nested(admin_return_wishlist_items_output_format)),
+    })
+    admin_return_no_wishlist_output_format = admin_part_namespace.model("admin_return_no_wishlist_output_format", {
+        'message': fields.String,
+    })
+    show_wishlists = admin_part_namespace.model('show_wishlists', {
+        'wishlists_inf': fields.List(fields.Nested(admin_return_all_wishlist_output_format))
+    })
+
+    admin_return_order_items_output_format = admin_part_namespace.model("admin_return_order_items_output_format", {
+        'id': fields.Integer,
+        'gift_name': fields.String,
+        'item_cover_url': fields.String,
+        'size': fields.String,
+        'count': fields.Integer,
+        'price': fields.Float,
+        'each_total_price': fields.Float,
+        'gift_id': fields.Integer,
+        'order_id': fields.Integer,
+    })
+    admin_return_all_orders_output_format = admin_part_namespace.model("admin_return_all_orders_output_format", {
+        'id': fields.Integer,
+        'order_time': fields.String,
+        'order_total': fields.Float,
+        'order_number': fields.String,
+        'first_name': fields.String,
+        'last_name': fields.String,
+        'phone': fields.String,
+        'address': fields.String,
+        'postcode': fields.String,
+        'payer_id': fields.Integer,
+        'payer_name': fields.String,
+        'order_state': fields.String,
+        'wishlist_code': fields.String,
+        'user_id': fields.Integer,
+        # 'total_price': fields.Float,
+        'products': fields.List(fields.Nested(admin_return_order_items_output_format)),
+    })
+    show_orders = admin_part_namespace.model('show_orders', {
+        'orders_inf': fields.List(fields.Nested(admin_return_all_orders_output_format))
+    })
+
 class search_part_dto:
     search_part_namespace = Namespace("The search logic module",
                                 description="test search function here")
