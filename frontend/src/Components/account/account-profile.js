@@ -2,6 +2,7 @@ import {Avatar, Box, Button, Card, CardActions, CardContent, Divider, Typography
 import axios from "axios";
 import * as React from 'react';
 import {Skeleton} from "@mui/lab";
+import {_local} from "../../logic/local$sess";
 
 
 const sample = {
@@ -24,13 +25,13 @@ export default class AccountProfile extends React.Component {
 
 
         const that = this
-        const id = this.state.id === null ? sessionStorage.getItem("id") : id
+        const id = _local.get("id")
         axios.get(`http://localhost:5000/user_information/user_profile/${id}`)
             .then(r => {
                 // console.log(r.data)
                 that.setState({"user": r.data, "isLoad": true})
             })
-            // .catch(r => console.log(r))
+            .catch(r => console.log(r))
     }
 
     render() {

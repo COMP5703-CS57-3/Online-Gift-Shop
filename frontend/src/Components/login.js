@@ -17,7 +17,8 @@ import axios from "axios";
 import Copyright from "./cpright";
 import FastDial from "./FastDial";
 import {checkEmail} from "../logic/ValCheck";
-import Background from "../picture/background.png";
+import cookie from 'react-cookies'
+import {_local} from "../logic/local$sess";
 
 const theme = createTheme();
 
@@ -32,7 +33,7 @@ export default function LogIn(props) {
         // console.log(this)
         this.setState({[name]: value},)
     }
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const HandleClick = () => {
         if (Password === "") {
             alert("please input password")
@@ -48,7 +49,9 @@ export default function LogIn(props) {
                 console.log(status, 1)
                 if (status.data.message === 'User login successfully') {
                     console.log("Success!")
-                    sessionStorage.setItem("id",response.data.id)
+                    _local.set("id", status.data.id,24 * 3600 * 1000)
+                    let inFifteenMinutes = new Date(new Date().getTime() + 24 * 3600 * 1000);//6分钟后失效
+                    cookie.save(response.data.id, "login")
                     navigate("/")
                 } else {
                     console.log("Error!")

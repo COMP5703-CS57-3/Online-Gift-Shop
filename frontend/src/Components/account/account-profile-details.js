@@ -17,6 +17,7 @@ import Stack from "@mui/material/Stack";
 import {AccountCircle} from "@mui/icons-material";
 import {DatePicker, LocalizationProvider} from "@mui/lab";
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
+import {_local} from "../../logic/local$sess";
 
 const states = [
     {
@@ -67,7 +68,7 @@ export default class AccountProfileDetails extends React.Component {
 
     UNSAFE_componentWillMount() {
         const that = this
-        let id = this.props.id === null ? sessionStorage.getItem("id") : id
+        let id = _local.get("id")
         axios.get(`http://localhost:5000/user_information/user_profile/${id}`)
             .then(r => {
                 // console.log(r.data)

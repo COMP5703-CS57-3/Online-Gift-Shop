@@ -15,11 +15,16 @@ import {Link} from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import {useGift} from "../../tools/useGift";
 import Button from "@mui/material/Button";
+import {useState} from "react";
+import cookie from "react-cookies";
+import {_local} from "../../logic/local$sess";
 
 
 
 export default function AccountMenu() {
     const [anchorEl, setAnchorEl] = React.useState(null);
+    // console.log(cookie.load(_local.get("id")))
+    const [IsLogin, setIsLogin]=useState(!!cookie.load(_local.get("id")))
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -31,6 +36,20 @@ export default function AccountMenu() {
     const click = ()=>{
         homeCategory();
     }
+
+    function login() {
+        const curr=!IsLogin
+        console.log(IsLogin?"Logout":"Sign In")
+        setIsLogin(curr)
+        if (!curr){
+            console.log(cookie.load(_local.get("id")))
+            cookie.remove(_local.get("id"))
+            console.log(_local.get("id"))
+
+            _local.remove("id")
+        }
+    }
+
     return (
         <React.Fragment>
             <Box  sx = {{display: 'flex',width:'100%',justifyContent: 'center'}} >
@@ -115,8 +134,9 @@ export default function AccountMenu() {
                         <Logout fontSize="small"/>
                     </ListItemIcon>
                     <ListItemIcon>
-                        <Link style={{ textDecoration:'none'}} to={{pathname: "/login"}}>
-                            Sign In
+                        <Link style={{ textDecoration:'none'}} to={{pathname: IsLogin?"/":"/login"}}
+                              onClick={()=>login()}>
+                             {IsLogin?"Logout":"Sign In"}
                         </Link>
                     </ListItemIcon>
 

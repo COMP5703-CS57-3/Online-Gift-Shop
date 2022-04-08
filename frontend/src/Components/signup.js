@@ -1,10 +1,9 @@
 import * as React from 'react';
+import {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Copyright from "./cpright";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -14,221 +13,196 @@ import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 
 import {checkEmail, checkNickName, checkPassword, checkPhone} from "../logic/ValCheck";
-import {Link} from "react-router-dom";
-import {Alert, Collapse} from "@mui/material";
+import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import FastDial from "./FastDial";
 
 const theme = createTheme();
 
-export default class SignUp extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            Email: "",
-            Password: "",
-            Username: "",
-            Phone: "",
-            ConfirmedPwd: "",
-            isShow: false,
+export default function SignUp() {
+    const [User, setUser] = useState({
+        Email: "",
+        Password: "",
+        Username: "",
+        Phone: "",
+        ConfirmedPwd: "",
+    })
+    const [isShow, setIsShow] = useState(false)
+    const [errInfo, setErrInfo] = useState(
+        {
             errNick: true,
             errEmail: true,
             errPhone: true,
             errPwd: true,
             errCPwd: true,
         }
+    )
+    const navigate = useNavigate()
+
+    const HandleUserChange = (e) => {
+        const data = {...User}
+        data[[e.target.name]] = e.target.value
+        // console.log(data)
+        setUser(data)
+    }
+    const HandleErrChange = (e) => {
+        setErrInfo(e)
     }
 
-    HandleChange = (e) => {
-        const name = e.target.name
-        const value = e.target.value
-        // console.log(name,value)
-        // console.log(this)
-        this.setState({[name]: value},)
-
-
-    }
-    HandleClick = () => {
-        const res_name = checkNickName(this.state.Username)
-        const res_email = checkEmail(this.state.Email)
-        const res_phone = checkPhone(this.state.Phone)
-        const res_password = checkPassword(this.state.Password, this.state.ConfirmedPwd)
+    const HandleClick = () => {
+        const res_name = checkNickName(User.Username)
+        const res_email = checkEmail(User.Email)
+        const res_phone = checkPhone(User.Phone)
+        const res_password = checkPassword(User.Password, User.ConfirmedPwd)
 
         if (res_name === true && res_email === true && res_phone === true && res_password["Pwd"] === true && res_password["CPwd"] === true) {
             axios.post('http://localhost:5000/login_signup/sign_up', {
-                user_name:this.state.Username,
-                user_email: this.state.Email,
-                user_mobile:this.state.Phone,
-                user_password: this.state.Password
+                user_name: User.Username,
+                user_email: User.Email,
+                user_mobile: User.Phone,
+                user_password: User.Password
             }).then((response) => {
-                console.log(response, 1)
-                if (response.data.message === 'User successfully sign up') {
-                    console.log("Success!")
-                } else {
-                    console.log("Error!")
+                    // console.log(response, 1)
+                    if (response.data.message === 'User successfully sign up') {
+                        console.log("Success!")
+                        navigate("/login")
+                    } else {
+                        console.log("Error!")
+                    }
                 }
-            })
+            )
                 .catch((response) => {
-                    // if (response.toString().indexOf("403") !== -1) {
-                    //     alert("User did not exit, please sign up first")
-                    // } else if (response.toString().indexOf("404") !== -1) {
-                    //     alert("Unknown Error")
-                    // } else if (response.toString().indexOf("400") !== -1) {
-                    //     alert("Please input correct password")
-                    // }
-                    console.log(response,2)
+
+                    // console.log(response, 2)
                 });
         } else {
-            this.setState({
-                // isShow: true,
+            HandleErrChange({
                 errNick: res_name,
                 errEmail: res_email,
                 errPhone: res_phone,
                 errPwd: res_password["Pwd"],
                 errCPwd: res_password["CPwd"],
-            }, () => {
             })
+
 
         }
     }
 
-    render() {
 
-        return (
-            <ThemeProvider theme={theme}>
-                <Container component="main" maxWidth="xs">
-                    <CssBaseline/>
-                    <Box
-                        sx={{
-                            marginTop: 8,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
-                            <LockOutlinedIcon/>
-                        </Avatar>
-                        <Typography component="h1" variant="h5">
-                            Sign Up
-                        </Typography>
-                        <Box component="form" noValidate sx={{mt: 1}}>
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
+    return (
+        <ThemeProvider theme={theme}>
+            <Container component="main" maxWidth="sm" sx={{width: "100%"}}>
+                <CssBaseline/>
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        width: "100%",
 
-                                label="Nick Name"
-                                name="Username"
-                                // autoComplete="email"
-                                autoFocus
-                                onChange={(e) => this.HandleChange(e)}
-                            />
-                            <Collapse in={this.state.errNick !== true}>
-                                <Alert
-                                    severity="info"
-                                >
-                                    <span>{this.state.errNick}</span>
-                                </Alert>
-                            </Collapse>
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="Email"
-                                label="Email Address"
-                                // id="password"
-                                // autoComplete="current-password"
-                                onChange={(e) => this.HandleChange(e)}
-                            />
-                            <Collapse in={this.state.errEmail !== true}>
-                                <Alert
-                                    severity="info"
-                                >
-                                    <span>{this.state.errEmail}</span>
-                                </Alert>
-                            </Collapse>
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="Phone"
-                                label="Phone Number"
-                                // id="password"
-                                // autoComplete="current-password"
-                                onChange={(e) => this.HandleChange(e)}
-                            />
-                            <Collapse in={this.state.errPhone !== true}>
-                                <Alert
-                                    severity="info"
-                                >
-                                    <span>{this.state.errPhone}</span>
-                                </Alert>
-                            </Collapse>
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="Password"
-                                label="Password"
-                                type="password"
-                                // id="password"
-                                // autoComplete="current-password"
-                                onChange={(e) => this.HandleChange(e)}
-                            />
-                            <Collapse in={this.state.errPwd !== true}>
-                                <Alert
-                                    severity="info"
-                                >
-                                    <span>{this.state.errPwd}</span>
-                                </Alert>
-                            </Collapse>
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="ConfirmedPwd"
-                                label="Please Confirm Password"
-                                type="password"
-                                // id="Cpassword"
-                                // autoComplete="current-password"
-                                onChange={(e) => this.HandleChange(e)}
-                            />
-                            <Collapse in={this.state.errCPwd !== true}>
-                                <Alert
-                                    severity="info"
-                                >
-                                    <span>{this.state.errCPwd}</span>
-                                </Alert>
-                            </Collapse>
+                    }}
 
-                            <FormControlLabel
-                                control={<Checkbox value="remember" color="primary"/>}
-                                label="Remember me"
-                            />
-                            <Box component="span" fullWidth sx={{p: 8,}}/>
-                            <Button
-                                fullWidth
-                                variant="contained"
-                                sx={{mt: 3, mb: 2}}
-                                onClick={() => this.HandleClick()}
-                            >
-                                Sign up
-                            </Button>
-                            <Grid container>
-                                <Grid item>
+                >
+                    <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+                        <LockOutlinedIcon/>
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Sign Up
+                    </Typography>
+                    <Box component="form" noValidate sx={{
+                        mt: 1, width: "100%",
+                        maxWidth: 400
+                    }}>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            error={errInfo.errNick !== true}
+                            helperText={errInfo.errNick !== true ? errInfo.errNick : ""}
+                            label="Nick Name"
+                            name="Username"
 
-                                    <Link to={{pathname: "/login"}}>
-                                        Sign In
-                                    </Link>
-                                </Grid>
+                            // autoComplete="email"
+                            autoFocus
+                            onChange={(e) => HandleUserChange(e)}
+                        />
+
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            error={errInfo.errEmail !== true}
+                            helperText={errInfo.errEmail !== true ? errInfo.errEmail : ""}
+                            name="Email"
+                            label="Email Address"
+                            // id="password"
+                            // autoComplete="current-password"
+                            onChange={(e) => HandleUserChange(e)}
+                        />
+
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="Phone"
+                            label="Phone Number"
+                            error={errInfo.errPhone !== true}
+                            helperText={errInfo.errPhone !== true ? errInfo.errPhone : ""}
+                            // id="password"
+                            // autoComplete="current-password"
+                            onChange={(e) => HandleUserChange(e)}
+                        />
+
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="Password"
+                            label="Password"
+                            type="password"
+                            error={errInfo.errPwd !== true}
+                            helperText={errInfo.errPwd !== true ? errInfo.errPwd : ""}
+                            // id="password"
+                            // autoComplete="current-password"
+                            onChange={(e) => HandleUserChange(e)}
+                        />
+
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="ConfirmedPwd"
+                            label="Confirmed Password"
+                            error={errInfo.errCPwd !== true}
+                            helperText={errInfo.errCPwd !== true ? errInfo.errCPwd : ""}
+                            type="password"
+                            onChange={(e) => HandleUserChange(e)}
+                        />
+
+
+                        {/*<Box component="span" fullWidth sx={{p: 8,}}/>*/}
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            sx={{mt: 3, mb: 2}}
+                            onClick={() => HandleClick()}
+                        >
+                            Sign up
+                        </Button>
+                        <Grid container>
+                            <Grid item>
+                                <Link to={{pathname: "/login"}}>
+                                    Sign In
+                                </Link>
+
                             </Grid>
-                        </Box>
+                        </Grid>
                     </Box>
-                    <Copyright sx={{mt: 8, mb: 4}}/>
-                </Container>
-                <FastDial/>
-            </ThemeProvider>
-        );
-    }
+                </Box>
+                <Copyright sx={{mt: 8, mb: 4}}/>
+            </Container>
+            <FastDial/>
+        </ThemeProvider>
+    )
 }

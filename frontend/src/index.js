@@ -43,8 +43,9 @@ ReactDOM.render((
                 {/*<Route path='' element={ <MainBody/>}/>*/}
                 <Route path='' element={<CategoryG/>}/>
                 <Route path='/cart' element={<Cart/>}/>
+                <Route path='/wishlist' element={<WishList/>}/>
             </Route>
-            <Route path='/wishlist' element={<WishList/>}/>
+
             <Route path="/wishlist/:wishlist_id" element={<WishListContentProvider/>}/>
             <Route path="/cart/:id" element={<DetailContentProvider/>}/>
             <Route path="/wishForm" element={<WishFormProvider/>}/>
