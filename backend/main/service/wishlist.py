@@ -14,7 +14,7 @@ def create_wishlist(info):
         "wishlist_id": "none"
     }
     owner_id = info['owner_id']
-    check_length = Wishlist.query.filter_by(owner_id=owner_id).all()
+    # check_length = Wishlist.query.filter_by(owner_id=owner_id).all()
     check_user = User.query.filter_by(id=owner_id).first()
     if not check_user:
         status_code = 404
@@ -23,13 +23,13 @@ def create_wishlist(info):
         resp.status_code = status_code
         database.session.close()
         return resp
-    if len(check_length) >= 5:
-        status_code = 400
-        response_data['message'] = 'Each user can have no more than 5 wishlists.'
-        resp = make_response(response_data)
-        resp.status_code = status_code
-        database.session.close()
-        return resp
+    # if len(check_length) >= 5:
+    #     status_code = 400
+    #     response_data['message'] = 'Each user can have no more than 5 wishlists.'
+    #     resp = make_response(response_data)
+    #     resp.status_code = status_code
+    #     database.session.close()
+    #     return resp
     owner_first_name = info['owner_first_name']
     owner_last_name = info['owner_last_name']
     wishlist_name = info['wishlist_name']
@@ -37,7 +37,7 @@ def create_wishlist(info):
     address = info['address']
     phone = info['phone']
     postcode = info['postcode']
-    wishlist_id = ''.join(random.sample(string.ascii_letters + string.digits, 17))
+    wishlist_id = ''.join(random.sample(string.ascii_letters + string.digits, 6))
     new_wishlist = Wishlist(wishlist_id=wishlist_id, owner_id=owner_id, wishlist_name=wishlist_name,
                                       wishlist_description=description, first_name=owner_first_name,
                             last_name=owner_last_name, address=address, phone=phone, postcode=postcode
