@@ -12,6 +12,8 @@ from ..service.admin_return_all_users import admin_return_all_users_methods
 from ..service.admin_search_a_user import admin_search_a_user_method
 from ..service.admin_search_a_user import admin_search_a_user_by_name_method
 from ..service.admin_search_a_user import admin_search_a_user_by_email_method
+from ..service.admin_return_all_wishlist import admin_return_all_wishlist_methods
+from ..service.admin_return_all_orders import admin_return_all_order_methods
 admin_namespace = admin_part_dto.admin_part_namespace
 
 @admin_namespace.route("/admin_sign_up")
@@ -127,3 +129,42 @@ class AdminSearchAUserByEmail(Resource):
             return marshal(output_gifts, admin_part_dto.admin_search_no_user_output_format), 400
         except:
             return marshal(output_gifts, admin_part_dto.admin_search_a_user_output_format), 200
+
+# @admin_namespace.route("/admin_return_all_wishlist")
+# class AdminReturnAllWishlist(Resource):
+#     @staticmethod
+#     @admin_namespace.response(200, 'success', model=admin_part_dto.admin_return_all_wishlist_output_format)
+#     @admin_namespace.response(400, 'Not Found', model=admin_part_dto.admin_return_no_wishlist_output_format)
+#     def get():
+#         output_gifts = admin_return_all_wishlist_methods()
+#         try:
+#             output_gifts.status_code
+#             return marshal(output_gifts, admin_part_dto.admin_return_no_wishlist_output_format)
+#         except:
+#             return marshal(output_gifts, admin_part_dto.admin_return_all_wishlist_output_format)
+
+
+@admin_namespace.route("/admin_return_all_wishlist")
+class ShowWishlist(Resource):
+    @staticmethod
+    @admin_namespace.response(200, 'success', admin_part_dto.show_wishlists)
+    @admin_namespace.response(404, 'not found')
+    def get():
+        resp = admin_return_all_wishlist_methods()
+        if resp.status_code == 200:
+            return marshal(resp.response_data, admin_part_dto.show_wishlists)
+        else:
+            return resp
+
+
+@admin_namespace.route("/admin_return_all_orders")
+class ShowOrders(Resource):
+    @staticmethod
+    @admin_namespace.response(200, 'success', admin_part_dto.show_orders)
+    @admin_namespace.response(404, 'not found')
+    def get():
+        resp = admin_return_all_order_methods()
+        if resp.status_code == 200:
+            return marshal(resp.response_data, admin_part_dto.show_orders)
+        else:
+            return resp
