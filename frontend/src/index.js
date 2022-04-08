@@ -19,24 +19,12 @@ import WishFormProvider from "./Components/wishlist/WishFormProvider";
 import CategoryG from "./Components/Category/CategoryG";
 import MainBody from "./Components/homepage/MainBody";
 import React from "react";
+import ForgetPassword from "./Components/forget password";
 
 
 
 ReactDOM.render((
-    // <Router history={browserHistory} >
-    //     {/*<Route path="/" component={AccountMenu}>*/}
-    //
-    //     {/*</Route>*/}
-    //
-    //     {/*<Route path="/login" component={LogIn}>*/}
-    //     {/*    <IndexRoute  component={CartCategory}/>*/}
-    //     {/*</Route>*/}
-    //     {/*    /!*<Route path="users" component={Users}>*!/*/}
-    //     {/*    /!*  <Route path="/user/:userId" component={User}/>*!/*/}
-    //     {/*    /!*</Route>*!/*/}
-    //     {/*<Route path="*" component={NoMatch}/>*/}
-    //
-    // </Router>
+
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<Homepage/>}>
@@ -52,6 +40,7 @@ ReactDOM.render((
             <Route path="/login" element={<LogIn/>}/>
             <Route path="/signup" element={<SignUp/>}/>
             <Route path="/account" element={<Account/>}/>
+            <Route path="/forget" element={<ForgetPassword/>}/>
             <Route path="*" element={<NoMatch/>}/>
         </Routes>
     </BrowserRouter>
