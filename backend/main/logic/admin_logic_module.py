@@ -14,6 +14,8 @@ from ..service.admin_search_a_user import admin_search_a_user_by_name_method
 from ..service.admin_search_a_user import admin_search_a_user_by_email_method
 from ..service.admin_return_all_wishlist import admin_return_all_wishlist_methods
 from ..service.admin_return_all_orders import admin_return_all_order_methods
+from ..service.admin_return_all_gifts import admin_return_all_gifts_methods
+from ..service.admin_input_payer_id_orders import admin_input_payer_id_orders_method
 admin_namespace = admin_part_dto.admin_part_namespace
 
 @admin_namespace.route("/admin_sign_up")
@@ -164,6 +166,31 @@ class ShowOrders(Resource):
     @admin_namespace.response(404, 'not found')
     def post():
         resp = admin_return_all_order_methods()
+        if resp.status_code == 200:
+            return marshal(resp.response_data, admin_part_dto.show_orders)
+        else:
+            return resp
+
+@admin_namespace.route("/admin_return_all_gifts")
+class ShowGifts(Resource):
+    @staticmethod
+    @admin_namespace.response(200, 'success', admin_part_dto.show_gifts)
+    @admin_namespace.response(404, 'not found')
+    def post():
+        resp = admin_return_all_gifts_methods()
+        if resp.status_code == 200:
+            return marshal(resp.response_data, admin_part_dto.show_gifts)
+        else:
+            return resp
+
+@admin_namespace.route("/admin_input_payer_id_orders")
+class ShowOrders(Resource):
+    @staticmethod
+    @admin_namespace.expect(admin_part_dto.admin_input_payer_id_orders_format)
+    @admin_namespace.response(200, 'success', admin_part_dto.show_orders)
+    @admin_namespace.response(404, 'not found')
+    def post():
+        resp = admin_input_payer_id_orders_method(json.loads(request.data))
         if resp.status_code == 200:
             return marshal(resp.response_data, admin_part_dto.show_orders)
         else:
