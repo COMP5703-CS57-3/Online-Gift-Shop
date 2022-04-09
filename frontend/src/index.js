@@ -20,6 +20,8 @@ import CategoryG from "./Components/Category/CategoryG";
 import MainBody from "./Components/homepage/MainBody";
 import React from "react";
 import ForgetPassword from "./Components/forget password";
+import AdminOrderList from "./Components/admin/AdminOrderList";
+import Dashboard from "./Components/admin/Dashboard";
 
 
 
@@ -42,6 +44,9 @@ ReactDOM.render((
             <Route path="/account" element={<Account/>}/>
             <Route path="/forget" element={<ForgetPassword/>}/>
             <Route path="*" element={<NoMatch/>}/>
+            <Route path='/admin' element={<Dashboard/>}>
+                <Route path='/admin/orderlist' element={<AdminOrderList/>}/>
+            </Route>
         </Routes>
     </BrowserRouter>
 ), document.getElementById('root'))
