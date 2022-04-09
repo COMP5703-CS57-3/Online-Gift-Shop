@@ -1,13 +1,15 @@
 from flask_restplus import Resource
 from flask_restplus import marshal
 import json
+
+from ..service.create_an_pay import create_checkout_session, pay_order_success, pay_order_fail
 from ..util.dto import create_order_part_dto
 from ..service.create_order import process_order_create
 from ..service.delete_order import process_delete_order
 from ..service.search_an_order import search_an_order_method
 from ..service.pay_an_order import pay_an_order_method, set_an_order_as_delivery, set_an_order_as_completed
 create_order_part_namespace = create_order_part_dto.create_order_part_namespace
-from flask import request
+from flask import request, redirect
 
 
 @create_order_part_namespace.route('/create')
@@ -53,6 +55,32 @@ class SearchAnOrder(Resource):
             return marshal(resp.response_data, create_order_part_dto.search_an_order_output_format)
         else:
             return resp
+
+
+@create_order_part_namespace.route('/create_checkout_session')
+class CreateCheckoutSession(Resource):
+    @staticmethod
+    def post():
+        an_order = request.form
+        resp = create_checkout_session(an_order)
+        if resp.status_code == 200:
+            return redirect(resp.response_data.url, code=303)
+
+
+@create_order_part_namespace.route('/pay_result/<order_id>')
+class PayResultCallback(Resource):
+    @staticmethod
+    def get(order_id):
+        args = request.args
+        if args.get('success'):
+            resp = pay_order_success(order_id)
+            if resp.status_code == 200:
+                return 'pay success'
+        else:
+            resp = pay_order_fail(order_id)
+            if resp.status_code == 200:
+                return 'pay fail'
+
 
 @create_order_part_namespace.route('/pay_an_order/<an_order>')
 class PayAnOrder(Resource):
