@@ -363,7 +363,7 @@ export default class AccountProfileDetails extends React.Component {
             // console.log(sessionStorage.getItem("id"))
             axios.put("http://localhost:5000/user_information/user_profile/update_user_information", {
 
-                    "id": sessionStorage.getItem("id"),
+                    "id": _local.get("id"),
                     "user_name": data.user_name,
                     "user_mobile": data.user_mobile,
                     "user_date_of_birth": data.user_date_of_birth,
@@ -372,6 +372,8 @@ export default class AccountProfileDetails extends React.Component {
             ).then(
                 that.setState({user: data, isReadonly: true}) //after axios
                 // console.log("success")
+            ).catch(
+                r => console.log(r)
             )
 
         } else {
