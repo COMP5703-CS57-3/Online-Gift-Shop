@@ -5,7 +5,7 @@ from ..util.dto import create_order_part_dto
 from ..service.create_order import process_order_create
 from ..service.delete_order import process_delete_order
 from ..service.search_an_order import search_an_order_method
-from ..service.pay_an_order import pay_an_order_method
+from ..service.pay_an_order import pay_an_order_method, set_an_order_as_delivery, set_an_order_as_completed
 create_order_part_namespace = create_order_part_dto.create_order_part_namespace
 from flask import request
 
@@ -31,7 +31,7 @@ class DeleteOrder(Resource):
     @staticmethod
     @create_order_part_namespace.response(200, 'success', model=create_order_part_dto.delete_order_output_format)
     @create_order_part_namespace.response(403, 'not found')
-    def get(user_id, order_number):
+    def post(user_id, order_number):
         resp = process_delete_order(user_id, order_number)
         if resp.status_code == 403:
             return marshal(resp, create_order_part_dto.delete_order_output_format), 403
@@ -46,7 +46,7 @@ class SearchAnOrder(Resource):
     @create_order_part_namespace.response(200, 'success', create_order_part_dto.search_an_order_output_format)
     @create_order_part_namespace.response(404, 'not found')
     @create_order_part_namespace.response(400, 'Bad request')
-    def get(an_order):
+    def post(an_order):
         # resp = search_an_order_method(json.loads(request.data))
         resp = search_an_order_method(an_order)
         if resp.status_code == 200:
@@ -60,9 +60,39 @@ class PayAnOrder(Resource):
     #@create_order_part_namespace.expect(create_order_part_dto.search_an_order_input_format)
     @create_order_part_namespace.response(200, 'success', create_order_part_dto.pay_an_order_output_format)
     @create_order_part_namespace.response(400, 'Bad request', create_order_part_dto.pay_an_order_output_format)
-    def get(an_order):
+    def post(an_order):
         # resp = search_an_order_method(json.loads(request.data))
         resp = pay_an_order_method(an_order)
+        if resp.status_code == 200:
+            return marshal(resp, create_order_part_dto.pay_an_order_output_format), 200
+        else:
+            return marshal(resp, create_order_part_dto.pay_an_order_output_format), 400
+
+
+@create_order_part_namespace.route('/set_an_order_as_delivery/<an_order>')
+class SetAnOrderAsDelivery(Resource):
+    @staticmethod
+    #@create_order_part_namespace.expect(create_order_part_dto.search_an_order_input_format)
+    @create_order_part_namespace.response(200, 'success', create_order_part_dto.pay_an_order_output_format)
+    @create_order_part_namespace.response(400, 'Bad request', create_order_part_dto.pay_an_order_output_format)
+    def post(an_order):
+        # resp = search_an_order_method(json.loads(request.data))
+        resp = set_an_order_as_delivery(an_order)
+        if resp.status_code == 200:
+            return marshal(resp, create_order_part_dto.pay_an_order_output_format), 200
+        else:
+            return marshal(resp, create_order_part_dto.pay_an_order_output_format), 400
+
+
+@create_order_part_namespace.route('/set_an_order_as_completed/<an_order>')
+class SetAnOrderAsCompleted(Resource):
+    @staticmethod
+    #@create_order_part_namespace.expect(create_order_part_dto.search_an_order_input_format)
+    @create_order_part_namespace.response(200, 'success', create_order_part_dto.pay_an_order_output_format)
+    @create_order_part_namespace.response(400, 'Bad request', create_order_part_dto.pay_an_order_output_format)
+    def post(an_order):
+        # resp = search_an_order_method(json.loads(request.data))
+        resp = set_an_order_as_completed(an_order)
         if resp.status_code == 200:
             return marshal(resp, create_order_part_dto.pay_an_order_output_format), 200
         else:

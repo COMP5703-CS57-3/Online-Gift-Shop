@@ -75,7 +75,7 @@ class AdminReturnAllUsers(Resource):
     @staticmethod
     @admin_namespace.response(200, 'success', model=admin_part_dto.admin_return_all_users_output_format)
     @admin_namespace.response(400, 'Not Found', model=admin_part_dto.admin_return_no_user_output_format)
-    def get():
+    def post():
         output_gifts = admin_return_all_users_methods()
         try:
             output_gifts.status_code
@@ -92,7 +92,7 @@ class AdminSearchAUser(Resource):
     @staticmethod
     @admin_namespace.response(200, 'success', model=admin_part_dto.admin_search_a_user_output_format)
     @admin_namespace.response(400, 'failed request', model=admin_part_dto.admin_search_no_user_output_format)
-    def get(user_id):
+    def post(user_id):
         output_gifts = admin_search_a_user_method(user_id)
         try:
             output_gifts.status_code
@@ -109,7 +109,7 @@ class AdminSearchAUserByName(Resource):
     @staticmethod
     @admin_namespace.response(200, 'success', model=admin_part_dto.admin_search_a_user_output_format)
     @admin_namespace.response(400, 'failed request', model=admin_part_dto.admin_search_no_user_output_format)
-    def get(user_name):
+    def post(user_name):
         output_gifts = admin_search_a_user_by_name_method(user_name)
         try:
             output_gifts.status_code
@@ -122,7 +122,7 @@ class AdminSearchAUserByEmail(Resource):
     @staticmethod
     @admin_namespace.response(200, 'success', model=admin_part_dto.admin_search_a_user_output_format)
     @admin_namespace.response(400, 'failed request', model=admin_part_dto.admin_search_no_user_output_format)
-    def get(user_email):
+    def post(user_email):
         output_gifts = admin_search_a_user_by_email_method(user_email)
         try:
             output_gifts.status_code
@@ -149,7 +149,7 @@ class ShowWishlist(Resource):
     @staticmethod
     @admin_namespace.response(200, 'success', admin_part_dto.show_wishlists)
     @admin_namespace.response(404, 'not found')
-    def get():
+    def post():
         resp = admin_return_all_wishlist_methods()
         if resp.status_code == 200:
             return marshal(resp.response_data, admin_part_dto.show_wishlists)
@@ -162,7 +162,7 @@ class ShowOrders(Resource):
     @staticmethod
     @admin_namespace.response(200, 'success', admin_part_dto.show_orders)
     @admin_namespace.response(404, 'not found')
-    def get():
+    def post():
         resp = admin_return_all_order_methods()
         if resp.status_code == 200:
             return marshal(resp.response_data, admin_part_dto.show_orders)
