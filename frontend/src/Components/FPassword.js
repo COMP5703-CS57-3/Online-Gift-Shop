@@ -22,7 +22,6 @@ export default function FPassword() {
     const [password, setPassword] = React.useState("");
     const [isErr, setIsErr] = React.useState(false);
     const handleNext = () => {
-
             if (activeStep === 0) {
                 if (email !== "") {
                     if (checkEmail(email) === true) {
@@ -46,7 +45,7 @@ export default function FPassword() {
                         setIsErr(true)
                     }
                 } else {
-                    setErrValidation("* Please input your Email")
+                    setErrEmail("* Please input your Email")
                     setIsErr(true)
                 }
             } else if (activeStep === 1) {
