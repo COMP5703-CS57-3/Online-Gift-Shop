@@ -437,6 +437,41 @@ class admin_part_dto:
         'orders_inf': fields.List(fields.Nested(admin_return_all_orders_output_format))
     })
 
+    admin_return_gift_size_output_format = admin_part_namespace.model("admin_return_gift_size_output_format", {
+        'id': fields.Integer,
+        'gift_id': fields.String,
+        'size': fields.String,
+        'stock': fields.Integer,
+        'this_size_sales': fields.Float,
+        'this_size_income': fields.Float,
+    })
+    admin_return_all_gifts_output_format = admin_part_namespace.model("admin_return_all_gifts_output_format", {
+        'id': fields.Integer,
+        'gift_name': fields.String,
+        'gift_price': fields.Float,
+        'gift_discount_price': fields.Float,
+        'gift_discount_state': fields.String,
+        'gift_description': fields.String,
+        'sizes': fields.List(fields.Nested(admin_return_gift_size_output_format)),
+        'gift_category': fields.String,
+        'gift_side_category1': fields.String,
+        'gift_side_category2': fields.String,
+        'gift_cover_url': fields.String,
+        'gift_show_url1': fields.String,
+        'gift_show_url2': fields.String,
+        'gift_show_url3': fields.String,
+        'gift_show_url4': fields.String,
+        'gift_sales': fields.Integer,
+        'gift_income': fields.Float
+    })
+    show_gifts = admin_part_namespace.model('show_gifts', {
+        'gifts_inf': fields.List(fields.Nested(admin_return_all_gifts_output_format))
+    })
+
+    admin_input_payer_id_orders_format = admin_part_namespace.model("admin_input_payer_id_orders_format", {
+        'payer_id': fields.Integer,
+    })
+
 class search_part_dto:
     search_part_namespace = Namespace("The search logic module",
                                 description="test search function here")
