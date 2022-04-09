@@ -558,3 +558,69 @@ class create_order_part_dto:
         "message": fields.String
     })
 
+class dashboard_dto:
+    dashboard_namespace = Namespace("The dashboard logic module",
+                                description="test dashboard function here")
+    show_new_order_items_output_format = dashboard_namespace.model("show_new_order_items_output_format", {
+        'id': fields.Integer,
+        'gift_name': fields.String,
+        'item_cover_url': fields.String,
+        'size': fields.String,
+        'count': fields.Integer,
+        'price': fields.Float,
+        'each_total_price': fields.Float,
+        'gift_id': fields.Integer,
+        'order_id': fields.Integer,
+    })
+    show_new_orders_output_format = dashboard_namespace.model("show_new_orders_output_format", {
+        'id': fields.Integer,
+        'order_time': fields.String,
+        'order_total': fields.Float,
+        'order_number': fields.String,
+        'first_name': fields.String,
+        'last_name': fields.String,
+        'phone': fields.String,
+        'address': fields.String,
+        'postcode': fields.String,
+        'payer_id': fields.Integer,
+        'payer_name': fields.String,
+        'order_state': fields.String,
+        'wishlist_code': fields.String,
+        'user_id': fields.Integer,
+        # 'total_price': fields.Float,
+        'products': fields.List(fields.Nested(show_new_order_items_output_format)),
+    })
+    show_new_orders = dashboard_namespace.model('show_new_orders', {
+        'orders_inf': fields.List(fields.Nested(show_new_orders_output_format))
+    })
+
+
+    most_sales_gift_output = dashboard_namespace.model("most_sales_gift_output", {
+        'id': fields.Integer,
+        'gift_name': fields.String,
+        'gift_price': fields.Float,
+        'gift_discount_price': fields.Float,
+        'gift_discount_state': fields.String,
+        'gift_description': fields.String,
+        'gift_category': fields.String,
+        'gift_side_category1': fields.String,
+        'gift_side_category2': fields.String,
+        'gift_cover_url': fields.String,
+        # 'gift_show_url1':fields.String,
+        # 'gift_show_url2': fields.String,
+        # 'gift_show_url3': fields.String,
+        # 'gift_show_url4': fields.String,
+        'gift_sales': fields.Integer,
+        'gift_income': fields.Float
+    })
+    show_most_sales = dashboard_namespace.model('show_most_sales', {
+        'most_sales_gifts': fields.List(fields.Nested(most_sales_gift_output))
+    })
+
+    show_users_number_information = dashboard_namespace.model("show_users_number_information", {
+        "message": fields.String
+    })
+
+    show_order_number_information = dashboard_namespace.model("show_order_number_information", {
+        "message": fields.String
+    })
