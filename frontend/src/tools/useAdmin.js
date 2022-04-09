@@ -5,6 +5,7 @@ export const useAdmin = ()=> useContext(AdminContext);
 
 export default function AdminProvider({children}){
     const [orderList,setOrderList] = useState();
+    const [users,setUsers] = useState();
     const [loading,setLoading] = useState(true);
     const getOrderList = ()=>{
         setLoading(true);
@@ -14,9 +15,17 @@ export default function AdminProvider({children}){
             setLoading(false)
         });
     }
+    const getUsers = ()=>{
+        setLoading(true);
+        fetch("http://127.0.0.1:5000/admin/admin_return_all_users").then(res=>res.json()).then(
+            res=> setUsers(res)
+        ).then(()=>{
+            setLoading(false)
+        });
+    }
     return(
-        <AdminContext.Provider value={{orderList,getOrderList,loading}}>
+        <AdminContext.Provider value={{orderList,getOrderList,loading,getUsers,users}}>
             {children}
         </AdminContext.Provider>
-    )
+    )//
 }

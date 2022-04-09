@@ -22,6 +22,8 @@ import React from "react";
 import ForgetPassword from "./Components/forget password";
 import AdminOrderList from "./Components/admin/AdminOrderList";
 import Dashboard from "./Components/admin/Dashboard";
+import AdminUserList from "./Components/admin/AdminUserList";
+import Example from "./Components/example/Example";
 
 
 
@@ -46,7 +48,9 @@ ReactDOM.render((
             <Route path="*" element={<NoMatch/>}/>
             <Route path='/admin' element={<Dashboard/>}>
                 <Route path='/admin/orderlist' element={<AdminOrderList/>}/>
+                <Route path='/admin/user' element={<AdminUserList/>}/>
             </Route>
+            <Route path="/example" element={<Example/>}/>
         </Routes>
     </BrowserRouter>
 ), document.getElementById('root'))
