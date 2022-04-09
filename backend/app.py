@@ -7,6 +7,7 @@ from main.logic.wishlist_logic_module import wishlist_ns
 from main.logic.admin_logic_module import admin_namespace
 from main.logic.search_item_logic_module import search_part_namespace
 from main.logic.create_order_logic_module import create_order_part_namespace
+from main.logic.dashboard_logic_module import dashboard_namespace
 from flask import Flask
 from flask import Blueprint
 from flask_cors import CORS
@@ -39,6 +40,7 @@ def add_namespace():
     gift_shop.add_namespace(admin_namespace, "/admin")
     gift_shop.add_namespace(search_part_namespace, "/search")
     gift_shop.add_namespace(create_order_part_namespace, "/order")
+    gift_shop.add_namespace(dashboard_namespace, "/dashboard")
 add_namespace()
 
 
