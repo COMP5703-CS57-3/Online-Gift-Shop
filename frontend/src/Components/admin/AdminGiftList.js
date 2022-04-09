@@ -7,13 +7,16 @@ import Box from "@mui/material/Box";
 import WishListItem from "../wishlist/WishListItem";
 import OrderCard from "./OrderCard";
 import Loading from "../normal/Loading";
+import UserCard from "./UserCard";
+import GiftCardA from "./GiftCardA";
+import {FixedSizeList} from "react-window";
 
-export default function AdminOrderList() {
-    const {orderList} = useAdmin();
-    const {getOrderList} = useAdmin()
+export default function AdminGiftList() {
+    const {gifts} = useAdmin();
+    const {getAllGifts} = useAdmin()
     const {loading} = useAdmin()
     useEffect(()=>{
-        getOrderList()
+        getAllGifts();
     },[])
     if(loading){
         return <Loading/>
@@ -25,9 +28,14 @@ export default function AdminOrderList() {
                 gap:1,
                 gridTemplateColumns:"repeat(2,1fr)"
             }}>
-                {orderList.map((order,i)=>(
-                    <OrderCard key={i} {...order}/>
-                ))}
+                <FixedSizeList
+                itemCount={gifts.length}
+                itemSize={400}>
+                    >
+                    {gifts.map((gift,i)=>(
+                        <GiftCardA key={i} item={gift}/>
+                    ))}
+                </FixedSizeList>
             </Box>
         </div>
     )
