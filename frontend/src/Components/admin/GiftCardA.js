@@ -8,8 +8,7 @@ import {useAdmin} from "../../tools/useAdmin";
 
 export default function GiftCardA({item}) {
   const {changeItemCount} = useAdmin();
-  const buttonAction = ()=>{
-      changeItemCount
+  const buttonAction = ()=> {
   }
   return (
     <Box>
