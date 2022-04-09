@@ -100,8 +100,9 @@ def add_items(info):
     }
     check_owner = Wishlist.query.filter_by(owner_id=info['owner_id']).first()
     check_product = Gifts.query.filter_by(id=info['product_id']).first()
-    check_duplicate = WishlistItems.query.filter_by(wishlist_id=info['wishlist_id'], products_id=info['product_id']).first()
-    check_size = WishlistItems.query.filter_by(wishlist_id=info['wishlist_id'], products_id=info['product_id'], size=info['size']).first()
+    check_duplicate = WishlistItems.query.filter_by(wishlist_id=info['wishlist_id'], products_id=info['product_id'], size=info['size']).first()
+    check_size = Size.query.filter_by(gift_id=info['product_id'], size=info['size']).first()
+    check_wishlist_item = WishlistItems.query.filter_by(wishlist_id=info['wishlist_id'], products_id=info['product_id'], size=info['size']).first()
     check_wishlist_state = Wishlist.query.filter_by(wishlist_id=info['wishlist_id'], state='completed').first()
     check_wishlist_state_part = Wishlist.query.filter_by(wishlist_id=info['wishlist_id'], state='partial').first()
     if check_wishlist_state:
@@ -118,7 +119,6 @@ def add_items(info):
         resp.status_code = status_code
         database.session.close()
         return resp
-
     if not check_owner:
         response_data['message'] = 'This user has no wishlist.'
         status_code = 404
@@ -140,7 +140,7 @@ def add_items(info):
             status_code = 200
             resp = make_response(add_seccussfully)
             resp.status_code = status_code
-            check_size.count = check_size.count + 1
+            check_wishlist_item.count = check_wishlist_item.count + 1
             database.session.commit()
             database.session.close()
             return resp
