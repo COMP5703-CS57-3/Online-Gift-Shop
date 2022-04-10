@@ -23,6 +23,7 @@ import AdminGiftList from "./Components/admin/AdminGiftList";
 import AddItemForm from "./Components/admin/AddItemForm";
 import EditItemForm from "./Components/admin/EditItemForm";
 import OrderP from "./Components/Order/OrderP";
+import Payc from "./Components/Pay/Payc";
 
 
 ReactDOM.render((
@@ -44,7 +45,7 @@ ReactDOM.render((
             <Route path="/account" element={<Account/>}/>
             <Route path="/findpwd" element={<FPassword/>}/>
             <Route path="*" element={<NoMatch/>}/>
-
+            <Route path="/paytest" element={<Payc/>}/>
             <Route path='/admin' element={<Dashboard/>}>
                 <Route path='/admin/orderlist' element={<AdminOrderList/>}/>
                 <Route path='/admin/user' element={<AdminUserList/>}/>
