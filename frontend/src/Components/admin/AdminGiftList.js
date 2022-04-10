@@ -10,10 +10,12 @@ import Loading from "../normal/Loading";
 import UserCard from "./UserCard";
 import GiftCardA from "./GiftCardA";
 import {FixedSizeList} from "react-window";
+import {useNavigate} from "react-router-dom";
 
 
 
 export default function AdminGiftList() {
+
     const {gifts} = useAdmin();
     const {getAllGifts} = useAdmin()
     const {loading} = useAdmin()

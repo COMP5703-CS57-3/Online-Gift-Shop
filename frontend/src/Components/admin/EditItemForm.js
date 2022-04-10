@@ -5,30 +5,32 @@ import {CssBaseline, FormControl, TextField} from "@mui/material";
 import Container from "@mui/material/Container";
 import Background from "../../picture/background.png";
 import {useAdmin} from "../../tools/useAdmin";
+import {useNavigate, useParams} from "react-router-dom";
+import {useGift} from "../../tools/useGift";
 
-export default function AddItemForm({owner_id}) {
-    const [giftNameProps,resetGiftName] = useInput("123");
-    const [giftPriceProps,resetGiftPrice] = useInput("123");
-    const [giftDiscountPriceProps,resetGiftDiscountPrice] = useInput("123");
-    const [giftDiscountStateProps,resetGiftDiscountState] = useInput("123");
-    const [descriptionProps,resetDescription3] = useInput("123");
-    const [categoryProps,resetCategory] =useInput("123");
-    const [sideCategory1Props,resetSide1] = useInput("123");
-    const [sideCategory2Props,resetSide2] = useInput("123");
-    const [coverProps,resetCover] = useInput("123");
-    const [show1Props,resetShow1] = useInput("123");
-    const [show2Props,resetShow2] = useInput("123");
-    const [show3Props,resetShow3] = useInput("123");
-    const [show4Props,resetShow4] = useInput("123");
-    const {addItems} = useAdmin();
-
+export default function EditItemForm({}) {
+    let {id} = useParams();
+    let {gifts} = useAdmin();
+    let foundGift = gifts.find(
+       item => item.id == id
+    );
+    const [giftNameProps,resetGiftName] = useInput(foundGift.gift_name);
+    const [giftPriceProps,resetGiftPrice] = useInput(foundGift.gift_price);
+    const [giftDiscountPriceProps,resetGiftDiscountPrice] = useInput(foundGift.gift_discount_price);
+    const [giftDiscountStateProps,resetGiftDiscountState] = useInput(foundGift.gift_discount_state);
+    const [descriptionProps,resetDescription3] = useInput(foundGift.gift_description);
+    const [categoryProps,resetCategory] =useInput(foundGift.gift_category);
+    const [sideCategory1Props,resetSide1] = useInput(foundGift.gift_side_category1);
+    const [sideCategory2Props,resetSide2] = useInput(foundGift.gift_side_category2);
+    const [coverProps,resetCover] = useInput(foundGift.gift_cover_url);
+    const [show1Props,resetShow1] = useInput(foundGift.gift_show_url1);
+    const [show2Props,resetShow2] = useInput(foundGift.gift_show_url2);
+    const [show3Props,resetShow3] = useInput(foundGift.gift_show_url3);
+    const [show4Props,resetShow4] = useInput(foundGift.gift_show_url4);
+    const {changeItemCount} = useAdmin();
     // console.log(wishTitle.current.valueOf());
 
     const size = [
-        {
-            size: "S",
-            size_stock: 1
-        },
         {
             size: "L",
             size_stock: 2
@@ -36,7 +38,7 @@ export default function AddItemForm({owner_id}) {
     ]
     const submit = e=>{
         e.preventDefault();
-        addItems(giftNameProps.value,1,1,giftDiscountStateProps.value,descriptionProps.value,categoryProps.value,sideCategory1Props.value,sideCategory2Props.value,coverProps.value,show1Props.value,show2Props.value,show3Props.value,show4Props.value,size);
+        changeItemCount(id,giftNameProps.value,1,1,giftDiscountStateProps.value,descriptionProps.value,categoryProps.value,sideCategory1Props.value,sideCategory2Props.value,coverProps.value,show1Props.value,show2Props.value,show3Props.value,show4Props.value,size);
         // resetTitle();
         // resetAddress();
         // resetDescription();
@@ -65,7 +67,7 @@ export default function AddItemForm({owner_id}) {
                         <TextField {...show2Props} label="lastname"/>
                         <TextField {...show3Props} label="lastname"/>
                         <TextField {...show4Props} label="lastname"/>
-                        <button>add</button>
+                        <button>change</button>
                     </Box>
                     {/*<form onSubmit={submit2}>*/}
                     {/*    <button>ADD product</button>*/}

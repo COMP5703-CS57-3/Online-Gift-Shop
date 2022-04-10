@@ -21,6 +21,7 @@ import AdminUserList from "./Components/admin/AdminUserList";
 import Example from "./Components/example/Example";
 import AdminGiftList from "./Components/admin/AdminGiftList";
 import AddItemForm from "./Components/admin/AddItemForm";
+import EditItemForm from "./Components/admin/EditItemForm";
 
 
 ReactDOM.render((
@@ -48,6 +49,7 @@ ReactDOM.render((
                 <Route path='/admin/user' element={<AdminUserList/>}/>
                 <Route path='/admin/gift' element={<AdminGiftList/>}/>
                 <Route path="/admin/addItemAdmin" element={<AddItemForm/>}/>
+                <Route path="/admin/EditItemAdmin/:id" element={<EditItemForm/>}/>
             </Route>
             <Route path="/example" element={<Example/>}/>
         </Routes>

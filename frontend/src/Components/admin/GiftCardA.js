@@ -5,6 +5,7 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import Button from "@mui/material/Button";
 import {useAdmin} from "../../tools/useAdmin";
 import {Stack} from "@material-ui/core";
+import {useNavigate} from "react-router-dom";
 
 
 export default function GiftCardA({style,item}) {
@@ -12,6 +13,11 @@ export default function GiftCardA({style,item}) {
   const {removeItems} = useAdmin();
   const buttonAction = ()=> {
       removeItems(item.id);
+  }
+  let navigate = useNavigate();
+  const nav =()=> navigate("/admin/EditItemAdmin/"+item.id);
+  const buttonAction2 = ()=> {
+    nav();
   }
   if(item.sizes===undefined){
       return (
@@ -40,6 +46,9 @@ export default function GiftCardA({style,item}) {
         </Stack>
         <Button onClick={buttonAction}>
             remove
+        </Button>
+        <Button onClick={buttonAction2}>
+            edit
         </Button>
     </Box>
   );
