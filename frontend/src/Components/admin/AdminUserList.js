@@ -1,11 +1,6 @@
-import CartProvider from "../../tools/useCart";
-import CategoryC from "../Cart/CategoryC";
 import React, {useEffect} from "react";
-import AdminProvider, {useAdmin} from "../../tools/useAdmin";
-import {useWish} from "../../tools/useWish";
+import {useAdmin} from "../../tools/useAdmin";
 import Box from "@mui/material/Box";
-import WishListItem from "../wishlist/WishListItem";
-import OrderCard from "./OrderCard";
 import Loading from "../normal/Loading";
 import UserCard from "./UserCard";
 

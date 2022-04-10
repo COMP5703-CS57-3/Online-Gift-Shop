@@ -92,7 +92,6 @@ export default class AccountProfileDetails extends React.Component {
             .catch(r => {
                 const user = sample
                 const address = user.user_address ? user.user_address.split(",") : ['', '', '']
-                console.log("运行到这了")
                 that.setState({
                     "user": Object.assign(user, {
                         "user_country": address[0] === "" ? "Australia" : address[0],
@@ -107,6 +106,11 @@ export default class AccountProfileDetails extends React.Component {
 
             })
     }
+
+    componentWillUnmount() {
+        this.setState = () => false;
+    }
+
 
     handleChange = (event) => {
         console.log(this.state)
@@ -200,7 +204,7 @@ export default class AccountProfileDetails extends React.Component {
                                         fullWidth
                                         disabled={this.state.isReadonly}
                                         label="Birthday"
-                                        value={this.state.isReadonly ? this.state.user.user_date_of_birth :this.state.new_user.user_date_of_birth}
+                                        value={this.state.isReadonly ? this.state.user.user_date_of_birth : this.state.new_user.user_date_of_birth}
                                         onChange={(newVal) =>
                                             this.handleChange(newVal)
                                         }
@@ -394,5 +398,7 @@ export default class AccountProfileDetails extends React.Component {
         }
         return states
     }
+
+
 }
 
