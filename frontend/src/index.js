@@ -22,6 +22,7 @@ import Example from "./Components/example/Example";
 import AdminGiftList from "./Components/admin/AdminGiftList";
 import AddItemForm from "./Components/admin/AddItemForm";
 import EditItemForm from "./Components/admin/EditItemForm";
+import OrderP from "./Components/Order/OrderP";
 
 
 ReactDOM.render((
@@ -52,6 +53,7 @@ ReactDOM.render((
                 <Route path="/admin/EditItemAdmin/:id" element={<EditItemForm/>}/>
             </Route>
             <Route path="/example" element={<Example/>}/>
+            <Route path="/order" element={<OrderP/>}/>
         </Routes>
     </BrowserRouter>
 ), document.getElementById('root'))
