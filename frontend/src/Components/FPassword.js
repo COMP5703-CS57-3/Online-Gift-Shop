@@ -9,6 +9,7 @@ import {TextField} from "@material-ui/core";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import {checkEmail, checkPassword} from "../logic/ValCheck";
+import {useNavigate} from "react-router-dom";
 
 const steps = ['Please input your email', 'Please input validation code', 'Please input your new password', 'Finish'];
 
@@ -21,23 +22,25 @@ export default function FPassword() {
     const [validation, setValidation] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [isErr, setIsErr] = React.useState(false);
+    const navigate = useNavigate()
     const handleNext = () => {
-            if (activeStep === 0) {
-                if (email !== "") {
-                    if (checkEmail(email) === true) {
-                        axios.post('http://localhost:5000/login_signup/get_validation', {
-                            user_email: email,
-                        }).then((response) => {
+        if (activeStep === 0) {
 
-                            setActiveStep((prevActiveStep) => prevActiveStep + 1);
-                        }).catch((response) => {
-                            // console.log(response)
-                            if (response.toString().indexOf("400") !== -1) {
-                                setErrEmail("* No such User")
-                                setIsErr(true)
-                            } else {
-                                setErrEmail("* Backend Error")
-                            }
+            if (email !== "") {
+                if (checkEmail(email) === true) {
+                    axios.post('http://localhost:5000/login_signup/get_validation', {
+                        user_email: email,
+                    }).then((response) => {
+
+                        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+                    }).catch((response) => {
+                        // console.log(response)
+                        if (response.toString().indexOf("400") !== -1) {
+                            setErrEmail("* No such User")
+                            setIsErr(true)
+                        } else {
+                            setErrEmail("* Backend Error")
+                        }
 
                         })
                     } else {
@@ -66,6 +69,7 @@ export default function FPassword() {
                     }).then((response) => {
 
                         setActiveStep((prevActiveStep) => prevActiveStep + 1);
+                        setTimeout(() => navigate('/login'), 2500)
                     }).catch((response) => {
                         // console.log(response)
                         if (response.toString().indexOf("400") !== -1) {
@@ -84,6 +88,7 @@ export default function FPassword() {
             } else {
 
                 setActiveStep((prevActiveStep) => prevActiveStep + 1);
+
             }
         }
 
@@ -194,6 +199,7 @@ export default function FPassword() {
                             <Button onClick={handleNext} disabled={isErr}>
                                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                             </Button>
+                            {/*{activeStep === steps.length - 1?<Navigate to={"/login"}/>:<span/>}*/}
                         </Box>
                     </React.Fragment>
                 )}
