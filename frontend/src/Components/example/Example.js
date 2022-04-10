@@ -17,7 +17,7 @@ export default function Example(){
     return(
         <FixedSizeList
         width={window.innerHeight}
-        height={window.innerWidth}
+        height={window.innerWidth}//
         itemCount={bigList.length}
         itemSize={50}>
             {render}
