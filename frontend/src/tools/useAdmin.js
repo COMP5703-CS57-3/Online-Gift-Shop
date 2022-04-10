@@ -91,8 +91,24 @@ export default function AdminProvider({children}){
             setLoading(false)
         });
     }
+    const orderCompleted =(id)=>{
+        setLoading(true);
+        fetch("http://127.0.0.1:5000/order/set_an_order_as_completed/"+id,
+            {method: 'POST'}
+            ).then(console.log).then(()=>{
+            setLoading(false)
+        });
+    }
+    const orderDelivery =(id)=>{
+        setLoading(true);
+        fetch("http://127.0.0.1:5000/order/set_an_order_as_delivery/"+id,
+            {method: 'POST'}
+            ).then(console.log).then(()=>{
+            setLoading(false)
+        });
+    }
     return(
-        <AdminContext.Provider value={{orderList,getOrderList,loading,getUsers,users,getAllGifts,gifts,changeItemCount,addItems,removeItems}}>
+        <AdminContext.Provider value={{orderList,getOrderList,loading,getUsers,users,getAllGifts,gifts,changeItemCount,addItems,removeItems,state,setState,orderCompleted,orderDelivery}}>
             {children}
         </AdminContext.Provider>
     )//
