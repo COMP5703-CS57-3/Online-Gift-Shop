@@ -19,6 +19,8 @@ import AdminOrderList from "./Components/admin/AdminOrderList";
 import Dashboard from "./Components/admin/Dashboard";
 import AdminUserList from "./Components/admin/AdminUserList";
 import Example from "./Components/example/Example";
+import AdminGiftList from "./Components/admin/AdminGiftList";
+import AddItemForm from "./Components/admin/AddItemForm";
 
 
 ReactDOM.render((
@@ -40,9 +42,12 @@ ReactDOM.render((
             <Route path="/account" element={<Account/>}/>
             <Route path="/findpwd" element={<FPassword/>}/>
             <Route path="*" element={<NoMatch/>}/>
+
             <Route path='/admin' element={<Dashboard/>}>
                 <Route path='/admin/orderlist' element={<AdminOrderList/>}/>
                 <Route path='/admin/user' element={<AdminUserList/>}/>
+                <Route path='/admin/gift' element={<AdminGiftList/>}/>
+                <Route path="/admin/addItemAdmin" element={<AddItemForm/>}/>
             </Route>
             <Route path="/example" element={<Example/>}/>
         </Routes>
