@@ -28,6 +28,7 @@ const routes = [
                 path: '',
                 auth: false,
                 component: CategoryG
+
             },
             {
                 path: '/cart',
