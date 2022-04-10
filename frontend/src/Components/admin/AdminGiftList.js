@@ -11,6 +11,8 @@ import UserCard from "./UserCard";
 import GiftCardA from "./GiftCardA";
 import {FixedSizeList} from "react-window";
 
+
+
 export default function AdminGiftList() {
     const {gifts} = useAdmin();
     const {getAllGifts} = useAdmin()
@@ -21,22 +23,26 @@ export default function AdminGiftList() {
     if(loading){
         return <Loading/>
     }
+    const giftlist = gifts.map((gift,index)=>(
+        {
+            gift: gift,
+            index: index
+        }
+    ))
+    const render = ({index,style})=>(
+        <GiftCardA style={style} item={giftlist[index].gift}/>
+    )
+
     return(
-        <div>
-            <Box sx={{
-                display:"grid",
-                gap:1,
-                gridTemplateColumns:"repeat(2,1fr)"
-            }}>
-                <FixedSizeList
-                itemCount={gifts.length}
-                itemSize={400}>
-                    >
-                    {gifts.map((gift,i)=>(
-                        <GiftCardA key={i} item={gift}/>
-                    ))}
-                </FixedSizeList>
-            </Box>
-        </div>
+
+            <FixedSizeList
+                width={window.innerHeight}
+                height={window.innerWidth}
+                itemCount={giftlist.length}
+                itemSize={300}
+            >
+                {render}
+            </FixedSizeList>
+
     )
 }

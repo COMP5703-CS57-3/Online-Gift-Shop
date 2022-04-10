@@ -1,15 +1,8 @@
-import WishProvider, {useWish} from "../../tools/useWish";
 import React, {useRef, useState} from "react";
 import {useInput} from "../../tools/useInput";
 import Box from "@mui/material/Box";
 import {CssBaseline, FormControl, TextField} from "@mui/material";
 import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
-import {useOptionInput} from "../../tools/useOptionInput";
-import Autocomplete from "@mui/material/Autocomplete";
-import countries from "../../data/CountrySelect";
-import states from "../../data/ProvinceSelect";
-import Button from "@mui/material/Button";
 import Background from "../../picture/background.png";
 import {useAdmin} from "../../tools/useAdmin";
 
@@ -34,7 +27,7 @@ export default function AddItemForm({owner_id}) {
     const size = [
         {
             size: "S",
-            sizeStock: 1
+            size_stock: 1
         }
     ]
     const submit = e=>{
