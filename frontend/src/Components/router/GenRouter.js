@@ -1,5 +1,5 @@
 import {useRoutes} from "react-router-dom";
-import React from 'react'
+import React, {Suspense} from 'react'
 import Homepage from "../homepage/Homepage"
 import LogIn from "../login";
 import SignUp from "../signup";
@@ -17,7 +17,7 @@ import Dashboard from "../admin/Dashboard";
 import AdminUserList from "../admin/AdminUserList";
 import AdminGiftList from "../admin/AdminGiftList";
 import AddItemForm from "../admin/AddItemForm";
-import BeforeEach from "./BeforEach";
+import MainBody from "../homepage/MainBody";
 import Payc from "../Pay/Payc";
 
 const routes = [
@@ -29,7 +29,7 @@ const routes = [
             {
                 path: '',
                 auth: false,
-                component: CategoryG
+                component: MainBody
 
             },
             {
@@ -41,26 +41,31 @@ const routes = [
                 path: '/wishlist',
                 auth: true,
                 component: WishList
-            }
+            },
+            {
+                path: '/wishlist/:wishlist_id',
+                auth: false,
+                component: WishListContentProvider
+            },
+            {
+                path: '/cart/:id',
+                auth: false,
+                component: DetailContentProvider
+            },
+            {
+                path: '/wishForm',
+                auth: false,
+                component: WishFormProvider
+            },
+
         ]
     },
     {
-        path: '/wishlist/:wishlist_id',
-        auth: false,
-        component: WishListContentProvider
-    }, {
-        path: '/cart/:id',
-        auth: false,
-        component: DetailContentProvider
-    }, {
-        path: '/wishForm',
-        auth: false,
-        component: WishFormProvider
-    }, {
         path: '/login',
         auth: false,
         component: LogIn
-    }, {
+    },
+    {
         path: '/signup',
         auth: false,
         component: SignUp
@@ -132,15 +137,12 @@ const generateRouter = (routers) => {
         if (item.children) {
             item.children = generateRouter(item.children)
         }
-        item.element = <div
-        >
+        item.element = <Suspense fallback={
+            <div>Loading...</div>
+        }>
             {/* 把懒加载的异步路由变成组件装载进去 */}
-            {/*<BeforeEach/>*/}
-            <item.component >
-            </item.component>
-
-        </div>
-        item.render=()=>BeforeEach()
+            <item.component/>
+        </Suspense>
         return item
     })
 }

@@ -3,12 +3,12 @@ import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
 import {Outlet} from "react-router-dom";
 import SideBar from "./SideBar"
 
 import Grid from "@mui/material/Grid";
 import {useGift} from "../../tools/useGift";
+import CategoryG from "../Category/CategoryG";
 
 
 
@@ -64,7 +64,7 @@ export default function MainBody({props}) {
             </Box>
             <Grid container spacing={0} value="1" style={{flexWrap:"nowrap",flexDirection:"row"}}>
                 <Grid item xs={6} style={{float:"left",flexBasis:"auto",width:300}}><SideBar/></Grid>
-                <Grid item xs={6} style={{float:"right",flexBasis:"auto",maxWidth:"80%"}}><Outlet /></Grid>
+                <Grid item xs={6} style={{float:"right",flexBasis:"auto",maxWidth:"80%"}}><CategoryG/></Grid>
                     {/*</div>*/}
             </Grid>
             {/*<TabPanel value="2">Product Two</TabPanel>*/}
