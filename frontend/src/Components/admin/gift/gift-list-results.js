@@ -97,7 +97,7 @@ export const GiftListResults = ({gift, ...rest}) => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {gift.slice(0, limit).map((gift) => (
+                            {gift.slice(limit * (page), limit * (page + 1)).map((gift) => (
                                 <TableRow
                                     hover
                                     key={gift.id}

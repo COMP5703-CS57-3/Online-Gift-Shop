@@ -16,7 +16,7 @@ export const GiftListToolbar = (props) => (
         >
             <Typography
                 sx={{m: 1}}
-                variant="h4"
+                variant="h3"
             >
                 Gifts
             </Typography>
@@ -37,7 +37,6 @@ export const GiftListToolbar = (props) => (
                 <Button
                     color="primary"
                     variant="contained"
-                    disable
                 >
                     Change Description
                 </Button>
