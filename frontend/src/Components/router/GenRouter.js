@@ -18,6 +18,7 @@ import AdminUserList from "../admin/AdminUserList";
 import AdminGiftList from "../admin/AdminGiftList";
 import AddItemForm from "../admin/AddItemForm";
 import BeforeEach from "./BeforEach";
+import Payc from "../Pay/Payc";
 
 const routes = [
     {
@@ -78,6 +79,11 @@ const routes = [
         path: '/*',
         auth: false,
         component: NoMatch
+    },
+    {
+        path: '/paytest',
+        auth: false,
+        component: Payc
     },
     {
         path: '/admin',
