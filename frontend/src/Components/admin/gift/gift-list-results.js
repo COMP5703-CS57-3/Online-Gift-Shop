@@ -15,9 +15,9 @@ import {
   TableRow,
   Typography
 } from '@mui/material';
-import { getInitials } from '../../logic/get-initials';
+import { getInitials } from '../../../logic/get-initials';
 
-export const CustomerListResults = ({ customers, ...rest }) => {
+export const GiftListResults = ({ gift, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -26,7 +26,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
     let newSelectedCustomerIds;
 
     if (event.target.checked) {
-      newSelectedCustomerIds = customers.map((customer) => customer.id);
+      newSelectedCustomerIds = gift.map((customer) => customer.id);
     } else {
       newSelectedCustomerIds = [];
     }
@@ -71,11 +71,11 @@ export const CustomerListResults = ({ customers, ...rest }) => {
               <TableRow>
                 <TableCell padding="checkbox">
                   <Checkbox
-                    checked={selectedCustomerIds.length === customers.length}
+                    checked={selectedCustomerIds.length === gift.length}
                     color="primary"
                     indeterminate={
                       selectedCustomerIds.length > 0
-                      && selectedCustomerIds.length < customers.length
+                      && selectedCustomerIds.length < gift.length
                     }
                     onChange={handleSelectAll}
                   />
@@ -98,7 +98,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(0, limit).map((customer) => (
+              {gift.slice(0, limit).map((customer) => (
                 <TableRow
                   hover
                   key={customer.id}
@@ -152,7 +152,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={customers.length}
+        count={gift.length}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={page}
@@ -163,6 +163,6 @@ export const CustomerListResults = ({ customers, ...rest }) => {
   );
 };
 
-CustomerListResults.propTypes = {
-  customers: PropTypes.array.isRequired
+GiftListResults.propTypes = {
+  gift: PropTypes.array.isRequired
 };

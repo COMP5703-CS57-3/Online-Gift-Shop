@@ -15,7 +15,7 @@ import {
   TableRow,
   Typography
 } from '@mui/material';
-import { getInitials } from '../../logic/get-initials';
+import { getInitials } from '../../../logic/get-initials';
 
 export const CustomerListResults = ({ customers, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);

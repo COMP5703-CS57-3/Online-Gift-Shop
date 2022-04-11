@@ -1,7 +1,7 @@
 
 import { Box, Container } from '@mui/material';
-import { CustomerListResults } from './customer/customer-list-results';
-import { CustomerListToolbar } from './customer/customer-list-toolbar';
+import { CustomerListResults } from './admin/customer/customer-list-results';
+import { CustomerListToolbar } from './admin/customer/customer-list-toolbar';
 
 
 

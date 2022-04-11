@@ -11,7 +11,7 @@ import {
 // import { Upload as UploadIcon } from '../../icons/upload';
 // import { Download as DownloadIcon } from '../../icons/download';
 
-export const CustomerListToolbar = (props) => (
+export const GiftListToolbar = (props) => (
   <Box {...props}>
     <Box
       sx={{
