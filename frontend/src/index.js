@@ -1,8 +1,8 @@
 import ReactDOM from 'react-dom'
 import {BrowserRouter} from "react-router-dom";
 import React from "react";
-import {Router} from "./Components/router/GenRouter";
-import BeforeEach from "./Components/router/BeforEach";
+import {Router} from "./router/GenRouter";
+import BeforeEach from "./router/BeforEach";
 
 
 function APP() {
@@ -11,14 +11,14 @@ function APP() {
 
 
             <BrowserRouter>
-                {/*{BeforeEach()}*/}
+                <BeforeEach/>
                 <Router/>
             </BrowserRouter>
 
     )
 }
 
-ReactDOM.render((
+ReactDOM.render(
 
     // <BrowserRouter>
     //     <Routes>
@@ -48,5 +48,5 @@ ReactDOM.render((
     //     </Routes>
     // </BrowserRouter>
     <APP/>
-), document.getElementById('root'))
+, document.getElementById('root'))
 

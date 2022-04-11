@@ -1,7 +1,7 @@
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {checkRouterAuth} from './GenRouter'
 import {useEffect, useState} from 'react'
-import {_local} from "../../logic/local$sess";
+import {_local} from "../logic/local$sess";
 
 const BeforeEach = () => {
     const navigate = useNavigate()

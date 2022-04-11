@@ -1,23 +1,26 @@
 import {useRoutes} from "react-router-dom";
 import React from 'react'
-import Homepage from "../homepage/Homepage"
-import LogIn from "../login";
-import SignUp from "../signup";
-import NoMatch from "../nomatch";
-import Cart from "../Cart/Cart";
-import DetailContentProvider from "../Detail/DetailContentProvider";
-import Account from "../account";
-import WishList from "../wishlist/WishList";
-import WishListContentProvider from "../Detail/WishListContentProvider";
-import WishFormProvider from "../wishlist/WishFormProvider";
-import CategoryG from "../Category/CategoryG";
-import FPassword from "../FPassword";
-import AdminOrderList from "../admin/AdminOrderList";
-import Dashboard from "../admin/Dashboard";
-import AdminUserList from "../admin/AdminUserList";
-import AdminGiftList from "../admin/AdminGiftList";
-import AddItemForm from "../admin/AddItemForm";
+import Homepage from "../Components/homepage/Homepage"
+import LogIn from "../Components/login";
+import SignUp from "../Components/signup";
+import NoMatch from "../Components/nomatch";
+import Cart from "../Components/Cart/Cart";
+import DetailContentProvider from "../Components/Detail/DetailContentProvider";
+import Account from "../Components/account";
+import WishList from "../Components/wishlist/WishList";
+import WishListContentProvider from "../Components/Detail/WishListContentProvider";
+import WishFormProvider from "../Components/wishlist/WishFormProvider";
+import CategoryG from "../Components/Category/CategoryG";
+import FPassword from "../Components/FPassword";
+import AdminOrderList from "../Components/admin/AdminOrderList";
+import Dashboard from "../Components/admin/Dashboard";
+import AdminUserList from "../Components/admin/AdminUserList";
+import AdminGiftList from "../Components/admin/AdminGiftList";
+import AddItemForm from "../Components/admin/AddItemForm";
 import BeforeEach from "./BeforEach";
+
+import Payc from "../Components/Pay/Payc";
+import Customers from "../Components/customers";
 
 const routes = [
     {
@@ -75,9 +78,14 @@ const routes = [
         component: FPassword
     },
     {
-        path: '/*',
+        path: '/paytest',
         auth: false,
-        component: NoMatch
+        component: Payc
+    },
+    {
+        path: '/cus',
+        auth: false,
+        component: Customers
     },
     {
         path: '/admin',
@@ -105,6 +113,11 @@ const routes = [
                 component: AddItemForm
             },
         ]
+    },
+    {
+        path: '/*',
+        auth: false,
+        component: NoMatch
     },
 ]
 
@@ -134,7 +147,7 @@ const generateRouter = (routers) => {
             </item.component>
 
         </div>
-        item.render=()=>BeforeEach()
+
         return item
     })
 }

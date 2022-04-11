@@ -5,6 +5,7 @@ import {Outlet} from "react-router-dom";
 export default function Dashboard() {
     return (
         <AdminProvider>
+            this is admin
             <Outlet/>
         </AdminProvider>
     )
