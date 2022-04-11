@@ -7,7 +7,7 @@ export default function CategoryC(){
     const {items} = useCart();
     return(
         <div style={{marginLeft:"auto",marginRight:"auto",maxWidth:1500}}>
-            <h1>CategoryG</h1>
+            {/*<h1>CategoryG</h1>*/}
             <Box sx={{
                 display:"grid",
                 gap:1,
@@ -17,12 +17,6 @@ export default function CategoryC(){
                     <ItemCard key={i} {...gift}/>
                 ))}
             </Box>
-            {/*<div className="Category">*/}
-            {/*    {giftlist.map((gift,i)=>(*/}
-            {/*        // <Gift key={i} {...gift} onRemove={onRemoveItems}/>*/}
-            {/*        <BoxItem key={i} {...gift}/>*/}
-            {/*    ))}*/}
-            {/*</div>*/}
         </div>
     )
 }

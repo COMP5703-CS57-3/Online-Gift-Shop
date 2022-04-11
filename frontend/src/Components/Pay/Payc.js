@@ -13,7 +13,43 @@ const ProductDisplay = () => (
       <h5>$20.00</h5>
       </div>
     </div>
-    <form action="http://127.0.0.1:5000/order/create_checkout_session" method="POST">
+    <form action="http://localhost:5000/order/create_checkout_session" method="post">
+      <div>
+			<label>
+				Order ID:
+				<input name="orderId" value="1" />
+			</label>
+		</div>
+		<div>
+			<label>
+				Order Price:
+				<input name="orderPrice" type="number" value="12000" />
+			</label>
+		</div>
+		<div>
+			<label>
+				Currency:
+				<input name="currency" value="AUD" />
+			</label>
+		</div>
+		<div>
+			<label>
+				Product Name:
+				<input name="productName" value="Gold Special" />
+			</label>
+		</div>
+		<div>
+			<label>
+				Product Description:
+				<input name="productDesc" value="Cool pic " />
+			</label>
+		</div>
+		<div>
+			<label>
+				Product Image:
+				<input name="productImage" value="https://bpic.588ku.com/element_pic/21/10/27/5809626baa43e153b15cc3bcfb4bb0eb.jpg!/fw/329/quality/90/unsharp/true/compress/true" />
+			</label>
+		</div>
       <button type="submit">
         Checkout
       </button>
