@@ -51,7 +51,7 @@ export default function LogIn(props) {
                     console.log("Success!")
                     _local.set("id", status.data.id,24 * 3600 * 1000)
                     let inFifteenMinutes = new Date(new Date().getTime() + 24 * 3600 * 1000);//6分钟后失效
-                    cookie.save(response.data.id, "login")
+                    cookie.save("login",response.data.id)
                     navigate("/")
                 } else {
                     console.log("Error!")
