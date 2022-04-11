@@ -53,6 +53,8 @@
   },
   "devDependencies": {
     "prop-types": "^15.8.1",
-    "react-cookies": "^0.1.1"
+    "react-cookies": "^0.1.1",
+    "react-perfect-scrollbar": "^1.5.8",
+    "uuid": "^8.3.2"
   }
 }

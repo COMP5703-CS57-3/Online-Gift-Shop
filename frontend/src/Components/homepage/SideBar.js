@@ -7,7 +7,7 @@ import TreeView from '@mui/lab/TreeView';
 import TreeItem from '@mui/lab/TreeItem';
 import {useGift} from "../../tools/useGift";
 
-export default function ControlledTreeView() {
+export default function SideBar() {
   const [expanded, setExpanded] = React.useState([]);
   const [selected, setSelected] = React.useState([]);
   const {topBar,SideCategory} = useGift();

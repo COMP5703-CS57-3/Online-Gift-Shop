@@ -21,6 +21,8 @@ import BeforeEach from "./BeforEach";
 
 import Payc from "../Components/Pay/Payc";
 import Customers from "../Components/customers";
+import Gifts from "../Components/gift";
+import MainBody from "../Components/homepage/MainBody";
 
 const routes = [
     {
@@ -31,7 +33,7 @@ const routes = [
             {
                 path: '',
                 auth: false,
-                component: CategoryG
+                component: MainBody
 
             },
             {
@@ -93,22 +95,27 @@ const routes = [
         component: Dashboard,
         children: [
             {
-                path: 'order',
+                path: '/admin/order',
                 auth: true,
                 component: AdminOrderList
             },
             {
-                path: 'user',
+                path: '/admin/user',
                 auth: true,
                 component: AdminUserList
             },
             {
-                path: 'gift',
+                path: '/admin/gift',
                 auth: true,
                 component: AdminGiftList
             },
             {
-                path: 'addItem',
+                path: '/admin/giftui',
+                auth: false,
+                component: Gifts
+            },
+            {
+                path: '/admin/addItem',
                 auth: true,
                 component: AddItemForm
             },

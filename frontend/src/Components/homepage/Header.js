@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
@@ -12,19 +13,17 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import {Link} from "react-router-dom";
-import Grid from "@mui/material/Grid";
 import {useGift} from "../../tools/useGift";
 import Button from "@mui/material/Button";
-import {useState} from "react";
 import cookie from "react-cookies";
 import {_local} from "../../logic/local$sess";
-
+import BeforeEach from "../../router/BeforEach";
 
 
 export default function AccountMenu() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     // console.log(cookie.load(_local.get("id")))
-    const [IsLogin, setIsLogin]=useState(!!cookie.load(_local.get("id")))
+    const [IsLogin, setIsLogin] = useState(!!cookie.load(_local.get("id")))
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -33,15 +32,15 @@ export default function AccountMenu() {
         setAnchorEl(null);
     };
     const {homeCategory} = useGift();
-    const click = ()=>{
+    const click = () => {
         homeCategory();
     }
 
     function login() {
-        const curr=!IsLogin
-        console.log(IsLogin?"Logout":"Sign In")
+        const curr = !IsLogin
+        console.log(IsLogin ? "Logout" : "Sign In")
         setIsLogin(curr)
-        if (!curr){
+        if (!curr) {
             console.log(cookie.load(_local.get("id")))
             cookie.remove(_local.get("id"))
             console.log(_local.get("id"))
@@ -51,97 +50,102 @@ export default function AccountMenu() {
     }
 
     return (
-        <React.Fragment>
-            <Box  sx = {{display: 'flex',width:'100%',justifyContent: 'center'}} >
+        <>
 
-                <Box  sx={{display: 'flex', alignItems: 'center', textAlign: 'center'}}>
-                    <Typography sx={{minWidth: 200,paddingRight:75}}>Online Gift Shop</Typography>
-                    <Button sx={{minWidth: 100}} onClick={click} >Home</Button>
-                    <Typography sx={{minWidth: 100}}>Shop</Typography>
-                    <Typography sx={{minWidth: 100}}>Contact</Typography>
-                    <Typography sx={{minWidth: 100}}>Profile</Typography>
-                <Tooltip title="Account settings">
-                    <IconButton
-                        onClick={handleClick}
-                        size="small"
-                        sx={{ml: 2}}
-                        aria-controls={open ? 'account-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : undefined}
-                    >
-                        <Avatar sx={{width: 32, height: 32}}>M</Avatar>
-                    </IconButton>
-                </Tooltip>
+            <React.Fragment>
+                <Box sx={{display: 'flex', width: '100%', justifyContent: 'center'}}>
+
+                    <Box sx={{display: 'flex', alignItems: 'center', textAlign: 'center'}}>
+                        <Typography sx={{minWidth: 200, paddingRight: 75}}>Online Gift Shop</Typography>
+                        <Button sx={{minWidth: 100}} onClick={click}>Home</Button>
+                        <Typography sx={{minWidth: 100}}>Shop</Typography>
+                        <Typography sx={{minWidth: 100}}>Contact</Typography>
+                        <Typography sx={{minWidth: 100}}>Profile</Typography>
+                        <Tooltip title="Account settings">
+                            <IconButton
+                                onClick={handleClick}
+                                size="small"
+                                sx={{ml: 2}}
+                                aria-controls={open ? 'account-menu' : undefined}
+                                aria-haspopup="true"
+                                aria-expanded={open ? 'true' : undefined}
+                            >
+                                <Avatar sx={{width: 32, height: 32}}>M</Avatar>
+                            </IconButton>
+                        </Tooltip>
+                    </Box>
                 </Box>
-            </Box>
-            {/*<Button onClick={click}>test only</Button>*/}
-            <Menu
-                anchorEl={anchorEl}
-                id="account-menu"
-                open={open}
-                onClose={handleClose}
-                onClick={handleClose}
-                PaperProps={{
-                    elevation: 0,
-                    sx: {
-                        overflow: 'visible',
-                        filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                        mt: 1.5,
-                        '& .MuiAvatar-root': {
-                            width: 32,
-                            height: 32,
-                            ml: -0.5,
-                            mr: 1,
+                {/*<Button onClick={click}>test only</Button>*/}
+                <Menu
+                    anchorEl={anchorEl}
+                    id="account-menu"
+                    open={open}
+                    onClose={handleClose}
+                    onClick={handleClose}
+                    PaperProps={{
+                        elevation: 0,
+                        sx: {
+                            overflow: 'visible',
+                            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                            mt: 1.5,
+                            '& .MuiAvatar-root': {
+                                width: 32,
+                                height: 32,
+                                ml: -0.5,
+                                mr: 1,
+                            },
+                            '&:before': {
+                                content: '""',
+                                display: 'block',
+                                position: 'absolute',
+                                top: 0,
+                                right: 14,
+                                width: 10,
+                                height: 10,
+                                bgcolor: 'background.paper',
+                                transform: 'translateY(-50%) rotate(45deg)',
+                                zIndex: 0,
+                            },
                         },
-                        '&:before': {
-                            content: '""',
-                            display: 'block',
-                            position: 'absolute',
-                            top: 0,
-                            right: 14,
-                            width: 10,
-                            height: 10,
-                            bgcolor: 'background.paper',
-                            transform: 'translateY(-50%) rotate(45deg)',
-                            zIndex: 0,
-                        },
-                    },
-                }}
-                transformOrigin={{horizontal: 'right', vertical: 'top'}}
-                anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-            >
-                <MenuItem>
-                    <Avatar/> <Link style={{ textDecoration:'none'}} to={{pathname: "/account"}}>Profile</Link>
-                </MenuItem>
-                <MenuItem>
-                    <Avatar/> <Link style={{textDecoration:'none'}} to={{pathname:"/wishlist"}}> My WhishList</Link>
-                </MenuItem>
-                <Divider/>
-                <MenuItem>
-                    <ListItemIcon>
-                        <PersonAdd fontSize="small"/>
-                    </ListItemIcon>
-                    Guest Wish List
-                </MenuItem>
-                <MenuItem>
-                    <ListItemIcon>
-                        <Settings fontSize="small"/>
-                    </ListItemIcon>
-                    Settings
-                </MenuItem>
-                <MenuItem>
-                    <ListItemIcon>
-                        <Logout fontSize="small"/>
-                    </ListItemIcon>
-                    <ListItemIcon>
-                        <Link style={{ textDecoration:'none'}} to={{pathname: IsLogin?"/":"/login"}}
-                              onClick={()=>login()}>
-                             {IsLogin?"Logout":"Sign In"}
-                        </Link>
-                    </ListItemIcon>
+                    }}
+                    transformOrigin={{horizontal: 'right', vertical: 'top'}}
+                    anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+                >
+                    <MenuItem>
+                        <Avatar/> <Link style={{textDecoration: 'none'}} to={{pathname: "/account"}}>Profile</Link>
+                    </MenuItem>
+                    <MenuItem>
+                        <Avatar/> <Link style={{textDecoration: 'none'}} to={{pathname: "/wishlist"}}> My
+                        WhishList</Link>
+                    </MenuItem>
+                    <Divider/>
+                    <MenuItem>
+                        <ListItemIcon>
+                            <PersonAdd fontSize="small"/>
+                        </ListItemIcon>
+                        Guest Wish List
+                    </MenuItem>
+                    <MenuItem>
+                        <ListItemIcon>
+                            <Settings fontSize="small"/>
+                        </ListItemIcon>
+                        Settings
+                    </MenuItem>
+                    <MenuItem>
+                        <ListItemIcon>
+                            <Logout fontSize="small"/>
+                        </ListItemIcon>
+                        <ListItemIcon>
+                            <Link style={{textDecoration: 'none'}} to={{pathname: IsLogin ? "/" : "/login"}}
+                                  onClick={() => login()}>
+                                {IsLogin ? "Logout" : "Sign In"}
+                            </Link>
+                        </ListItemIcon>
 
-                </MenuItem>
-            </Menu>
-        </React.Fragment>
+                    </MenuItem>
+                </Menu>
+            </React.Fragment>
+
+        </>
     );
 }
