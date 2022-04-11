@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
-import {Outlet} from "react-router-dom";
 import SideBar from "./SideBar"
 
 import Grid from "@mui/material/Grid";
@@ -67,9 +66,6 @@ export default function MainBody({props}) {
                 <Grid item xs={6} style={{float:"right",flexBasis:"auto",maxWidth:"80%"}}><CategoryG/></Grid>
                     {/*</div>*/}
             </Grid>
-            {/*<TabPanel value="2">Product Two</TabPanel>*/}
-            {/*<TabPanel value="3">Product Three</TabPanel>*/}
-            {/*  <TabPanel value="4">Product Four</TabPanel>*/}
           </TabContext>
         </Box>
       </Box>
