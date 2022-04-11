@@ -1,5 +1,5 @@
 import {useRoutes} from "react-router-dom";
-import React, {Suspense} from 'react'
+import React from 'react'
 import Homepage from "../homepage/Homepage"
 import LogIn from "../login";
 import SignUp from "../signup";
@@ -17,6 +17,7 @@ import Dashboard from "../admin/Dashboard";
 import AdminUserList from "../admin/AdminUserList";
 import AdminGiftList from "../admin/AdminGiftList";
 import AddItemForm from "../admin/AddItemForm";
+import BeforeEach from "./BeforEach";
 
 const routes = [
     {
@@ -125,12 +126,15 @@ const generateRouter = (routers) => {
         if (item.children) {
             item.children = generateRouter(item.children)
         }
-        item.element = <Suspense fallback={
-            <div>Loading...</div>
-        }>
+        item.element = <div
+        >
             {/* 把懒加载的异步路由变成组件装载进去 */}
-            <item.component/>
-        </Suspense>
+            {/*<BeforeEach/>*/}
+            <item.component >
+            </item.component>
+
+        </div>
+        item.render=()=>BeforeEach()
         return item
     })
 }

@@ -1,9 +1,22 @@
 import ReactDOM from 'react-dom'
 import {BrowserRouter} from "react-router-dom";
 import React from "react";
-
-import BeforEach from "./Components/router/BeforEach";
 import {Router} from "./Components/router/GenRouter";
+import BeforeEach from "./Components/router/BeforEach";
+
+
+function APP() {
+
+    return (
+
+
+            <BrowserRouter>
+                {/*{BeforeEach()}*/}
+                <Router/>
+            </BrowserRouter>
+
+    )
+}
 
 ReactDOM.render((
 
@@ -34,12 +47,6 @@ ReactDOM.render((
     //         <Route path="/example" element={<Example/>}/>
     //     </Routes>
     // </BrowserRouter>
-    <>
-
-        <BrowserRouter>
-            <BeforEach/>
-            <Router/>
-        </BrowserRouter>
-    </>
+    <APP/>
 ), document.getElementById('root'))
 

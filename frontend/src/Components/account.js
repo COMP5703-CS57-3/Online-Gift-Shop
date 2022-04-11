@@ -6,12 +6,14 @@ import AccountProfileDetails from "./account/account-profile-details";
 import Box from "@mui/material/Box";
 import Background from "../picture/background.png";
 import {_local} from "../logic/local$sess";
+import BeforEach from "./router/BeforEach";
 
 export default function Account(props) {
     const id = _local.get("id")
+    BeforEach()
     return (
         <>
-            {/*<BeforEach/>*/}
+
             <div style={{
                 width: '100%',
                 height: 1500,
