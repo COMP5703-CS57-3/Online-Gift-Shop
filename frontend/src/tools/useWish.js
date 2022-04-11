@@ -140,14 +140,15 @@ export default function WishProvider({children,login}){
     // }、、
     if(wish)
         return(
-            <WishContext.Provider value={{wish,product,createWish,deleteWish,addProduct,changeCount,removeProduct}}>
+            <WishContext.Provider value={{wish,product,createWish,deleteWish,addProduct,changeCount,removeProduct,loading}}>
                 {children}
             </WishContext.Provider>
         )
-    if(loading){
-        return <h2 style={{margin: "auto", textAlign: "center"}}>loading</h2>
-    }
-    return null
+    return(
+            <WishContext.Provider value={{wish,product,createWish,deleteWish,addProduct,changeCount,removeProduct,loading}}>
+                {children}
+            </WishContext.Provider>
+    )
     // return(
     //         <WishContext.Provider value={{wish,product,createWish,deleteWish,addProduct,changeCount,removeProduct}}>
     //             {children}

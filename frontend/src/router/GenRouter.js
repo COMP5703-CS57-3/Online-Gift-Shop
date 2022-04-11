@@ -23,6 +23,8 @@ import Payc from "../Components/Pay/Payc";
 import Customers from "../Components/customers";
 import Gifts from "../Components/gift";
 import MainBody from "../Components/homepage/MainBody";
+import WishContentProvider from "../Components/wishlist/WishContentProvider";
+import CategoryW from "../Components/wishlist/CategoryW";
 
 const routes = [
     {
@@ -46,6 +48,18 @@ const routes = [
                 auth: true,
                 component: WishList
             }
+        ]
+    },{
+        path: '/wish',
+        auth: false,
+        component: WishContentProvider,
+        children: [
+            {
+                path: '',
+                auth: false,
+                component: CategoryW
+
+            },
         ]
     },
     {
