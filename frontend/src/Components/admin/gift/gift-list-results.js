@@ -15,10 +15,10 @@ import {
     Typography
 } from '@mui/material';
 import {getInitials} from '../../../logic/get-initials';
-import {useAdmin} from "../../../tools/useAdmin";
+import BasicModal from "./Gift-list-change";
 
 export const GiftListResults = ({gift, ...rest}) => {
-    const {setGiftIds,selectedCustomerIds: selectedGiftIds} = useAdmin()
+    const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(0);
 
@@ -26,37 +26,36 @@ export const GiftListResults = ({gift, ...rest}) => {
         let newSelectedCustomerIds;
 
         if (event.target.checked) {
-            newSelectedCustomerIds = gift.map((gift) => gift.id);
+            newSelectedCustomerIds = gift.map((customer) => customer.id);
         } else {
             newSelectedCustomerIds = [];
         }
 
-        setGiftIds(newSelectedCustomerIds);
+        setSelectedCustomerIds(newSelectedCustomerIds);
     };
 
     const handleSelectOne = (event, id) => {
-        const selectedIndex = selectedGiftIds.indexOf(id);
-        let newSelectedGiftIds = [];
+        const selectedIndex = selectedCustomerIds.indexOf(id);
+        let newSelectedCustomerIds = [];
 
         if (selectedIndex === -1) {
-            newSelectedGiftIds = newSelectedGiftIds.concat(selectedGiftIds, id);
+            newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
         } else if (selectedIndex === 0) {
-            newSelectedGiftIds = newSelectedGiftIds.concat(selectedGiftIds.slice(1));
-        } else if (selectedIndex === selectedGiftIds.length - 1) {
-            newSelectedGiftIds = newSelectedGiftIds.concat(selectedGiftIds.slice(0, -1));
+            newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
+        } else if (selectedIndex === selectedCustomerIds.length - 1) {
+            newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(0, -1));
         } else if (selectedIndex > 0) {
-            newSelectedGiftIds = newSelectedGiftIds.concat(
-                selectedGiftIds.slice(0, selectedIndex),
-                selectedGiftIds.slice(selectedIndex + 1)
+            newSelectedCustomerIds = newSelectedCustomerIds.concat(
+                selectedCustomerIds.slice(0, selectedIndex),
+                selectedCustomerIds.slice(selectedIndex + 1)
             );
         }
 
-        setGiftIds(newSelectedGiftIds);
+        setSelectedCustomerIds(newSelectedCustomerIds);
     };
 
     const handleLimitChange = (event) => {
-        setLimit(event.target.value)
-        setPage(0);
+        setLimit(event.target.value);
     };
 
     const handlePageChange = (event, newPage) => {
@@ -72,11 +71,11 @@ export const GiftListResults = ({gift, ...rest}) => {
                             <TableRow>
                                 <TableCell padding="checkbox">
                                     <Checkbox
-                                        checked={selectedGiftIds.length === gift.length}
+                                        checked={selectedCustomerIds.length === gift.length}
                                         color="primary"
                                         indeterminate={
-                                            selectedGiftIds.length > 0
-                                            && selectedGiftIds.length < gift.length
+                                            selectedCustomerIds.length > 0
+                                            && selectedCustomerIds.length < gift.length
                                         }
                                         onChange={handleSelectAll}
                                     />
@@ -96,18 +95,21 @@ export const GiftListResults = ({gift, ...rest}) => {
                                 <TableCell>
                                     Category
                                 </TableCell>
+                                <TableCell>
+                                    Operation
+                                </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {gift.slice(limit* (page), Math.max(limit * (page + 1))).map((gift) => (
+                            {gift.slice(limit * (page), limit * (page + 1)).map((gift) => (
                                 <TableRow
                                     hover
                                     key={gift.id}
-                                    selected={selectedGiftIds.indexOf(gift.id) !== -1}
+                                    selected={selectedCustomerIds.indexOf(gift.id) !== -1}
                                 >
                                     <TableCell padding="checkbox">
                                         <Checkbox
-                                            checked={selectedGiftIds.indexOf(gift.id) !== -1}
+                                            checked={selectedCustomerIds.indexOf(gift.id) !== -1}
                                             onChange={(event) => handleSelectOne(event, gift.id)}
                                             value="true"
                                         />
@@ -123,7 +125,7 @@ export const GiftListResults = ({gift, ...rest}) => {
                                                 src={gift.gift_cover_url}
                                                 sx={{mr: 2}}
                                             >
-                                                {getInitials(gift.gift_name)}
+                                                {getInitials(gift.name)}
                                             </Avatar>
                                             <Typography
                                                 color="textPrimary"
@@ -152,6 +154,9 @@ export const GiftListResults = ({gift, ...rest}) => {
                                     </TableCell>
                                     <TableCell>
                                         {`${gift.gift_category}/${gift.gift_side_category1}/${gift.gift_side_category2}`}
+                                    </TableCell>
+                                    <TableCell>
+                                        <BasicModal/>
                                     </TableCell>
                                 </TableRow>
                             ))}

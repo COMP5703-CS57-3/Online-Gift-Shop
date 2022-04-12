@@ -20,10 +20,10 @@ import {_local} from "../../logic/local$sess";
 import BeforeEach from "../../router/BeforEach";
 
 
-export default function AccountMenu() {
+export default function AdminHeader() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     // console.log(cookie.load(_local.get("id")))
-    const [IsLogin, setIsLogin] = useState(cookie.load("login") !== undefined)
+    // const [IsLogin, setIsLogin] = useState(cookie.load("login") !== undefined)
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -31,20 +31,23 @@ export default function AccountMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    const {homeCategory} = useGift();
-    const click = () => {
-        homeCategory();
-    }
+    // const {homeCategory} = useGift();
+    // const click = () => {
+    //     homeCategory();
+    // }
 
-    function login() {
-        const curr = !IsLogin
-        console.log(IsLogin ? "Logout" : "Sign In")
-        setIsLogin(curr)
-        if (!curr) {
-            console.log(cookie.load("login"))
-            cookie.remove("login")
-        }
-    }
+    // function login() {
+    //     const curr = !IsLogin
+    //     console.log(IsLogin ? "Logout" : "Sign In")
+    //     setIsLogin(curr)
+    //     if (!curr) {
+    //         console.log(cookie.load(_local.get("id")))
+    //         cookie.remove(_local.get("id"))
+    //         console.log(_local.get("id"))
+    //
+    //         _local.remove("id")
+    //     }
+    // }
 
     return (
         <>
@@ -54,10 +57,10 @@ export default function AccountMenu() {
 
                     <Box sx={{display: 'flex', alignItems: 'center', textAlign: 'center'}}>
                         <Typography sx={{minWidth: 200, paddingRight: 75}}>Online Gift Shop</Typography>
-                        <Button sx={{minWidth: 100}} onClick={click}>Home</Button>
-                        <Typography sx={{minWidth: 100}}>Shop</Typography>
-                        <Typography sx={{minWidth: 100}}>Contact</Typography>
-                        <Typography sx={{minWidth: 100}}>Profile</Typography>
+                        <Button sx={{minWidth: 100}} >Dashboard</Button>
+                        <Typography sx={{minWidth: 100}}>User</Typography>
+                        <Typography sx={{minWidth: 100}}>Gift Stork</Typography>
+                        <Typography sx={{minWidth: 100}}>Order</Typography>
                         <Tooltip title="Account settings">
                             <IconButton
                                 onClick={handleClick}
@@ -67,7 +70,7 @@ export default function AccountMenu() {
                                 aria-haspopup="true"
                                 aria-expanded={open ? 'true' : undefined}
                             >
-                                <Avatar sx={{width: 32, height: 32}}>M</Avatar>
+                                <Avatar sx={{width: 32, height: 32}}>Admin</Avatar>
                             </IconButton>
                         </Tooltip>
                     </Box>
@@ -108,36 +111,17 @@ export default function AccountMenu() {
                     anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
                 >
                     <MenuItem>
-                        <Avatar/> <Link style={{textDecoration: 'none'}} to={{pathname: "/account"}}>Profile</Link>
+                        <Avatar/>Operation
                     </MenuItem>
                     <MenuItem>
-                        <Avatar/> <Link style={{textDecoration: 'none'}} to={{pathname: "/wishlist"}}> My
-                        WhishList</Link>
+                        <Avatar/>help
                     </MenuItem>
                     <Divider/>
-                    <MenuItem>
-                        <ListItemIcon>
-                            <PersonAdd fontSize="small"/>
-                        </ListItemIcon>
-                        Guest Wish List
-                    </MenuItem>
                     <MenuItem>
                         <ListItemIcon>
                             <Settings fontSize="small"/>
                         </ListItemIcon>
                         Settings
-                    </MenuItem>
-                    <MenuItem>
-                        <ListItemIcon>
-                            <Logout fontSize="small"/>
-                        </ListItemIcon>
-                        <ListItemIcon>
-                            <Link style={{textDecoration: 'none'}} to={{pathname: IsLogin ? "/" : "/login"}}
-                                  onClick={() => login()}>
-                                {IsLogin ? "Logout" : "Sign In"}
-                            </Link>
-                        </ListItemIcon>
-
                     </MenuItem>
                 </Menu>
             </React.Fragment>
