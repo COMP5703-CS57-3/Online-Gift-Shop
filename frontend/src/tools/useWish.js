@@ -12,7 +12,6 @@ const saveJSON = (key,data)=>
     localStorage.setItem(key,JSON.stringify(data));
 
 export default function WishProvider({children,login}){
-    localStorage.clear();
     const keyy = "owner_wishlist:"+login
     const [wish,setWish] = useState(loadJSON(keyy));
     const [product,setProduct] = useState(WishListItem);

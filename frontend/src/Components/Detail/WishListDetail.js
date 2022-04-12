@@ -1,6 +1,6 @@
 import React, {createContext, useEffect, useState} from "react";
 import Box from '@mui/material/Box';
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useCart} from "../../tools/useCart";
 import {alpha} from "@mui/material/styles";
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
@@ -16,9 +16,12 @@ import {node} from "prop-types";
 import {CssBaseline, Grid} from "@material-ui/core";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
+import Loading from "../normal/Loading";
 
 export default function WishListDetail() {
-    let id = useParams();
+    let {id} = useParams();
+    let navi = useNavigate();
+    const nav =()=> navi("/order/createOrder/"+id)
     const [detail,setDetail] = useState();
     const [loading,setLoading] = useState(true);
     const {deleteWish} = useWish();
@@ -26,11 +29,13 @@ export default function WishListDetail() {
         setLoading(true);
         fetch("http://127.0.0.1:5000/wishlist/search", {
             method: 'POST',
-            body: JSON.stringify(id)
+            body: JSON.stringify({
+                    wishlist_id : id
+                })
         }).then(res=>res.json()).then(setDetail).then(()=>setLoading(false));
     },[id]);
     let {product} = useWish();
-    console.log(detail)
+
     if (detail)
         return(
             <React.Fragment >
@@ -95,13 +100,14 @@ export default function WishListDetail() {
                             ))}
                         </Grid>
                         <Button onClick={()=>deleteWish(detail.owner_id,detail.wishlist_id)}>delete this wish list</Button>
+                        <Button onClick={()=>nav()}>Pay</Button>
                     </Box>
                 </Container>
                 </Box>
             </React.Fragment>
         );
     if(loading){
-        return <h2 style={{margin: "auto", textAlign: "center"}}>loading</h2>
+        return <Loading />
     }
     return null
 }

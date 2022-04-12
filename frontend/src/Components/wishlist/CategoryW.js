@@ -53,7 +53,6 @@ export default function CategoryW() {
                             <WishListItem key={i} {...wishlist}/>
                         ))}
                     </Box>
-
                 </Container>
             </Box>
         </>

@@ -25,6 +25,9 @@ import Gifts from "../Components/gift";
 import MainBody from "../Components/homepage/MainBody";
 import WishContentProvider from "../Components/wishlist/WishContentProvider";
 import CategoryW from "../Components/wishlist/CategoryW";
+import OrderP from "../Components/Order/OrderP";
+import MyOrder from "../Components/Order/MyOrder";
+import CreateOrder from "../Components/Order/CreateOrder";
 
 const routes = [
     {
@@ -63,7 +66,7 @@ const routes = [
         ]
     },
     {
-        path: '/wishlist/:wishlist_id',
+        path: '/wishlist/:id',
         auth: false,
         component: WishListContentProvider
     }, {
@@ -97,6 +100,23 @@ const routes = [
         path: '/paytest',
         auth: false,
         component: Payc
+    },
+    {
+        path: '/order',
+        auth: false,
+        component: OrderP,
+        children: [
+            {
+                path: '/order/myorder',
+                auth: false,
+                component: MyOrder
+            },
+            {
+                path: '/order/createOrder/:id',
+                auth: false,
+                component: CreateOrder
+            }
+        ]
     },
     {
         path: '/cus',
