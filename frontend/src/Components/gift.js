@@ -1,6 +1,6 @@
 import {Box, Container} from '@mui/material';
 import {GiftListResults} from './admin/gift/gift-list-results';
-import {GiftListToolbar} from './admin/gift/gift-list-toolbar';
+import GiftListToolbar from './admin/gift/gift-list-toolbar';
 import {useAdmin} from "../tools/useAdmin";
 import React, {useEffect} from "react";
 import Loading from "./normal/Loading";

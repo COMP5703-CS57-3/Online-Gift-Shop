@@ -20,5 +20,4 @@ def admin_return_all_users_methods():
         output_json = make_response(output_message)
         output_json.status_code = status_code
         output_json.message = output_message['message']
-        database.session.close()
         return output_json

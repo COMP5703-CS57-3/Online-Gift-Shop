@@ -1,71 +1,96 @@
 import {Box, Button, Card, CardContent, InputAdornment, SvgIcon, TextField, Typography} from '@mui/material';
+import {useAdmin} from "../../../tools/useAdmin";
 // import { Search as SearchIcon } from '../../icons/search';
 // import { Upload as UploadIcon } from '../../icons/upload';
 // import { Download as DownloadIcon } from '../../icons/download';
 
-export const GiftListToolbar = (props) => (
-    <Box {...props}>
-        <Box
-            sx={{
-                alignItems: 'center',
-                display: 'flex',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                m: -1
-            }}
-        >
-            <Typography
-                sx={{m: 1}}
-                variant="h3"
+export default function GiftListToolbar (props)
+{
+    const {selectedCustomerIds} = useAdmin();
+    const {removeItems }=useAdmin();
+    function addGift() {
+       console.log("add")
+    }
+
+    function changeDes() {
+        console.log("change")
+    }
+
+    function delGift() {
+        const id=selectedCustomerIds[0]
+        removeItems(id)
+    }
+
+    return (
+        <Box {...props}>
+            <Box
+                sx={{
+                    alignItems: 'center',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    flexWrap: 'wrap',
+                    m: -1
+                }}
             >
-                Gifts
-            </Typography>
-            <Box sx={{m: 1}}>
+                <Typography
+                    sx={{m: 1}}
+                    variant="h3"
+                >
+                    Gifts
+                </Typography>
+                <Box sx={{m: 1}}>
 
-                <Button
-                    color="primary"
-                    variant="contained"
-                >
-                    Add Gift
-                </Button>
-                <Button
-                    color="primary"
-                    variant="contained"
-                >
-                    Delete
-                </Button>
-                <Button
-                    color="primary"
-                    variant="contained"
-                >
-                    Change Description
-                </Button>
+                    <Button
+                        color="primary"
+                        variant="contained"
+                        onClick={()=>addGift()}
+                    >
+                        Add Gift
+                    </Button>
+                    <Button
+                        color="primary"
+                        variant="contained"
+                        onClick={()=>delGift()}
+                        disabled={selectedCustomerIds.length!==1}
+                    >
+                        Delete
+                    </Button>
+                    <Button
+                        color="primary"
+                        variant="contained"
+                        onClick={()=>changeDes()}
+                        disabled={selectedCustomerIds.length!==1}
+                    >
+                        Change Description
+                    </Button>
 
+                </Box>
+            </Box>
+            <Box sx={{mt: 3}}>
+                <Card>
+                    <CardContent>
+                        <Box sx={{maxWidth: 500}}>
+                            <TextField
+                                fullWidth
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <SvgIcon
+                                                color="action"
+                                                fontSize="small"
+                                            >
+                                            </SvgIcon>
+                                        </InputAdornment>
+                                    )
+                                }}
+                                placeholder="Search customer"
+                                variant="outlined"
+                            />
+                        </Box>
+                    </CardContent>
+                </Card>
             </Box>
         </Box>
-        <Box sx={{mt: 3}}>
-            <Card>
-                <CardContent>
-                    <Box sx={{maxWidth: 500}}>
-                        <TextField
-                            fullWidth
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <SvgIcon
-                                            color="action"
-                                            fontSize="small"
-                                        >
-                                        </SvgIcon>
-                                    </InputAdornment>
-                                )
-                            }}
-                            placeholder="Search customer"
-                            variant="outlined"
-                        />
-                    </Box>
-                </CardContent>
-            </Card>
-        </Box>
-    </Box>
-);
+    );
+}
+

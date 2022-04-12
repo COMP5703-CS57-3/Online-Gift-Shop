@@ -12,7 +12,7 @@ const BeforeEach = () => {
         let obj = checkRouterAuth(location.pathname)
 
         let blLogin = cookie.load("login")
-        console.log(obj, obj.auth === true, blLogin)
+        // console.log(obj, obj.auth === true, blLogin)
         if (obj && obj.auth === true && blLogin === undefined) {
             setAuth(false)
             navigate('/login')

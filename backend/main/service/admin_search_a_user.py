@@ -56,5 +56,4 @@ def admin_search_a_user_by_email_method(user_mail):
         output_json = make_response(output_message)
         output_json.status_code = status_code
         output_json.message = output_message['message']
-        database.session.close()
         return output_json

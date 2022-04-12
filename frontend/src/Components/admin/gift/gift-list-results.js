@@ -15,9 +15,10 @@ import {
     Typography
 } from '@mui/material';
 import {getInitials} from '../../../logic/get-initials';
+import {useAdmin} from "../../../tools/useAdmin";
 
 export const GiftListResults = ({gift, ...rest}) => {
-    const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
+    const {setGiftIds,selectedCustomerIds} = useAdmin()
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(0);
 
@@ -30,7 +31,7 @@ export const GiftListResults = ({gift, ...rest}) => {
             newSelectedCustomerIds = [];
         }
 
-        setSelectedCustomerIds(newSelectedCustomerIds);
+        setGiftIds(newSelectedCustomerIds);
     };
 
     const handleSelectOne = (event, id) => {
@@ -50,7 +51,7 @@ export const GiftListResults = ({gift, ...rest}) => {
             );
         }
 
-        setSelectedCustomerIds(newSelectedCustomerIds);
+        setGiftIds(newSelectedCustomerIds);
     };
 
     const handleLimitChange = (event) => {

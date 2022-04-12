@@ -1,46 +1,50 @@
 import React, {createContext, useContext, useState} from "react";
 
 const AdminContext = createContext();
-export const useAdmin = ()=> useContext(AdminContext);
+export const useAdmin = () => useContext(AdminContext);
 
-export default function AdminProvider({children}){
-    const [state,setState] = useState();
-    const [orderList,setOrderList] = useState();
-    const [users,setUsers] = useState();
-    const [gifts,setGifts] = useState();
-    const [loading,setLoading] = useState(true);
-    const getOrderList = ()=>{
+export default function AdminProvider({children}) {
+    const [state, setState] = useState();
+    const [orderList, setOrderList] = useState();
+    const [users, setUsers] = useState();
+    const [gifts, setGifts] = useState();
+    const [loading, setLoading] = useState(true);
+    const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
+    const getOrderList = () => {
         setLoading(true);
-        fetch("http://127.0.0.1:5000/admin/admin_return_all_orders",{
-            method:"POST"
-        }).then(res=>res.json()).then(
-            res=> setOrderList(res.orders_inf)
-        ).then(()=>{
-            setLoading(false)
-        });
-    }
-    const getUsers = ()=>{
-        setLoading(true);
-        fetch("http://127.0.0.1:5000/admin/admin_return_all_users",{
+        fetch("http://127.0.0.1:5000/admin/admin_return_all_orders", {
             method: "POST"
-        }).then(res=>res.json()).then(
-            res=> setUsers(res)
-        ).then(()=>{
+        }).then(res => res.json()).then(
+            res => setOrderList(res.orders_inf)
+        ).then(() => {
             setLoading(false)
         });
     }
-    const changeItemCount = (id,giftName,giftPrice,giftDiscountPrice,giftDiscountState,giftDescription,giftCategory,sideCategory1,sideCategory2,coverUrl,showUrl1,showUrl2,showUrl3,showUrl4,sizeC)=>{
+    const getUsers = () => {
+        setLoading(true);
+        fetch("http://127.0.0.1:5000/admin/admin_return_all_users", {
+            method: "POST"
+        }).then(res => res.json()).then(
+            res => setUsers(res)
+        ).then(() => {
+            setLoading(false)
+        });
+    }
+    const setGiftIds = (newVal) => {
+        setSelectedCustomerIds(newVal)
+    }
+    const changeItemCount = (id, giftName, giftPrice, giftDiscountPrice, giftDiscountState, giftDescription, giftCategory, sideCategory1, sideCategory2, coverUrl, showUrl1, showUrl2, showUrl3, showUrl4, sizeC) => {
         fetch("http://127.0.0.1:5000/admin/admin_edit_items", {
             method: 'put',
             body: JSON.stringify(
                 {
-                    id:id,
+                    id: id,
                     gift_name: giftName,
                     gift_price: giftPrice,
                     gift_discount_price: giftDiscountPrice,
                     gift_discount_state: giftDiscountState,
-                    gift_description:giftDescription,
-                    sizes:sizeC,
+                    gift_description: giftDescription,
+                    sizes: sizeC,
                     gift_category: giftCategory,
                     gift_side_category1: sideCategory1,
                     gift_side_category2: sideCategory2,
@@ -53,7 +57,7 @@ export default function AdminProvider({children}){
                 })
         }).then(console.log);
     }
-    const addItems = (giftName,giftPrice,giftDiscountPrice,giftDiscountState,giftDescription,giftCategory,sideCategory1,sideCategory2,coverUrl,showUrl1,showUrl2,showUrl3,showUrl4,sizeC)=>{
+    const addItems = (giftName, giftPrice, giftDiscountPrice, giftDiscountState, giftDescription, giftCategory, sideCategory1, sideCategory2, coverUrl, showUrl1, showUrl2, showUrl3, showUrl4, sizeC) => {
         fetch("http://127.0.0.1:5000/admin/admin_add_items", {
             method: 'POST',
             body: JSON.stringify(
@@ -62,8 +66,8 @@ export default function AdminProvider({children}){
                     gift_price: giftPrice,
                     gift_discount_price: giftDiscountPrice,
                     gift_discount_state: giftDiscountState,
-                    gift_description:giftDescription,
-                    sizes:sizeC,
+                    gift_description: giftDescription,
+                    sizes: sizeC,
                     gift_category: giftCategory,
                     gift_side_category1: sideCategory1,
                     gift_side_category2: sideCategory2,
@@ -76,39 +80,56 @@ export default function AdminProvider({children}){
         }).then(console.log);
     }
 
-    const removeItems =(id)=>{
-        fetch("http://127.0.0.1:5000/admin/admin_manage_items/delete/"+id, {
+    const removeItems = (id) => {
+        fetch(`http://127.0.0.1:5000/admin/admin_manage_items/delete/${id}`, {
             method: 'DELETE'
-        }).then(console.log);
+        }).then(r => console.log(r));
     }
-    const getAllGifts =()=>{
+    const getAllGifts = () => {
         setLoading(true);
         fetch("http://127.0.0.1:5000/admin/admin_return_all_gifts",
             {method: 'POST'}
-            ).then(res=>res.json()).then(
-            res=> setGifts(res.gifts_inf)
-        ).then(()=>{
+        ).then(res => res.json()).then(
+            res => setGifts(res.gifts_inf)
+        ).then(() => {
             setLoading(false)
         });
     }
-    const orderCompleted =(id)=>{
+    const orderCompleted = (id) => {
         setLoading(true);
-        fetch("http://127.0.0.1:5000/order/set_an_order_as_completed/"+id,
+        fetch("http://127.0.0.1:5000/order/set_an_order_as_completed/" + id,
             {method: 'POST'}
-            ).then(console.log).then(()=>{
+        ).then(console.log).then(() => {
             setLoading(false)
         });
     }
-    const orderDelivery =(id)=>{
+    const orderDelivery = (id) => {
         setLoading(true);
-        fetch("http://127.0.0.1:5000/order/set_an_order_as_delivery/"+id,
+        fetch("http://127.0.0.1:5000/order/set_an_order_as_delivery/" + id,
             {method: 'POST'}
-            ).then(console.log).then(()=>{
+        ).then(console.log).then(() => {
             setLoading(false)
         });
     }
-    return(
-        <AdminContext.Provider value={{orderList,getOrderList,loading,getUsers,users,getAllGifts,gifts,changeItemCount,addItems,removeItems,state,setState,orderCompleted,orderDelivery}}>
+    return (
+        <AdminContext.Provider value={{
+            orderList,
+            getOrderList,
+            loading,
+            getUsers,
+            users,
+            getAllGifts,
+            gifts,
+            changeItemCount,
+            addItems,
+            removeItems,
+            state,
+            setState,
+            orderCompleted,
+            orderDelivery,
+            setGiftIds,
+            selectedCustomerIds
+        }}>
             {children}
         </AdminContext.Provider>
     )//
