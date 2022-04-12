@@ -18,7 +18,7 @@ import {getInitials} from '../../../logic/get-initials';
 import {useAdmin} from "../../../tools/useAdmin";
 
 export const GiftListResults = ({gift, ...rest}) => {
-    const {setGiftIds,selectedCustomerIds} = useAdmin()
+    const {setGiftIds,selectedCustomerIds: selectedGiftIds} = useAdmin()
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(0);
 
@@ -26,7 +26,7 @@ export const GiftListResults = ({gift, ...rest}) => {
         let newSelectedCustomerIds;
 
         if (event.target.checked) {
-            newSelectedCustomerIds = gift.map((customer) => customer.id);
+            newSelectedCustomerIds = gift.map((gift) => gift.id);
         } else {
             newSelectedCustomerIds = [];
         }
@@ -35,23 +35,23 @@ export const GiftListResults = ({gift, ...rest}) => {
     };
 
     const handleSelectOne = (event, id) => {
-        const selectedIndex = selectedCustomerIds.indexOf(id);
-        let newSelectedCustomerIds = [];
+        const selectedIndex = selectedGiftIds.indexOf(id);
+        let newSelectedGiftIds = [];
 
         if (selectedIndex === -1) {
-            newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
+            newSelectedGiftIds = newSelectedGiftIds.concat(selectedGiftIds, id);
         } else if (selectedIndex === 0) {
-            newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
-        } else if (selectedIndex === selectedCustomerIds.length - 1) {
-            newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(0, -1));
+            newSelectedGiftIds = newSelectedGiftIds.concat(selectedGiftIds.slice(1));
+        } else if (selectedIndex === selectedGiftIds.length - 1) {
+            newSelectedGiftIds = newSelectedGiftIds.concat(selectedGiftIds.slice(0, -1));
         } else if (selectedIndex > 0) {
-            newSelectedCustomerIds = newSelectedCustomerIds.concat(
-                selectedCustomerIds.slice(0, selectedIndex),
-                selectedCustomerIds.slice(selectedIndex + 1)
+            newSelectedGiftIds = newSelectedGiftIds.concat(
+                selectedGiftIds.slice(0, selectedIndex),
+                selectedGiftIds.slice(selectedIndex + 1)
             );
         }
 
-        setGiftIds(newSelectedCustomerIds);
+        setGiftIds(newSelectedGiftIds);
     };
 
     const handleLimitChange = (event) => {
@@ -72,11 +72,11 @@ export const GiftListResults = ({gift, ...rest}) => {
                             <TableRow>
                                 <TableCell padding="checkbox">
                                     <Checkbox
-                                        checked={selectedCustomerIds.length === gift.length}
+                                        checked={selectedGiftIds.length === gift.length}
                                         color="primary"
                                         indeterminate={
-                                            selectedCustomerIds.length > 0
-                                            && selectedCustomerIds.length < gift.length
+                                            selectedGiftIds.length > 0
+                                            && selectedGiftIds.length < gift.length
                                         }
                                         onChange={handleSelectAll}
                                     />
@@ -103,11 +103,11 @@ export const GiftListResults = ({gift, ...rest}) => {
                                 <TableRow
                                     hover
                                     key={gift.id}
-                                    selected={selectedCustomerIds.indexOf(gift.id) !== -1}
+                                    selected={selectedGiftIds.indexOf(gift.id) !== -1}
                                 >
                                     <TableCell padding="checkbox">
                                         <Checkbox
-                                            checked={selectedCustomerIds.indexOf(gift.id) !== -1}
+                                            checked={selectedGiftIds.indexOf(gift.id) !== -1}
                                             onChange={(event) => handleSelectOne(event, gift.id)}
                                             value="true"
                                         />

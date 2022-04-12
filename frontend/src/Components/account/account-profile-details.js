@@ -361,7 +361,7 @@ export default class AccountProfileDetails extends React.Component {
         if (!this.state.isReadonly) { //submit
             // console.log(this.state.new_user)
             const data = this.state.new_user
-            data["user_address"] = [data["user_country"], data["user_state"], data["user_detail_street"]].join(",")
+            data["user_address"] = [data["user_country"], data["user_state"], data["user_detail_street"]].join(", ")
             // this.setState({new_user: this.state.user})
             const that = this
             // console.log(sessionStorage.getItem("id"))

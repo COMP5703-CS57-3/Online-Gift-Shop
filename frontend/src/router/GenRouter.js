@@ -124,9 +124,14 @@ const routes = [
                 component: AdminGiftList
             },
             {
-                path: '/admin/giftui',
+                path: '/admin/gui',
                 auth: false,
                 component: Gifts
+            },
+            {
+                path: '/admin/cui',
+                auth: false,
+                component: Customers
             },
             {
                 path: '/admin/addItem',
