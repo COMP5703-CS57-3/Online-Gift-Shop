@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Box from '@mui/material/Box';
 import Background from '../../picture/background.png'
 import {useWish} from "../../tools/useWish";
@@ -7,16 +7,17 @@ import Loading from "../normal/Loading";
 import Container from "@mui/material/Container";
 import cookie from "react-cookies";
 import BeforeEach from "../../router/BeforEach";
+import {Navigate, useLocation, useNavigate} from "react-router-dom";
 
 export default function CategoryW() {
     const user = cookie.load("login");
     console.log(user)
+    const navigate = useNavigate()
     const {wish} = useWish();
     const {loading} = useWish();
+    const location = useLocation()
     if (loading) {
         return (
-            <>
-                <BeforeEach/>
                 <Box style={{
                     width: "100%",
                     height: 1500,
@@ -28,13 +29,11 @@ export default function CategoryW() {
                         <Loading/>
                     </Container>
                 </Box>
-            </>
         )
     }
-    //console.log(wish);
-    return (
-        <>
-            <BeforeEach/>
+
+    if(user&&wish){
+         return (
             <Box style={{
                 width: "100%",
                 height: 1500,
@@ -55,6 +54,9 @@ export default function CategoryW() {
                     </Box>
                 </Container>
             </Box>
-        </>
     )
+    }
+     return <Navigate to='/login' state={{ from: location }} replace/>
+    //console.log(wish);
+
 }

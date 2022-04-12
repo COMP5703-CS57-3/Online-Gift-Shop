@@ -18,10 +18,17 @@ export default function ProductForShow({products_id,product_name,product_cover,s
     const {currentProduct,setCurrentProduct} =useOrder();
     const [countProps,resetCount] = useInput(1);
     const remove = ()=>{
-       setCurrentProduct(currentProduct.filter(pro=>pro.products_id!==products_id))
+        setCurrentProduct(currentProduct.filter(pro=>{
+            const pr= (pro.products_id+pro.size)!==(products_id+size);
+            return pr;
+        }))
+        console.log(currentProduct);
     }////
     let navigate = useNavigate();
     const nav =()=> navigate("/cart/"+products_id);
+    if(count<=0){
+        return null;
+    }
     return(
             <Box>
                 <Box
@@ -139,8 +146,6 @@ export default function ProductForShow({products_id,product_name,product_cover,s
                        sx={{mt:4}}>
                           <Button onClick={remove}> remove the gift</Button>
                       </Stack>
-
-
                       </Stack>
                   </Box>
                 </Box>
