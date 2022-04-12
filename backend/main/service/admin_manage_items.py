@@ -136,22 +136,51 @@ def admin_edit_gift_method(product_info):
     database.session.close()
     return output_json
 
-def admin_delete_gift_method(product_id):
+
+def admin_add_size_method(size_info):
     output_message = {
         "message": "success"
     }
     status_code = 200
-    product = Gifts.query.filter_by(id=product_id).first()
-    if not product:
-        output_message['message'] = 'product does not exist'
+    try:
+        size = size_info["size"]
+        stock = size_info["stock"]
+        gift_id = size_info["gift_id"]
+    except:
+        output_message['message'] = 'please check JSON format'
+        status_code = 400
+        output_json = make_response(output_message)
+        output_json.status_code = status_code
+        database.session.close()
+        return output_json
+    insert_size = Size(size=size,
+                       stock=stock,
+                       gift_id=gift_id)
+    database.session.add(insert_size)
+    database.session.commit()
+    output_json = make_response(output_message)
+    output_json.status_code = status_code
+    database.session.close()
+    return output_json
+
+
+def admin_delete_gift_method(product_ids):
+    output_message = {
+        "message": "success"
+    }
+    status_code = 200
+    products = Gifts.query.filter(Gifts.id.in_(product_ids)).all()
+    if len(products) == 0:
+        output_message['message'] = 'products does not exist'
         output_json = make_response(output_message)
         status_code = 404
         output_json.status_code = status_code
         database.session.close()
         return output_json
     else:
-        Gifts.query.filter_by(id=product_id).delete()
-        Size.query.filter_by(gift_id=product_id).delete()
+        for product_id in product_ids:
+            Gifts.query.filter_by(id=product_id).delete()
+            Size.query.filter_by(gift_id=product_id).delete()
         database.session.commit()
         output_json = make_response(output_message)
         output_json.status_code = status_code

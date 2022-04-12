@@ -344,6 +344,11 @@ class admin_part_dto:
         'gift_show_url3': fields.String,
         'gift_show_url4': fields.String
     })
+    admin_add_size_for_item_model = admin_part_namespace.model('admin_add_size_for_item_model', {
+        'size': fields.String,
+        'stock': fields.Integer,
+        'gift_id': fields.Integer
+    })
 
     admin_return_all_users_output_format = admin_part_namespace.model("admin_return_all_users_output_format", {
         'id': fields.Integer,

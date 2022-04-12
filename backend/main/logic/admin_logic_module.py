@@ -5,7 +5,7 @@ import json
 from ..util.dto import admin_part_dto
 from ..service.admin_sign_up import admin_signup
 from ..service.admin_login import admin_login
-from ..service.admin_manage_items import admin_add_gift_method
+from ..service.admin_manage_items import admin_add_gift_method, admin_add_size_method
 from ..service.admin_manage_items import admin_edit_gift_method
 from ..service.admin_manage_items import admin_delete_gift_method
 from ..service.admin_return_all_users import admin_return_all_users_methods
@@ -64,11 +64,22 @@ class EditManage(Resource):
         resp = admin_edit_gift_method(json.loads(request.data))
         return resp
 
-@admin_namespace.route("/admin_manage_items/delete/<id>")
+
+@admin_namespace.route("/admin_add_size_for_item")
+class AddSize(Resource):
+    @staticmethod
+    @admin_namespace.expect(admin_part_dto.admin_add_size_for_item_model)
+    def post():
+        resp = admin_add_size_method(json.loads(request.data))
+        return resp
+
+
+@admin_namespace.route("/admin_manage_items/delete/<ids>")
 class AdminDelete(Resource):
     @staticmethod
-    def delete(id):
-        resp = admin_delete_gift_method(id)
+    def delete(ids):
+        product_ids = ids.split(',')
+        resp = admin_delete_gift_method(product_ids)
         return resp
 
 
