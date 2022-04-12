@@ -41,11 +41,8 @@ export default function AccountMenu() {
         console.log(IsLogin ? "Logout" : "Sign In")
         setIsLogin(curr)
         if (!curr) {
-            console.log(cookie.load(_local.get("id")))
-            cookie.remove(_local.get("id"))
-            console.log(_local.get("id"))
-
-            _local.remove("id")
+            console.log(cookie.load("login"))
+            cookie.remove("login")
         }
     }
 

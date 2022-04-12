@@ -18,7 +18,7 @@ import Copyright from "./cpright";
 import FastDial from "./FastDial";
 import {checkEmail} from "../logic/ValCheck";
 import cookie from 'react-cookies'
-import {_local} from "../logic/local$sess";
+import {_local, _session} from "../logic/local$sess";
 
 const theme = createTheme();
 
@@ -49,10 +49,10 @@ export default function LogIn(props) {
                 console.log(status, 1)
                 if (status.data.message === 'User login successfully') {
                     console.log("Success!")
-                    _local.set("id", status.data.id,24 * 3600 * 1000)
-                    let inFifteenMinutes = new Date(new Date().getTime() + 24 * 3600 * 1000);//6分钟后失效
-                    cookie.save("login",response.data.id)
-                    navigate("/")
+                    let ExpireTime = new Date(new Date().getTime() + 0.05 * 3600 * 1000);//3分钟后失效
+                    cookie.save("login",response.data.id,ExpireTime)
+                    console.log(_session.get("curr"))
+                    navigate(_session.get("curr"))
                 } else {
                     console.log("Error!")
                 }

@@ -7,13 +7,14 @@ import Box from "@mui/material/Box";
 import Background from "../picture/background.png";
 import {_local} from "../logic/local$sess";
 import BeforEach from "../router/BeforEach";
+import cookie from "react-cookies";
 
 export default function Account(props) {
-    const id = _local.get("id")
-    BeforEach()
+    const id = cookie.load("login")
+
     return (
         <>
-
+            <BeforEach/>
             <div style={{
                 width: '100%',
                 height: 1500,

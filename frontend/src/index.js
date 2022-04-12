@@ -11,7 +11,7 @@ function APP() {
 
 
             <BrowserRouter>
-                <BeforeEach/>
+                {/*<BeforeEach/>*/}
                 <Router/>
             </BrowserRouter>
 
