@@ -11,11 +11,13 @@ import {alpha} from "@mui/material/styles";
 import {useNavigate} from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import {useOrder} from "../../tools/useOrder";
+import {Grid} from "@material-ui/core";
 
 
 
 export default function ProductForShow({products_id,product_name,product_cover,size,price,count,detail}){
     const {currentProduct,setCurrentProduct} =useOrder();
+    const [c,setC] = useState()
     const [countProps,resetCount] = useInput(1);
     const remove = ()=>{
         setCurrentProduct(currentProduct.filter(pro=>{
@@ -26,10 +28,26 @@ export default function ProductForShow({products_id,product_name,product_cover,s
     }////
     let navigate = useNavigate();
     const nav =()=> navigate("/cart/"+products_id);
-    if(count<=0){
-        return null;
+    const change =()=>{
+        const deleteOld = currentProduct.filter(pro=>(pro.products_id+pro.size)!==(products_id+size))
+        const newProduct = {
+            products_id: products_id,
+            product_name:product_name,
+            product_cover:product_cover,
+            size:size,
+            count: countProps.value,
+            price:price
+
+        }
+        deleteOld.push(newProduct)
+        setCurrentProduct(deleteOld)
     }
+    console.log(currentProduct)
+    // if(count<=0){
+    //     return null;
+    // }
     return(
+        <Grid item xs={6}>
             <Box>
                 <Box
                   sx={{
@@ -145,10 +163,12 @@ export default function ProductForShow({products_id,product_name,product_cover,s
                              spacing={2}
                        sx={{mt:4}}>
                           <Button onClick={remove}> remove the gift</Button>
+                          <Button onClick={change}> change count</Button>
                       </Stack>
                       </Stack>
                   </Box>
                 </Box>
-            </Box>//
+            </Box>
+        </Grid>
     );
 }//

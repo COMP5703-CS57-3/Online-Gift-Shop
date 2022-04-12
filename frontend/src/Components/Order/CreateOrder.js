@@ -59,7 +59,8 @@ export default function CreateOrder() {
     const submit = e=>{
         e.preventDefault();
         const address = address1.toString()+" "+address2+" "+address3Props.value;
-        currentProduct.
+        console.log(typeof(totalPrice));
+        console.log(currentProduct);
         createOrder(id,timeProps.value,firstnameProps.value,lastnameProps.value,phoneProps.value,address,postcodeProps.value,totalPrice,currentProduct);
         // resetTitle();
         // resetAddress();
@@ -139,9 +140,7 @@ export default function CreateOrder() {
                         </Stack>
                         <Grid container justifyContent="flex-start" alignItems="center" spacing={1} direction="row">
                             {currentProduct.map((gift,i)=>(
-                                <Grid key={i} item xs={6}>
-                                    <ProductForShow {...gift} detail={detail}/>
-                                </Grid>
+                                <ProductForShow key={i} {...gift} detail={detail}/>
                             ))}
                         </Grid>
                          <Stack sx={{my:4}} spacing={4} direction="row" alignItems="center" justifyContent="flex-end" variant="outlined">

@@ -42,7 +42,6 @@ export default function CategoryW() {
                 backgroundRepeat: "no-repeat"
             }}>
                 <Container maxWidth="lg" style={{backgroundColor: "white"}} sx={{boxShadow: 1, borderRadius: 2}}>
-
                     <Box sx={{
                         display: "grid",
                         gap: 1,

@@ -45,7 +45,7 @@ export default function OrderProvider({children}){
         });
     }
     return(
-        <OrderContext.Provider value={{order,getOrderByPayer,loading,setLoading,currentProduct,setCurrentProduct,totalPrice,setTotal}}>
+        <OrderContext.Provider value={{order,getOrderByPayer,loading,setLoading,currentProduct,setCurrentProduct,totalPrice,setTotal,createOrder}}>
             {children}
         </OrderContext.Provider>
     )
