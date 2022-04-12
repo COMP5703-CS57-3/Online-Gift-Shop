@@ -23,7 +23,7 @@ import BeforeEach from "../../router/BeforEach";
 export default function AccountMenu() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     // console.log(cookie.load(_local.get("id")))
-    const [IsLogin, setIsLogin] = useState(!!cookie.load(_local.get("id")))
+    const [IsLogin, setIsLogin] = useState(cookie.load("login") !== undefined)
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);

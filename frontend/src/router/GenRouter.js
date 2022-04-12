@@ -160,12 +160,14 @@ const generateRouter = (routers) => {
         if (item.children) {
             item.children = generateRouter(item.children)
         }
+
         item.element = <div
         >
             {/* 把懒加载的异步路由变成组件装载进去 */}
             {/*<BeforeEach/>*/}
-            <item.component >
-            </item.component>
+
+            <item.component/>
+
 
         </div>
 
