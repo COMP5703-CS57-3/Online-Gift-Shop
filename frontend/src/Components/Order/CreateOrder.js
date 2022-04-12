@@ -19,8 +19,9 @@ import Loading from "../normal/Loading";
 
 export default function CreateOrder() {
     const {id} = useParams();
-    const [address1,setAddress1] = useState(countries[12].label.toString());
+
     const [address2,setAddress2] = useState(states[0].label);
+    const [address1,setAddress1] = useState(countries[12].label.toString());
     const [timeProps,resetTitle] = useInput("123");
     const [firstnameProps,resetfirst] = useInput("123");
     const [lastnameProps,resetLast] = useInput("123");
@@ -29,12 +30,20 @@ export default function CreateOrder() {
     const [postcodeProps,resetPostcode] = useInput("123");
     const {createOrder} = useOrder();
     const [targetProduct,setTargetProduct] = useState();
-
     const {currentProduct,setCurrentProduct} =useOrder();
-    const [pro,setPro] = useState();
-    const totalPrice = 0;
+    const {totalPrice,setTotal} = useOrder()
+    const summ =()=>{
+        let sum =0;
+        currentProduct.map((gift,i)=>{
+            sum = gift.price*gift.count + sum;
+        })
+        return sum
+    }
+    if(currentProduct){
+        setTotal(summ());
+    }
     const [detail,setDetail] = useState();
-    const [loading,setLoading] = useState(true);
+    const {loading,setLoading} = useOrder();
     useEffect(()=>{
         setLoading(true);
         fetch("http://127.0.0.1:5000/wishlist/search", {
@@ -44,14 +53,15 @@ export default function CreateOrder() {
                 })
         }).then(res=>res.json()).then(res=>{
             setDetail(res)
-            setPro(res.products)
+            setCurrentProduct(res.products)
             setLoading(false)});
     },[id]);
-    console.log(pro)
     const submit = e=>{
         e.preventDefault();
-        const address = address1.toString()+" "+address2+" "+address3Props.value
-        createOrder(id,timeProps.value,firstnameProps.value,lastnameProps.value,phoneProps.value,address,postcodeProps.value,totalPrice,targetProduct);
+        const address = address1.toString()+" "+address2+" "+address3Props.value;
+        console.log(typeof(totalPrice));
+        console.log(currentProduct);
+        createOrder(id,timeProps.value,firstnameProps.value,lastnameProps.value,phoneProps.value,address,postcodeProps.value,totalPrice,currentProduct);
         // resetTitle();
         // resetAddress();
         // resetDescription();
@@ -130,12 +140,11 @@ export default function CreateOrder() {
                         </Stack>
                         <Grid container justifyContent="flex-start" alignItems="center" spacing={1} direction="row">
                             {currentProduct.map((gift,i)=>(
-                                <Grid key={i} item xs={6}>
-                                    <ProductForShow {...gift} detail={detail}/>
-                                </Grid>
+                                <ProductForShow key={i} {...gift} detail={detail}/>
                             ))}
                         </Grid>
                          <Stack sx={{my:4}} spacing={4} direction="row" alignItems="center" justifyContent="flex-end" variant="outlined">
+                             <h2>{totalPrice}</h2>
                             <button>Create</button>
                         </Stack>
                     </Box>

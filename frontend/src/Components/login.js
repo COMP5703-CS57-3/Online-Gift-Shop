@@ -52,7 +52,7 @@ export default function LogIn(props) {
                     let ExpireTime = new Date(new Date().getTime() + 0.05 * 3600 * 1000);//3分钟后失效
                     cookie.save("login",response.data.id,ExpireTime)
                     console.log(_session.get("curr"))
-                    navigate(_session.get("curr"))
+                    navigate("/")
                 } else {
                     console.log("Error!")
                 }
