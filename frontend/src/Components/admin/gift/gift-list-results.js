@@ -55,7 +55,8 @@ export const GiftListResults = ({gift, ...rest}) => {
     };
 
     const handleLimitChange = (event) => {
-        setLimit(event.target.value);
+        setLimit(event.target.value)
+        setPage(0);
     };
 
     const handlePageChange = (event, newPage) => {
@@ -98,7 +99,7 @@ export const GiftListResults = ({gift, ...rest}) => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {gift.slice(limit * (page), limit * (page + 1)).map((gift) => (
+                            {gift.slice(limit* (page), Math.max(limit * (page + 1))).map((gift) => (
                                 <TableRow
                                     hover
                                     key={gift.id}
@@ -122,7 +123,7 @@ export const GiftListResults = ({gift, ...rest}) => {
                                                 src={gift.gift_cover_url}
                                                 sx={{mr: 2}}
                                             >
-                                                {getInitials(gift.name)}
+                                                {getInitials(gift.gift_name)}
                                             </Avatar>
                                             <Typography
                                                 color="textPrimary"

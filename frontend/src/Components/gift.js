@@ -7,7 +7,7 @@ import Loading from "./normal/Loading";
 
 const Gifts = () => {
 
-    const {gifts} = useAdmin();
+    const {shownGift} = useAdmin();
     const {getAllGifts} = useAdmin()
     const {loading} = useAdmin()
 
@@ -31,7 +31,7 @@ const Gifts = () => {
                 <Container maxWidth={false}>
                     <GiftListToolbar/>
                     <Box sx={{mt: 3}}>
-                        <GiftListResults gift={gifts}/>
+                        <GiftListResults gift={shownGift}/>
                     </Box>
                 </Container>
             </Box>

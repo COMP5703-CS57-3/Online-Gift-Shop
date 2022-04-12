@@ -4,12 +4,12 @@ import {useAdmin} from "../../../tools/useAdmin";
 // import { Upload as UploadIcon } from '../../icons/upload';
 // import { Download as DownloadIcon } from '../../icons/download';
 
-export default function GiftListToolbar (props)
-{
-    const {selectedCustomerIds} = useAdmin();
-    const {removeItems }=useAdmin();
+export default function GiftListToolbar(props) {
+    const {selectedCustomerIds, gifts, setShownGift} = useAdmin();
+    const {removeItems} = useAdmin();
+
     function addGift() {
-       console.log("add")
+        console.log("add")
     }
 
     function changeDes() {
@@ -17,9 +17,21 @@ export default function GiftListToolbar (props)
     }
 
     function delGift() {
-        const id=selectedCustomerIds[0]
+        const id = selectedCustomerIds[0]
         removeItems(id)
     }
+
+    function search(e) {
+        const shownGift = []
+        let j = 0
+        for (let i in gifts) {
+            if (gifts[i].gift_name.split(e.target.value).length >1 || gifts[i].id.toString() === e.target.value) {
+                shownGift[j++] = gifts[i]
+            }
+        }
+        setShownGift(shownGift)
+    }
+
 
     return (
         <Box {...props}>
@@ -43,23 +55,23 @@ export default function GiftListToolbar (props)
                     <Button
                         color="primary"
                         variant="contained"
-                        onClick={()=>addGift()}
+                        onClick={() => addGift()}
                     >
                         Add Gift
                     </Button>
                     <Button
                         color="primary"
                         variant="contained"
-                        onClick={()=>delGift()}
-                        disabled={selectedCustomerIds.length!==1}
+                        onClick={() => delGift()}
+                        disabled={selectedCustomerIds.length !== 1}
                     >
                         Delete
                     </Button>
                     <Button
                         color="primary"
                         variant="contained"
-                        onClick={()=>changeDes()}
-                        disabled={selectedCustomerIds.length!==1}
+                        onClick={() => changeDes()}
+                        disabled={selectedCustomerIds.length !== 1}
                     >
                         Change Description
                     </Button>
@@ -83,8 +95,9 @@ export default function GiftListToolbar (props)
                                         </InputAdornment>
                                     )
                                 }}
-                                placeholder="Search customer"
+                                placeholder="Search Gift name"
                                 variant="outlined"
+                                onChange={(e) => search(e)}
                             />
                         </Box>
                     </CardContent>

@@ -10,6 +10,7 @@ export default function AdminProvider({children}) {
     const [gifts, setGifts] = useState();
     const [loading, setLoading] = useState(true);
     const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
+    const [shownGift, setShownGift] = useState();
     const getOrderList = () => {
         setLoading(true);
         fetch("http://127.0.0.1:5000/admin/admin_return_all_orders", {
@@ -90,7 +91,10 @@ export default function AdminProvider({children}) {
         fetch("http://127.0.0.1:5000/admin/admin_return_all_gifts",
             {method: 'POST'}
         ).then(res => res.json()).then(
-            res => setGifts(res.gifts_inf)
+            res => {
+                setGifts(res.gifts_inf)
+                setShownGift(res.gifts_inf)
+            }
         ).then(() => {
             setLoading(false)
         });
@@ -128,7 +132,10 @@ export default function AdminProvider({children}) {
             orderCompleted,
             orderDelivery,
             setGiftIds,
-            selectedCustomerIds
+            selectedCustomerIds,
+            shownGift,
+            setShownGift
+
         }}>
             {children}
         </AdminContext.Provider>
