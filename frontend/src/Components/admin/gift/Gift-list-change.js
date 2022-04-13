@@ -29,7 +29,7 @@ export default function BasicModal() {
     let foundGift = gifts.find(
         item => {return item.id === selectedGiftIds[0]}
     );
-    console.log(foundGift)
+    //console.log(foundGift)
 
     const [giftNameProps, resetGiftName] = useInput();
     const [giftPriceProps, resetGiftPrice] = useInput();
@@ -70,6 +70,7 @@ export default function BasicModal() {
             show3Props.value,
             show4Props.value,
             size);
+        console.log(show4Props.value)
     }
 
     return (

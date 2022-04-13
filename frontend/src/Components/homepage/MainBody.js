@@ -14,7 +14,6 @@ export default function MainBody({props}) {
     /*通过属性的方式设置导航，跳转到不同的类别*/
     const [value, setValue] = React.useState('1');
     const handleChange = (event, newValue) => {
-
         setValue(newValue);
     };
     const {setTopBar} = useGift();

@@ -7,6 +7,7 @@ export const useOrder = ()=> useContext(OrderContext);
 
 export default function OrderProvider({children}){
     const [order,setOrder] = useState();
+    const [user,setUser] = useState(0);
     const [loading,setLoading] = useState(true);
     const [currentProduct,setCurrentProduct] = useState();
     const [totalPrice,setTotal] = useState(0);
@@ -24,19 +25,21 @@ export default function OrderProvider({children}){
     }
     let navi = useNavigate();
 
-    const createOrder = (wishlistId,time,fName,lName,phone,address,postCode,totalPrice,productList)=>{
-        const nav =()=> navi("/order");
-        fetch("http://127.0.0.1:5000/order/create", {
+    const createOrder = (ownerId,wishlistId,fName,lName,phone,address,postCode,payerFName,payId,totalPrice,productList)=>{
+        const nav =()=> navi("/paytest");
+        fetch("http://127.0.0.1:5000/wishlist/pay", {
             method: 'POST',
             body: JSON.stringify(
                 {
+                    owner_id: ownerId,
+                    owner_first_name: fName,
+                    owner_last_name: lName,
                     wishlist_id:wishlistId,
-                    order_time: time,
-                    first_name: fName,
-                    last_name: lName,
                     phone: phone,
                     address:address,
                     postcode:postCode,
+                    payer_first_name: payerFName,
+                    payer_id:payId,
                     total_price:totalPrice,
                     product_list:productList
                 })
@@ -45,7 +48,7 @@ export default function OrderProvider({children}){
         });
     }
     return(
-        <OrderContext.Provider value={{order,getOrderByPayer,loading,setLoading,currentProduct,setCurrentProduct,totalPrice,setTotal,createOrder}}>
+        <OrderContext.Provider value={{order,getOrderByPayer,loading,setLoading,currentProduct,setCurrentProduct,totalPrice,setTotal,createOrder,user,setUser}}>
             {children}
         </OrderContext.Provider>
     )

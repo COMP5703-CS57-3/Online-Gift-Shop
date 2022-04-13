@@ -16,13 +16,14 @@ import {Grid} from "@material-ui/core";
 import ProductDetail from "../Detail/ProductDetail";
 import ProductForShow from "../Detail/ProductForShow";
 import Loading from "../normal/Loading";
+import cookie from "react-cookies";
 
 export default function CreateOrder() {
     const {id} = useParams();
 
     const [address2,setAddress2] = useState(states[0].label);
     const [address1,setAddress1] = useState(countries[12].label.toString());
-    const [timeProps,resetTitle] = useInput("123");
+    const [payerFName,resetTitle] = useInput("123");
     const [firstnameProps,resetfirst] = useInput("123");
     const [lastnameProps,resetLast] = useInput("123");
     const [address3Props,resetAddress3] = useInput("123");
@@ -44,6 +45,10 @@ export default function CreateOrder() {
     }
     const [detail,setDetail] = useState();
     const {loading,setLoading} = useOrder();
+    const {user,setUser} = useOrder();
+    if(cookie.load("login")){
+        setUser(cookie.load("login"))
+    }
     useEffect(()=>{
         setLoading(true);
         fetch("http://127.0.0.1:5000/wishlist/search", {
@@ -61,7 +66,8 @@ export default function CreateOrder() {
         const address = address1.toString()+" "+address2+" "+address3Props.value;
         console.log(typeof(totalPrice));
         console.log(currentProduct);
-        createOrder(id,timeProps.value,firstnameProps.value,lastnameProps.value,phoneProps.value,address,postcodeProps.value,totalPrice,currentProduct);
+        console.log(detail.owner_id,id,firstnameProps.value,lastnameProps.value,phoneProps.value,address,postcodeProps.value,payerFName.value,user,totalPrice,currentProduct)
+        createOrder(detail.owner_id,id,firstnameProps.value,lastnameProps.value,phoneProps.value,address,postcodeProps.value,payerFName.value,user,totalPrice,currentProduct);
         // resetTitle();
         // resetAddress();
         // resetDescription();
@@ -82,7 +88,7 @@ export default function CreateOrder() {
                     <Box component="form" onSubmit={submit}>
                         <h2 style={{marginLeft:0,marginRight:0,textAlign:"center"}}> Wish list creation form</h2>
                         <Stack spacing={4} direction="row" alignItems="center" justifyContent="space-between" variant="outlined">
-                            <TextField {...timeProps} label="title"/>
+                            <TextField {...payerFName} label="payerFName"/>
                             <TextField {...firstnameProps}  label="firstname"/>
                             <TextField {...lastnameProps} label="lastname"/>
                         </Stack>
