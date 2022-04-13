@@ -63,5 +63,5 @@ def admin_return_all_gifts_methods():
     resp = make_response(response_message)
     resp.status_code = status_code
     resp.response_data = response_data
-    # database.session.close()
+    database.session.close()
     return resp
