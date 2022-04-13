@@ -8,6 +8,7 @@ export default function GiftListToolbar(props) {
     const {selectedCustomerIds, gifts, setShownGift} = useAdmin();
     const {removeItems} = useAdmin();
 
+
     function addGift() {
         console.log("add")
     }
@@ -63,7 +64,7 @@ export default function GiftListToolbar(props) {
                         color="primary"
                         variant="contained"
                         onClick={() => delGift()}
-                        disabled={selectedCustomerIds.length !== 1}
+                        disabled={selectedCustomerIds.length < 1}
                     >
                         Delete
                     </Button>

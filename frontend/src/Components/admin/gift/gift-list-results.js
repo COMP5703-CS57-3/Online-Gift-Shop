@@ -16,9 +16,10 @@ import {
 } from '@mui/material';
 import {getInitials} from '../../../logic/get-initials';
 import BasicModal from "./Gift-list-change";
+import {useAdmin} from "../../../tools/useAdmin";
 
 export const GiftListResults = ({gift, ...rest}) => {
-    const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
+    const {selectedCustomerIds, setSelectedCustomerIds} = useAdmin();
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(0);
 
@@ -37,7 +38,6 @@ export const GiftListResults = ({gift, ...rest}) => {
     const handleSelectOne = (event, id) => {
         const selectedIndex = selectedCustomerIds.indexOf(id);
         let newSelectedCustomerIds = [];
-
         if (selectedIndex === -1) {
             newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
         } else if (selectedIndex === 0) {
