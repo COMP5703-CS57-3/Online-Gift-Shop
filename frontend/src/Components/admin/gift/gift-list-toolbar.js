@@ -1,5 +1,8 @@
 import {Box, Button, Card, CardContent, InputAdornment, SvgIcon, TextField, Typography} from '@mui/material';
 import {useAdmin} from "../../../tools/useAdmin";
+import BasicModal from "./Gift-list-change";
+import EditItemForm from "../EditItemForm";
+import AddItemForm from "../AddItemForm";
 // import { Search as SearchIcon } from '../../icons/search';
 // import { Upload as UploadIcon } from '../../icons/upload';
 // import { Download as DownloadIcon } from '../../icons/download';
@@ -7,14 +10,19 @@ import {useAdmin} from "../../../tools/useAdmin";
 export default function GiftListToolbar(props) {
     const {selectedCustomerIds, gifts, setShownGift} = useAdmin();
     const {removeItems} = useAdmin();
+    // const {submit} = BasicModal();
 
 
     function addGift() {
         console.log("add")
+
     }
 
     function changeDes() {
         console.log("change")
+        // const id = selectedCustomerIds;
+
+
     }
 
     function delGift() {

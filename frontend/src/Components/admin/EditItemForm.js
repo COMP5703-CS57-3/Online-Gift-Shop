@@ -69,9 +69,7 @@ export default function EditItemForm({}) {
                         <TextField {...show4Props} label="lastname"/>
                         <button>change</button>
                     </Box>
-                    {/*<form onSubmit={submit2}>*/}
-                    {/*    <button>ADD product</button>*/}
-                    {/*</form>*/}
+
                 </Box>
             </Container>
             </Box>
