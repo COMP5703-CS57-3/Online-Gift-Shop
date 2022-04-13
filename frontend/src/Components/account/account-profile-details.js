@@ -68,8 +68,7 @@ export default class AccountProfileDetails extends React.Component {
 
     UNSAFE_componentWillMount() {
         const that = this
-        let id = _local.get("id")
-        axios.get(`http://localhost:5000/user_information/user_profile/${id}`)
+        axios.get(`http://localhost:5000/user_information/user_profile/${this.state.id}`)
             .then(r => {
                 // console.log(r.data)
                 const address = r.data.user_address ? r.data.user_address.split(",") : ['', '', '']

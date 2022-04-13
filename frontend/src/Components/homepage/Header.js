@@ -18,6 +18,7 @@ import Button from "@mui/material/Button";
 import cookie from "react-cookies";
 import {_local} from "../../logic/local$sess";
 import BeforeEach from "../../router/BeforEach";
+import {useApp} from "../../tools/useApp";
 
 
 export default function AccountMenu() {
@@ -28,6 +29,7 @@ export default function AccountMenu() {
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
+    const {setLogin}=useApp()
     const handleClose = () => {
         setAnchorEl(null);
     };
@@ -41,8 +43,8 @@ export default function AccountMenu() {
         console.log(IsLogin ? "Logout" : "Sign In")
         setIsLogin(curr)
         if (!curr) {
-            console.log(cookie.load("login"))
             cookie.remove("login")
+            setLogin(undefined)
         }
     }
 

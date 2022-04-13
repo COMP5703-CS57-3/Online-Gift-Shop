@@ -10,7 +10,6 @@ import Account from "../Components/account";
 import WishList from "../Components/wishlist/WishList";
 import WishListContentProvider from "../Components/Detail/WishListContentProvider";
 import WishFormProvider from "../Components/wishlist/WishFormProvider";
-import CategoryG from "../Components/Category/CategoryG";
 import FPassword from "../Components/FPassword";
 import AdminOrderList from "../Components/admin/AdminOrderList";
 import Dashboard from "../Components/admin/Dashboard";
@@ -52,7 +51,7 @@ const routes = [
                 component: WishList
             }
         ]
-    },{
+    }, {
         path: '/wish',
         auth: false,
         component: WishContentProvider,
@@ -93,7 +92,7 @@ const routes = [
     },
     {
         path: '/findpwd',
-        auth: true,
+        auth: false,
         component: FPassword
     },
     {
@@ -186,15 +185,12 @@ const generateRouter = (routers) => {
             item.children = generateRouter(item.children)
         }
 
-        item.element = <div
-        >
-            {/* 把懒加载的异步路由变成组件装载进去 */}
-            {/*<BeforeEach/>*/}
+        item.element =
 
-            <item.component/>
+            <BeforeEach>
+                <item.component/>
+            </BeforeEach>
 
-
-        </div>
 
         return item
     })

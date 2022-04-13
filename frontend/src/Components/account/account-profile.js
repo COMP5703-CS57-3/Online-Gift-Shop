@@ -2,7 +2,6 @@ import {Avatar, Box, Button, Card, CardActions, CardContent, Divider, Typography
 import axios from "axios";
 import * as React from 'react';
 import {Skeleton} from "@mui/lab";
-import {_local} from "../../logic/local$sess";
 
 
 const sample = {
@@ -25,8 +24,7 @@ export default class AccountProfile extends React.Component {
 
 
         const that = this
-        const id = _local.get("id")
-        axios.get(`http://localhost:5000/user_information/user_profile/${id}`)
+        axios.get(`http://localhost:5000/user_information/user_profile/${this.state.id}`)
             .then(r => {
                 // console.log(r.data)
                 that.setState({"user": r.data, "isLoad": true})
@@ -72,7 +70,7 @@ export default class AccountProfile extends React.Component {
                             color="textSecondary"
                             variant="body2"
                         >
-                            {this.state.isLoad ?Intl.DateTimeFormat().resolvedOptions().timeZone:
+                            {this.state.isLoad ? Intl.DateTimeFormat().resolvedOptions().timeZone :
                                 <Skeleton variant="rectangular" width={120} height={25}/>}
                         </Typography>
                     </Box>

@@ -14,7 +14,6 @@ export default function Account(props) {
 
     return (
         <>
-            <BeforEach/>
             <div style={{
                 width: '100%',
                 height: 1500,

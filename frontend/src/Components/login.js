@@ -6,7 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -18,14 +18,18 @@ import Copyright from "./cpright";
 import FastDial from "./FastDial";
 import {checkEmail} from "../logic/ValCheck";
 import cookie from 'react-cookies'
-import {_local, _session} from "../logic/local$sess";
+import {_session} from "../logic/local$sess";
+import {useApp} from "../tools/useApp";
+import {checkRouterAuth} from "../router/GenRouter";
 
 const theme = createTheme();
 
 export default function LogIn(props) {
-
+    let location = useLocation();
+    const {setLogin} =useApp()
     const [Email, setEmail] = useState("")
     const [Password, setPassword] = useState("")
+    let from = location.state?.from?.pathname && checkRouterAuth(location.pathname).auth===true || "/";
     const HandleChange = (e) => {
         const name = e.target.name
         const value = e.target.value
@@ -49,10 +53,11 @@ export default function LogIn(props) {
                 console.log(status, 1)
                 if (status.data.message === 'User login successfully') {
                     console.log("Success!")
-                    let ExpireTime = new Date(new Date().getTime() + 0.05 * 3600 * 1000);//3分钟后失效
-                    cookie.save("login",response.data.id,ExpireTime)
-                    console.log(_session.get("curr"))
-                    navigate("/")
+                    let ExpireTime = new Date(new Date().getTime() + 1 * 3600 * 1000);//60分钟后失效
+                    cookie.save("login", response.data.id, ExpireTime)
+                    setLogin(response.data.id)
+                    // console.log(_session.get("curr"))
+                    navigate(from)
                 } else {
                     console.log("Error!")
                 }
