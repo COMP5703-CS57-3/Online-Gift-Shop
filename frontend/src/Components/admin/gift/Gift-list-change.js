@@ -1,48 +1,49 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import EditItemForm from "../EditItemForm";
 import {TextField} from "@mui/material";
 import {useInput} from "../../../tools/useInput";
 import {useAdmin} from "../../../tools/useAdmin";
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 700,
-  hight: 800,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 700,
+    hight: 800,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
 };
 
-export default function BasicModal(id) {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  let {gifts} = useAdmin();
-  let foundGift = gifts.find(
-       item => item.id === id
+export default function BasicModal() {
+    const [open, setOpen] = React.useState(false);
+    const {selectedGiftIds} = useAdmin()
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    let {gifts} = useAdmin();
+    console.log(selectedGiftIds[0])
+    let foundGift = gifts.find(
+        item => {return item.id === selectedGiftIds[0]}
     );
+    console.log(foundGift)
 
-  const [giftNameProps,resetGiftName] = useInput();
-    const [giftPriceProps,resetGiftPrice] = useInput();
-    const [giftDiscountPriceProps,resetGiftDiscountPrice] = useInput();
-    const [giftDiscountStateProps,resetGiftDiscountState] = useInput();
-    const [descriptionProps,resetDescription3] = useInput();
-    const [categoryProps,resetCategory] =useInput();
-    const [sideCategory1Props,resetSide1] = useInput();
-    const [sideCategory2Props,resetSide2] = useInput();
-    const [coverProps,resetCover] = useInput();
-    const [show1Props,resetShow1] = useInput();
-    const [show2Props,resetShow2] = useInput();
-    const [show3Props,resetShow3] = useInput();
-    const [show4Props,resetShow4] = useInput();
+    const [giftNameProps, resetGiftName] = useInput();
+    const [giftPriceProps, resetGiftPrice] = useInput();
+    const [giftDiscountPriceProps, resetGiftDiscountPrice] = useInput();
+    const [giftDiscountStateProps, resetGiftDiscountState] = useInput();
+    const [descriptionProps, resetDescription3] = useInput();
+    const [categoryProps, resetCategory] = useInput();
+    const [sideCategory1Props, resetSide1] = useInput();
+    const [sideCategory2Props, resetSide2] = useInput();
+    const [coverProps, resetCover] = useInput();
+    const [show1Props, resetShow1] = useInput();
+    const [show2Props, resetShow2] = useInput();
+    const [show3Props, resetShow3] = useInput();
+    const [show4Props, resetShow4] = useInput();
     const {changeItemCount} = useAdmin();
     // console.log(wishTitle.current.valueOf());
 
@@ -52,9 +53,9 @@ export default function BasicModal(id) {
             size_stock: 2
         }
     ]
-    const submit = e=>{
+    const submit = e => {
         e.preventDefault();
-        changeItemCount(id,
+        changeItemCount(selectedGiftIds[0],
             giftNameProps.value,
             giftPriceProps.value,
             giftDiscountPriceProps.value,
@@ -71,19 +72,19 @@ export default function BasicModal(id) {
             size);
     }
 
-  return (
-    <div>
-      <Button onClick={handleOpen}>Operation</Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-             <Box component="form" onSubmit={submit}>
+    return (
+        <div>
+            <Button onClick={handleOpen}>Operation</Button>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <Box component="form" onSubmit={submit}>
                         <TextField {...giftNameProps} label="giftName"/>
-                        <TextField {...giftPriceProps}  label="giftPrice"/>
+                        <TextField {...giftPriceProps} label="giftPrice"/>
                         <TextField {...giftDiscountPriceProps} label="giftDiscountPrice"/>
                         <TextField {...giftDiscountStateProps} label="giftDiscountState"/>
                         <TextField {...descriptionProps} label="description"/>
@@ -97,8 +98,8 @@ export default function BasicModal(id) {
                         <TextField {...show4Props} label="show4"/>
                         <button>change</button>
                     </Box>
-        </Box>
-      </Modal>
-    </div>
-  );
+                </Box>
+            </Modal>
+        </div>
+    );
 }

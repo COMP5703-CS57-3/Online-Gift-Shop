@@ -32,6 +32,7 @@ const Gifts = () => {
                 <Container maxWidth={false}>
                     <GiftListToolbar/>
                     <Box sx={{mt: 3}}>
+                        {/*{console.log(shownGift)}*/}
                         <GiftListResults gift={shownGift}/>
                     </Box>
                 </Container>

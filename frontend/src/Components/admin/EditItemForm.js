@@ -12,7 +12,7 @@ export default function EditItemForm({}) {
     let {id} = useParams();
     let {gifts} = useAdmin();
     let foundGift = gifts.find(
-       item => item.id == id
+       item => item.id === id
     );
     const [giftNameProps,resetGiftName] = useInput(foundGift.gift_name);
     const [giftPriceProps,resetGiftPrice] = useInput(foundGift.gift_price);

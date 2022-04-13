@@ -97,10 +97,13 @@ export default function AdminProvider({children}) {
             {method: 'POST'}
         ).then(res => res.json()).then(
             res => {
+                // console.log(res.gifts_inf)
                 setGifts(res.gifts_inf)
                 setShownGift(res.gifts_inf)
             }
-        ).then(() => {
+        ).catch(e=>
+        console.log(e))
+            .then(() => {
             setLoading(false)
         });
     }

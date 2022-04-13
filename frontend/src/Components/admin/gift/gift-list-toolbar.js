@@ -8,7 +8,7 @@ import AddItemForm from "../AddItemForm";
 // import { Download as DownloadIcon } from '../../icons/download';
 
 export default function GiftListToolbar(props) {
-    const {selectedCustomerIds, gifts, setShownGift} = useAdmin();
+    const {selectedGiftIds, gifts, setShownGift} = useAdmin();
     const {removeItems} = useAdmin();
     // const {submit} = BasicModal();
 
@@ -26,7 +26,7 @@ export default function GiftListToolbar(props) {
     }
 
     function delGift() {
-        const id = selectedCustomerIds[0]
+        const id = selectedGiftIds[0]
         removeItems(id)
     }
 
@@ -72,7 +72,7 @@ export default function GiftListToolbar(props) {
                         color="primary"
                         variant="contained"
                         onClick={() => delGift()}
-                        disabled={selectedCustomerIds.length < 1}
+                        disabled={selectedGiftIds.length < 1}
                     >
                         Delete
                     </Button>
@@ -80,7 +80,7 @@ export default function GiftListToolbar(props) {
                         color="primary"
                         variant="contained"
                         onClick={() => changeDes()}
-                        disabled={selectedCustomerIds.length !== 1}
+                        disabled={selectedGiftIds.length !== 1}
                     >
                         Change Description
                     </Button>
