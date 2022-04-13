@@ -17,6 +17,7 @@ const Gifts = () => {
     if (loading) {
         return <Loading/>
     }
+    // console.log(shownGift)
     // console.log(gifts)
     return (
         <>

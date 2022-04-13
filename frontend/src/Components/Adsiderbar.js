@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import {DashboardSidebar} from "../Components/siderbar/dashboard-sidebar";
+import DashboardSidebar from "../Components/siderbar/dashboard-sidebar";
 // import { DashboardNavbar } from './dashboard-navbar';
 // import {AdminSiderHeader} from "./admin/AdminSiderHeader";
 
@@ -16,7 +16,7 @@ import {DashboardSidebar} from "../Components/siderbar/dashboard-sidebar";
 // }));
 
 export const Adsiderbar = () => {
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
+
 
   return (
     <>
@@ -24,8 +24,6 @@ export const Adsiderbar = () => {
       {/*</DashboardLayoutRoot>*/}
       {/*<DashboardNavbar onSidebarOpen={() => setSidebarOpen(true)} />*/}
       <DashboardSidebar
-        onClose={() => setSidebarOpen(false)}
-        open={isSidebarOpen}
       />
     </>
   );

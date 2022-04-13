@@ -11,7 +11,6 @@ export default function Dashboard() {
             <Adsiderbar/>
             <Outlet/>
             this is admin
-            {/*<BeforEach/>*/}
         </AdminProvider>
     )
 }
