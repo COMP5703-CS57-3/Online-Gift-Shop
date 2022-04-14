@@ -17,6 +17,7 @@ export default function WishForm({owner_id}) {
     const [address1,setAddress1] = useState(countries[12].label.toString());
     const [address2,setAddress2] = useState(states[0].label);
     const [titleProps,resetTitle] = useInput("123");
+    const [timeProps,resetTime] = useInput("123");
     const [firstnameProps,resetfirst] = useInput("123");
     const [lastnameProps,resetLast] = useInput("123");
     const [descriptionProps,resetDescription] = useInput("123");
@@ -37,7 +38,7 @@ export default function WishForm({owner_id}) {
     const submit = e=>{
         e.preventDefault();
         const address = address1.toString()+" "+address2+" "+address3Props.value
-        createWish(owner_id,firstnameProps.value,lastnameProps.value,titleProps.value,descriptionProps.value,address,phoneProps.value,postcodeProps.value);
+        createWish(owner_id,firstnameProps.value,lastnameProps.value,titleProps.value,descriptionProps.value,address,phoneProps.value,postcodeProps.value,timeProps.value);
         // resetTitle();
         // resetAddress();
         // resetDescription();
@@ -123,6 +124,7 @@ export default function WishForm({owner_id}) {
                         <Stack sx={{my:4}} spacing={2} direction="row" alignItems="center" justifyContent="space-between" variant="outlined">
                             <TextField {...phoneProps} label="phone"/>
                             <TextField {...postcodeProps}label="postcode"/>
+                            <TextField {...timeProps} label="time"/>
                         </Stack>
                          <Stack sx={{my:4}} spacing={4} direction="row" alignItems="center" justifyContent="flex-end" variant="outlined">
                             <button>ADD</button>

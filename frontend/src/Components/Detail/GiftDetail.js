@@ -34,7 +34,7 @@ export default function GiftDetail() {
         setSizeA(event.target.value);
     }
     const addToWishList = ()=>{
-        addProduct(1,targetWishList,foundGift.id,"S");
+        addProduct(1,targetWishList,foundGift.id,"1");
     }
     return(
         <Box width="100%" height="100%">

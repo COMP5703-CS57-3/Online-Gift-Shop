@@ -50,7 +50,7 @@ export default function WishProvider({children,login}){
             nav();
         });
     }
-    const createWish = (id,firstname,lastname,wishlistnameP,descriptionP,addressP,phoneP,postcodeP)=>{
+    const createWish = (id,firstname,lastname,wishlistnameP,descriptionP,addressP,phoneP,postcodeP,timeP)=>{
         const nav =()=> navi("/wishlist");
         fetch("http://127.0.0.1:5000/wishlist/create", {
             method: 'POST',
@@ -63,7 +63,8 @@ export default function WishProvider({children,login}){
                     description:descriptionP,
                     address:addressP,
                     phone:phoneP,
-                    postcode:postcodeP
+                    postcode:postcodeP,
+                    user_expected_delivery_time:timeP
                 })
         }).then(console.log);
         fetch("http://127.0.0.1:5000/wishlist/show", {
