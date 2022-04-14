@@ -5,6 +5,7 @@ import Background from "../picture/background.png";
 import AccountMenu from "../Components/homepage/Header";
 import MainBody from "../Components/homepage/MainBody";
 import FastDial from "../Components/FastDial";
+import Loading from "../Components/normal/Loading";
 
 const GiftContext = createContext();
 export const useGift = ()=> useContext(GiftContext);
@@ -14,6 +15,7 @@ export default function GiftProvider({children}){
     const [fakeGifts,setFakeGifts] = useState(giftdata);
     const [topBar,setTopBar] = useState("male");
     const [loading,setLoading] = useState(true);
+    const [currentSize,setCurrentSize] = useState([]);
     useEffect(()=>{
         // if(wish&&wish.owner_id === login) return;
         setLoading(true)
@@ -60,44 +62,30 @@ export default function GiftProvider({children}){
         }).then(console.log);
     }
     const SideCategory = (top,side,sort)=>{
-        console.log("http://127.0.0.1:5000/main_home_page/"+top + ", " +side+", "+ sort)
         fetch("http://127.0.0.1:5000/main_home_page/"+top + ", " +side+", "+ sort).then(res=>res.json()).then(
             res=>{
             setGifts(res.gifts);
         }).then(console.log);
     }
-    console.log("..")
-    console.log(gifts)
+    const getSize = (id)=>{
+         fetch("http://127.0.0.1:5000/search/search_gift_id_return_size/"+id).then(res=>res.json()).then(
+            res=>{
+            setCurrentSize(res);
+        }).then(console.log);
+    }
     if(gifts!==undefined){
         return(
-        <GiftContext.Provider value={{gifts,topBar,setTopBar,maleCategory,homeCategory, femaleCategory, teenagerCategory,agedCategory,SideCategory}}>
+        <GiftContext.Provider value={{gifts,topBar,setTopBar,maleCategory,homeCategory, femaleCategory, teenagerCategory,agedCategory,SideCategory,getSize,currentSize,loading}}>
             {children}
         </GiftContext.Provider>
     )}
-    console.log(gifts)
     if(loading) {
         return (
-            <GiftContext.Provider value={{
-                gifts,
-                topBar,
-                setTopBar,
-                maleCategory,
-                homeCategory,
-                femaleCategory,
-                teenagerCategory,
-                agedCategory,
-                SideCategory
-            }}>
-                <div style={{width: '100%', height: '100%', backgroundImage: "url(" + Background + ")"}}>
-                    <AccountMenu/>
-                    <h1 style={{margin: "auto", textAlign: "center"}}>loading</h1>
-                    <FastDial/>
-                </div>
-            </GiftContext.Provider>
+            <Loading/>
         )
     }
     return(
-        <GiftContext.Provider value={{gifts,topBar,setTopBar,maleCategory,homeCategory, femaleCategory, teenagerCategory,agedCategory,SideCategory}}>
+        <GiftContext.Provider value={{gifts,topBar,setTopBar,maleCategory,homeCategory, femaleCategory, teenagerCategory,agedCategory,SideCategory,getSize,currentSize,loading}}>
             {children}
         </GiftContext.Provider>
     )
