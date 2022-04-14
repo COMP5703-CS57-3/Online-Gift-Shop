@@ -140,13 +140,13 @@ export const CustomerListResults = ({users, ...rest}) => {
                                         {user.user_email}
                                     </TableCell>
                                     <TableCell>
-                                        {user.user_address}
+                                        {user.user_address===null?"Not Provided":user.user_address}
                                     </TableCell>
                                     <TableCell>
                                         {user.user_mobile}
                                     </TableCell>
                                     <TableCell>
-                                        {user.user_date_of_birth}
+                                        {user.user_date_of_birth===null?"Not Provided":user.user_date_of_birth}
                                     </TableCell>
                                 </TableRow>
                             ))}

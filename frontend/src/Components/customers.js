@@ -22,6 +22,7 @@ export function Customers() {
     if (loading) {
         return <Loading/>
     }
+    // console.log(shownUser)
     return (
         <>
             <Box
