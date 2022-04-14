@@ -39,17 +39,21 @@ const routes = [
             {
                 path: '',
                 auth: false,
+                role: ["user", "admin"],
                 component: MainBody
 
             },
             {
                 path: '/cart',
                 auth: false,
+                role: ["user", "admin"],
                 component: Cart
             },
             {
                 path: '/wishlist',
                 auth: true,
+                role: ["user", "admin"],
+
                 component: WishList
             }
         ]
@@ -120,16 +124,19 @@ const routes = [
             {
                 path: '/order/myorder',
                 auth: false,
+                role: ["user", "admin"],
                 component: MyOrder
             },
             {
                 path: '/order/createOrder/:id',
                 auth: false,
+                role: ["user", "admin"],
                 component: CreateOrder
             },
             {
                 path: '/order/pay',
                 auth: false,
+                role: ["user", "admin"],
                 component: Payc
             }
         ]
@@ -143,37 +150,44 @@ const routes = [
             {
                 path: '',
                 auth: true,
-                component: DashItem
+                component: DashItem,
+                role: ["admin"],
             },
             {
                 path: '/admin/order',
                 auth: true,
-                component: AdminOrderList
+                component: AdminOrderList,
+                role: ["admin"],
             },
             {
                 path: '/admin/user',
                 auth: true,
-                component: AdminUserList
+                component: AdminUserList,
+                role: ["admin"],
             },
             {
                 path: '/admin/gift',
                 auth: true,
-                component: AdminGiftList
+                component: AdminGiftList,
+                role: ["admin"],
             },
             {
                 path: '/admin/gui',
                 auth: false,
-                component: Gifts
+                component: Gifts,
+                role: ["admin"],
             },
             {
                 path: '/admin/cui',
                 auth: false,
-                component: Customers
+                component: Customers,
+                role: ["admin"],
             },
             {
                 path: '/admin/addItem',
                 auth: true,
-                component: AddItemForm
+                component: AddItemForm,
+                role: ["admin"],
             },
         ]
     },
