@@ -1,16 +1,17 @@
-import React, {useState} from "react";
-import AdminProvider from "../../tools/useAdmin";
-import {Outlet} from "react-router-dom";
-import BeforEach from "../../router/BeforEach";
-import AdminHeader from "../siderbar/AdminHeader";
+import React from "react";
+import AdminProvider, {useAdmin} from "../../tools/useAdmin";
 import Adsiderbar from "../Adsiderbar";
+import {Box, Container, Grid} from '@mui/material';
+import {ShowCard} from "./dashboard/show-card";
+import DashItem from "./dashboard/dash";
 
 export default function Dashboard() {
+    console.log("1")
     return (
         <AdminProvider>
             <Adsiderbar/>
-            <Outlet/>
-            this is admin
+
+
         </AdminProvider>
     )
 }
