@@ -10,6 +10,7 @@ def admin_add_gift_method(product_info):
         "message": "success",
         'product_id': ""
     }
+    status_code = 200
     check_exist = Gifts.query.filter_by(gift_name=product_info["gift_name"]).first()
     if check_exist:
         output_message['message'] = "product already exists"
@@ -18,7 +19,6 @@ def admin_add_gift_method(product_info):
         output_json.status_code = status_code
         database.session.close()
         return output_json
-    status_code = 200
     try:
         name = product_info["gift_name"]
         price = product_info["gift_price"]
@@ -36,7 +36,7 @@ def admin_add_gift_method(product_info):
         sizes = product_info["sizes"]
     except:
         output_message['message'] = 'please check JSON format'
-        status_code = 400
+        status_code = 403
         output_json = make_response(output_message)
         output_json.status_code = status_code
         database.session.close()
@@ -57,6 +57,7 @@ def admin_add_gift_method(product_info):
                     gift_show_url4=url4,
                     gift_sales=sales)
     database.session.add(product)
+    database.session.commit()
     database.session.flush()
     database.session.refresh(product)
     products_id = product.id
