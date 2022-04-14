@@ -195,7 +195,7 @@ class ShowGifts(Resource):
             return resp
 
 @admin_namespace.route("/admin_input_payer_id_orders")
-class ShowOrders(Resource):
+class AdminInputPayerIDOrders(Resource):
     @staticmethod
     @admin_namespace.expect(admin_part_dto.admin_input_payer_id_orders_format)
     @admin_namespace.response(200, 'success', admin_part_dto.show_orders)
