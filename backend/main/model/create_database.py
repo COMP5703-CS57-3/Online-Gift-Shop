@@ -82,6 +82,7 @@ class Order(database.Model):
     payer_name = database.Column(database.String(100))
     order_state = database.Column(database.String(100))
     wishlist_code = database.Column(database.String(100))
+    user_expected_delivery_time = database.Column(database.String(100))
     user_id = database.Column(database.Integer, database.ForeignKey('user.id', ondelete='CASCADE'))
     # setting relationship
     order_item = database.relationship("OrderItems", backref='order_gift', cascade="all,delete")
@@ -116,6 +117,7 @@ class Wishlist(database.Model):
     address = database.Column(database.String(300))
     phone = database.Column(database.String(50))
     postcode = database.Column(database.String(50))
+    user_expected_delivery_time = database.Column(database.String(100))
     state = database.Column(database.String(100), default='processing')
     payer_fname = database.Column(database.String(100), default='none')
     # WishlistItems_item = database.relationship("WishlistItems", backref='wishlist_gift', cascade="all,delete")
