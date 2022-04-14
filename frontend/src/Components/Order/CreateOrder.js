@@ -17,6 +17,7 @@ import ProductDetail from "../Detail/ProductDetail";
 import ProductForShow from "../Detail/ProductForShow";
 import Loading from "../normal/Loading";
 import cookie from "react-cookies";
+import Typography from "@mui/material/Typography";
 
 export default function CreateOrder() {
     const {id} = useParams();
@@ -63,11 +64,7 @@ export default function CreateOrder() {
     },[id]);
     const submit = e=>{
         e.preventDefault();
-        const address = address1.toString()+" "+address2+" "+address3Props.value;
-        console.log(typeof(totalPrice));
-        console.log(currentProduct);
-        console.log(detail.owner_id,id,firstnameProps.value,lastnameProps.value,phoneProps.value,address,postcodeProps.value,payerFName.value,user,totalPrice,currentProduct)
-        createOrder(detail.owner_id,id,firstnameProps.value,lastnameProps.value,phoneProps.value,address,postcodeProps.value,payerFName.value,user,totalPrice,currentProduct);
+        createOrder(detail.owner_id,id,detail.first_name,detail.last_name,detail.phone,detail.address,detail.postcode,payerFName.value,user,totalPrice,currentProduct);
         // resetTitle();
         // resetAddress();
         // resetDescription();
@@ -86,71 +83,41 @@ export default function CreateOrder() {
                 <Container  maxWidth="lg" style={{backgroundColor:"white"}} sx={{ boxShadow: 1,borderRadius: 2}}>
                 <Box sx={{height:'100vh'}}>
                     <Box component="form" onSubmit={submit}>
-                        <h2 style={{marginLeft:0,marginRight:0,textAlign:"center"}}> Wish list creation form</h2>
+                        <h2 style={{marginLeft:0,marginRight:0,textAlign:"center"}}> Create Order Form</h2>
                         <Stack spacing={4} direction="row" alignItems="center" justifyContent="space-between" variant="outlined">
-                            <TextField {...payerFName} label="payerFName"/>
-                            <TextField {...firstnameProps}  label="firstname"/>
-                            <TextField {...lastnameProps} label="lastname"/>
+                            <TextField {...payerFName} label="payerFName" required/>
+                            <Typography >
+                                    Wish list owner's first name: {detail.fisrt_name}
+                            </Typography>
+                            <Typography >
+                                    Wish list owner's lastname: {detail.last_name}
+                            </Typography>
                         </Stack>
                         <Stack spacing={2} sx={{my:4}} direction="row" alignItems="center" justifyContent="space-between" variant="outlined">
-                                <Autocomplete
-                                    inputValue={address1}
-                                    onInputChange={(event, newInputValue) => {
-                                      setAddress1(newInputValue);
-                                    }}
-                                    sx={{ width: 300 }}
-                                    options={countries}
-                                    autoHighlight
-                                    getOptionLabel={(option) => option.label}
-                                    getOptionDisabled={(option)=>option.code!=='AU'}
-                                    renderOption={(props, option) => (
-                                        <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                                            <img
-                                                loading="lazy"
-                                                width="20"
-                                                src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                                                srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                                                alt=""
-                                              />
-                                              {option.label} ({option.code}) +{option.phone}
-                                        </Box>
-                                    )}
-                                    renderInput={(params) => (
-                                        <TextField
-                                            {...params}
-                                            required
-                                            label="Choose a country"
-                                            inputProps={{
-                                                ...params.inputProps,
-                                                autoComplete: 'new-password', // disable autocomplete and autofill
-                                            }}
-                                        />
-                                        )}
-                                />
-                                <Autocomplete
-                                  inputValue={address2}
-                                    onInputChange={(event, newInputValue) => {
-                                      setAddress2(newInputValue);
-                                    }}
-                                  disablePortal
-                                  id="combo-box-demo"
-                                  options={states}
-                                  sx={{ width: 300 }}
-                                  renderInput={(params) => <TextField {...params} label="State" required/>}
-                                />
-                                <TextField {...address3Props} label="street(detailed adress)"/>
+                            <Typography >
+                                    address: {detail.address}
+                            </Typography>
+                            <Typography >
+                                    time:{detail.user_expected_delivery_time}
+                            </Typography>
                         </Stack>
                         <Stack sx={{my:4}} spacing={2} direction="row" alignItems="center" justifyContent="space-between" variant="outlined">
-                            <TextField {...phoneProps} label="phone"/>
-                            <TextField {...postcodeProps}label="postcode"/>
+                            <Typography >
+                                    postcode: {detail.postcode}
+                            </Typography>
+
+                            <Typography >
+                                    phone: {detail.phone}
+                            </Typography>
                         </Stack>
+                        Product list
                         <Grid container justifyContent="flex-start" alignItems="center" spacing={1} direction="row">
                             {currentProduct.map((gift,i)=>(
                                 <ProductForShow key={i} {...gift} detail={detail}/>
                             ))}
                         </Grid>
                          <Stack sx={{my:4}} spacing={4} direction="row" alignItems="center" justifyContent="flex-end" variant="outlined">
-                             <h2>{totalPrice}</h2>
+                             <h2>totalPrice: {totalPrice}</h2>
                             <button>Create</button>
                         </Stack>
                     </Box>

@@ -12,10 +12,11 @@ const Message = ({ message }) => (
 
 export default function Payc() {
   const [message, setMessage] = useState("");
-  const {pay} = useOrder()
+  const {pay,currentOrder} = useOrder()
 	const click = ()=>{
   		pay();
 	}
+	console.log(currentOrder)
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
     const query = new URLSearchParams(window.location.search);
@@ -30,7 +31,9 @@ export default function Payc() {
       );
     }
   }, []);
+	useEffect(()=>{
 
+	},[]);
   return message ? (
     <Message message={message} />
   ) : (

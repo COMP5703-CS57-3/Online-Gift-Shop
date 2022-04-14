@@ -25,9 +25,10 @@ export default function OrderProvider({children}){
          });
     }
     let navi = useNavigate();
-
+    console.log(currentOrder)
     const createOrder = (ownerId,wishlistId,fName,lName,phone,address,postCode,payerFName,payId,totalPrice,productList)=>{
         const nav =()=> navi("/order/pay");
+        setLoading(true)
         fetch("http://127.0.0.1:5000/wishlist/pay", {
             method: 'POST',
             body: JSON.stringify(
@@ -44,9 +45,12 @@ export default function OrderProvider({children}){
                     total_price:totalPrice,
                     product_list:productList
                 })
-        }).then(console.log).then(res=>{setCurrentProduct(res)}).then(()=>{
-            nav();
-        });
+        }).then(res=>res.json()).then(res=>{
+            setCurrentOrder(res.order_number)
+            nav()
+            setLoading(false)
+        }
+        );
     }
 
     const pay = (order,price,currency,productName,productDescription,productImage)=>{

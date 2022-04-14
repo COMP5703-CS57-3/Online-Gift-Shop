@@ -35,7 +35,7 @@ export default function ProductForShow({products_id,product_name,product_cover,s
             product_name:product_name,
             product_cover:product_cover,
             size:size,
-            count: countProps.value,
+            count: parseInt(countProps.value),
             price:price
 
         }
