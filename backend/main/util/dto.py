@@ -597,6 +597,14 @@ class create_order_part_dto:
     pay_an_order_output_format = create_order_part_namespace.model("pay_an_order_output_format", {
         "message": fields.String
     })
+    create_checkout_session_format = create_order_part_namespace.model("create_checkout_session_format", {
+        "orderId": fields.Integer,
+        "orderPrice": fields.Float,
+        "currency": fields.String,
+        "productName": fields.String,
+        "productDesc": fields.String,
+        "productImage": fields.String,
+    })
 
 class dashboard_dto:
     dashboard_namespace = Namespace("The dashboard logic module",
