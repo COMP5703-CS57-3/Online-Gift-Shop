@@ -21,6 +21,8 @@ export default function AdminProvider({children}) {
     const [totalSalesNumber, setTotalSalesNumber] = useState('102');
     const [totalAccountNumber, setTotalAccountNumber] = useState();
     const [totalWishlistNumber, setTotalWishlistNumber] = useState();
+    const [handleOpen, handleClose] = useState();
+
     const getOrderList = () => {
         setLoading(true);
         fetch("http://127.0.0.1:5000/admin/admin_return_all_orders", {
@@ -78,6 +80,12 @@ export default function AdminProvider({children}) {
     const setGiftIds = (newVal) => {
         setSelectedCustomerIds(newVal)
     }
+
+    // const setModal = (newstate) => {
+    //
+    //     setOpen(newstate)
+    // }
+
     const changeItemCount = (id, giftName, giftPrice, giftDiscountPrice, giftDiscountState, giftDescription, giftCategory, sideCategory1, sideCategory2, coverUrl, showUrl1, showUrl2, showUrl3, showUrl4, sizeC) => {
         fetch("http://127.0.0.1:5000/admin/admin_edit_items", {
             method: 'put',
@@ -122,7 +130,7 @@ export default function AdminProvider({children}) {
                     gift_show_url3: showUrl3,
                     gift_show_url4: showUrl4
                 })
-        }).then(r=>console.log(r));
+        }).then(console.log("SUCCESS"));
     }
 
     const removeItems = (id) => {
@@ -199,6 +207,9 @@ export default function AdminProvider({children}) {
             getTotalAccount,
             getTotalOrders,
             getCompleteOrders,
+            handleOpen,
+            handleClose,
+
         }}>
             {children}
         </AdminContext.Provider>

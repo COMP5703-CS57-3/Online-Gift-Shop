@@ -17,6 +17,7 @@ import {
 import {getInitials} from '../../../logic/get-initials';
 import BasicModal from "./Gift-list-change";
 import {useAdmin} from "../../../tools/useAdmin";
+import AddGift from "./GIftOperation";
 
 export const GiftListResults = ({gift, ...rest}) => {
     const {selectedGiftIds, setSelectedGiftIds} = useAdmin();
@@ -96,7 +97,7 @@ export const GiftListResults = ({gift, ...rest}) => {
                                     Category
                                 </TableCell>
                                 <TableCell>
-                                    Operation
+                                    Description
                                 </TableCell>
                             </TableRow>
                         </TableHead>
@@ -156,7 +157,7 @@ export const GiftListResults = ({gift, ...rest}) => {
                                         {`${gift.gift_category}/${gift.gift_side_category1}/${gift.gift_side_category2}`}
                                     </TableCell>
                                     <TableCell>
-                                        <BasicModal/>
+                                        {gift.gift_description}
                                     </TableCell>
                                 </TableRow>
                             ))}

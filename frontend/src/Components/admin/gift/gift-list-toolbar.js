@@ -21,6 +21,7 @@ export default function GiftListToolbar(props) {
     function changeDes() {
         console.log("change")
         // const id = selectedCustomerIds;
+        // setOpen(true)
     }
 
     function delGift() {
@@ -62,9 +63,9 @@ export default function GiftListToolbar(props) {
                     <Button
                         color="primary"
                         variant="contained"
-                        onClick={() => addGift()}
+                        // onClick={() => addGift()}
                     >
-                        Add Gift
+                      <AddGift/>
                     </Button>
                     <Button
                         color="primary"
@@ -77,10 +78,10 @@ export default function GiftListToolbar(props) {
                     <Button
                         color="primary"
                         variant="contained"
-                        onClick={() => changeDes()}
+                        // onClick={() => changeDes()}
                         disabled={selectedGiftIds.length !== 1}
                     >
-                        Change Description
+                        <BasicModal/>
                     </Button>
 
                 </Box>
