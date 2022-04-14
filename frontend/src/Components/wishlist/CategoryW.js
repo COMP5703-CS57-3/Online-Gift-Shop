@@ -8,14 +8,15 @@ import Container from "@mui/material/Container";
 import cookie from "react-cookies";
 import BeforeEach from "../../router/BeforEach";
 import {Navigate, useLocation, useNavigate} from "react-router-dom";
+import {Button} from "@material-ui/core";
 
 export default function CategoryW() {
     const user = cookie.load("login");
-    console.log(user)
     const navigate = useNavigate()
     const {wish} = useWish();
     const {loading} = useWish();
     const location = useLocation()
+    const navi =()=> navigate("/wishForm")
     if (loading) {
         return (
                 <Box style={{
@@ -32,7 +33,7 @@ export default function CategoryW() {
         )
     }
 
-    if(user&&wish){
+    if(user&&wish&&user!=="0"){
          return (
             <Box style={{
                 width: "100%",
@@ -42,6 +43,7 @@ export default function CategoryW() {
                 backgroundRepeat: "no-repeat"
             }}>
                 <Container maxWidth="lg" style={{backgroundColor: "white"}} sx={{boxShadow: 1, borderRadius: 2}}>
+                    <Button onClick={navi}>wishForm</Button>
                     <Box sx={{
                         display: "grid",
                         gap: 1,

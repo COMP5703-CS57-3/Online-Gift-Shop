@@ -53,22 +53,8 @@ export default function OrderProvider({children}){
         );
     }
 
-    const pay = (order,price,currency,productName,productDescription,productImage)=>{
-        fetch("http://127.0.0.1:5000/order/create_checkout_session", {
-            method: 'POST',
-            body: JSON.stringify(
-                {
-                    orderId:order,
-                    orderPrice:price,
-                    currency:currency,
-                    productName:productName,
-                    productDesc:productDescription,
-                    productImage:productImage
-                })
-        }).then(console.log);
-    }
     return(
-        <OrderContext.Provider value={{order,getOrderByPayer,loading,setLoading,currentProduct,setCurrentProduct,totalPrice,setTotal,createOrder,user,setUser,pay,currentOrder}}>
+        <OrderContext.Provider value={{order,getOrderByPayer,loading,setLoading,currentProduct,setCurrentProduct,totalPrice,setTotal,createOrder,user,setUser,currentOrder}}>
             {children}
         </OrderContext.Provider>
     )

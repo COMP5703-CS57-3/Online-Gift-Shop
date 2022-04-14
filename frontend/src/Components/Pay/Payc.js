@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import {useOrder} from "../../tools/useOrder";
 import {Button} from "@material-ui/core";
+import {TextField} from "@mui/material";
+import Loading from "../normal/Loading";
 
 
 
@@ -11,11 +13,10 @@ const Message = ({ message }) => (
 );
 
 export default function Payc() {
+	const [detail,setDetail] = useState();
   const [message, setMessage] = useState("");
-  const {pay,currentOrder} = useOrder()
-	const click = ()=>{
-  		pay();
-	}
+  const {currentOrder} = useOrder();
+  const {loading,setLoading} =useOrder();
 	console.log(currentOrder)
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
@@ -32,9 +33,15 @@ export default function Payc() {
     }
   }, []);
 	useEffect(()=>{
-
+		setLoading(true);
+		fetch("http://127.0.0.1:5000/order/search_an_order/"+currentOrder, {
+            method: 'POST',
+        }).then(res=>res.json()).then(res=>{setDetail(res)
+        setLoading(false)});
 	},[]);
-  return message ? (
+	console.log(detail)
+	if(currentOrder!==undefined&&detail&&!loading){
+		return message ? (
     <Message message={message} />
   ) : (
   <section>
@@ -44,10 +51,10 @@ export default function Payc() {
         alt="The cover of Stubborn Attachments"
       />
       <div className="description">
-      <h3>Stubborn Attachments</h3>
-      <h5>$20.00</h5>
+      <h3>order Number: {detail.order_number}</h3>
       </div>
     </div>
+	   <form action="http://localhost:5000/order/create_checkout_session" method="post">
       <div>
 			<label>
 				Order ID:
@@ -84,9 +91,14 @@ export default function Payc() {
 				<input name="productImage" value="https://bpic.588ku.com/element_pic/21/10/27/5809626baa43e153b15cc3bcfb4bb0eb.jpg!/fw/329/quality/90/unsharp/true/compress/true" />
 			</label>
 		</div>
-      <Button onClick={click}>
-        Checkout
-      </Button>
+      {/*<Button onClick={click}>*/}
+      {/*  Checkout*/}
+      {/*</Button>*/}
+		   <button type="submit">check out</button>
+	   </form>
   </section>
   );
+	}
+	return <Loading/>
+
 }
