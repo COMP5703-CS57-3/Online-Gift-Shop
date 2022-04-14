@@ -117,7 +117,7 @@ export default function BasicModal() {
             >
                 <Box sx={style}>
                     <Grid container spacing={2} >
-                        <a>Gift Editt From</a>
+                        <a>Gift Edit From</a>
                         <Grid item xs={12}><TextField {...giftNameProps} label="giftName" /></Grid>
                         <Grid item xs={4}><TextField {...giftPriceProps} label="giftPrice"/></Grid>
                         <Grid item xs={4}><TextField {...giftDiscountPriceProps} label="giftDiscountPrice"/></Grid>
