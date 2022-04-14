@@ -24,12 +24,12 @@ import {useApp} from "../../tools/useApp";
 export default function AccountMenu() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     // console.log(cookie.load(_local.get("id")))
-    const [IsLogin, setIsLogin] = useState(cookie.load("login") !== undefined)
+    const {login, setLogin} = useApp()
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-    const {setLogin}=useApp()
+
     const handleClose = () => {
         setAnchorEl(null);
     };
@@ -38,10 +38,9 @@ export default function AccountMenu() {
         homeCategory();
     }
 
-    function login() {
-        const curr = !IsLogin
-        console.log(IsLogin ? "Logout" : "Sign In")
-        setIsLogin(curr)
+    function loginFunc() {
+        const curr = !login
+        setLogin(curr)
         if (!curr) {
             cookie.remove("login")
             setLogin(undefined)
@@ -134,9 +133,9 @@ export default function AccountMenu() {
                             <Logout fontSize="small"/>
                         </ListItemIcon>
                         <ListItemIcon>
-                            <Link style={{textDecoration: 'none'}} to={{pathname: IsLogin ? "/" : "/login"}}
-                                  onClick={() => login()}>
-                                {IsLogin ? "Logout" : "Sign In"}
+                            <Link style={{textDecoration: 'none'}} to={{pathname: login ? "/" : "/login"}}
+                                  onClick={() => loginFunc()}>
+                                {login ? "Logout" : "Sign In"}
                             </Link>
                         </ListItemIcon>
 

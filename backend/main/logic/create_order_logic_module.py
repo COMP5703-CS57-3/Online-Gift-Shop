@@ -60,17 +60,11 @@ class SearchAnOrder(Resource):
 @create_order_part_namespace.route('/create_checkout_session')
 class CreateCheckoutSession(Resource):
     @staticmethod
-    @create_order_part_namespace.response(200, 'success')
-    @create_order_part_namespace.response(404, 'not found')
-    @create_order_part_namespace.response(400, 'Bad request')
-    @create_order_part_namespace.expect(create_order_part_dto.create_checkout_session_format)
     def post():
-        an_order = json.loads(request.data)
+        an_order = request.form
         resp = create_checkout_session(an_order)
         if resp.status_code == 200:
             return redirect(resp.response_data.url, code=303)
-        else:
-            return resp
 
 
 @create_order_part_namespace.route('/pay_result/<order_id>')

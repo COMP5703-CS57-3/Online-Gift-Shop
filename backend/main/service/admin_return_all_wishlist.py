@@ -55,6 +55,7 @@ def admin_return_all_wishlist_methods():
             "postcode": o.postcode,
             "state": o.state,
             "payer_fname": o.payer_fname,
+            "user_expected_delivery_time": o.user_expected_delivery_time,
             "products": [],
         }
         productList = WishlistItems.query.filter_by(wishlist_id=o.wishlist_id).all()

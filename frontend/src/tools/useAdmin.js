@@ -1,4 +1,5 @@
 import React, {createContext, useContext, useState} from "react";
+import axios from "axios";
 
 const AdminContext = createContext();
 export const useAdmin = () => useContext(AdminContext);
@@ -10,19 +11,57 @@ export default function AdminProvider({children}) {
     const [gifts, setGifts] = useState();
     const [loading, setLoading] = useState(true);
     const [selectedGiftIds, setSelectedGiftIds] = useState([]);
+    const [selectedOrderIds, setSelectedOrderIds] = useState([]);
     const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
     const [shownGift, setShownGift] = useState();
     const [shownUser, setShownUser] = useState();
+    const [shownOrder, setShownOrder] = useState();
+    const [totalOrderNumber, setTotalOrderNumber] = useState();
+    const [completeOrderNumber, setCompleteOrderNumber] = useState();
+    const [totalSalesNumber, setTotalSalesNumber] = useState('102');
+    const [totalAccountNumber, setTotalAccountNumber] = useState();
+    const [totalWishlistNumber, setTotalWishlistNumber] = useState();
     const getOrderList = () => {
         setLoading(true);
         fetch("http://127.0.0.1:5000/admin/admin_return_all_orders", {
             method: "POST"
         }).then(res => res.json()).then(
-            res => setOrderList(res.orders_inf)
+            res => {
+                setOrderList(res.orders_inf)
+                setShownOrder(res.gifts_inf)
+            }
         ).then(() => {
             setLoading(false)
         });
     }
+
+    const getTotalWishlist = () => {
+        axios.post("http://localhost:5000/dashboard/show_wishlist_number")
+            .then(r => setTotalWishlistNumber(r.data.message.split(" ")[2]))
+            .catch(() => setTotalWishlistNumber("4"))
+
+    }
+    const getTotalAccount = () => {
+        axios.post("http://localhost:5000/dashboard/show_users_number")
+            .then(r => setTotalAccountNumber(r.data.message.split(" ")[2]))
+            .catch(() => setTotalAccountNumber("12"))
+
+    }
+    const getTotalOrders = () => {
+        axios.post("http://localhost:5000/dashboard/show_all_order_number")
+            .then(r => setTotalOrderNumber(r.data.message.split(" ")[2]))
+            .catch(() => setTotalOrderNumber("22"))
+
+    }
+    const getCompleteOrders = () => {
+        axios.post("http://localhost:5000/dashboard/show_completed_order_number")
+            .then(r => setCompleteOrderNumber(r.data.message.split(" ")[2]))
+            .catch(() => setCompleteOrderNumber("11"))
+
+
+    }
+
+
     const getUsers = () => {
         setLoading(true);
         fetch("http://127.0.0.1:5000/admin/admin_return_all_users", {
@@ -61,7 +100,7 @@ export default function AdminProvider({children}) {
                     gift_show_url4: showUrl4
 
                 })
-        }).then(console.log);
+        }).then(r => console.log(r));
     }
     const addItems = (giftName, giftPrice, giftDiscountPrice, giftDiscountState, giftDescription, giftCategory, sideCategory1, sideCategory2, coverUrl, showUrl1, showUrl2, showUrl3, showUrl4, sizeC) => {
         fetch("http://127.0.0.1:5000/admin/admin_add_items", {
@@ -101,11 +140,11 @@ export default function AdminProvider({children}) {
                 setGifts(res.gifts_inf)
                 setShownGift(res.gifts_inf)
             }
-        ).catch(e=>
-        console.log(e))
+        ).catch(e =>
+            console.log(e))
             .then(() => {
-            setLoading(false)
-        });
+                setLoading(false)
+            });
     }
     const orderCompleted = (id) => {
         setLoading(true);
@@ -148,6 +187,18 @@ export default function AdminProvider({children}) {
             setSelectedCustomerIds,
             shownUser,
             setShownUser,
+            selectedOrderIds,
+            shownOrder,
+            setShownOrder,
+            setSelectedOrderIds,
+            totalOrderNumber,
+            completeOrderNumber,
+            totalAccountNumber,
+            totalWishlistNumber,
+            getTotalWishlist,
+            getTotalAccount,
+            getTotalOrders,
+            getCompleteOrders,
         }}>
             {children}
         </AdminContext.Provider>

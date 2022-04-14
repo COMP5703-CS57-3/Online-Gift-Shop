@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import DashboardSidebar from "../Components/siderbar/dashboard-sidebar";
+import DashItem from "./admin/dashboard/dash";
 // import { DashboardNavbar } from './dashboard-navbar';
 // import {AdminSiderHeader} from "./admin/AdminSiderHeader";
 
@@ -25,6 +26,7 @@ export const Adsiderbar = () => {
       {/*<DashboardNavbar onSidebarOpen={() => setSidebarOpen(true)} />*/}
       <DashboardSidebar
       />
+
     </>
   );
 };

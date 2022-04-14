@@ -27,6 +27,7 @@ import CategoryW from "../Components/wishlist/CategoryW";
 import OrderP from "../Components/Order/OrderP";
 import MyOrder from "../Components/Order/MyOrder";
 import CreateOrder from "../Components/Order/CreateOrder";
+import DashItem from "../Components/admin/dashboard/dash";
 
 const routes = [
     {
@@ -132,6 +133,11 @@ const routes = [
         auth: true,
         component: Dashboard,
         children: [
+            {
+                path: '',
+                auth: true,
+                component: DashItem
+            },
             {
                 path: '/admin/order',
                 auth: true,
