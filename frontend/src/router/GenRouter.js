@@ -28,6 +28,7 @@ import OrderP from "../Components/Order/OrderP";
 import MyOrder from "../Components/Order/MyOrder";
 import CreateOrder from "../Components/Order/CreateOrder";
 import DashItem from "../Components/admin/dashboard/dash";
+import OrderDetail from "../Components/Order/OrderDetail";
 
 const routes = [
     {
@@ -138,6 +139,12 @@ const routes = [
                 auth: false,
                 role: ["user", "admin"],
                 component: Payc
+            },
+            {
+                path: '/order/orderDetail/:number',
+                auth: false,
+                role: ["user", "admin"],
+                component: OrderDetail
             }
         ]
     },
