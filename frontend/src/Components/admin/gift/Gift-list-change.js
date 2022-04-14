@@ -5,14 +5,15 @@ import Modal from '@mui/material/Modal';
 import {TextField} from "@mui/material";
 import {useInput} from "../../../tools/useInput";
 import {useAdmin} from "../../../tools/useAdmin";
+import Grid from "@mui/material/Grid";
 
 const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 700,
-    hight: 800,
+    width: 800,
+    hight: 1500,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -25,11 +26,13 @@ export default function BasicModal() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     let {gifts} = useAdmin();
-    console.log(selectedGiftIds[0])
+    //console.log(selectedGiftIds[0])
     let foundGift = gifts.find(
         item => {return item.id === selectedGiftIds[0]}
+
     );
-    //console.log(foundGift)
+    const GiftItem = foundGift;
+    console.log(GiftItem)
 
     const [giftNameProps, resetGiftName] = useInput();
     const [giftPriceProps, resetGiftPrice] = useInput();
@@ -49,9 +52,35 @@ export default function BasicModal() {
 
     const size = [
         {
+            size: "S",
+            size_stock: 2
+            // size : [SizeProps, resetSize] = useInput();
+            // size_stock : []
+        },
+        {
+            size: "M",
+            size_stock: 2
+            // size : [SizeProps, resetSize] = useInput();
+            // size_stock : []
+        },
+        {
             size: "L",
             size_stock: 2
-        }
+            // size : [SizeProps, resetSize] = useInput();
+            // size_stock : []
+        },
+        {
+            size: "XL",
+            size_stock: 2
+            // size : [SizeProps, resetSize] = useInput();
+            // size_stock : []
+        },
+        {
+            size: "XXL",
+            size_stock: 2
+            // size : [SizeProps, resetSize] = useInput();
+            // size_stock : []
+        },
     ]
     const submit = e => {
         e.preventDefault();
@@ -70,8 +99,12 @@ export default function BasicModal() {
             show3Props.value,
             show4Props.value,
             size);
-        console.log(show4Props.value)
+        console.log(show1Props.value);
     }
+//------------------------------------table style---------------------------------
+
+
+
 
     return (
         <div>
@@ -83,22 +116,23 @@ export default function BasicModal() {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Box component="form" onSubmit={submit}>
-                        <TextField {...giftNameProps} label="giftName"/>
-                        <TextField {...giftPriceProps} label="giftPrice"/>
-                        <TextField {...giftDiscountPriceProps} label="giftDiscountPrice"/>
-                        <TextField {...giftDiscountStateProps} label="giftDiscountState"/>
-                        <TextField {...descriptionProps} label="description"/>
-                        <TextField {...categoryProps} label="category"/>
-                        <TextField {...sideCategory1Props} label="sideCategory1"/>
-                        <TextField {...sideCategory2Props} label="sideCategory2"/>
-                        <TextField {...coverProps} label="coverP"/>
-                        <TextField {...show1Props} label="show1"/>
-                        <TextField {...show2Props} label="show2"/>
-                        <TextField {...show3Props} label="show3"/>
-                        <TextField {...show4Props} label="show4"/>
-                        <button>change</button>
-                    </Box>
+                    <Grid container spacing={2} >
+                        <a>Gift Editt From</a>
+                        <Grid item xs={12}><TextField {...giftNameProps} label="giftName" /></Grid>
+                        <Grid item xs={4}><TextField {...giftPriceProps} label="giftPrice"/></Grid>
+                        <Grid item xs={4}><TextField {...giftDiscountPriceProps} label="giftDiscountPrice"/></Grid>
+                        <Grid item xs={4}><TextField {...giftDiscountStateProps} label="giftDiscountState"/></Grid>
+                        <Grid item xs={12}><TextField {...descriptionProps} label="description"/></Grid>
+                        <Grid item xs={4}><TextField {...categoryProps} label="category"/></Grid>
+                        <Grid item xs={4}><TextField {...sideCategory1Props} label="sideCategory1"/></Grid>
+                        <Grid item xs={4}><TextField {...sideCategory2Props} label="sideCategory2"/></Grid>
+                        <Grid item xs={12}><TextField {...coverProps} label="coverP"/></Grid>
+                        <Grid item xs={12}><TextField {...show1Props} label="show1"/></Grid>
+                        <Grid item xs={12}><TextField {...show2Props} label="show2"/></Grid>
+                        <Grid item xs={12}><TextField {...show3Props} label="show3"/></Grid>
+                        <Grid item xs={12}><TextField {...show4Props} label="show4"/></Grid>
+                       <Grid item xs={12}> <Button variant="contained" onClick={submit}>change</Button></Grid>
+                    </Grid>
                 </Box>
             </Modal>
         </div>
