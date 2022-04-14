@@ -10,8 +10,6 @@ export default function Dashboard() {
     return (
         <AdminProvider>
             <Adsiderbar/>
-
-
         </AdminProvider>
     )
 }

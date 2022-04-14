@@ -17,7 +17,6 @@ import {Grid} from "@material-ui/core";
 
 export default function ProductForShow({products_id,product_name,product_cover,size,price,count,detail}){
     const {currentProduct,setCurrentProduct} =useOrder();
-    const [c,setC] = useState()
     const [countProps,resetCount] = useInput(1);
     const remove = ()=>{
         setCurrentProduct(currentProduct.filter(pro=>{
@@ -37,7 +36,6 @@ export default function ProductForShow({products_id,product_name,product_cover,s
             size:size,
             count: parseInt(countProps.value),
             price:price
-
         }
         deleteOld.push(newProduct)
         setCurrentProduct(deleteOld)
