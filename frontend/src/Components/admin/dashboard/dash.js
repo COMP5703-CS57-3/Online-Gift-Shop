@@ -29,38 +29,38 @@ export default function DashItem() {
                         <Grid
                             item
                             lg={3}
-                            sm={6}
+                            sm={3}
                             xl={3}
-                            xs={12}
+                            xs={3}
                         >
                             <ShowCard getNumberFunc={getTotalAccount} Number={totalAccountNumber}
                                       Title={"TOTAL ACCOUNT"} icon={<SupervisedUserCircleIcon/>}/>
                         </Grid>
                         <Grid
                             item
-                            xl={3}
                             lg={3}
-                            sm={6}
-                            xs={12}
+                            sm={3}
+                            xl={3}
+                            xs={3}
                         >
                             <ShowCard getNumberFunc={getTotalWishlist} Number={totalWishlistNumber}
                                       Title={"TOTAL WISHLIST"} icon={<FactCheckIcon/>} />
                         </Grid>
                         <Grid
                             item
-                            xl={3}
                             lg={3}
-                            sm={6}
-                            xs={12}
+                            sm={3}
+                            xl={3}
+                            xs={3}
                         >
                             <ShowCard getNumberFunc={getTotalOrders} Number={totalOrderNumber} Title={"TOTAL ORDER"} icon={<LocalShippingIcon/>}/>
                         </Grid>
                         <Grid
                             item
-                            xl={3}
                             lg={3}
-                            sm={6}
-                            xs={12}
+                            sm={3}
+                            xl={3}
+                            xs={3}
                         >
                             <ShowCard getNumberFunc={getCompleteOrders} Number={completeOrderNumber}
                                       Title={"ORDER COMPLETED"} icon={<EventAvailableIcon/>}/>
