@@ -13,7 +13,6 @@ import Loading from "./normal/Loading";
 
 export function Customers() {
     const {shownUser} = useAdmin();
-    const {users} = useAdmin();
     const {getUsers} = useAdmin()
     const {loading} = useAdmin()
     useEffect(() => {

@@ -1,17 +1,17 @@
 import ReactDOM from 'react-dom'
 import {BrowserRouter} from "react-router-dom";
 import React from "react";
-import {Router} from "./router/GenRouter";
+
 import AppProvider from "./tools/useApp";
+import {Router} from "./router/GenRouter";
 
 
 function APP() {
-
+    sessionStorage.setItem("role","user")
     return (
 
 
         <BrowserRouter>
-            {/*<BeforeEach/>*/}
             <Router/>
         </BrowserRouter>
 

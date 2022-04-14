@@ -3,13 +3,16 @@ import {checkRouterAuth} from './GenRouter'
 import {useApp} from "../tools/useApp";
 
 const BeforeEach = ({children}) => {
-    const navigate = useNavigate()
+    const role=sessionStorage.getItem("role")
     const location = useLocation()
     let {login} = useApp();
-    let obj = checkRouterAuth(location.pathname)
-
+    let {CurrRouter}=useApp();
+    let obj = checkRouterAuth(CurrRouter,location.pathname)
+    if (obj && obj.role.indexOf(role)===-1){
+        return obj.role.indexOf("admin")===-1?<Navigate to="/login" state={{from: location}} replace/>:<Navigate to="/nomatch" state={{from: location}} replace/>
+    }
     if (obj && obj.auth === true && login === undefined) {
-        return <Navigate to="/login" state={{from: location}} replace/>;
+        return obj.role.indexOf("admin")===-1?<Navigate to="/login" state={{from: location}} replace/>:<Navigate to="/nomatch" state={{from: location}} replace/>
 
     }
 

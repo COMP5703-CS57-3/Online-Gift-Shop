@@ -33,6 +33,7 @@ const routes = [
     {
         path: '/',
         auth: false,
+        role:["user","admin"],
         component: Homepage,
         children: [
             {
@@ -56,6 +57,7 @@ const routes = [
         path: '/wish',
         auth: false,
         component: WishContentProvider,
+        role:["user","admin"],
         children: [
             {
                 path: '',
@@ -68,43 +70,52 @@ const routes = [
     {
         path: '/wishlist/:id',
         auth: false,
+        role:["user","admin"],
         component: WishListContentProvider
     }, {
         path: '/cart/:id',
         auth: false,
+        role:["user","admin"],
         component: DetailContentProvider
     }, {
         path: '/wishForm',
         auth: false,
+        role:["user","admin"],
         component: WishFormProvider
     }, {
         path: '/login',
         auth: false,
+        role:["user","admin"],
         component: LogIn
     }, {
         path: '/signup',
         auth: false,
+        role:["user","admin"],
         component: SignUp
     },
     {
         path: '/account',
         auth: true,
+        role:["user","admin"],
         component: Account
     },
     {
         path: '/findpwd',
         auth: false,
+        role:["user","admin"],
         component: FPassword
     },
     {
         path: '/paytest',
         auth: false,
+        role:["user","admin"],
         component: Payc
     },
     {
         path: '/order',
         auth: false,
         component: OrderP,
+        role:["user","admin"],
         children: [
             {
                 path: '/order/myorder',
@@ -115,23 +126,14 @@ const routes = [
                 path: '/order/createOrder/:id',
                 auth: false,
                 component: CreateOrder
-            },
-            {
-                path: '/order/pay',
-                auth: false,
-                component: Payc
             }
         ]
-    },
-    {
-        path: '/cus',
-        auth: false,
-        component: Customers
     },
     {
         path: '/admin',
         auth: true,
         component: Dashboard,
+        role:["admin"],
         children: [
             {
                 path: '',
@@ -173,6 +175,7 @@ const routes = [
     {
         path: '/*',
         auth: false,
+        role:["user","admin"],
         component: NoMatch
     },
 ]
@@ -198,7 +201,7 @@ const generateRouter = (routers) => {
 
         item.element =
 
-            <BeforeEach>
+            <BeforeEach >
                 <item.component/>
             </BeforeEach>
 
@@ -212,4 +215,6 @@ const Router = () => useRoutes(generateRouter(routes))
 const checkRouterAuth = (path) => {
     return checkAuth(routes, path)
 }
+
+
 export {Router, checkRouterAuth}

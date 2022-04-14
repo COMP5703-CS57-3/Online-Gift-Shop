@@ -26,6 +26,7 @@ const theme = createTheme();
 export default function LogIn(props) {
     let location = useLocation();
     const {setLogin} = useApp()
+    const {setRole} = useApp()
     const [Email, setEmail] = useState("")
     const [Password, setPassword] = useState("")
 
@@ -60,6 +61,8 @@ export default function LogIn(props) {
                     let ExpireTime = new Date(new Date().getTime() + 1 * 3600 * 1000);//60分钟后失效
                     cookie.save("login", response.data.id, ExpireTime)
                     setLogin(response.data.id)
+                    setRole("user")
+                    sessionStorage.setItem("role","user")
                     // console.log(_session.get("curr"))
                     navigate(from)
                 } else {
