@@ -37,10 +37,12 @@ def create_wishlist(info):
     address = info['address']
     phone = info['phone']
     postcode = info['postcode']
+    user_expected_delivery_time = info['user_expected_delivery_time']
     wishlist_id = ''.join(random.sample(string.ascii_letters + string.digits, 6))
     new_wishlist = Wishlist(wishlist_id=wishlist_id, owner_id=owner_id, wishlist_name=wishlist_name,
                                       wishlist_description=description, first_name=owner_first_name,
-                            last_name=owner_last_name, address=address, phone=phone, postcode=postcode
+                            last_name=owner_last_name, address=address, phone=phone, postcode=postcode,
+                            user_expected_delivery_time = user_expected_delivery_time
                             )
     database.session.add(new_wishlist)
     database.session.commit()
@@ -77,7 +79,7 @@ def delete_wishlist(info):
         database.session.close()
         return resp
     Wishlist.query.filter_by(wishlist_id=wishlist_id).delete()
-    WishlistItems.query.filter_by(products_id=wishlist_id).delete()
+    WishlistItems.query.filter_by(wishlist_id=wishlist_id).delete()
     database.session.commit()
     status_code = 200
     response_data['wishlist_id'] = wishlist_id
@@ -126,6 +128,17 @@ def add_items(info):
         resp.status_code = status_code
         database.session.close()
         return resp
+    if not check_size:
+        response_data['message'] = 'This product does not have this size.'
+        response_data['owner_id'] = info['owner_id']
+        response_data['product_id'] = info['product_id']
+        response_data['wishlist_id'] = info['wishlist_id']
+        response_data['size'] = info['size']
+        status_code = 404
+        resp = make_response(response_data)
+        resp.status_code = status_code
+        database.session.close()
+        return resp
     if not check_product:
         response_data['message'] = 'This product does not exist.'
         response_data['owner_id'] = info['owner_id']
@@ -149,6 +162,7 @@ def add_items(info):
             response_data['owner_id'] = info['owner_id']
             response_data['product_id'] = info['product_id']
             response_data['wishlist_id'] = info['wishlist_id']
+            response_data['size'] = info['size']
             status_code = 404
             resp = make_response(response_data)
             resp.status_code = status_code
@@ -276,7 +290,7 @@ def remove_item_size(info):
     wishlist_id = info['wishlist_id']
     product_id = info['product_id']
     size = info['size']
-    WishlistItems.query.filter_by(products_id=product_id, wishlist_id=wishlist_id).delete()
+    WishlistItems.query.filter_by(products_id=product_id, wishlist_id=wishlist_id, size= size).delete()
     database.session.commit()
     status_code = 200
     response_data['wishlist_id'] = wishlist_id
@@ -319,6 +333,7 @@ def show_all(info):
             "postcode": o.postcode,
             "state": o.state,
             "payer_fname": o.payer_fname,
+            "user_expected_delivery_time": o.user_expected_delivery_time,
             "products": [],
         }
         productList = WishlistItems.query.filter_by(wishlist_id=o.wishlist_id).all()
@@ -355,7 +370,8 @@ def pay_wishlist(info):
         "owner_first_name": '',
         "owner_last_name": '',
         "payer_first_name": '',
-        "payer_id": 'null'
+        "payer_id": 'null',
+        "order_number": '',
     }
     owner_id = info['owner_id']
     owner_first_name = info['owner_first_name']
@@ -370,6 +386,7 @@ def pay_wishlist(info):
     product_list = info['product_list']
     order_number = ''.join(random.sample(string.ascii_letters + string.digits, 15))
     check_owner = Wishlist.query.filter_by(owner_id=owner_id, wishlist_id=wishlist_id).first()
+
     # check_payer = User.query.filter_by(id=payer_id).first()
     check_state = Wishlist.query.filter_by(wishlist_id=wishlist_id, state='completed').first()
     check_item_state_wating = WishlistItems.query.filter_by(wishlist_id=wishlist_id, this_gift_state='waiting').first()
@@ -411,9 +428,11 @@ def pay_wishlist(info):
         else:
             order_time = datetime.datetime.now()
             order_state = 'waiting'
+            user_expected_delivery_time = check_owner.user_expected_delivery_time
             order = Order(user_id=owner_id, order_time=order_time, order_total=total_price, order_number=order_number,
                           first_name=owner_first_name, last_name=owner_last_name, phone=phone,
-                          address=address, postcode=postcode, wishlist_code = wishlist_id, payer_id = payer_id, payer_name = payer_first_name, order_state = order_state)
+                          address=address, postcode=postcode, wishlist_code = wishlist_id, payer_id = payer_id,
+                          payer_name = payer_first_name, order_state = order_state, user_expected_delivery_time = user_expected_delivery_time)
             database.session.add(order)
             database.session.commit()
             database.session.flush()
@@ -434,9 +453,9 @@ def pay_wishlist(info):
                     check_stock = Size.query.filter_by(gift_id=product_id, size=size).first()
                     if not check_stock or check_stock.stock < 1:
                         status_code = 400
-                        response_message['message'] = 'Product ' + str(product_id) + ' out of stock.'
-                        WishlistItems.query.filter_by(products_id=product_id, wishlist_id=wishlist_id).delete()
-                        database.session.commit()
+                        response_message['message'] = 'Product: ' + str(product_id) + ' size:' + str(size) + ' out of stock.'
+                        # WishlistItems.query.filter_by(products_id=product_id, wishlist_id=wishlist_id).delete()
+                        # database.session.commit()
                         resp = make_response(response_message)
                         resp.status_code = status_code
                         database.session.close()
@@ -478,9 +497,9 @@ def pay_wishlist(info):
                     check_stock = Size.query.filter_by(gift_id=product_id, size=size).first()
                     if not check_stock or check_stock.stock < 1:
                         status_code = 400
-                        response_message['message'] = 'Product ' + str(product_id) + ' out of stock.'
-                        WishlistItems.query.filter_by(products_id=product_id, wishlist_id=wishlist_id).delete()
-                        database.session.commit()
+                        response_message['message'] = 'Product: ' + str(product_id) + ' size:' + str(size) + ' out of stock.'
+                        # WishlistItems.query.filter_by(products_id=product_id, wishlist_id=wishlist_id).delete()
+                        # database.session.commit()
                         resp = make_response(response_message)
                         resp.status_code = status_code
                         database.session.close()
@@ -532,6 +551,8 @@ def pay_wishlist(info):
             response_data['owner_last_name'] = owner_last_name
             response_data['payer_first_name'] = payer_first_name
             response_data['payer_id'] = payer_id
+            response_data['order_number'] = order_number
+            response_data['user_expected_delivery_time'] = user_expected_delivery_time
             resp = make_response(response_message)
             resp.status_code = status_code
             resp.response_data = response_data
@@ -558,6 +579,7 @@ def search(info):
         "postcode": '',
         "state": '',
         "payer_fname": '',
+        "user_expected_delivery_time": '',
         "products": [],
     }
     wishlist_id = info['wishlist_id']
@@ -582,6 +604,7 @@ def search(info):
     response_data['postcode'] = check_valid.postcode
     response_data['state'] = check_valid.state
     response_data['payer_fname'] = check_valid.payer_fname
+    response_data['user_expected_delivery_time'] = check_valid.user_expected_delivery_time
     L = []
     for p in products:
         p_list = {"products_id": p.products_id,

@@ -158,6 +158,7 @@ class WishlistDto:
         'address': fields.String,
         'phone': fields.String,
         'postcode': fields.String,
+        'user_expected_delivery_time': fields.String,
     })
     create_wishlist_response_model = wishlist_ns.model("create_wishlist_response_model", {
         'message': fields.String,
@@ -185,6 +186,7 @@ class WishlistDto:
         'postcode': fields.String,
         'state': fields.String,
         'payer_fname': fields.String,
+        'user_expected_delivery_time': fields.String,
         # 'total_price': fields.Float,
         'products': fields.List(fields.Nested(wishlist_item_model)),
     })
@@ -224,7 +226,7 @@ class WishlistDto:
         # "owner_id": fields.Integer,
         "wishlist_id": fields.String,
         "product_id": fields.Integer,
-        "size": fields.Integer,
+        "size": fields.String,
     })
     show_wishlist_request_model = wishlist_ns.model("show_wishlist_request_model", {
         "owner_id": fields.Integer
@@ -257,7 +259,9 @@ class WishlistDto:
         "owner_first_name": fields.String,
         "owner_last_name": fields.String,
         "payer_first_name": fields.String,
-        "payer_id": fields.String
+        "payer_id": fields.String,
+        "order_number": fields.String,
+        "user_expected_delivery_time": fields.String,
     })
     search_items_model = wishlist_ns.model("search_items_model", {
         "wishlist_id": fields.String,
@@ -399,6 +403,7 @@ class admin_part_dto:
         'postcode': fields.String,
         'state': fields.String,
         'payer_fname': fields.String,
+        'user_expected_delivery_time': fields.String,
         # 'total_price': fields.Float,
         'products': fields.List(fields.Nested(admin_return_wishlist_items_output_format)),
     })
@@ -435,6 +440,7 @@ class admin_part_dto:
         'order_state': fields.String,
         'wishlist_code': fields.String,
         'user_id': fields.Integer,
+        'user_expected_delivery_time': fields.String,
         # 'total_price': fields.Float,
         'products': fields.List(fields.Nested(admin_return_order_items_output_format)),
     })
@@ -591,19 +597,12 @@ class create_order_part_dto:
         'order_state': fields.String,
         'wishlist_code': fields.String,
         'user_id': fields.Integer,
+        'user_expected_delivery_time': fields.String,
         # 'total_price': fields.Float,
         'products': fields.List(fields.Nested(search_an_order_gift_output_format)),
     })
     pay_an_order_output_format = create_order_part_namespace.model("pay_an_order_output_format", {
         "message": fields.String
-    })
-    create_checkout_session_format = create_order_part_namespace.model("create_checkout_session_format", {
-        "orderId": fields.Integer,
-        "orderPrice": fields.Float,
-        "currency": fields.String,
-        "productName": fields.String,
-        "productDesc": fields.String,
-        "productImage": fields.String,
     })
 
 class dashboard_dto:
@@ -635,6 +634,7 @@ class dashboard_dto:
         'order_state': fields.String,
         'wishlist_code': fields.String,
         'user_id': fields.Integer,
+        'user_expected_delivery_time': fields.String,
         # 'total_price': fields.Float,
         'products': fields.List(fields.Nested(show_new_order_items_output_format)),
     })

@@ -42,6 +42,7 @@ def return_new_order_methods():
             "order_state": o.order_state,
             "wishlist_code": o.wishlist_code,
             "user_id": o.user_id,
+            "user_expected_delivery_time": o.user_expected_delivery_time,
             "products": [],
         }
         productList = OrderItems.query.filter_by(order_id=o.id).all()

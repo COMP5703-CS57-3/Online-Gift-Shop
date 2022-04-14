@@ -25,13 +25,14 @@ def search_an_order_method(info):
         "order_state": '',
         "wishlist_code": '',
         "user_id": 0,
+        "user_expected_delivery_time": '',
         "products": [],
     }
     # order_number = info['order_number']
     check_valid = Order.query.filter_by(order_number=info).first()
     if not check_valid:
         status_code = 404
-        response_message['message'] = 'This wishlist does not exist.'
+        response_message['message'] = 'This order does not exist.'
         resp = make_response(response_message)
         resp.status_code = status_code
         database.session.close()
@@ -47,10 +48,12 @@ def search_an_order_method(info):
     response_data['address'] = check_valid.address
     response_data['phone'] = check_valid.phone
     response_data['postcode'] = check_valid.postcode
+    response_data['payer_id'] = check_valid.payer_id
     response_data['payer_name'] = check_valid.payer_name
     response_data['order_state'] = check_valid.order_state
     response_data['wishlist_code'] = check_valid.wishlist_code
-    response_data['owner_id'] = check_valid.user_id
+    response_data['user_id'] = check_valid.user_id
+    response_data['user_expected_delivery_time'] = check_valid.user_expected_delivery_time
     L = []
     for p in products:
         p_list = {"products_id": p.productID,

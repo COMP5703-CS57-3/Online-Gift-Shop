@@ -115,6 +115,11 @@ const routes = [
                 path: '/order/createOrder/:id',
                 auth: false,
                 component: CreateOrder
+            },
+            {
+                path: '/order/pay',
+                auth: false,
+                component: Payc
             }
         ]
     },

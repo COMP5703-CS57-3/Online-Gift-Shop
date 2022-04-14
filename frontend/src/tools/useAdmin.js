@@ -122,7 +122,7 @@ export default function AdminProvider({children}) {
                     gift_show_url3: showUrl3,
                     gift_show_url4: showUrl4
                 })
-        }).then(console.log);
+        }).then(r=>console.log(r));
     }
 
     const removeItems = (id) => {
