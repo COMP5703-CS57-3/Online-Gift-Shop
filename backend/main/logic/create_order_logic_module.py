@@ -59,12 +59,18 @@ class SearchAnOrder(Resource):
 
 @create_order_part_namespace.route('/create_checkout_session')
 class CreateCheckoutSession(Resource):
+
     @staticmethod
+    @create_order_part_namespace.expect(create_order_part_dto.payment_order_parser)
+    @create_order_part_namespace.response(200, 'redirect to payment page')
+    @create_order_part_namespace.response(404, 'not found')
     def post():
-        an_order = request.form
+        an_order = create_order_part_dto.payment_order_parser.parse_args()
         resp = create_checkout_session(an_order)
         if resp.status_code == 200:
             return redirect(resp.response_data.url, code=303)
+        else:
+            return resp
 
 
 @create_order_part_namespace.route('/pay_result/<order_id>')
