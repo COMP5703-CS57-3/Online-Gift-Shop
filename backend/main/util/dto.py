@@ -604,9 +604,6 @@ class create_order_part_dto:
     pay_an_order_output_format = create_order_part_namespace.model("pay_an_order_output_format", {
         "message": fields.String
     })
-    payment_order_parser = create_order_part_namespace.parser()
-    payment_order_parser.add_argument('orderId', help='Order ID', required=True)
-    payment_order_parser.add_argument('currency', help='Payment Currency')
 
 class dashboard_dto:
     dashboard_namespace = Namespace("The dashboard logic module",

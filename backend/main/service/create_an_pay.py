@@ -1,7 +1,7 @@
 import stripe as stripe
 
 from .pay_an_order import pay_an_order_method
-from ..model.create_database import Order, OrderItems
+from ..model.create_database import Order
 from flask import make_response
 from ..connect_to_aws import database
 
@@ -12,47 +12,25 @@ stripe.verify_ssl_certs = False
 DOMAIN = 'http://localhost:5000/order/pay_result'
 
 
-def create_checkout_session(an_order):
+def create_checkout_session(order):
     output_message = {
         "message": "success"
     }
-    order_id = an_order['orderId']
+    order_id = order['orderId']
     status_code = 200
     checkout_session = None
-
-    order = Order.query.filter_by(id=order_id).first()
-    if not order:
-        status_code = 404
-        output_message['message'] = 'This order does not exist.'
-        resp = make_response(output_message)
-        resp.status_code = status_code
-        database.session.close()
-        return resp
-
-    product_name = ''
-    product_image = ''
-    currency = 'AUD'
-
-    if "currency" in an_order:
-        currency = an_order["currency"]
-
-    order_items = OrderItems.query.filter_by(order_id=order_id).all()
-    if len(order_items) > 0:
-        product_name = order_items[0]["gift_name"]
-        product_image = order_items[0]["item_cover_url"]
-
     try:
         checkout_session = stripe.checkout.Session.create(
             line_items=[
                 {
                     'price_data':  {
-                        'currency': currency,
+                        'currency': order['currency'],
                         'product_data': {
-                            'name': product_name,
-                            # 'description': order['productDesc'],
-                            'images': product_image,
+                            'name': order['productName'],
+                            'description': order['productDesc'],
+                            'images': [order['productImage']],
                         },
-                        'unit_amount_decimal': float(order['order_total']),
+                        'unit_amount_decimal': float(order['orderPrice']),
                     },
                     'quantity': 1,
                 },
