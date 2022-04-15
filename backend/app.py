@@ -50,6 +50,13 @@ app = Flask(__name__,
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = aws_endpoint
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    'pool_size': 10,
+    'pool_recycle': 120,
+    'pool_pre_ping': True,
+    'pool_timeout': 900,
+    'max_overflow': 5,
+}
 database.init_app(app)
 CORS(app)
 # using flask's object app register blueprint
