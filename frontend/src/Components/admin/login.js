@@ -1,0 +1,155 @@
+import * as React from 'react';
+import {useState} from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
+import axios from "axios";
+import Copyright from "../cpright";
+import {checkEmail} from "../../logic/ValCheck";
+import cookie from 'react-cookies'
+import {useApp} from "../../tools/useApp";
+import {checkRouterAuth} from "../../router/GenRouter";
+
+const theme = createTheme();
+
+export default function AdminLogIn(props) {
+    let location = useLocation();
+    const {setLogin} = useApp()
+    const {setRole} = useApp()
+    const [Email, setEmail] = useState("")
+    const [Password, setPassword] = useState("")
+
+    let from = "/admin";
+    if (location?.state?.from?.pathname) {
+        if (checkRouterAuth(location.state.from.pathname).auth)
+            from = location.state.from.pathname
+    }
+    const navigate = useNavigate()
+    const HandleClick = () => {
+        if (Password === "") {
+            alert("please input password")
+        } else if (checkEmail(Email) !== true) {
+            alert("please input valid Email")
+        } else {
+            axios.post('http://localhost:5000/admin/admin_login', {
+                admin_email: Email,
+                admin_password: Password
+            }).then((response) => {
+                let status = response;
+                console.log(status, 1)
+                console.log(status.data.admin_email)
+                if (status.data.admin_email) {
+                    console.log("Success!")
+                    let ExpireTime = new Date(new Date().getTime() + 1 * 3600 * 1000);//60分钟后失效
+                    cookie.save("login", response.data.id, ExpireTime)
+                    setLogin(response.data.id)
+                    setRole("admin")
+                    sessionStorage.setItem("role","admin")
+                    // console.log(_session.get("curr"))
+                    navigate(from)
+                } else {
+                    console.log("Error!")
+                }
+            })
+                .catch((response) => {
+                    if (response.toString().indexOf("403") !== -1) {
+                        alert("User did not exit, please sign up first")
+                    } else if (response.toString().indexOf("404") !== -1) {
+                        alert("Unknown Error")
+                    } else if (response.toString().indexOf("400") !== -1) {
+                        alert("Please input correct password")
+                    }
+                });
+        }
+    }
+
+
+    return (
+
+        <ThemeProvider theme={theme}>
+
+            <Container component="main" maxWidth="xs">
+                <CssBaseline/>
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+                        <LockOutlinedIcon/>
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Admin Sign In
+                    </Typography>
+
+                    <Box component="form" noValidate sx={{mt: 1}}>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email Address"
+                            name="Email"
+                            autoComplete="email"
+                            autoFocus
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="Password"
+                            label="Password"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <FormControlLabel
+                            control={<Checkbox value="remember" color="primary"/>}
+                            label="Remember me"
+                        />
+                        <Button
+                            // type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{mt: 3, mb: 2}}
+                            onClick={() => HandleClick()}
+                        >
+                            Sign In
+                        </Button>
+
+                        <Grid container>
+                            <Grid item xs>
+                                <Link to={{pathname: "/findpwd"}}>
+                                    Forgot password?
+                                </Link>
+                            </Grid>
+                            <Grid item>
+                                <Link to={{pathname: "/adsignup"}}>
+                                    Sign Up
+                                </Link>
+                            </Grid>
+                        </Grid>
+                    </Box>
+
+                </Box>
+                <Copyright sx={{mt: 8, mb: 4}}/>
+            </Container>
+        </ThemeProvider>
+    );
+
+}

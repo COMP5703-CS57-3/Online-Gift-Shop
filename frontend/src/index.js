@@ -7,7 +7,7 @@ import {Router} from "./router/GenRouter";
 
 
 function APP() {
-    sessionStorage.setItem("role", "admin")
+    sessionStorage.setItem("role", "user")
     return (
 
 

@@ -29,6 +29,8 @@ import MyOrder from "../Components/Order/MyOrder";
 import CreateOrder from "../Components/Order/CreateOrder";
 import DashItem from "../Components/admin/dashboard/dash";
 import OrderDetail from "../Components/Order/OrderDetail";
+import AdminLogIn from "../Components/admin/login";
+import AdminSignUp from "../Components/admin/signup";
 
 const routes = [
     {
@@ -147,6 +149,18 @@ const routes = [
                 component: OrderDetail
             }
         ]
+    },
+    {
+        path: '/adlogin',
+        auth: false,
+        component: AdminLogIn,
+        role:["user","admin"],
+    },
+    {
+        path: '/adsignup',
+        auth: false,
+        component: AdminSignUp,
+        role:["user","admin"],
     },
     {
         path: '/admin',

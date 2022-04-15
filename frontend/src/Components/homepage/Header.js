@@ -24,7 +24,7 @@ import {useApp} from "../../tools/useApp";
 export default function AccountMenu() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     // console.log(cookie.load(_local.get("id")))
-    const {login, setLogin} = useApp()
+    const {login, setLogin,setRole} = useApp()
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -44,6 +44,8 @@ export default function AccountMenu() {
         if (!curr) {
             cookie.remove("login")
             setLogin(undefined)
+            setRole("user")
+            sessionStorage.setItem("role","user")
         }
     }
 

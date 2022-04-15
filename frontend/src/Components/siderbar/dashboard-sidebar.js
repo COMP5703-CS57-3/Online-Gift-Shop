@@ -23,6 +23,8 @@ import TableChartIcon from '@mui/icons-material/TableChart';
 import GroupIcon from '@mui/icons-material/Group';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import cookie from "react-cookies";
+import {useApp} from "../../tools/useApp";
 const items = [
     {
         route: '',
@@ -97,6 +99,7 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
 const mdTheme = createTheme();
 
 function DashboardSidebar() {
+    const {setLogin, setRole}=useApp()
     const [open, setOpen] = React.useState(true);
     const navigate=useNavigate()
     const toggleDrawer = () => {
@@ -104,6 +107,12 @@ function DashboardSidebar() {
     };
 
     function handleClick(route) {
+        if(route==="/adlogin"){
+            cookie.remove("login")
+            setLogin(undefined)
+            setRole("user")
+            sessionStorage.setItem("role","user")
+        }
         navigate(route)
     }
 
@@ -169,7 +178,7 @@ function DashboardSidebar() {
                             </ListItem>
                         ))}
                         <Divider sx={{my: 1}}/>
-                            <ListItem button key={"logout"} onClick={()=>handleClick("/login")}>
+                            <ListItem button key={"logout"} onClick={()=>handleClick("/adlogin")}>
                                 <ListItemIcon>
                                     <ExitToAppIcon/>
                                 </ListItemIcon>
