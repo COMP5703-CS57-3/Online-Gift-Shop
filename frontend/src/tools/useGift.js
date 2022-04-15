@@ -15,7 +15,8 @@ export default function GiftProvider({children}){
     const [fakeGifts,setFakeGifts] = useState(giftdata);
     const [topBar,setTopBar] = useState("male");
     const [loading,setLoading] = useState(true);
-    const [currentSize,setCurrentSize] = useState([]);
+    const [currentSize,setCurrentSize] = useState();
+    const [error,setError] = useState()
     useEffect(()=>{
         // if(wish&&wish.owner_id === login) return;
         setLoading(true)
@@ -68,14 +69,17 @@ export default function GiftProvider({children}){
         }).then(console.log);
     }
     const getSize = (id)=>{
-         fetch("http://127.0.0.1:5000/search/search_gift_id_return_size/"+id).then(res=>res.json()).then(
-            res=>{
-            setCurrentSize(res);
-        }).then(console.log);
+         fetch("http://127.0.0.1:5000/search/search_gift_id_return_size/"+id).then(res=>{
+             let tt = res
+             if(tt.status===404){
+                 setError(tt.status)
+             }
+             return res.json()
+         }).then(res=>setCurrentSize(res)).catch(setError)
     }
     if(gifts!==undefined){
         return(
-        <GiftContext.Provider value={{gifts,topBar,setTopBar,maleCategory,homeCategory, femaleCategory, teenagerCategory,agedCategory,SideCategory,getSize,currentSize,loading}}>
+        <GiftContext.Provider value={{gifts,topBar,setTopBar,maleCategory,homeCategory, femaleCategory, teenagerCategory,agedCategory,SideCategory,getSize,currentSize,loading,error}}>
             {children}
         </GiftContext.Provider>
     )}
@@ -85,7 +89,7 @@ export default function GiftProvider({children}){
         )
     }
     return(
-        <GiftContext.Provider value={{gifts,topBar,setTopBar,maleCategory,homeCategory, femaleCategory, teenagerCategory,agedCategory,SideCategory,getSize,currentSize,loading}}>
+        <GiftContext.Provider value={{gifts,topBar,setTopBar,maleCategory,homeCategory, femaleCategory, teenagerCategory,agedCategory,SideCategory,getSize,currentSize,loading,error}}>
             {children}
         </GiftContext.Provider>
     )
