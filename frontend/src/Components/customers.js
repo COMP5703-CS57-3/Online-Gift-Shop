@@ -18,28 +18,31 @@ export function Customers() {
     useEffect(() => {
         getUsers()
     }, [])
-    if (loading) {
+    if (loading||!shownUser) {
         return <Loading/>
     }
     // console.log(shownUser)
-    return (
-        <>
-            <Box
-                component="main"
-                sx={{
-                    flexGrow: 1,
-                    py: 8
-                }}
-            >
-                <Container maxWidth={false}>
-                    <CustomerListToolbar/>
-                    <Box sx={{mt: 3}}>
-                        <CustomerListResults users={shownUser}/>
-                    </Box>
-                </Container>
-            </Box>
-        </>
-    );
+    if(shownUser) {
+        return (
+            <>
+                <Box
+                    component="main"
+                    sx={{
+                        flexGrow: 1,
+                        py: 8
+                    }}
+                >
+                    <Container maxWidth={false}>
+                        <CustomerListToolbar/>
+                        <Box sx={{mt: 3}}>
+                            <CustomerListResults users={shownUser}/>
+                        </Box>
+                    </Container>
+                </Box>
+            </>
+        );
+    }
+    return console.log("can not get the user information!")
 }
 
 export default Customers;

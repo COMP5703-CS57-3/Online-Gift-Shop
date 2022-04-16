@@ -7,15 +7,17 @@ import {Router} from "./router/GenRouter";
 
 
 function APP() {
-    sessionStorage.setItem("role", "user")
-    return (
+    if(!sessionStorage) {
+        sessionStorage.setItem("role", "user")
+    }
+        return (
 
 
-        <BrowserRouter>
-            <Router/>
-        </BrowserRouter>
+            <BrowserRouter>
+                <Router/>
+            </BrowserRouter>
 
-    )
+        )
 }
 
 ReactDOM.render(

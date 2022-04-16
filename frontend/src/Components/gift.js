@@ -14,29 +14,32 @@ const Gifts = () => {
     useEffect(() => {
         getAllGifts();
     }, [])
-    if (loading) {
+    if (loading||!shownGift) {
         return <Loading/>
     }
-    return (
-        <>
+    if(shownGift) {
+        return (
+            <>
 
-            <Box
-                component="main"
-                sx={{
-                    flexGrow: 1,
-                    py: 8
-                }}
-            >
-                <Container maxWidth={false}>
-                    <GiftListToolbar/>
-                    <Box sx={{mt: 3}}>
-                        {/*{console.log(shownGift)}*/}
-                        <GiftListResults gift={shownGift}/>
-                    </Box>
-                </Container>
-            </Box>
-        </>
-    )
+                <Box
+                    component="main"
+                    sx={{
+                        flexGrow: 1,
+                        py: 8
+                    }}
+                >
+                    <Container maxWidth={false}>
+                        <GiftListToolbar/>
+                        <Box sx={{mt: 3}}>
+                            {/*{console.log(shownGift)}*/}
+                            <GiftListResults gift={shownGift}/>
+                        </Box>
+                    </Container>
+                </Box>
+            </>
+        )
+    }
+    return console.log("can not get the gift information!")
 }
 
 

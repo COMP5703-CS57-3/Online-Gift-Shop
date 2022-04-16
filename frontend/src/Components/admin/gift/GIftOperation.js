@@ -37,9 +37,9 @@ export default function AddGift() {
 
     const [coverProps, resetCover] = useInput();
     const [show1Props, resetShow1] = useInput();
-    const [show2Props, resetShow2] = useInput();
-    const [show3Props, resetShow3] = useInput();
-    const [show4Props, resetShow4] = useInput();
+    // const [show2Props, resetShow2] = useInput();
+    // const [show3Props, resetShow3] = useInput();
+    // const [show4Props, resetShow4] = useInput();
 
     const [SizeProps1, resetSize1] = useInput();
     const [SizeStock1, resetStock1] = useNumberInput();
@@ -92,11 +92,11 @@ export default function AddGift() {
             sideCategory2Props.value,
             coverProps.value,
             show1Props.value,
-            show2Props.value,
-            show3Props.value,
-            show4Props.value,
+            // show2Props.value,
+            // show3Props.value,
+            // show4Props.value,
             size);
-        console.log(show1Props.value);
+        console.log(coverProps.value);
     }
 //------------------------------------table style---------------------------------
 
@@ -133,11 +133,11 @@ export default function AddGift() {
                         <Grid item xs={3}><TextField {...SizeStock3} label="Stock3"/></Grid>
                         <Grid item xs={3}><TextField {...SizeStock4} label="Stock4"/></Grid>
 
-                        <Grid item xs={12}><TextField {...coverProps} label="coverP" fullWidth sx={{ m: 1 }}/></Grid>
+                        <Grid item xs={12}><TextField {...coverProps} label="coverUrl" fullWidth sx={{ m: 1 }}/></Grid>
                         <Grid item xs={12}><TextField {...show1Props} label="coverP" fullWidth sx={{ m: 1 }}/></Grid>
-                        <Grid item xs={12}><TextField {...show2Props} label="coverP" fullWidth sx={{ m: 1 }}/></Grid>
-                        <Grid item xs={12}><TextField {...show3Props} label="coverP" fullWidth sx={{ m: 1 }}/></Grid>
-                        <Grid item xs={12}><TextField {...show4Props} label="coverP" fullWidth sx={{ m: 1 }}/></Grid>
+                        {/*<Grid item xs={12}><TextField {...show2Props} label="coverP" fullWidth sx={{ m: 1 }}/></Grid>*/}
+                        {/*<Grid item xs={12}><TextField {...show3Props} label="coverP" fullWidth sx={{ m: 1 }}/></Grid>*/}
+                        {/*<Grid item xs={12}><TextField {...show4Props} label="coverP" fullWidth sx={{ m: 1 }}/></Grid>*/}
                        <Grid item xs={12}> <Button variant="contained" onClick={submit}>ADD</Button></Grid>
                     </Grid>
                 </Box>

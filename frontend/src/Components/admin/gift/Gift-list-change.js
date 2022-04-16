@@ -30,11 +30,15 @@ export default function BasicModal() {
     let [giftNameProps,coverProps] = useState();
     let {gifts} = useAdmin();
     //console.log(selectedGiftIds[0])
-    let foundGift = gifts.find(
+    // let foundGift = gifts.find(
+    //     item => {return item.id === selectedGiftIds[0]}
+    //
+    // );
+    if (selectedGiftIds.length > 0) {
+            let foundGift = gifts.find(
         item => {return item.id === selectedGiftIds[0]}
 
     );
-    if (selectedGiftIds.length > 0) {
         const GiftItem = foundGift;
         console.log(GiftItem.gift_cover_url)
         giftNameProps = GiftItem.gift_name;
@@ -51,9 +55,9 @@ export default function BasicModal() {
     const [sideCategory2Props, resetSide2] = useInput();
     // const [coverProps, resetCover] = useInput();
     const [show1Props, resetShow1] = useInput();
-    const [show2Props, resetShow2] = useInput();
-    const [show3Props, resetShow3] = useInput();
-    const [show4Props, resetShow4] = useInput();
+    // const [show2Props, resetShow2] = useInput();
+    // const [show3Props, resetShow3] = useInput();
+    // const [show4Props, resetShow4] = useInput();
     const {changeItemCount} = useAdmin();
     // console.log(wishTitle.current.valueOf());
 
@@ -102,9 +106,9 @@ export default function BasicModal() {
             sideCategory2Props.value,
             coverProps,
             show1Props.value,
-            show2Props.value,
-            show3Props.value,
-            show4Props.value,
+            // show2Props.value,
+            // show3Props.value,
+            // show4Props.value,
             size);
         setOpen(false)
         console.log(show1Props.value);
@@ -132,11 +136,11 @@ export default function BasicModal() {
                         <Grid item xs={4}><TextField {...categoryProps} label="category"/></Grid>
                         <Grid item xs={4}><TextField {...sideCategory1Props} label="sideCategory1"/></Grid>
                         <Grid item xs={4}><TextField {...sideCategory2Props} label="sideCategory2"/></Grid>
-                        <Grid item xs={12}><TextField defaultValue={coverProps} label="coverP" fullWidth sx={{ m: 1 }} /></Grid>
+                        <Grid item xs={12}><TextField defaultValue={coverProps} label="coverUrl" fullWidth sx={{ m: 1 }} /></Grid>
                         <Grid item xs={12}><TextField {...show1Props} label="show1" fullWidth sx={{ m: 1 }} /></Grid>
-                        <Grid item xs={12}><TextField {...show2Props} label="show2" fullWidth sx={{ m: 1 }} /></Grid>
-                        <Grid item xs={12}><TextField {...show3Props} label="show3" fullWidth sx={{ m: 1 }} /></Grid>
-                        <Grid item xs={12}><TextField {...show4Props} label="show4" fullWidth sx={{ m: 1 }} /></Grid>
+                        {/*<Grid item xs={12}><TextField {...show2Props} label="show2" fullWidth sx={{ m: 1 }} /></Grid>*/}
+                        {/*<Grid item xs={12}><TextField {...show3Props} label="show3" fullWidth sx={{ m: 1 }} /></Grid>*/}
+                        {/*<Grid item xs={12}><TextField {...show4Props} label="show4" fullWidth sx={{ m: 1 }} /></Grid>*/}
                        <Grid item xs={12}> <Button variant="contained" onClick={submit}>change</Button></Grid>
                     </Grid>
                 </Box>
