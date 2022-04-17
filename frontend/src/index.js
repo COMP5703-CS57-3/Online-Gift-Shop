@@ -7,9 +7,11 @@ import {Router} from "./router/GenRouter";
 
 
 function APP() {
-    if(!sessionStorage) {
+    if(sessionStorage.getItem("role") == undefined) {
         sessionStorage.setItem("role", "user")
+        console.log("haven't run this")
     }
+    // sessionStorage.setItem("role", "user")
         return (
 
 
