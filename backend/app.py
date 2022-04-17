@@ -63,7 +63,10 @@ CORS(app)
 app.register_blueprint(the_test_blueprint_page)
 
 
-
+@app.before_request
+def make_session_close():
+    database.session.remove()
+    database.engine.dispose()
 
 # Use flask_script's manager function to write commands
 manager_command = Manager(app)
