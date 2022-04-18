@@ -34,7 +34,6 @@ export default function BoxItem({id,gift_name,gift_price,gift_category,gift_cove
         }}
         alt="pic"
         src= {gift_cover_url}
-        // src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F08%2F56%2F5b3f3dc42d6af_610.jpg&refer=http%3A%2F%2Fpic.51yuansu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651300940&t=a529fa900fe5c67aee5faf5658e0ea36"
       />
       <Box
         sx={{
