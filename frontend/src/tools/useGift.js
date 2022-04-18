@@ -17,16 +17,14 @@ export default function GiftProvider({children}){
     const [loading,setLoading] = useState(true);
     const [currentSize,setCurrentSize] = useState();
     const [error,setError] = useState()
-    useEffect(()=>{
-        // if(wish&&wish.owner_id === login) return;
+    const[sideBar,setSideBar] = useState("");
+    const getGifts = ()=>{
         setLoading(true)
         fetch("http://127.0.0.1:5000/main_home_page").then(res=>res.json()).then(
             res=>{
             setGifts(res.gifts);
         }).then(console.log).then(()=>setLoading(false));
-        //json store in attribute wishlists_inf, please use wish.wishlists_inf represent array
-    },[])
-    const[sideBar,setSideBar] = useState("");
+    }
         const homeCategory = ()=>{
         console.log("http://127.0.0.1:5000/main_home_page")
         fetch("http://127.0.0.1:5000/main_home_page").then(res=>res.json()).then(
@@ -69,6 +67,7 @@ export default function GiftProvider({children}){
         }).then(console.log);
     }
     const getSize = (id)=>{
+        setError("no error")
          fetch("http://127.0.0.1:5000/search/search_gift_id_return_size/"+id).then(res=>{
              let tt = res
              if(tt.status===404){
@@ -77,19 +76,8 @@ export default function GiftProvider({children}){
              return res.json()
          }).then(res=>setCurrentSize(res)).catch(setError)
     }
-    if(gifts!==undefined){
-        return(
-        <GiftContext.Provider value={{gifts,topBar,setTopBar,maleCategory,homeCategory, femaleCategory, teenagerCategory,agedCategory,SideCategory,getSize,currentSize,loading,error}}>
-            {children}
-        </GiftContext.Provider>
-    )}
-    if(loading) {
-        return (
-            <Loading/>
-        )
-    }
     return(
-        <GiftContext.Provider value={{gifts,topBar,setTopBar,maleCategory,homeCategory, femaleCategory, teenagerCategory,agedCategory,SideCategory,getSize,currentSize,loading,error}}>
+        <GiftContext.Provider value={{gifts,getGifts,topBar,setTopBar,maleCategory,homeCategory, femaleCategory, teenagerCategory,agedCategory,SideCategory,getSize,currentSize,loading,error,setLoading}}>
             {children}
         </GiftContext.Provider>
     )

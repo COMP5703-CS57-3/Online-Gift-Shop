@@ -10,6 +10,7 @@ export default function Loading(){
         <Box style={{margin: "auto", textAlign: "center"}}>
             <h2>loading</h2>
             <LinearProgress />
+            <h3>If the loading time is too long, there is an unknown error, please refresh the page</h3>
         </Box>
         );
 }

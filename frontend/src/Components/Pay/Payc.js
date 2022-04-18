@@ -40,6 +40,9 @@ export default function Payc() {
         setLoading(false)});
 	},[]);
 	console.log(detail)
+	if(loading||!detail){
+		return <Loading/>
+	}
 	// currentOrder!==undefined&&detail&&
 	if(!loading){
 		return message ? (
@@ -52,47 +55,47 @@ export default function Payc() {
         alt="The cover of Stubborn Attachments"
       />
       <div className="description">
-      {/*<h3>order Number: {detail.order_number} {detail.products[0].item_cover_url}</h3>*/}
+      <h3>order Number: {detail.order_number} {detail.products[0].item_cover_url}</h3>
       </div>
     </div>
 	   <form action="http://localhost:5000/order/create_checkout_session" method="post">
       <div>
-		  {/*{detail.id}*/}
+		  {detail.id}
 			<label>
 				Order ID:
-				<input name="orderId" />
+				<input name="orderId" value={detail.id}/>
 			</label>
 		</div>
-		<div>
-			<label>
-				Order Price:
-				<input name="orderPrice" type="number" value="12000" />
-			</label>
-		</div>
+		{/*<div>*/}
+		{/*	<label>*/}
+		{/*		Order Price:*/}
+		{/*		<input name="orderPrice" type="number" value="12000" />*/}
+		{/*	</label>*/}
+		{/*</div>*/}
 		<div>
 			<label>
 				Currency:
 				<input name="currency" value="AUD" />
 			</label>
 		</div>
-		<div>
-			<label>
-				Product Name:
-				<input name="productName" value="Gold Special" />
-			</label>
-		</div>
-		<div>
-			<label>
-				Product Description:
-				<input name="productDesc" value="Cool pic " />
-			</label>
-		</div>
-		<div>
-			<label>
-				Product Image:
-				<input name="productImage" value="https://bpic.588ku.com/element_pic/21/10/27/5809626baa43e153b15cc3bcfb4bb0eb.jpg!/fw/329/quality/90/unsharp/true/compress/true" />
-			</label>
-		</div>
+		{/*<div>*/}
+		{/*	<label>*/}
+		{/*		Product Name:*/}
+		{/*		<input name="productName" value="Gold Special" />*/}
+		{/*	</label>*/}
+		{/*</div>*/}
+		{/*<div>*/}
+		{/*	<label>*/}
+		{/*		Product Description:*/}
+		{/*		<input name="productDesc" value="Cool pic " />*/}
+		{/*	</label>*/}
+		{/*</div>*/}
+		{/*<div>*/}
+		{/*	<label>*/}
+		{/*		Product Image:*/}
+		{/*		<input name="productImage" value="https://bpic.588ku.com/element_pic/21/10/27/5809626baa43e153b15cc3bcfb4bb0eb.jpg!/fw/329/quality/90/unsharp/true/compress/true" />*/}
+		{/*	</label>*/}
+		{/*</div>*/}
       {/*<Button onClick={click}>*/}
       {/*  Checkout*/}
       {/*</Button>*/}
