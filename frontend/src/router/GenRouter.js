@@ -31,6 +31,7 @@ import DashItem from "../Components/admin/dashboard/dash";
 import OrderDetail from "../Components/Order/OrderDetail";
 import AdminLogIn from "../Components/admin/login";
 import AdminSignUp from "../Components/admin/signup";
+import Test from "../Components/normal/Test";
 
 const routes = [
     {
@@ -84,11 +85,16 @@ const routes = [
                 role: ["user", "admin"],
                 component: WishListContentProvider
             }, {
-                path: '/cart/:id',
+                path: '/gift/:id',
                 auth: false,
                 role: ["user", "admin"],
                 component: DetailContentProvider
-            },
+            },{
+            path: '/test',
+                auth: false,
+                role: ["user", "admin"],
+                component: Test
+            }
         ]
     }, {
         path: '/login',

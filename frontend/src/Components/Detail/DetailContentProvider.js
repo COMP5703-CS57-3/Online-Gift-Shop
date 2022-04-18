@@ -11,10 +11,8 @@ import GiftProvider from "../../tools/useGift";
 
 export default function DetailContentProvider(){
     return(
-        <GiftProvider login="test">
             <WishProvider login={1}>
                 <GiftDetail/>
             </WishProvider>
-        </GiftProvider>
     )
 }

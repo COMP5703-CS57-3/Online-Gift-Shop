@@ -23,39 +23,36 @@ export default function GiftDetail() {
     const {wish} = useWish();
     const {addProduct} = useWish();
     const [targetWishList,setTargetWishlist] = useState(wish[0].wishlist_id);
-    const {loading,getSize,currentSize,error} = useGift();
+    const {loading,getGiftDetail,currentSize,error} = useGift();
     let {id} = useParams();
     const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
+    const handleClose = () => {
+        setOpen(false);
+      };
     const handleChange =(event)=>{
         setTargetWishlist(event.target.value);
     }
 
-    let {gifts} = useGift();
-    let foundGift = gifts.find(
-       item => item.id == id
-    );
+    let {currentGift} = useGift();
     const [sizeA,setSizeA] = useState();
     const handleSizeChange =(event)=>{
         setSizeA(event.target.value);
     }
     const addToWishList = ()=>{
         if(sizeA){
-            addProduct(1,targetWishList,foundGift.id,sizeA);
+            addProduct(1,targetWishList,currentGift.id,sizeA);
         }else{
             setOpen(true);
         }
     }
     console.log(currentSize)
     useEffect(()=>{
-        getSize(id);
+        getGiftDetail(id)
     },[])
-    if(loading||currentSize===undefined||!currentSize){
+    if(loading||!currentSize){
         return <Loading/>
     }
-    if(error){
+    if(error&&error!=="normal"){
         return (
         <React.Fragment>
             <CssBaseline />
@@ -75,16 +72,16 @@ export default function GiftDetail() {
                                   // maxWidth: { xs: 350, sm:300,md: 250 },
                                 }}
                                 alt="gift image"
-                                src={foundGift.gift_cover_url}
+                                src={currentGift.gift_cover_url}
                             />
                         </Grid>
                         <Grid item xs={6} sx={{  px:2, py:2,boxShadow: 1,borderRadius: 2,height:1}}>
                             <Grid container alignItems="flex-start">
                                 <Grid item xs={12}>
-                                    <p>{foundGift.gift_category}</p>
+                                    <p>{currentGift.gift_category}</p>
                                 </Grid>
                                 <Grid item xs={12}>
-                                     <h1 style={{textAlign:"left",letterSpacing:"2px",textTransform:"uppercase",fontSize:"32px"}}>{foundGift.gift_name}</h1>
+                                     <h1 style={{textAlign:"left",letterSpacing:"2px",textTransform:"uppercase",fontSize:"32px"}}>{currentGift.gift_name}</h1>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
@@ -92,12 +89,12 @@ export default function GiftDetail() {
                                             <Grid container alignItems="center">
                                               <Grid item xs={6}>
                                                 <Typography gutterBottom variant="h4" component="div">
-                                                  DISCOUNT:${foundGift.gift_discount_price}
+                                                  DISCOUNT:${currentGift.gift_discount_price}
                                                 </Typography>
                                               </Grid>
                                               <Grid item xs={6}>
                                                 <Typography gutterBottom variant="h6" component="div">
-                                                 PRICE:${foundGift.gift_price}
+                                                 PRICE:${currentGift.gift_price}
                                                 </Typography>
                                               </Grid>
                                             <Grid item xs={12} sx={{mt:3}}>
@@ -197,7 +194,7 @@ export default function GiftDetail() {
             </Box>
         </React.Fragment>
     );
-    }
+    }//
     return(
         <React.Fragment>
             <CssBaseline />
@@ -217,16 +214,16 @@ export default function GiftDetail() {
                                   // maxWidth: { xs: 350, sm:300,md: 250 },
                                 }}
                                 alt="gift image"
-                                src={foundGift.gift_cover_url}
+                                src={currentGift.gift_cover_url}
                             />
                         </Grid>
                         <Grid item xs={6} sx={{  px:2, py:2,boxShadow: 1,borderRadius: 2,height:1}}>
                             <Grid container alignItems="flex-start">
                                 <Grid item xs={12}>
-                                    <p>{foundGift.gift_category}</p>
+                                    <p>{currentGift.gift_category}</p>
                                 </Grid>
                                 <Grid item xs={12}>
-                                     <h1 style={{textAlign:"left",letterSpacing:"2px",textTransform:"uppercase",fontSize:"32px"}}>{foundGift.gift_name}</h1>
+                                     <h1 style={{textAlign:"left",letterSpacing:"2px",textTransform:"uppercase",fontSize:"32px"}}>{currentGift.gift_name}</h1>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
@@ -234,12 +231,12 @@ export default function GiftDetail() {
                                             <Grid container alignItems="center">
                                               <Grid item xs={6}>
                                                 <Typography gutterBottom variant="h4" component="div">
-                                                  DISCOUNT:${foundGift.gift_discount_price}
+                                                  DISCOUNT:${currentGift.gift_discount_price}
                                                 </Typography>
                                               </Grid>
                                               <Grid item xs={6}>
                                                 <Typography gutterBottom variant="h6" component="div">
-                                                 PRICE:${foundGift.gift_price}
+                                                 PRICE:${currentGift.gift_price}
                                                 </Typography>
                                               </Grid>
                                             <Grid item xs={12} sx={{mt:3}}>
