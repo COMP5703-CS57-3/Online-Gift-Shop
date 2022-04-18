@@ -25,42 +25,49 @@ export default function CategoryG(){
         //     </Box>
         //
         // </Box>
-        <ImageList sx={{width:1000,height:800,}} cols={3} gap={50} >
-            {gifts.map((gift) =>(
+        <ImageList sx={{width:1000,height:850,}} cols={3} gap={50} >
+            {gifts.map((gift,i) =>(
                     <Box
+                        key={i}
                       sx={{
-                        // display: 'flex',
-                        // flexDirection: { xs: 'column',sm:'column', md: 'row' },
-                        alignItems: 'center',
                         bgcolor: 'background.paper',
                         // overflow: 'hidden',
                         borderRadius: '20px',
                         boxShadow: 1,
                         fontWeight: 'bold',
-                        // maxWidth:  {xs:800,sm:750,md:700},
+                          width:280
                       }}
                     >
-                <ImageListItem key={gifts.gift_name}>
+                <ImageListItem >
                     <Box
                         component="img"
                         sx={{
+                            mx: 2,
+                            mt: 3,
                             height: 350,
                             width: 350,
-                            maxHeight: { xs: 400, md: 400 },
+                            maxHeight: { xs: 250, md: 300 },
                             maxWidth: { xs: 350, sm:300,md: 250 },
+                            alignItems: 'center',
+                             boxShadow: 2
                             }}
                             alt="pic"
                             src= {gift.gift_cover_url}
                             />
                     <ImageListItemBar
-                        title={<a style={{ textAlign: "center"}}>{gift.gift_name}</a>}
-                    subtitle={<a style={{ textAlign: "center"}}>{gift.gift_category},{gift.gift_side_category1},{gift.gift_side_category2}</a>}
-                    position="below"
-                    />
-                    <ImageListItemBar
-                        title={<a style={{ textAlign: "center"}}>${gift.gift_discount_price}</a>}
+                        title={<Box style={{ textAlign: "center"}}>{gift.gift_name}</Box>}
+                        subtitle={
+                                <Box style={{ textAlign: "center"}}>
+                                    <p>{gift.gift_category},{gift.gift_side_category1},{gift.gift_side_category2}</p>
+                                    <Box sx={{fontSize:25}}>${gift.gift_discount_price}</Box>
+                                </Box>
+                        }
                         position="below"
                     />
+                    {/*<ImageListItemBar*/}
+                    {/*    title={<Box style={{ textAlign: "center"}}>${gift.gift_discount_price}</Box>}*/}
+                    {/*    position="below"*/}
+                    {/*/>*/}
                     <Button >Learn More</Button>
                 </ImageListItem>
                         </Box>
