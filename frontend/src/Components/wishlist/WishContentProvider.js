@@ -5,7 +5,7 @@ import {Outlet} from "react-router-dom";
 
 export default function WishContentProvider() {
     return (
-        <WishProvider  login={1}>
+        <WishProvider>
             <Outlet/>
         </WishProvider>
     )

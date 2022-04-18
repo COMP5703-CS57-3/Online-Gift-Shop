@@ -6,7 +6,6 @@ import {ShowCard} from "./dashboard/show-card";
 import DashItem from "./dashboard/dash";
 
 export default function Dashboard() {
-    console.log("1")
     return (
         <AdminProvider>
             <Adsiderbar/>

@@ -7,7 +7,7 @@ import WishForm from "./WishForm";
 export default function WishFormProvider(){
     //
     return(
-        <WishProvider login={1}>
+        <WishProvider>
             <WishForm owner_id={1}/>
         </WishProvider>
     )

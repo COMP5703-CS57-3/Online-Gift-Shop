@@ -2,6 +2,7 @@ import React, {createContext, useState, useContext, useEffect} from "react";
 import Wishlist2 from "../data/Wishlist2.json"
 import WishListItem from "../data/WIshListItems.json";
 import {useNavigate} from "react-router-dom";
+import cookie from "react-cookies";
 
 
 const WishContext = createContext();
@@ -11,27 +12,40 @@ const loadJSON = key=>
 const saveJSON = (key,data)=>
     localStorage.setItem(key,JSON.stringify(data));
 
-export default function WishProvider({children,login}){
-    const keyy = "owner_wishlist:"+login
-    const [wish,setWish] = useState(loadJSON(keyy));
-    const [product,setProduct] = useState(WishListItem);
-    const [loading,setLoading] = useState(true);
-    useEffect(()=>{
-        setLoading(true)
-        if(!login) return;
+export default function WishProvider({children}){
+    const login = cookie.load("login");
+    const [wish,setWish] = useState();
+    const [error2,setError2] = useState();
+    const [loading2,setLoading2] = useState(true);
+    // useEffect(()=>{
+    //     setLoading(true)
+    //     if(!login) return;
+    //     // if(wish&&wish.owner_id === login) return;
+    //     fetch("http://127.0.0.1:5000/wishlist/show", {
+    //         method: 'POST',
+    //         body: JSON.stringify({owner_id:login})
+    //     }).then(res=>res.json()).then(res=>{
+    //         setWish(res.wishlists_inf);
+    //         setLoading(false);
+    //     });
+    //     //json store in attribute wishlists_inf, please use wish.wishlists_inf represent array
+    // },[login])
+    let navi = useNavigate();
+    const getWish = (id)=>{
+        setLoading2(true)
+        if(!login) {
+            setError2("User not logged in");
+            return;
+        }
         // if(wish&&wish.owner_id === login) return;
         fetch("http://127.0.0.1:5000/wishlist/show", {
             method: 'POST',
-            body: JSON.stringify({owner_id:login})
+            body: JSON.stringify({owner_id:id})
         }).then(res=>res.json()).then(res=>{
             setWish(res.wishlists_inf);
-            saveJSON(keyy,res.wishlists_inf);
-            setLoading(false);
+            setLoading2(false);
         });
-        //json store in attribute wishlists_inf, please use wish.wishlists_inf represent array
-    },[login])
-    let navi = useNavigate();
-
+    }
     const deleteWish = (ownerId,wishId)=>{
         const nav =()=> navi("/wishlist");
         fetch("http://127.0.0.1:5000/wishlist/delete", {
@@ -45,7 +59,6 @@ export default function WishProvider({children,login}){
             const data = wish.filter(item=>item.wishlist_id!==wishId)
             if(!data){
                 setWish(data);
-                saveJSON(keyy,data);
             }
             nav();
         });
@@ -72,7 +85,6 @@ export default function WishProvider({children,login}){
             body: JSON.stringify({owner_id:login})
         }).then(res=>res.json()).then(res=>{
             setWish(res.wishlists_inf);
-            saveJSON(keyy,res.wishlists_inf);
             nav();
         });
 
@@ -138,14 +150,8 @@ export default function WishProvider({children,login}){
     // const createWish =(owner_id,owner_first_name,owner_last_name,wishlist_name,description,address,phone,postcode)=>{
     //
     // }、、
-    if(wish)
-        return(
-            <WishContext.Provider value={{wish,product,createWish,deleteWish,addProduct,changeCount,removeProduct,loading}}>
-                {children}
-            </WishContext.Provider>
-        )
     return(
-            <WishContext.Provider value={{wish,product,createWish,deleteWish,addProduct,changeCount,removeProduct,loading}}>
+            <WishContext.Provider value={{wish,createWish,deleteWish,addProduct,changeCount,removeProduct,loading2,getWish,error2,setLoading2}}>
                 {children}
             </WishContext.Provider>
     )
