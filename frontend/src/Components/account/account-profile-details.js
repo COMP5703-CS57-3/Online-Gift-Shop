@@ -18,6 +18,8 @@ import {AccountCircle} from "@mui/icons-material";
 import {DatePicker, LocalizationProvider} from "@mui/lab";
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 import {_local} from "../../logic/local$sess";
+import {checkNickName, checkPhone} from "../../logic/ValCheck";
+import {load} from "react-cookies";
 
 const states = [
     {
@@ -62,7 +64,9 @@ export default class AccountProfileDetails extends React.Component {
                 "user_detail_street": "",
                 "user_address": ""
             },
-            isReadonly: true
+            isReadonly: true,
+            errName: "",
+            errPhone: ""
         }
     }
 
@@ -112,7 +116,7 @@ export default class AccountProfileDetails extends React.Component {
 
 
     handleChange = (event) => {
-        console.log(this.state)
+        // console.log(this.state)
         const data = this.state.new_user
         if (event && event.target) {
             data[[event.target.name]] = event.target.value
@@ -125,7 +129,8 @@ export default class AccountProfileDetails extends React.Component {
             this.setState({new_user: data})
 
         }
-        console.log(this.state.user.user_date_of_birth)
+        // console.log(this.state.user.user_date_of_birth)
+        this.setState({errName:"",errPhone:""})
 
     };
 
@@ -158,6 +163,8 @@ export default class AccountProfileDetails extends React.Component {
                                     name="user_name"
                                     onChange={(e) => this.handleChange(e)}
                                     required
+                                    error={this.state.errName !== ""}
+                                    helperText={this.state.errName}
                                     value={this.state.isReadonly ? this.state.user.user_name : this.state.new_user.user_name}
                                     variant="outlined"
                                     InputProps={{
@@ -221,6 +228,8 @@ export default class AccountProfileDetails extends React.Component {
                                     fullWidth
                                     label="Phone Number"
                                     name="user_mobile"
+                                    error={this.state.errPhone !== ""}
+                                    helperText={this.state.errPhone}
                                     onChange={(e) => this.handleChange(e)}
                                     InputProps={{
                                         readOnly: this.state.isReadonly,
@@ -359,25 +368,39 @@ export default class AccountProfileDetails extends React.Component {
     Submit() {
         if (!this.state.isReadonly) { //submit
             // console.log(this.state.new_user)
+
             const data = this.state.new_user
             data["user_address"] = [data["user_country"], data["user_state"], data["user_detail_street"]].join(", ")
             // this.setState({new_user: this.state.user})
             const that = this
             // console.log(sessionStorage.getItem("id"))
-            axios.put("http://localhost:5000/user_information/user_profile/update_user_information", {
+            const res_name = checkNickName(data.user_name)
+            const res_phone = checkPhone(data.user_mobile)
+            console.log(res_name === true , res_phone === true)
+            if (res_name === true && res_phone === true) {
+                axios.put("http://localhost:5000/user_information/user_profile/update_user_information", {
 
-                    "id": _local.get("id"),
-                    "user_name": data.user_name,
-                    "user_mobile": data.user_mobile,
-                    "user_date_of_birth": data.user_date_of_birth,
-                    "user_address": data.user_address
+                        "id": load("login"),
+                        "user_name": data.user_name,
+                        "user_mobile": data.user_mobile,
+                        "user_date_of_birth": data.user_date_of_birth,
+                        "user_address": data.user_address
+                    }
+                ).then(
+                    that.setState({user: data, isReadonly: true}) //after axios
+                    // console.log("success")
+                ).catch(
+                    r => console.log(r)
+                )
+            } else {
+                if (res_name !== true) {
+                    this.setState({errName: res_name})
                 }
-            ).then(
-                that.setState({user: data, isReadonly: true}) //after axios
-                // console.log("success")
-            ).catch(
-                r => console.log(r)
-            )
+                if (res_phone !== true) {
+                    this.setState({errPhone: res_phone})
+                }
+            }
+
 
         } else {
             this.setState({isReadonly: false})
