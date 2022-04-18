@@ -2,6 +2,7 @@ import {Avatar, Box, Button, Card, CardActions, CardContent, Divider, Typography
 import axios from "axios";
 import * as React from 'react';
 import {Skeleton} from "@mui/lab";
+import ChangePassword from "./changepwd";
 
 
 const sample = {
@@ -17,7 +18,7 @@ const sample = {
 export default class AccountProfile extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {user: sample, id: props.id, isLoad: false}
+        this.state = {user: sample, id: props.id, isLoad: false, isOpen: false}
     }
 
     UNSAFE_componentWillMount() {
@@ -34,68 +35,74 @@ export default class AccountProfile extends React.Component {
 
     render() {
         return (
-            <Card>
-                <CardContent>
-                    <Box
-                        sx={{
-                            alignItems: 'center',
-                            display: 'flex',
-                            flexDirection: 'column'
-                        }}
-                    >
-                        <Avatar
-                            src={this.state.user.avatar}
+            <>
+                <Card>
+                    <CardContent>
+                        <Box
                             sx={{
-                                height: 64,
-                                mb: 2,
-                                width: 64
+                                alignItems: 'center',
+                                display: 'flex',
+                                flexDirection: 'column'
                             }}
-                        />
-                        <Typography
-                            color="textPrimary"
-                            gutterBottom
-                            variant="h5"
                         >
-                            {this.state.isLoad ? this.state.user.user_name :
-                                <Skeleton variant="rectangular" width={170} height={40}/>}
-                        </Typography>
-                        <Typography
-                            color="textSecondary"
-                            variant="body2"
+                            <Avatar
+                                src={this.state.user.avatar}
+                                sx={{
+                                    height: 64,
+                                    mb: 2,
+                                    width: 64
+                                }}
+                            />
+                            <Typography
+                                color="textPrimary"
+                                gutterBottom
+                                variant="h5"
+                            >
+                                {this.state.isLoad ? this.state.user.user_name :
+                                    <Skeleton variant="rectangular" width={170} height={40}/>}
+                            </Typography>
+                            <Typography
+                                color="textSecondary"
+                                variant="body2"
+                            >
+                                {this.state.isLoad ? `${this.state.user.user_email}` :
+                                    <Skeleton variant="rectangular" width={200} height={25}/>}
+                            </Typography>
+                            <Typography
+                                color="textSecondary"
+                                variant="body2"
+                            >
+                                {this.state.isLoad ? Intl.DateTimeFormat().resolvedOptions().timeZone :
+                                    <Skeleton variant="rectangular" width={120} height={25}/>}
+                            </Typography>
+                        </Box>
+                    </CardContent>
+                    <Divider/>
+                    <CardActions>
+                        <Button
+                            color="primary"
+                            fullWidth
+                            variant="text"
                         >
-                            {this.state.isLoad ? `${this.state.user.user_email}` :
-                                <Skeleton variant="rectangular" width={200} height={25}/>}
-                        </Typography>
-                        <Typography
-                            color="textSecondary"
-                            variant="body2"
+                            Upload picture
+                        </Button>
+                    </CardActions>
+                    <CardActions>
+                        <Button
+                            color="primary"
+                            fullWidth
+                            variant="text"
+                            onClick={() => this.setState({isOpen: true})}
                         >
-                            {this.state.isLoad ? Intl.DateTimeFormat().resolvedOptions().timeZone :
-                                <Skeleton variant="rectangular" width={120} height={25}/>}
-                        </Typography>
-                    </Box>
-                </CardContent>
-                <Divider/>
-                <CardActions>
-                    <Button
-                        color="primary"
-                        fullWidth
-                        variant="text"
-                    >
-                        Upload picture
-                    </Button>
-                </CardActions>
-                <CardActions>
-                    <Button
-                        color="primary"
-                        fullWidth
-                        variant="text"
-                    >
-                        Change Password
-                    </Button>
-                </CardActions>
-            </Card>
+                            Change Password
+                        </Button>
+                    </CardActions>
+                </Card>
+                {this.state.isOpen ? <ChangePassword setIsOpen={()=>this.setState({isOpen:false})}/> : <div/>}
+            </>
         )
     }
 
 }
+
+

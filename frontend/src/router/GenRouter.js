@@ -36,7 +36,7 @@ const routes = [
     {
         path: '/',
         auth: false,
-        role:["user","admin"],
+        role: ["user", "admin"],
         component: Homepage,
         children: [
             {
@@ -58,71 +58,72 @@ const routes = [
                 role: ["user", "admin"],
 
                 component: WishList
-            }
-        ]
-    }, {
-        path: '/wish',
-        auth: false,
-        component: WishContentProvider,
-        role:["user","admin"],
-        children: [
-            {
-                path: '',
+            }, {
+                path: '/wishForm',
                 auth: false,
-                component: CategoryW
+                role: ["user", "admin"],
+                component: WishFormProvider
+            },
+            {
+                path: '/wish',
+                auth: false,
+                component: WishContentProvider,
+                role: ["user", "admin"],
+                children: [
+                    {
+                        path: '',
+                        auth: false,
+                        component: CategoryW
 
+                    },
+                ]
+            },
+            {
+                path: '/wishlist/:id',
+                auth: false,
+                role: ["user", "admin"],
+                component: WishListContentProvider
+            }, {
+                path: '/cart/:id',
+                auth: false,
+                role: ["user", "admin"],
+                component: DetailContentProvider
             },
         ]
-    },
-    {
-        path: '/wishlist/:id',
-        auth: false,
-        role:["user","admin"],
-        component: WishListContentProvider
-    }, {
-        path: '/cart/:id',
-        auth: false,
-        role:["user","admin"],
-        component: DetailContentProvider
-    }, {
-        path: '/wishForm',
-        auth: false,
-        role:["user","admin"],
-        component: WishFormProvider
     }, {
         path: '/login',
         auth: false,
-        role:["user","admin"],
+        role: ["user", "admin"],
         component: LogIn
     }, {
         path: '/signup',
         auth: false,
-        role:["user","admin"],
+        role: ["user", "admin"],
         component: SignUp
     },
     {
         path: '/account',
         auth: true,
-        role:["user","admin"],
+        role: ["user", "admin"],
         component: Account
     },
     {
         path: '/findpwd',
         auth: false,
-        role:["user","admin"],
+        role: ["user", "admin"],
         component: FPassword
     },
     {
         path: '/paytest',
         auth: false,
-        role:["user","admin"],
+        role: ["user", "admin"],
         component: Payc
     },
     {
         path: '/order',
         auth: false,
         component: OrderP,
-        role:["user","admin"],
+        role: ["user", "admin"],
         children: [
             {
                 path: '/order/myorder',
@@ -154,19 +155,19 @@ const routes = [
         path: '/adlogin',
         auth: false,
         component: AdminLogIn,
-        role:["user","admin"],
+        role: ["user", "admin"],
     },
     {
         path: '/adsignup',
         auth: false,
         component: AdminSignUp,
-        role:["user","admin"],
+        role: ["user", "admin"],
     },
     {
         path: '/admin',
         auth: true,
         component: Dashboard,
-        role:["admin"],
+        role: ["admin"],
         children: [
             {
                 path: '',
@@ -215,7 +216,7 @@ const routes = [
     {
         path: '/*',
         auth: false,
-        role:["user","admin"],
+        role: ["user", "admin"],
         component: NoMatch
     },
 ]
@@ -241,7 +242,7 @@ const generateRouter = (routers) => {
 
         item.element =
 
-            <BeforeEach >
+            <BeforeEach>
                 <item.component/>
             </BeforeEach>
 

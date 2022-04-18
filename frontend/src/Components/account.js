@@ -8,12 +8,15 @@ import Background from "../picture/background.png";
 import {_local} from "../logic/local$sess";
 import BeforEach from "../router/BeforEach";
 import cookie from "react-cookies";
+import AccountProvider from "../tools/useAccount";
+import ChangePassword from "./account/changepwd";
 
 export default function Account(props) {
     const id = cookie.load("login")
 
+
     return (
-        <>
+        <AccountProvider>
             <div style={{
                 width: '100%',
                 height: 1500,
@@ -57,7 +60,8 @@ export default function Account(props) {
                         </Grid>
                     </Container>
                 </Box>
+                {/*<ChangePassword/>*/}
             </div>
-        </>
+        </AccountProvider>
     );
 }
