@@ -28,6 +28,13 @@ def create_checkout_session(an_order):
         resp.status_code = status_code
         database.session.close()
         return resp
+    if order.order_total <= 0:
+        status_code = 400
+        output_message['message'] = 'This order total must be greater than zero.'
+        resp = make_response(output_message)
+        resp.status_code = status_code
+        database.session.close()
+        return resp
 
     product_name = 'Gift Name'
     product_image = ['https://hbimg.huabanimg.com/fbf18a5314f750da671711dfb176cf8791fbc687153d-g7YSBF_fw658/format/webp']

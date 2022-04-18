@@ -64,6 +64,7 @@ class CreateCheckoutSession(Resource):
     @create_order_part_namespace.expect(create_order_part_dto.payment_order_parser)
     @create_order_part_namespace.response(200, 'redirect to payment page')
     @create_order_part_namespace.response(404, 'not found')
+    @create_order_part_namespace.response(400, 'order total must be greater than zero')
     def post():
         an_order = create_order_part_dto.payment_order_parser.parse_args()
         resp = create_checkout_session(an_order)
