@@ -18,7 +18,7 @@ import {getInitials} from '../../../logic/get-initials';
 import BasicModal from "./Order-list-change";
 import {useAdmin} from "../../../tools/useAdmin";
 
-export const OrderListResults = ({gift, ...rest}) => {
+export const OrderListResults = ({order, ...rest}) => {
     const {selectedGiftIds, setSelectedGiftIds} = useAdmin();
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(0);
@@ -27,7 +27,7 @@ export const OrderListResults = ({gift, ...rest}) => {
         let newSelectedGiftIds;
 
         if (event.target.checked) {
-            newSelectedGiftIds = gift.map((customer) => customer.id);
+            newSelectedGiftIds = order.map((customer) => customer.id);
         } else {
             newSelectedGiftIds = [];
         }
@@ -71,11 +71,11 @@ export const OrderListResults = ({gift, ...rest}) => {
                             <TableRow>
                                 <TableCell padding="checkbox">
                                     <Checkbox
-                                        checked={selectedGiftIds.length === gift.length}
+                                        checked={selectedGiftIds.length === order.length}
                                         color="primary"
                                         indeterminate={
                                             selectedGiftIds.length > 0
-                                            && selectedGiftIds.length < gift.length
+                                            && selectedGiftIds.length < order.length
                                         }
                                         onChange={handleSelectAll}
                                     />
@@ -101,7 +101,7 @@ export const OrderListResults = ({gift, ...rest}) => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {gift.slice(limit * (page), limit * (page + 1)).map((gift) => (
+                            {order.slice(limit * (page), limit * (page + 1)).map((gift) => (
                                 <TableRow
                                     hover
                                     key={gift.id}
@@ -166,7 +166,7 @@ export const OrderListResults = ({gift, ...rest}) => {
             </PerfectScrollbar>
             <TablePagination
                 component="div"
-                count={gift.length}
+                count={order.length}
                 onPageChange={handlePageChange}
                 onRowsPerPageChange={handleLimitChange}
                 page={page}
@@ -178,5 +178,5 @@ export const OrderListResults = ({gift, ...rest}) => {
 };
 
 OrderListResults.propTypes = {
-    gift: PropTypes.array.isRequired
+    order: PropTypes.array.isRequired
 };

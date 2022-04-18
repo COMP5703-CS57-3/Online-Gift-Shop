@@ -65,7 +65,7 @@ export default function AdminLogIn(props) {
                     if (response.toString().indexOf("403") !== -1) {
                         alert("User did not exit, please sign up first")
                     } else if (response.toString().indexOf("404") !== -1) {
-                        alert("Unknown Error")
+                        alert("User not exit")
                     } else if (response.toString().indexOf("400") !== -1) {
                         alert("Please input correct password")
                     }
