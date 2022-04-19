@@ -108,6 +108,17 @@ export default function BasicModal() {
 
     const submit = e => {
         e.preventDefault();
+        if(sizes.length===0){
+            let newSizes = []
+            for(let j =0;j<loop;j++){
+                const sizeTemplate = {
+                    size: size[j].size,
+                    size_stock: size[j].size_stock
+                }
+                newSizes.push(sizeTemplate)
+            }
+            console.log(newSizes)
+        }
         console.log(sizes)
         // changeItemCount(selectedGiftIds[0],
         //     giftNameProps,
@@ -123,7 +134,7 @@ export default function BasicModal() {
         //     // show2Props.value,
         //     // show3Props.value,
         //     // show4Props.value,
-        //     size);
+        //     sizes);
         setOpen(false)
         console.log(show1Props.value);
     }
