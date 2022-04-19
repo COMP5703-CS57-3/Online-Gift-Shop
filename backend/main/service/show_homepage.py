@@ -400,22 +400,22 @@ def show_side_category_method(category, side_category1, side_category2, sort):
                                                Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(
                         gift_side_category2=side_category2).order_by(Gifts.id.asc()).all()
                 elif sort == 'price-high-to-low':
-                    gifts = gifts = Gifts.query.filter(Gifts.gift_category.notin_(['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
+                    gifts = Gifts.query.filter(Gifts.gift_category.notin_(['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
                       'Christmas', 'EasterDay', 'NewYear', 'Graduate']),
                                                Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(gift_side_category2=side_category2).order_by(
                         Gifts.gift_price.desc).all()
                 elif sort == 'price-low-to-high':
-                    gifts = gifts = Gifts.query.filter(Gifts.gift_category.notin_(['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
+                    gifts = Gifts.query.filter(Gifts.gift_category.notin_(['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
                       'Christmas', 'EasterDay', 'NewYear', 'Graduate']),
                                                Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(gift_side_category2=side_category2).order_by(
                         Gifts.gift_price.asc()).all()
                 elif sort == 'popular':
-                    gifts = gifts = Gifts.query.filter(Gifts.gift_category.notin_(['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
+                    gifts = Gifts.query.filter(Gifts.gift_category.notin_(['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
                       'Christmas', 'EasterDay', 'NewYear', 'Graduate']),
                                                Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(gift_side_category2=side_category2).order_by(
                         Gifts.gift_sales.desc()).all()
                 elif sort == 'discountprice':
-                    gifts = gifts = Gifts.query.filter(Gifts.gift_category.notin_(['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
+                    gifts = Gifts.query.filter(Gifts.gift_category.notin_(['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
                       'Christmas', 'EasterDay', 'NewYear', 'Graduate']),
                                                Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(gift_side_category2=side_category2).order_by(
                         Gifts.gift_discount_price.desc()).all()
@@ -485,3 +485,145 @@ def show_side_category_method(category, side_category1, side_category2, sort):
         output_message.status_code = status_code
         database.session.close()
         return output_message
+
+
+
+
+def just_search_side_category_method(side_category1, side_category2, sort):
+    gift_model = {
+        'id': 1,
+        'gift_name': "fields.String",
+        'gift_price': "fields.String",
+        'gift_discount_price': 1.0,
+        'gift_discount_state': "fields.String",
+        'gift_description': "fields.String",
+        'gift_category': "fields.String",
+        'gift_side_category1': "fields.String",
+        'gift_side_category2': "fields.String",
+        'gift_cover_url': "fields.String",
+        'gift_show_url1': "fields.String",
+        'gift_show_url2': "fields.String",
+        'gift_show_url3': "fields.String",
+        'gift_show_url4': "fields.String",
+        'gift_sales': 1,
+        'gift_income': 1.0
+    }
+    gifts_dict = {
+        "gifts": gift_model
+    }
+    response_data = {
+        "message": "Information waiting for confirmation"
+    }
+    side_category1 = side_category1
+    side_category2 = side_category2
+    sort = sort
+    all_type_sort = ['price-low-to-high', 'price-high-to-low', 'popular', 'discountprice']
+    side_categories1 = ['Male', 'Female']
+    other_side_categories = ['Other']
+    side_categories2 = ['Juvenile', 'Youth', 'Elderly']
+    # 在主side1里
+    if side_category1 in side_categories1:
+        # 在side2里
+        if side_category2 in side_categories2:
+            if side_category2 in side_categories2:
+                if sort not in all_type_sort:
+                    gifts = Gifts.query.filter_by(gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(Gifts.id.asc()).all()
+                elif sort == 'price-high-to-low':
+                    gifts = Gifts.query.filter_by(gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(Gifts.gift_price.desc).all()
+                elif sort == 'price-low-to-high':
+                    gifts = Gifts.query.filter_by(gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(Gifts.gift_price.asc()).all()
+                elif sort == 'popular':
+                    gifts = Gifts.query.filter_by(gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(Gifts.gift_sales.desc()).all()
+                elif sort == 'discountprice':
+                    gifts = Gifts.query.filter_by(gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(Gifts.gift_discount_price.desc()).all()
+        # 没在side2里
+        else:
+            response_data["message"] = "Do not have this side 2 category"
+            status_code = 404
+            output_message = make_response(response_data)
+            output_message.status_code = status_code
+            database.session.close()
+            return output_message
+   # 在side1的other里
+    elif side_category1 in other_side_categories:
+        # 在side2里
+        if side_category2 in side_categories2:
+            if side_category2 in side_categories2:
+                if sort not in all_type_sort:
+                    # gifts = Gifts.query.filter(Gifts.gift_category not in top_categories, Gifts.gift_side_category1 not in side_categories1,).filter_by(gift_side_category2=side_category2).order_by(Gifts.id.desc()).all()
+                    gifts = Gifts.query.filter(
+                        Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(
+                        gift_side_category2=side_category2).order_by(Gifts.id.asc()).all()
+                elif sort == 'price-high-to-low':
+                    gifts = Gifts.query.filter(
+                        Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(
+                        gift_side_category2=side_category2).order_by(
+                        Gifts.gift_price.desc).all()
+                elif sort == 'price-low-to-high':
+                    gifts = Gifts.query.filter(
+                        Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(
+                        gift_side_category2=side_category2).order_by(
+                        Gifts.gift_price.asc()).all()
+                elif sort == 'popular':
+                    gifts = Gifts.query.filter(
+                        Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(
+                        gift_side_category2=side_category2).order_by(
+                        Gifts.gift_sales.desc()).all()
+                elif sort == 'discountprice':
+                    gifts = Gifts.query.filter(
+                        Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(
+                        gift_side_category2=side_category2).order_by(
+                        Gifts.gift_discount_price.desc()).all()
+        # 没在side2里
+        else:
+            response_data["message"] = "Do not have this side 2 category"
+            status_code = 404
+            output_message = make_response(response_data)
+            output_message.status_code = status_code
+            database.session.close()
+            return output_message
+    # 跟side1没有关系
+    else:
+        response_data["message"] = "Do not have this side 1 category"
+        status_code = 404
+        output_message = make_response(response_data)
+        output_message.status_code = status_code
+        database.session.close()
+        return output_message
+    if gifts:
+        List = []
+        for o in gifts:
+            p_list = {"id": o.id,
+                      "gift_name": o.gift_name,
+                      "gift_price": o.gift_price,
+                      "gift_discount_price": o.gift_discount_price,
+                      "gift_discount_state": o.gift_discount_state,
+                      "gift_description": o.gift_description,
+                      "gift_category": o.gift_category,
+                      "gift_cover_url": o.gift_cover_url,
+                      "gift_side_category1": o.gift_side_category1,
+                      "gift_side_category2": o.gift_side_category2,
+                      "gift_show_url1": o.gift_show_url1,
+                      "gift_show_url2": o.gift_show_url2,
+                      "gift_show_url3": o.gift_show_url3,
+                      "gift_show_url4": o.gift_show_url4,
+                      "gift_sales": o.gift_sales,
+                      "gift_income": o.gift_income}
+            List.append(p_list)
+        gifts_dict["gifts"] = List
+        # gifts_dict["gifts"] = List
+        # gift_model_json = make_response(L)
+        # gift_model_json = List
+        # gifts_dict["gifts"] = gift_model
+        gift_dict_json = make_response(gifts_dict)
+        gift_dict_json = gifts_dict
+        database.session.close()
+        return gift_dict_json
+    else:
+        response_data["message"] = "Do not have gifts in this category"
+        status_code = 404
+        output_message = make_response(response_data)
+        output_message.status_code = status_code
+        database.session.close()
+        return output_message
+
