@@ -12,8 +12,10 @@ import countries from "../../data/CountrySelect";
 import states from "../../data/ProvinceSelect";
 import Button from "@mui/material/Button";
 import Background from "../../picture/background.png";
+import cookie from "react-cookies";
 
-export default function WishForm({owner_id}) {
+export default function WishForm() {
+    const owner_id = cookie.load("login");
     const [address1,setAddress1] = useState(countries[12].label.toString());
     const [address2,setAddress2] = useState(states[0].label);
     const [titleProps,resetTitle] = useInput("123");
