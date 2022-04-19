@@ -31,7 +31,7 @@ export default function CategoryG(){
         return <Loading/>
     }
     return(
-        <ImageList sx={{width:1000,height:850,}} cols={3} gap={50} >
+        <ImageList sx={{width:1000,height:910,}} cols={3} gap={50} >
             {gifts.map((gift,i) =>(
                     <GiftItem key={i} {...gift}/>
             ))}

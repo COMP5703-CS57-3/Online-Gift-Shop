@@ -14,9 +14,9 @@ export default class Homepage extends React.Component {
             <GiftProvider>
                 <div style={{
                     width: '100%',
-                    height: 1000,
+                    height: 1200,
                     backgroundImage: "url(" + Background + ")",
-                    backgroundRepeat: "no-repeat"
+                    backgroundRepeat: "repeat"
                 }}>
                     <AccountMenu/>
                     <Outlet/>

@@ -30,28 +30,10 @@ export default function GiftProvider({children}){
             setLoading(false);
         }).then(console.log);
     }
-    const maleCategory = (top,sort)=> {
+    const TopCategory = (top,sort)=> {
         setError("normal")
         setLoading(true)
         fetch("http://127.0.0.1:5000/main_home_page/"+top+", "+sort).then(res => res.json()).then(
-            res => {
-                setGifts(res.gifts);
-                setLoading(false)
-            }).then(console.log);
-    }
-    const femaleCategory = (top,sort)=> {
-        setError("normal")
-        setLoading(true)
-        fetch("http://127.0.0.1:5000/main_home_page/" + top + ", " + sort).then(res => res.json()).then(
-            res => {
-                setGifts(res.gifts);
-                setLoading(false)
-            }).then(console.log);
-    }
-    const  teenagerCategory = (top,sort)=> {
-        setError("normal")
-        setLoading(true)
-        fetch("http://127.0.0.1:5000/main_home_page/" + top + ", "+ sort).then(res => res.json()).then(
             res => {
                 setGifts(res.gifts);
                 setLoading(false)
@@ -106,7 +88,7 @@ export default function GiftProvider({children}){
          }).catch(setError)
     }
     return(
-        <GiftContext.Provider value={{gifts,currentGift,getGifts,topBar,setTopBar,maleCategory,homeCategory, femaleCategory, teenagerCategory,agedCategory,SideCategory,getSize,currentSize,loading,error,setLoading,getGiftDetail}}>
+        <GiftContext.Provider value={{gifts,currentGift,getGifts,topBar,setTopBar,TopCategory,homeCategory,agedCategory,SideCategory,getSize,currentSize,loading,error,setLoading,getGiftDetail}}>
             {children}
         </GiftContext.Provider>
     )

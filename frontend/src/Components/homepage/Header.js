@@ -19,6 +19,7 @@ import cookie from "react-cookies";
 import {_local} from "../../logic/local$sess";
 import BeforeEach from "../../router/BeforEach";
 import {useApp} from "../../tools/useApp";
+import Logo from "../../picture/Logo.png";
 
 
 export default function AccountMenu() {
@@ -56,7 +57,19 @@ export default function AccountMenu() {
                 <Box sx={{display: 'flex', width: '100%', justifyContent: 'center'}}>
 
                     <Box sx={{display: 'flex', alignItems: 'center', textAlign: 'center'}}>
-                        <Typography sx={{minWidth: 200, paddingRight: 75}}>Online Gift Shop</Typography>
+                        {/*<Typography sx={{minWidth: 200, paddingRight: 75,backgroundImage: "url(" + Logo + ")",}}>Online Gift Shop</Typography>*/}
+                        <Box
+                            component="img"
+                            sx={{
+                                paddingTop:2,
+                                minWidth: 200,
+                                paddingRight: 75,
+                                width:200,
+                                height:50
+                            }}
+                            alt="pic"
+                            src={Logo}
+                            />
                         <Button sx={{minWidth: 100}} onClick={click}>Home</Button>
                         <Typography sx={{minWidth: 100}}>Shop</Typography>
                         <Typography sx={{minWidth: 100}}>Contact</Typography>
@@ -116,6 +129,12 @@ export default function AccountMenu() {
                     <MenuItem>
                         <Avatar/> <Link style={{textDecoration: 'none'}} to={{pathname: "/wishlist"}}> My
                         WhishList</Link>
+                    </MenuItem>
+                    <MenuItem>
+                        <ListItemIcon>
+                            <PersonAdd fontSize="small"/>
+                        </ListItemIcon>
+                        My Order
                     </MenuItem>
                     <Divider/>
                     <MenuItem>

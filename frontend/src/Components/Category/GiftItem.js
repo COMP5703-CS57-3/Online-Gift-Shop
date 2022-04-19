@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 import {ImageListItem, ImageListItemBar} from "@mui/material";
+import {alpha} from "@mui/material/styles";
 
 export default function GiftItem({id,gift_name,gift_price,gift_category,gift_side_category1,gift_side_category2,gift_discount_price,gift_cover_url}) {
     let navigate = useNavigate();
@@ -15,7 +16,8 @@ export default function GiftItem({id,gift_name,gift_price,gift_category,gift_sid
             borderRadius: '20px',
             boxShadow: 1,
             fontWeight: 'bold',
-            width:280
+            width:280,
+            maxHeight:460
         }}
     >
         <ImageListItem >
@@ -35,19 +37,22 @@ export default function GiftItem({id,gift_name,gift_price,gift_category,gift_sid
                 src= {gift_cover_url}
             />
             <ImageListItemBar
-                title={<Box style={{ textAlign: "center"}}>{gift_name}</Box>}
+                title={<Box style={{ textAlign: "center",fontSize:18}}>{gift_name}</Box>}
                 subtitle={
                     <Box style={{ textAlign: "center"}}>
-                        <p>{gift_category},{gift_side_category1},{gift_side_category2}</p>
-                        <Box sx={{fontSize:25}}>${gift_discount_price}</Box>
+                        <Box sx={ {
+                            fontSize:14,
+                            lineHeight:2,
+                            color: 'primary.main',
+                        }}
+                        >
+                            {gift_category},{gift_side_category1},{gift_side_category2}
+                        </Box>
+                        <Box sx={{fontSize:25,lineHeight:1}}>${gift_discount_price}</Box>
                                 </Box>
                         }
                         position="below"
                     />
-                    {/*<ImageListItemBar*/}
-                    {/*    title={<Box style={{ textAlign: "center"}}>${gift.gift_discount_price}</Box>}*/}
-                    {/*    position="below"*/}
-                    {/*/>*/}
                     <Button  onClick={nav}>Learn More</Button>
                 </ImageListItem>
         </Box>
