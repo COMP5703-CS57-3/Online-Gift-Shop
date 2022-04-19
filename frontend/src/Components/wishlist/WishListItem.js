@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 
 export default function WishListItem({wishlist_id,wishlist_name,first_name,last_name,state}) {
     let navi = useNavigate();
-    const nav =()=> navi("/wishlist/"+wishlist_id);
+    const nav =()=> navi("/wish/wishlist/"+wishlist_id);
   return (
     <Box
       sx={{

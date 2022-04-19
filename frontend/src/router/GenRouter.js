@@ -33,6 +33,8 @@ import AdminLogIn from "../Components/admin/login";
 import AdminSignUp from "../Components/admin/signup";
 import Test from "../Components/normal/Test";
 import Orders from "../Components/order";
+import WishListDetail from "../Components/Detail/WishListDetail";
+import WishForm from "../Components/wishlist/WishForm";
 
 const routes = [
     {
@@ -55,37 +57,30 @@ const routes = [
                 component: Cart
             },
             {
-                path: '/wishlist',
-                auth: true,
-                role: ["user", "admin"],
-
-                component: WishList
-            }, {
-                path: '/wishForm',
-                auth: false,
-                role: ["user", "admin"],
-                component: WishFormProvider
-            },
-            {
                 path: '/wish',
                 auth: false,
                 component: WishContentProvider,
                 role: ["user", "admin"],
                 children: [
                     {
-                        path: '',
+                        path: '/wish',
                         auth: false,
                         component: CategoryW
 
-                    },
+                    },{
+                        path: '/wish/wishForm',
+                        auth: false,
+                        role: ["user", "admin"],
+                        component: WishForm
+                    },{
+                        path: '/wish/wishlist/:id',
+                        auth: false,
+                        role: ["user", "admin"],
+                        component: WishListDetail
+                    }
                 ]
             },
-            {
-                path: '/wishlist/:id',
-                auth: false,
-                role: ["user", "admin"],
-                component: WishListContentProvider
-            }, {
+             {
                 path: '/gift/:id',
                 auth: false,
                 role: ["user", "admin"],

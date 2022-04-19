@@ -32,6 +32,7 @@ export default function WishProvider({children}){
     // },[login])
     let navi = useNavigate();
     const getWish = (id)=>{
+        console.log(123)
         setLoading2(true)
         if(!login) {
             setError2("User not logged in");
@@ -47,7 +48,7 @@ export default function WishProvider({children}){
         });
     }
     const deleteWish = (ownerId,wishId)=>{
-        const nav =()=> navi("/wishlist");
+        const nav =()=> navi("/wish");
         fetch("http://127.0.0.1:5000/wishlist/delete", {
             method: 'POST',
             body: JSON.stringify(
@@ -64,7 +65,7 @@ export default function WishProvider({children}){
         });
     }
     const createWish = (id,firstname,lastname,wishlistnameP,descriptionP,addressP,phoneP,postcodeP,timeP)=>{
-        const nav =()=> navi("/wishlist");
+        const nav =()=> navi("/wish");
         fetch("http://127.0.0.1:5000/wishlist/create", {
             method: 'POST',
             body: JSON.stringify(
@@ -79,15 +80,9 @@ export default function WishProvider({children}){
                     postcode:postcodeP,
                     user_expected_delivery_time:timeP
                 })
-        }).then(console.log);
-        fetch("http://127.0.0.1:5000/wishlist/show", {
-            method: 'POST',
-            body: JSON.stringify({owner_id:login})
-        }).then(res=>res.json()).then(res=>{
-            setWish(res.wishlists_inf);
-            nav();
+        }).then(console.log).then(()=>{
+            nav()
         });
-
     }
 
     const addProduct = (ownerId,wishlistId,productId,sizeA)=>{

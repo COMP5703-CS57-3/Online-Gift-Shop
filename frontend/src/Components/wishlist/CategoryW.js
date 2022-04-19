@@ -17,14 +17,14 @@ export default function CategoryW() {
     const [second,setSecond] = useState(false)
     const {loading2,getWish,setLoading2} = useWish();
     const location = useLocation()
-    const navi =()=> navigate("/wishForm")
+    const navi =()=> navigate("/wish/wishForm")
     useEffect(()=>{
         setLoading2(true)
         setSecond(true)
         getWish(user)
     },[])
     if(!user){
-        return <h2>please log in first</h2>
+        return <Navigate to='/login' state={{ from: location }} replace/>
     }
     if (loading2||!second) {
         return (
@@ -51,7 +51,7 @@ export default function CategoryW() {
             }}>
                 <Container maxWidth="lg" style={{backgroundColor: "white"}} sx={{boxShadow: 1, borderRadius: 2}}>
                     <Button onClick={navi}>wishForm</Button>
-                    <h3>user do not have wish lsit, please create one</h3>
+                    <h3>user do not have wish list, please create one</h3>
                 </Container>
             </Box>
     }
