@@ -32,6 +32,7 @@ import OrderDetail from "../Components/Order/OrderDetail";
 import AdminLogIn from "../Components/admin/login";
 import AdminSignUp from "../Components/admin/signup";
 import Test from "../Components/normal/Test";
+import Orders from "../Components/order";
 
 const routes = [
     {
@@ -89,8 +90,8 @@ const routes = [
                 auth: false,
                 role: ["user", "admin"],
                 component: DetailContentProvider
-            },{
-            path: '/test',
+            }, {
+                path: '/test',
                 auth: false,
                 role: ["user", "admin"],
                 component: Test
@@ -209,6 +210,12 @@ const routes = [
                 path: '/admin/cui',
                 auth: false,
                 component: Customers,
+                role: ["admin"],
+            },
+            {
+                path: '/admin/oui',
+                auth: false,
+                component: Orders,
                 role: ["admin"],
             },
             {

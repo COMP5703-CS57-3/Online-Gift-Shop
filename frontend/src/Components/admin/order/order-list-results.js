@@ -1,59 +1,16 @@
 import {useState} from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
-import {
-    Avatar,
-    Box,
-    Card,
-    Checkbox,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TablePagination,
-    TableRow,
-    Typography
-} from '@mui/material';
-import {getInitials} from '../../../logic/get-initials';
-import BasicModal from "./Order-list-change";
+import {Box, Card, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography} from '@mui/material';
 import {useAdmin} from "../../../tools/useAdmin";
+import {SeverityPill} from "../dashboard/severity-pill";
 
-export const OrderListResults = ({order, ...rest}) => {
-    const {selectedGiftIds, setSelectedGiftIds} = useAdmin();
+export const OrderListResults = ({orders, ...rest}) => {
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(0);
-
-    const handleSelectAll = (event) => {
-        let newSelectedGiftIds;
-
-        if (event.target.checked) {
-            newSelectedGiftIds = order.map((customer) => customer.id);
-        } else {
-            newSelectedGiftIds = [];
-        }
-
-        setSelectedGiftIds(newSelectedGiftIds);
-    };
-
-    const handleSelectOne = (event, id) => {
-        const selectedIndex = selectedGiftIds.indexOf(id);
-        let newSelectedGiftIds = [];
-        if (selectedIndex === -1) {
-            newSelectedGiftIds = newSelectedGiftIds.concat(selectedGiftIds, id);
-        } else if (selectedIndex === 0) {
-            newSelectedGiftIds = newSelectedGiftIds.concat(selectedGiftIds.slice(1));
-        } else if (selectedIndex === selectedGiftIds.length - 1) {
-            newSelectedGiftIds = newSelectedGiftIds.concat(selectedGiftIds.slice(0, -1));
-        } else if (selectedIndex > 0) {
-            newSelectedGiftIds = newSelectedGiftIds.concat(
-                selectedGiftIds.slice(0, selectedIndex),
-                selectedGiftIds.slice(selectedIndex + 1)
-            );
-        }
-        // console.log(newSelectedGiftIds)
-        setSelectedGiftIds(newSelectedGiftIds);
-    };
-
+    const {ChStateOpen, setChStateOpen} = useAdmin()
+    const {currOpen, setCurrOpen} = useAdmin()
+    const {ChangeStatus}=useAdmin()
     const handleLimitChange = (event) => {
         setLimit(event.target.value);
     };
@@ -69,50 +26,40 @@ export const OrderListResults = ({order, ...rest}) => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell padding="checkbox">
-                                    <Checkbox
-                                        checked={selectedGiftIds.length === order.length}
-                                        color="primary"
-                                        indeterminate={
-                                            selectedGiftIds.length > 0
-                                            && selectedGiftIds.length < order.length
-                                        }
-                                        onChange={handleSelectAll}
-                                    />
+                                <TableCell>
+                                    Status
                                 </TableCell>
                                 <TableCell>
-                                    Name
+                                    Receiver
                                 </TableCell>
                                 <TableCell>
-                                    Price
+                                    Buyer
                                 </TableCell>
                                 <TableCell>
-                                    Sales
+                                    Receiver Mobile
                                 </TableCell>
                                 <TableCell>
-                                    Income
-                                </TableCell>
-                                <TableCell>
-                                    Category
-                                </TableCell>
-                                <TableCell>
-                                    Operation
+                                    Delivery Address
                                 </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {order.slice(limit * (page), limit * (page + 1)).map((gift) => (
+                            {orders.slice(limit * (page), limit * (page + 1)).map((order) => (
                                 <TableRow
                                     hover
-                                    key={gift.id}
-                                    selected={selectedGiftIds.indexOf(gift.id) !== -1}
+                                    key={order.id}
                                 >
-                                    <TableCell padding="checkbox">
-                                        <Checkbox
-                                            checked={selectedGiftIds.indexOf(gift.id) !== -1}
-                                            onChange={(event) => handleSelectOne(event, gift.id)}
-                                            value="true"
-                                        />
+                                    <TableCell>
+                                        <SeverityPill
+                                            color={(order.order_state === 'waiting' && 'error')
+                                            || (order.order_state === 'completed' && 'success')
+                                            || 'warning'}
+                                            onClick={() => {
+                                                ChangeStatus(order.order_number)
+                                            }}
+                                        >
+                                            {order.order_state}
+                                        </SeverityPill>
                                     </TableCell>
                                     <TableCell>
                                         <Box
@@ -121,42 +68,34 @@ export const OrderListResults = ({order, ...rest}) => {
                                                 display: 'flex'
                                             }}
                                         >
-                                            <Avatar
-                                                src={gift.gift_cover_url}
-                                                sx={{mr: 2}}
-                                            >
-                                                {getInitials(gift.name)}
-                                            </Avatar>
                                             <Typography
                                                 color="textPrimary"
                                                 variant="body1"
                                             >
-                                                {gift.gift_name}
+                                                {`${order.first_name} ${order.last_name}`}
                                             </Typography>
                                         </Box>
                                     </TableCell>
                                     <TableCell>
-                                        {gift.gift_discount_state !== "100%" ?
-                                            <>
-                                                <Box sx={{
-                                                    textDecoration: "line-through"
-                                                }}>${gift.gift_price}
-                                                </Box>
-                                                <span>${gift.gift_discount_price}</span>
-                                            </> :
-                                            <Box>${gift.gift_price}</Box>}
+                                        <Box
+                                            sx={{
+                                                alignItems: 'center',
+                                                display: 'flex'
+                                            }}
+                                        >
+                                            <Typography
+                                                color="textPrimary"
+                                                variant="body1"
+                                            >
+                                                {order.payer_name}
+                                            </Typography>
+                                        </Box>
                                     </TableCell>
                                     <TableCell>
-                                        {gift.gift_sales}
+                                        {order.phone}
                                     </TableCell>
                                     <TableCell>
-                                        ${gift.gift_income}
-                                    </TableCell>
-                                    <TableCell>
-                                        {`${gift.gift_category}/${gift.gift_side_category1}/${gift.gift_side_category2}`}
-                                    </TableCell>
-                                    <TableCell>
-                                        <BasicModal/>
+                                        {`${order.address}, ${order.postcode}`}
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -166,7 +105,7 @@ export const OrderListResults = ({order, ...rest}) => {
             </PerfectScrollbar>
             <TablePagination
                 component="div"
-                count={order.length}
+                count={orders.length}
                 onPageChange={handlePageChange}
                 onRowsPerPageChange={handleLimitChange}
                 page={page}
@@ -178,5 +117,5 @@ export const OrderListResults = ({order, ...rest}) => {
 };
 
 OrderListResults.propTypes = {
-    order: PropTypes.array.isRequired
+    orders: PropTypes.array.isRequired
 };

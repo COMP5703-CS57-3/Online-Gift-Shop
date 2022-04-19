@@ -37,7 +37,7 @@ export default function WishForm({owner_id}) {
     }
     const submit = e=>{
         e.preventDefault();
-        const address = address1.toString()+" "+address2+" "+address3Props.value
+        const address = address1.toString()+", "+address2+", "+address3Props.value
         createWish(owner_id,firstnameProps.value,lastnameProps.value,titleProps.value,descriptionProps.value,address,phoneProps.value,postcodeProps.value,timeProps.value);
         // resetTitle();
         // resetAddress();

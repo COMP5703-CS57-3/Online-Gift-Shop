@@ -29,8 +29,9 @@ export default function AdminProvider({children}) {
             method: "POST"
         }).then(res => res.json()).then(
             res => {
+                console.log(res)
                 setOrderList(res.orders_inf)
-                setShownOrder(res.gifts_inf)
+                setShownOrder(res.orders_inf)
             }
         ).then(() => {
             setLoading(false)
@@ -170,48 +171,60 @@ export default function AdminProvider({children}) {
             setLoading(false)
         });
     }
-    return (
-        <AdminContext.Provider value={{
-            orderList,
-            getOrderList,
-            loading,
-            getUsers,
-            users,
-            getAllGifts,
-            gifts,
-            changeItemCount,
-            addItems,
-            removeItems,
-            state,
-            setState,
-            orderCompleted,
-            orderDelivery,
-            setGiftIds,
-            selectedCustomerIds,
-            shownGift,
-            setShownGift,
-            selectedGiftIds,
-            setSelectedGiftIds,
-            setSelectedCustomerIds,
-            shownUser,
-            setShownUser,
-            selectedOrderIds,
-            shownOrder,
-            setShownOrder,
-            setSelectedOrderIds,
-            totalOrderNumber,
-            completeOrderNumber,
-            totalAccountNumber,
-            totalWishlistNumber,
-            getTotalWishlist,
-            getTotalAccount,
-            getTotalOrders,
-            getCompleteOrders,
-            handleOpen,
-            handleClose,
 
-        }}>
-            {children}
-        </AdminContext.Provider>
-    )//
-}
+    const ChangeStatus=(currOpen)=> {
+        const states = ["waiting", "delivery", "completed"]
+        const currOrder = orderList.find((item) => item.order_number === currOpen)
+        const currStatus = currOrder.order_state
+        if (states.indexOf(currStatus) === 1) {
+            axios.post(`http://localhost:5000/order/set_an_order_as_completed/${currOpen}`).then(r => getOrderList()).catch(r=>console.log(r))
+        }
+        else if(states.indexOf(currStatus) === 0){
+             axios.post(`http://localhost:5000/order/set_an_order_as_delivery/${currOpen}`).then(r => getOrderList()).catch(r=>console.log(r))
+        }}
+
+        return (
+            <AdminContext.Provider value={{
+                orderList,
+                getOrderList,
+                loading,
+                getUsers,
+                users,
+                getAllGifts,
+                gifts,
+                changeItemCount,
+                addItems,
+                removeItems,
+                state,
+                setState,
+                orderCompleted,
+                orderDelivery,
+                setGiftIds,
+                selectedCustomerIds,
+                shownGift,
+                setShownGift,
+                selectedGiftIds,
+                setSelectedGiftIds,
+                setSelectedCustomerIds,
+                shownUser,
+                setShownUser,
+                selectedOrderIds,
+                shownOrder,
+                setShownOrder,
+                setSelectedOrderIds,
+                totalOrderNumber,
+                completeOrderNumber,
+                totalAccountNumber,
+                totalWishlistNumber,
+                getTotalWishlist,
+                getTotalAccount,
+                getTotalOrders,
+                getCompleteOrders,
+                handleOpen,
+                handleClose,
+                ChangeStatus
+            }}>
+                {children}
+            </AdminContext.Provider>
+        )//
+    }

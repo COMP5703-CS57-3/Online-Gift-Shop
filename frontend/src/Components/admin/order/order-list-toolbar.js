@@ -1,8 +1,5 @@
-import {Box, Button, Card, CardContent, InputAdornment, SvgIcon, TextField, Typography} from '@mui/material';
+import {Box, Card, CardContent, InputAdornment, SvgIcon, TextField, Typography} from '@mui/material';
 import {useAdmin} from "../../../tools/useAdmin";
-import BasicModal from "./Order-list-change";
-import EditItemForm from "../EditItemForm";
-import AddItemForm from "../AddItemForm";
 // import { Search as SearchIcon } from '../../icons/search';
 // import { Upload as UploadIcon } from '../../icons/upload';
 // import { Download as DownloadIcon } from '../../icons/download';
@@ -10,31 +7,26 @@ import AddItemForm from "../AddItemForm";
 export default function OrderListToolbar(props) {
     const {selectedOrderIds, orderList, setShownOrder} = useAdmin();
     const {removeItems} = useAdmin();
+
     // const {submit} = BasicModal();
 
-
-    function addGift() {
-        console.log("add")
-
-    }
-
-    function changeDes() {
-        console.log("change")
-        // const id = selectedCustomerIds;
-
-
-    }
-
-    function delGift() {
-        const id = selectedOrderIds[0]
-        removeItems(id)
-    }
 
     function search(e) {
         const shownOrder = []
         let j = 0
         for (let i in orderList) {
-            if (orderList[i].gift_name.split(e.target.value).length >1 || orderList[i].id.toString() === e.target.value) {
+            if (
+                orderList[i].first_name.split(e.target.value).length > 1 ||
+                orderList[i].last_name.split(e.target.value).length > 1 ||
+                orderList[i].payer_name.split(e.target.value).length > 1 ||
+                orderList[i].order_number.toString() === e.target.value ||
+                orderList[i].wishlist_code.toString() === e.target.value ||
+                orderList[i].payer_id.toString() === e.target.value ||
+                orderList[i].phone.toString() === e.target.value ||
+                orderList[i].last_name.split(e.target.value).length > 1 ||
+                orderList[i].user_id.toString() === e.target.value
+
+            ) {
                 shownOrder[j++] = orderList[i]
             }
         }
@@ -57,34 +49,9 @@ export default function OrderListToolbar(props) {
                     sx={{m: 1}}
                     variant="h3"
                 >
-                    Gifts
+                    Orders
                 </Typography>
                 <Box sx={{m: 1}}>
-
-                    <Button
-                        color="primary"
-                        variant="contained"
-                        onClick={() => addGift()}
-                    >
-                        Add Gift
-                    </Button>
-                    <Button
-                        color="primary"
-                        variant="contained"
-                        onClick={() => delGift()}
-                        disabled={selectedOrderIds.length < 1}
-                    >
-                        Delete
-                    </Button>
-                    <Button
-                        color="primary"
-                        variant="contained"
-                        onClick={() => changeDes()}
-                        disabled={selectedOrderIds.length !== 1}
-                    >
-                        Change Description
-                    </Button>
-
                 </Box>
             </Box>
             <Box sx={{mt: 3}}>
@@ -104,7 +71,7 @@ export default function OrderListToolbar(props) {
                                         </InputAdornment>
                                     )
                                 }}
-                                placeholder="Search Gift name"
+                                placeholder="Search Order id or user name or sth."
                                 variant="outlined"
                                 onChange={(e) => search(e)}
                             />

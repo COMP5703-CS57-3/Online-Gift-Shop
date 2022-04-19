@@ -31,7 +31,7 @@ const Orders = () => {
                     <OrderListToolbar/>
                     <Box sx={{mt: 3}}>
                         {/*{console.log(shownGift)}*/}
-                        <OrderListResults order={shownOrder}/>
+                        <OrderListResults orders={shownOrder}/>
                     </Box>
                 </Container>
             </Box>
