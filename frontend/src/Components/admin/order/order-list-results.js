@@ -4,14 +4,10 @@ import PropTypes from 'prop-types';
 import {Box, Card, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography} from '@mui/material';
 import {useAdmin} from "../../../tools/useAdmin";
 import {SeverityPill} from "../dashboard/severity-pill";
-import {CircularProgress} from "@material-ui/core";
 
 export const OrderListResults = ({orders, ...rest}) => {
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(0);
-
-    const {ChStateOpen, setChStateOpen} = useAdmin()
-    const {currOpen, setCurrOpen} = useAdmin()
     const {ChangeStatus} = useAdmin()
     const handleLimitChange = (event) => {
         setLimit(event.target.value);
@@ -44,6 +40,9 @@ export const OrderListResults = ({orders, ...rest}) => {
                                     </TableCell>
                                     <TableCell>
                                         Delivery Address
+                                    </TableCell>
+                                    <TableCell>
+                                        Expected Receive Date
                                     </TableCell>
                                 </TableRow>
                             </TableHead>
@@ -100,6 +99,9 @@ export const OrderListResults = ({orders, ...rest}) => {
                                         </TableCell>
                                         <TableCell>
                                             {`${order.address}, ${order.postcode}`}
+                                        </TableCell>
+                                        <TableCell>
+                                            {order.user_expected_delivery_time}
                                         </TableCell>
                                     </TableRow>
                                 ))}

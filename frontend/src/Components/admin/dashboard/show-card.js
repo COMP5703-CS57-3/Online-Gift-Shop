@@ -10,7 +10,7 @@ export const ShowCard = ({Title,getNumberFunc,Number,icon}) => {
 
     useEffect(() => {
         getNumberFunc();
-        console.log(Title)
+        // console.log(Title)
     }, [])
 
     return (

@@ -22,13 +22,16 @@ export default function AdminProvider({children}) {
     const [totalAccountNumber, setTotalAccountNumber] = useState();
     const [totalWishlistNumber, setTotalWishlistNumber] = useState();
     const [handleOpen, handleClose] = useState();
-    const [showLoading, setShowLoading]=useState(false);
+    const [showLoading, setShowLoading] = useState(false);
+    const [lastOrderList, setLastOrderList] = useState()
     const getOrderList = () => {
-        if (orderList === null) {
+        // console.log(orderList,loading)
+        if (orderList === undefined) {
             setLoading(true);
-        }
-        else{
+            // console.log("run")
+        } else{
             setShowLoading(true)
+            // setShownOrder(orderList)
         }
 
         fetch("http://127.0.0.1:5000/admin/admin_return_all_orders", {
@@ -189,7 +192,19 @@ export default function AdminProvider({children}) {
             axios.post(`http://localhost:5000/order/set_an_order_as_delivery/${currOpen}`).then(r => getOrderList()).catch(r => console.log(r))
         }
     }
+    const getLastOrderList = () => {
+        setLoading(true);
+        axios.post("http://localhost:5000/dashboard/return_new_orders").then(r => {
+                // console.log(r.data.orders_inf)
+                setLastOrderList(r.data.orders_inf)
 
+            }
+        ).catch(
+            r => console.log(r.response)
+        ).then(() =>
+            setLoading(false)
+        )
+    }
     return (
         <AdminContext.Provider value={{
             orderList,
@@ -232,6 +247,8 @@ export default function AdminProvider({children}) {
             ChangeStatus,
             showLoading,
             setLoading,
+            getLastOrderList,
+            lastOrderList
         }}>
             {children}
         </AdminContext.Provider>

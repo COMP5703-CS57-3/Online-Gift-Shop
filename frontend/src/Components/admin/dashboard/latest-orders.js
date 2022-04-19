@@ -1,117 +1,37 @@
-import {format} from 'date-fns';
-import {v4 as uuid} from 'uuid';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import {
-    Box,
-    Button,
-    Card,
-    CardHeader,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-    TableSortLabel,
-    Tooltip
-} from '@mui/material';
+import {Box, Button, Card, Table, TableBody, TableCell, TableHead, TableRow, Typography} from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import {SeverityPill} from './severity-pill';
 import {useNavigate} from "react-router-dom";
 
-const orders = [
-    {
-        id: uuid(),
-        ref: 'CDD1049',
-        amount: 30.5,
-        customer: {
-            name: 'Ekaterina Tankova'
-        },
-        createdAt: 1555016400000,
-        status: 'pending'
-    },
-    {
-        id: uuid(),
-        ref: 'CDD1048',
-        amount: 25.1,
-        customer: {
-            name: 'Cao Yu'
-        },
-        createdAt: 1555016400000,
-        status: 'delivered'
-    },
-    {
-        id: uuid(),
-        ref: 'CDD1047',
-        amount: 10.99,
-        customer: {
-            name: 'Alexa Richardson'
-        },
-        createdAt: 1554930000000,
-        status: 'refunded'
-    },
-    {
-        id: uuid(),
-        ref: 'CDD1046',
-        amount: 96.43,
-        customer: {
-            name: 'Anje Keizer'
-        },
-        createdAt: 1554757200000,
-        status: 'pending'
-    },
-    {
-        id: uuid(),
-        ref: 'CDD1045',
-        amount: 32.54,
-        customer: {
-            name: 'Clarke Gillebert'
-        },
-        createdAt: 1554670800000,
-        status: 'delivered'
-    },
-    {
-        id: uuid(),
-        ref: 'CDD1044',
-        amount: 16.76,
-        customer: {
-            name: 'Adam Denisov'
-        },
-        createdAt: 1554670800000,
-        status: 'delivered'
-    }
-];
 
-export const LatestOrders = (props) => {
-  const navigate=useNavigate()
+export const LatestOrders = ({orders}) => {
+    const navigate = useNavigate()
+
     return (
-        <Card {...props}>
-            <CardHeader title="Latest Orders"/>
+        <Card >
             <PerfectScrollbar>
-                <Box sx={{minWidth: 800}}>
+                <Box sx={{minWidth: 1050}}>
                     <Table>
                         <TableHead>
                             <TableRow>
                                 <TableCell>
-                                    Order Ref
-                                </TableCell>
-                                <TableCell>
-                                    Customer
-                                </TableCell>
-                                <TableCell sortDirection="desc">
-                                    <Tooltip
-                                        enterDelay={300}
-                                        title="Sort"
-                                    >
-                                        <TableSortLabel
-                                            active
-                                            direction="desc"
-                                        >
-                                            Date
-                                        </TableSortLabel>
-                                    </Tooltip>
-                                </TableCell>
-                                <TableCell>
                                     Status
+                                </TableCell>
+                                <TableCell>
+                                    Receiver
+                                </TableCell>
+                                <TableCell>
+                                    Buyer
+                                </TableCell>
+                                <TableCell>
+                                    Receiver Mobile
+                                </TableCell>
+                                <TableCell>
+                                    Delivery Address
+                                </TableCell>
+                                <TableCell>
+                                    Expected Receive Date
                                 </TableCell>
                             </TableRow>
                         </TableHead>
@@ -122,22 +42,52 @@ export const LatestOrders = (props) => {
                                     key={order.id}
                                 >
                                     <TableCell>
-                                        {order.ref}
-                                    </TableCell>
-                                    <TableCell>
-                                        {order.customer.name}
-                                    </TableCell>
-                                    <TableCell>
-                                        {format(order.createdAt, 'dd/MM/yyyy')}
-                                    </TableCell>
-                                    <TableCell>
                                         <SeverityPill
-                                            color={(order.status === 'delivered' && 'success')
-                                            || (order.status === 'refunded' && 'error')
+                                            color={(order.order_state === 'waiting' && 'error')
+                                            || (order.order_state === 'completed' && 'success')
                                             || 'warning'}
                                         >
-                                            {order.status}
+                                            {order.order_state}
                                         </SeverityPill>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Box
+                                            sx={{
+                                                alignItems: 'center',
+                                                display: 'flex'
+                                            }}
+                                        >
+                                            <Typography
+                                                color="textPrimary"
+                                                variant="body1"
+                                            >
+                                                {`${order.first_name} ${order.last_name}`}
+                                            </Typography>
+                                        </Box>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Box
+                                            sx={{
+                                                alignItems: 'center',
+                                                display: 'flex'
+                                            }}
+                                        >
+                                            <Typography
+                                                color="textPrimary"
+                                                variant="body1"
+                                            >
+                                                {order.payer_name}
+                                            </Typography>
+                                        </Box>
+                                    </TableCell>
+                                    <TableCell>
+                                        {order.phone}
+                                    </TableCell>
+                                    <TableCell>
+                                        {`${order.address}, ${order.postcode}`}
+                                    </TableCell>
+                                    <TableCell>
+                                        {order.user_expected_delivery_time}
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -145,6 +95,8 @@ export const LatestOrders = (props) => {
                     </Table>
                 </Box>
             </PerfectScrollbar>
+
+
             <Box
                 sx={{
                     display: 'flex',

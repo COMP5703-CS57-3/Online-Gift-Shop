@@ -1,14 +1,9 @@
 import {Box, Container} from '@mui/material';
 import {CustomerListResults} from './admin/customer/customer-list-results';
 import {CustomerListToolbar} from './admin/customer/customer-list-toolbar';
-
-
-import {v4 as uuid} from 'uuid';
 import {useAdmin} from "../tools/useAdmin";
 import React, {useEffect} from "react";
 import Loading from "./normal/Loading";
-
-
 
 
 export function Customers() {
@@ -16,13 +11,16 @@ export function Customers() {
     const {getUsers} = useAdmin()
     const {loading} = useAdmin()
     useEffect(() => {
-        getUsers()
+        if (!shownUser) {
+            getUsers()
+        }
+
     }, [])
-    if (loading||!shownUser) {
+    if (loading || !shownUser) {
         return <Loading/>
     }
     // console.log(shownUser)
-    if(shownUser) {
+    if (shownUser) {
         return (
             <>
                 <Box

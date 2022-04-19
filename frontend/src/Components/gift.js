@@ -12,7 +12,8 @@ const Gifts = () => {
     const {loading} = useAdmin()
 
     useEffect(() => {
-        getAllGifts();
+        if(!shownGift){
+        getAllGifts();}
     }, [])
     if (loading||!shownGift) {
         return <Loading/>

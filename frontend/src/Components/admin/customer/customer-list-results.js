@@ -90,14 +90,15 @@ export const CustomerListResults = ({users, ...rest}) => {
                                 <TableCell>
                                     Email
                                 </TableCell>
-                                <TableCell>
-                                    Address
-                                </TableCell>
+
                                 <TableCell>
                                     Phone
                                 </TableCell>
                                 <TableCell>
                                     Birthday
+                                </TableCell>
+                                <TableCell>
+                                    Address
                                 </TableCell>
                             </TableRow>
                         </TableHead>
@@ -139,14 +140,15 @@ export const CustomerListResults = ({users, ...rest}) => {
                                     <TableCell>
                                         {user.user_email}
                                     </TableCell>
-                                    <TableCell>
-                                        {user.user_address===null?"Not Provided":user.user_address}
-                                    </TableCell>
+
                                     <TableCell>
                                         {user.user_mobile}
                                     </TableCell>
                                     <TableCell>
                                         {user.user_date_of_birth===null?"Not Provided":user.user_date_of_birth}
+                                    </TableCell>
+                                    <TableCell>
+                                        {user.user_address===null?"Not Provided":user.user_address}
                                     </TableCell>
                                 </TableRow>
                             ))}
