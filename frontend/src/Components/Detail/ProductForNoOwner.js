@@ -13,16 +13,7 @@ import Stack from "@mui/material/Stack";
 
 
 
-export default function ProductDetail({products_id,product_name,product_cover,size,price,count,detail}){
-    const {changeCount} = useWish();
-    const {removeProduct} = useWish();
-    const [countProps,resetCount] = useInput(1);
-    const chang = ()=>{
-       changeCount(detail.wishlist_id,products_id,size,parseInt(countProps.value))
-    }//
-    const remove = ()=>{
-       removeProduct(detail.owner_id,detail.wishlist_id,products_id)
-    }////
+export default function ProductForNoOwner({products_id,product_name,product_cover,size,price,count,detail}){
     let navigate = useNavigate();
     const nav =()=> navigate("/gift/"+products_id);
     return(
@@ -124,24 +115,6 @@ export default function ProductDetail({products_id,product_name,product_cover,si
                         Count:{count}
                     </Box>
                           <Button size="small" onClick={nav}>Learn More</Button>
-                      </Stack>
-                      <TextField
-                                {...countProps}
-                              id="outlined-number"
-                              label="Number"
-                              type="number"
-                              InputLabelProps={{
-                                shrink: true,
-                              }}
-                          sx={{mt:2,maxWidth:150,maxHeight:25}}
-                      />
-                       <Stack direction="row"
-                             justifyContent="flex-start"
-                             alignItems="center"
-                             spacing={2}
-                       sx={{mt:4}}>
-                          <Button onClick={chang}> change count</Button>
-                          <Button onClick={remove}> remove the gift</Button>
                       </Stack>
                       </Stack>
                   </Box>

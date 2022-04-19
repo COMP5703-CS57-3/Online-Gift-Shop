@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import {useOrder} from "../../tools/useOrder";
-import {Button} from "@material-ui/core";
+import {Button, Grid} from "@material-ui/core";
 import {TextField} from "@mui/material";
 import Loading from "../normal/Loading";
+import ProductCard from "../Detail/ProductCard";
+import ProductForNoOwner from "../Detail/ProductForNoOwner";
 
 
 
@@ -50,12 +52,15 @@ export default function Payc() {
   ) : (
   <section>
     <div className="product">
-      <img
-        src="https://i.imgur.com/EHyR2nP.png"
-        alt="The cover of Stubborn Attachments"
-      />
+        <Grid container justifyContent="flex-start" alignItems="center" spacing={1} direction="row">
+            {detail.products.map((gift,i)=>(
+                <Grid key={i} item xs={6}>
+                    <ProductCard {...gift} detail={detail}/>
+                </Grid>
+            ))}
+        </Grid>
       <div className="description">
-      <h3>order Number: {detail.order_number} {detail.products[0].item_cover_url}</h3>
+      <h3>order Number: {detail.order_number} </h3>
       </div>
     </div>
 	   <form action="http://localhost:5000/order/create_checkout_session" method="post">
