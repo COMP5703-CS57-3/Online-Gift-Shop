@@ -1,11 +1,5 @@
 import React, {createContext, useState, useContext, useEffect} from "react";
 import giftdata from "../data/giftlist.json";
-import {v4} from "uuid";
-import Background from "../picture/background.png";
-import AccountMenu from "../Components/homepage/Header";
-import MainBody from "../Components/homepage/MainBody";
-import FastDial from "../Components/FastDial";
-import Loading from "../Components/normal/Loading";
 
 const GiftContext = createContext();
 export const useGift = ()=> useContext(GiftContext);
@@ -87,7 +81,7 @@ export default function GiftProvider({children}){
          fetch("http://127.0.0.1:5000/search/search_gift_id_return_size/"+id).then(res=>{
              let tt = res
              if(tt.status===404){
-                 setError(tt.status)
+                 setError("no size")
              }
              return res.json()
          }).then(res=>{
@@ -100,8 +94,15 @@ export default function GiftProvider({children}){
         setLoading(true)
          fetch("http://127.0.0.1:5000/search/search_gift_id/"+id).then(res=>res.json()
          ).then((res)=>{
-             setCurrentGift(res);
-             getSize(id)
+             let tt = res
+             console.log(tt)
+             if(tt.message==="this gift id does not exist"){
+                 setError("no gift")
+                 setLoading(false)
+             }else{
+                 setCurrentGift(res);
+                getSize(id)
+             }
          }).catch(setError)
     }
     return(

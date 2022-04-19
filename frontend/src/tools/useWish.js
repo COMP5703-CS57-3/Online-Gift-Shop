@@ -1,16 +1,14 @@
-import React, {createContext, useState, useContext, useEffect} from "react";
-import Wishlist2 from "../data/Wishlist2.json"
-import WishListItem from "../data/WIshListItems.json";
+import React, {createContext, useState, useContext} from "react";
 import {useNavigate} from "react-router-dom";
 import cookie from "react-cookies";
 
 
 const WishContext = createContext();
 export const useWish = ()=> useContext(WishContext);
-const loadJSON = key=>
-    key && JSON.parse(localStorage.getItem(key));
-const saveJSON = (key,data)=>
-    localStorage.setItem(key,JSON.stringify(data));
+// const loadJSON = key=>
+//     key && JSON.parse(localStorage.getItem(key));
+// const saveJSON = (key,data)=>
+//     localStorage.setItem(key,JSON.stringify(data));
 
 export default function WishProvider({children}){
     const login = cookie.load("login");
@@ -36,6 +34,7 @@ export default function WishProvider({children}){
         setLoading2(true)
         if(!login) {
             setError2("User not logged in");
+            setLoading2(false)
             return;
         }
         // if(wish&&wish.owner_id === login) return;
