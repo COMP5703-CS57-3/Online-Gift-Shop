@@ -6,6 +6,7 @@ from ..service.show_homepage import show_main_homepage_gifts_in_sort_method
 from ..service.show_homepage import show_main_homepage_method
 from ..service.show_homepage import show_top_category_method
 from ..service.show_homepage import show_side_category_method
+from ..service.show_homepage import just_search_side_category_method
 
 main_home_page_namespace = main_home_page_dto.main_home_page_namespace
 
@@ -82,6 +83,20 @@ class Category_side_design1(Resource):
         except:
             return marshal(gifts, main_home_page_dto.main_homepage_gifts_list_output_format)
 
+
+
+@main_home_page_namespace.route("/<side_category1>, <side_category2>, <sort>")
+class JustCategorysideSearch(Resource):
+    @staticmethod
+    @main_home_page_namespace.response(200, 'success', model=main_home_page_dto.main_homepage_gifts_list_output_format)
+    @main_home_page_namespace.response(404, 'Not Found')
+    def get(side_category1,side_category2, sort):
+        gifts = just_search_side_category_method(side_category1, side_category2, sort)
+        try:
+            gifts.status_code
+            return gifts
+        except:
+            return marshal(gifts, main_home_page_dto.main_homepage_gifts_list_output_format)
 
 
 
