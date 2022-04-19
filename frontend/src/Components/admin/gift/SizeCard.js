@@ -9,11 +9,10 @@ import {useInput} from "../../../tools/useInput";
 
 
 export default function SizeCard({size,stock,changeP=f=>f}){
-    const [countProps,resetCount] = useInput(1);
+    const [countProps,resetCount] = useInput(stock);
     return(
             <Box>
                 <p>{size}</p>
-                <p>{stock}</p>
                 <TextField
                                 {...countProps}
                               id="outlined-number"
@@ -24,7 +23,7 @@ export default function SizeCard({size,stock,changeP=f=>f}){
                               }}
                           sx={{mt:2,maxWidth:150,maxHeight:25}}
                       />
-                <Button onClick={()=>changeP(countProps.value)}>change</Button>
+                <Button onClick={()=>changeP(countProps.value)}>confirm</Button>
             </Box>//
     );
 }//
