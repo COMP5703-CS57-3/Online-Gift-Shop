@@ -24,7 +24,10 @@ export default function AdminProvider({children}) {
     const [handleOpen, handleClose] = useState();
 
     const getOrderList = () => {
-        setLoading(true);
+        if (orderList===null){
+            setLoading(true);
+        }
+
         fetch("http://127.0.0.1:5000/admin/admin_return_all_orders", {
             method: "POST"
         }).then(res => res.json()).then(
