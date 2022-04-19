@@ -18,7 +18,13 @@ export default function GiftProvider({children}){
         setLoading(true)
         fetch("http://127.0.0.1:5000/main_home_page").then(res=>res.json()).then(
             res=>{
-            setGifts(res.gifts);
+            if(Array.isArray(res.gifts)){
+                setGifts(res.gifts);
+                console.log(res)
+            }else{
+                setGifts([]);
+                console.log(res)
+            }
         }).then(console.log).then(()=>setLoading(false));
     }
     const homeCategory = ()=>{
@@ -26,7 +32,12 @@ export default function GiftProvider({children}){
         setLoading(true)
         fetch("http://127.0.0.1:5000/main_home_page").then(res=>res.json()).then(
             res=>{
-            setGifts(res.gifts);
+            if(Array.isArray(res)){
+                setGifts(res.gifts);
+            }else{
+                setGifts([]);
+                console.log(res)
+            }
             setLoading(false);
         }).then(console.log);
     }
@@ -35,7 +46,13 @@ export default function GiftProvider({children}){
         setLoading(true)
         fetch("http://127.0.0.1:5000/main_home_page/"+top+", "+sort).then(res => res.json()).then(
             res => {
+            if(Array.isArray(res.gifts)){
                 setGifts(res.gifts);
+                console.log(res)
+            }else{
+                setGifts([]);
+                console.log(res)
+            }
                 setLoading(false)
             }).then(console.log);
     }
@@ -44,7 +61,12 @@ export default function GiftProvider({children}){
         setLoading(true)
         fetch("http://127.0.0.1:5000/main_home_page/"+top + ", " + sort).then(res=>res.json()).then(
             res=>{
-            setGifts(res.gifts);
+            if(Array.isArray(res.gifts)){
+                setGifts(res.gifts);
+            }else{
+                setGifts([]);
+                console.log(res)
+            }
             setLoading(false);
         }).then(console.log);
     }
@@ -53,7 +75,12 @@ export default function GiftProvider({children}){
         setLoading(true)
         fetch("http://127.0.0.1:5000/main_home_page/"+top + ", " +side+", "+ sort).then(res=>res.json()).then(
             res=>{
-            setGifts(res.gifts);
+            if(Array.isArray(res.gifts)){
+                setGifts(res.gifts);
+            }else{
+                setGifts([]);
+                console.log(res)
+            }
             setLoading(false)
         }).then(console.log);
     }

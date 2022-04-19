@@ -30,6 +30,20 @@ export default function CategoryG(){
     if (!second||loading){
         return <Loading/>
     }
+    if(Array.isArray(gifts)&&gifts.length===0){
+        return(
+            <h1>no gifts or network problem</h1>
+        )
+    }
+    if(Array.isArray(gifts)){
+        return(
+        <ImageList sx={{width:1000,height:910,}} cols={3} gap={50} >
+            {gifts.map((gift,i) =>(
+                    <GiftItem key={i} {...gift}/>
+            ))}
+        </ImageList>
+    )
+    }
     return(
         <ImageList sx={{width:1000,height:910,}} cols={3} gap={50} >
             {gifts.map((gift,i) =>(
