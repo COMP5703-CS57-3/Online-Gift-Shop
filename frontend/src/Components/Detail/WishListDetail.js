@@ -13,12 +13,13 @@ import giftdata from "../../data/giftlist.json";
 import {useInput} from "../../tools/useInput";
 import ProductDetail from "./ProductDetail";
 import {node} from "prop-types";
-import {CssBaseline, Grid} from "@material-ui/core";
+import {Alert, CssBaseline, Grid} from "@material-ui/core";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Loading from "../normal/Loading";
 import cookie from "react-cookies";
 import ProductForNoOwner from "./ProductForNoOwner";
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 export default function WishListDetail() {
     let {id} = useParams();
@@ -105,7 +106,13 @@ export default function WishListDetail() {
                                 </Grid>
                             ))}
                         </Grid>
-                        <Button onClick={()=>nav()}>Pay</Button>
+                        <Alert sx={{mt:2}} severity="info">If the wishlist is completed, the pay button will be disabled — check it out!</Alert>
+                        <Button  endIcon={<AddShoppingCartIcon />} sx={{my:2}} variant="contained" size="large" onClick={()=>{
+                            if(detail.state==="completed"){
+                                alert("this wish list is already completed, you can not pay for this")
+                            }else{
+                               nav()
+                            }}}>Pay</Button>
                     </Box>
                 </Container>
                 </Box>
@@ -175,8 +182,14 @@ export default function WishListDetail() {
                                 </Grid>
                             ))}
                         </Grid>
+                        <Alert sx={{mt:2}} severity="info">If the wishlist is completed, the pay button will be disabled — check it out!</Alert>
                         <Button onClick={()=>deleteWish(detail.owner_id,detail.wishlist_id)}>delete this wish list</Button>
-                        <Button onClick={()=>nav()}>Pay</Button>
+                        <Button endIcon={<AddShoppingCartIcon />} sx={{my:2}} variant="contained" size="large" onClick={()=>{
+                            if(detail.state==="completed"){
+                                alert("this wish list is already completed, you can not pay for this")
+                            }else{
+                               nav()
+                            }}}>Pay</Button>
                     </Box>
                 </Container>
                 </Box>

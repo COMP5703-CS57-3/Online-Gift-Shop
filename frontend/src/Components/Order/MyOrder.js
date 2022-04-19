@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useWish} from "../../tools/useWish";
 import Box from "@mui/material/Box";
 import WishListItem from "../wishlist/WishListItem";
@@ -9,17 +9,35 @@ import Background from "../../picture/background.png";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import cookie from "react-cookies";
+import {LinearProgress} from "@material-ui/core";
 
 export default function MyOrder(){
+    const user = cookie.load("login");
     const {order,getOrderByPayer} = useOrder();
+    const [second,setSecond] = useState(false)
     let navi = useNavigate();
+    const location = useLocation()
     const nav = (number)=>{ navi("/order/orderDetail/"+number);}
-    const {loading} = useOrder()
+    const {loading,setLoading} = useOrder()
     useEffect(()=>{
-        getOrderByPayer(0);
+        if(user){
+            setLoading(true)
+            setSecond(true)
+            getOrderByPayer(user);
+        }
     },[])
-    if(loading){
+    if(!user){
+        return (
+            <Box style={{margin: "auto", textAlign: "center"}}>
+                <h2>please log in first</h2>
+                <Button onClick={()=>navi("/login")}>log in</Button>
+            </Box>
+        )
+    }
+
+    if(loading||!second){
         return <Loading/>
     }
     if(order){

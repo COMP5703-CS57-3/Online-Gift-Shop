@@ -80,6 +80,38 @@ const routes = [
                     }
                 ]
             },
+            {
+                path: '/order',
+                auth: false,
+                component: OrderP,
+                role: ["user", "admin"],
+                children: [
+                    {
+                        path: '/order/myorder',
+                        auth: false,
+                        role: ["user", "admin"],
+                        component: MyOrder
+                    },
+                    {
+                        path: '/order/createOrder/:id',
+                        auth: false,
+                        role: ["user", "admin"],
+                        component: CreateOrder
+                    },
+                    {
+                        path: '/order/pay',
+                        auth: false,
+                        role: ["user", "admin"],
+                        component: Payc
+                    },
+                    {
+                        path: '/order/orderDetail/:number',
+                        auth: false,
+                        role: ["user", "admin"],
+                        component: OrderDetail
+                    }
+                ]
+            },
              {
                 path: '/gift/:id',
                 auth: false,
@@ -121,38 +153,7 @@ const routes = [
         role: ["user", "admin"],
         component: Payc
     },
-    {
-        path: '/order',
-        auth: false,
-        component: OrderP,
-        role: ["user", "admin"],
-        children: [
-            {
-                path: '/order/myorder',
-                auth: false,
-                role: ["user", "admin"],
-                component: MyOrder
-            },
-            {
-                path: '/order/createOrder/:id',
-                auth: false,
-                role: ["user", "admin"],
-                component: CreateOrder
-            },
-            {
-                path: '/order/pay',
-                auth: false,
-                role: ["user", "admin"],
-                component: Payc
-            },
-            {
-                path: '/order/orderDetail/:number',
-                auth: false,
-                role: ["user", "admin"],
-                component: OrderDetail
-            }
-        ]
-    },
+
     {
         path: '/adlogin',
         auth: false,

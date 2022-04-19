@@ -17,6 +17,7 @@ const Message = ({ message }) => (
 export default function Payc() {
 	const [detail,setDetail] = useState();
   const [message, setMessage] = useState("");
+  const [second,setSecond] = useState(false)
   const {currentOrder} = useOrder();
   const {loading,setLoading} =useOrder();
 	console.log(currentOrder)
@@ -39,14 +40,15 @@ export default function Payc() {
 		fetch("http://127.0.0.1:5000/order/search_an_order/"+currentOrder, {
             method: 'POST',
         }).then(res=>res.json()).then(res=>{setDetail(res)
-        setLoading(false)});
+        setLoading(false)
+        setSecond(true)});
 	},[]);
 	console.log(detail)
 	if(loading||!detail){
 		return <Loading/>
 	}
 	// currentOrder!==undefined&&detail&&
-	if(!loading){
+	if(second&&detail){
 		return message ? (
     <Message message={message} />
   ) : (
