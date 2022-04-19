@@ -45,8 +45,8 @@ def create_checkout_session(an_order):
 
     order_items = OrderItems.query.filter_by(order_id=order_id).all()
     if len(order_items) > 0:
-        product_name = order_items[0]["gift_name"]
-        product_image = [order_items[0]["item_cover_url"]]
+        product_name = order_items[0].gift_name
+        product_image = [order_items[0].item_cover_url]
 
     try:
         checkout_session = stripe.checkout.Session.create(
@@ -59,7 +59,7 @@ def create_checkout_session(an_order):
                             # 'description': order['productDesc'],
                             'images': product_image,
                         },
-                        'unit_amount_decimal': float(order.order_total),
+                        'unit_amount_decimal': float(order.order_total) * 100,
                     },
                     'quantity': 1,
                 },

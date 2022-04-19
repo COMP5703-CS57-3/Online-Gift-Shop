@@ -13,9 +13,11 @@ import states from "../../data/ProvinceSelect";
 import Button from "@mui/material/Button";
 import Background from "../../picture/background.png";
 import cookie from "react-cookies";
+import {Navigate, useLocation} from "react-router-dom";
 
 export default function WishForm() {
     const owner_id = cookie.load("login");
+    const location = useLocation()
     const [address1,setAddress1] = useState(countries[12].label.toString());
     const [address2,setAddress2] = useState(states[0].label);
     const [titleProps,resetTitle] = useInput("123");
@@ -36,6 +38,9 @@ export default function WishForm() {
     const onC = ()=>{
         let address = address1+" "+address2+" "+address3Props.value
         console.log(address)
+    }
+    if(!owner_id){
+        return <Navigate to='/login' state={{ from: location }} replace/>
     }
     const submit = e=>{
         e.preventDefault();
