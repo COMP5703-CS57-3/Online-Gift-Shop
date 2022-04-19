@@ -22,10 +22,13 @@ export default function AdminProvider({children}) {
     const [totalAccountNumber, setTotalAccountNumber] = useState();
     const [totalWishlistNumber, setTotalWishlistNumber] = useState();
     const [handleOpen, handleClose] = useState();
-
+    const [showLoading, setShowLoading]=useState(false);
     const getOrderList = () => {
-        if (orderList===null){
+        if (orderList === null) {
             setLoading(true);
+        }
+        else{
+            setShowLoading(true)
         }
 
         fetch("http://127.0.0.1:5000/admin/admin_return_all_orders", {
@@ -38,6 +41,7 @@ export default function AdminProvider({children}) {
             }
         ).then(() => {
             setLoading(false)
+            setShowLoading(false)
         });
     }
 
@@ -175,59 +179,61 @@ export default function AdminProvider({children}) {
         });
     }
 
-    const ChangeStatus=(currOpen)=> {
+    const ChangeStatus = (currOpen) => {
         const states = ["waiting", "delivery", "completed"]
         const currOrder = orderList.find((item) => item.order_number === currOpen)
         const currStatus = currOrder.order_state
         if (states.indexOf(currStatus) === 1) {
-            axios.post(`http://localhost:5000/order/set_an_order_as_completed/${currOpen}`).then(r => getOrderList()).catch(r=>console.log(r))
+            axios.post(`http://localhost:5000/order/set_an_order_as_completed/${currOpen}`).then(r => getOrderList()).catch(r => console.log(r))
+        } else if (states.indexOf(currStatus) === 0) {
+            axios.post(`http://localhost:5000/order/set_an_order_as_delivery/${currOpen}`).then(r => getOrderList()).catch(r => console.log(r))
         }
-        else if(states.indexOf(currStatus) === 0){
-             axios.post(`http://localhost:5000/order/set_an_order_as_delivery/${currOpen}`).then(r => getOrderList()).catch(r=>console.log(r))
-        }}
-
-        return (
-            <AdminContext.Provider value={{
-                orderList,
-                getOrderList,
-                loading,
-                getUsers,
-                users,
-                getAllGifts,
-                gifts,
-                changeItemCount,
-                addItems,
-                removeItems,
-                state,
-                setState,
-                orderCompleted,
-                orderDelivery,
-                setGiftIds,
-                selectedCustomerIds,
-                shownGift,
-                setShownGift,
-                selectedGiftIds,
-                setSelectedGiftIds,
-                setSelectedCustomerIds,
-                shownUser,
-                setShownUser,
-                selectedOrderIds,
-                shownOrder,
-                setShownOrder,
-                setSelectedOrderIds,
-                totalOrderNumber,
-                completeOrderNumber,
-                totalAccountNumber,
-                totalWishlistNumber,
-                getTotalWishlist,
-                getTotalAccount,
-                getTotalOrders,
-                getCompleteOrders,
-                handleOpen,
-                handleClose,
-                ChangeStatus
-            }}>
-                {children}
-            </AdminContext.Provider>
-        )//
     }
+
+    return (
+        <AdminContext.Provider value={{
+            orderList,
+            getOrderList,
+            loading,
+            getUsers,
+            users,
+            getAllGifts,
+            gifts,
+            changeItemCount,
+            addItems,
+            removeItems,
+            state,
+            setState,
+            orderCompleted,
+            orderDelivery,
+            setGiftIds,
+            selectedCustomerIds,
+            shownGift,
+            setShownGift,
+            selectedGiftIds,
+            setSelectedGiftIds,
+            setSelectedCustomerIds,
+            shownUser,
+            setShownUser,
+            selectedOrderIds,
+            shownOrder,
+            setShownOrder,
+            setSelectedOrderIds,
+            totalOrderNumber,
+            completeOrderNumber,
+            totalAccountNumber,
+            totalWishlistNumber,
+            getTotalWishlist,
+            getTotalAccount,
+            getTotalOrders,
+            getCompleteOrders,
+            handleOpen,
+            handleClose,
+            ChangeStatus,
+            showLoading,
+            setLoading,
+        }}>
+            {children}
+        </AdminContext.Provider>
+    )//
+}

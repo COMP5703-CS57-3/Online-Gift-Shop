@@ -1,12 +1,14 @@
 import {Box, Card, CardContent, InputAdornment, SvgIcon, TextField, Typography} from '@mui/material';
 import {useAdmin} from "../../../tools/useAdmin";
+import {CircularProgress} from "@material-ui/core";
+import React from "react";
 // import { Search as SearchIcon } from '../../icons/search';
 // import { Upload as UploadIcon } from '../../icons/upload';
 // import { Download as DownloadIcon } from '../../icons/download';
 
 export default function OrderListToolbar(props) {
-    const {selectedOrderIds, orderList, setShownOrder} = useAdmin();
-    const {removeItems} = useAdmin();
+    const {orderList, setShownOrder} = useAdmin();
+    const {showLoading} = useAdmin()
 
     // const {submit} = BasicModal();
 
@@ -51,8 +53,9 @@ export default function OrderListToolbar(props) {
                 >
                     Orders
                 </Typography>
-                <Box sx={{m: 1}}>
-                </Box>
+                {showLoading ? <Box sx={{position: 'flex', top: 16, right: 16}}>
+                    <CircularProgress/>
+                </Box> : <div/>}
             </Box>
             <Box sx={{mt: 3}}>
                 <Card>
