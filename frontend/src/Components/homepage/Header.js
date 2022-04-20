@@ -20,6 +20,7 @@ import {_local} from "../../logic/local$sess";
 import BeforeEach from "../../router/BeforEach";
 import {useApp} from "../../tools/useApp";
 import Logo from "../../picture/Logo.png";
+import {getInitials} from "../../logic/get-initials";
 
 
 export default function AccountMenu() {
@@ -47,6 +48,7 @@ export default function AccountMenu() {
             setLogin(undefined)
             setRole("user")
             sessionStorage.setItem("role","user")
+            sessionStorage.removeItem("user")
         }
     }
 
@@ -74,6 +76,7 @@ export default function AccountMenu() {
                         <Typography sx={{minWidth: 100}}>Shop</Typography>
                         <Typography sx={{minWidth: 100}}>Contact</Typography>
                         <Typography sx={{minWidth: 100}}>Profile</Typography>
+
                         <Tooltip title="Account settings">
                             <IconButton
                                 onClick={handleClick}
@@ -83,9 +86,10 @@ export default function AccountMenu() {
                                 aria-haspopup="true"
                                 aria-expanded={open ? 'true' : undefined}
                             >
-                                <Avatar sx={{width: 32, height: 32}}>M</Avatar>
+                                <Avatar sx={{width: 32, height: 32}}>{getInitials(sessionStorage.getItem("user"))}</Avatar>
                             </IconButton>
                         </Tooltip>
+                        <Typography sx={{minWidth: 100}}>{sessionStorage.getItem("user")!==null?"hello, "+sessionStorage.getItem("user")+"!":"Hello, Guest!"}</Typography>
                     </Box>
                 </Box>
                 <Menu
@@ -127,14 +131,14 @@ export default function AccountMenu() {
                         <Avatar/> <Link style={{textDecoration: 'none'}} to={{pathname: "/account"}}>Profile</Link>
                     </MenuItem>
                     <MenuItem>
-                        <Avatar/> <Link style={{textDecoration: 'none'}} to={{pathname: "/wishlist"}}> My
+                        <Avatar/> <Link style={{textDecoration: 'none'}} to={{pathname: "/wish"}}> My
                         WhishList</Link>
                     </MenuItem>
                     <MenuItem>
                         <ListItemIcon>
                             <PersonAdd fontSize="small"/>
                         </ListItemIcon>
-                        My Order
+                       <Link style={{textDecoration: 'none'}} to={{pathname: "/order/myorder"}}> My Purchase</Link>
                     </MenuItem>
                     <Divider/>
                     <MenuItem>

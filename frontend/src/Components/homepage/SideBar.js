@@ -93,9 +93,9 @@ export default function SideBar() {
           <TreeItem nodeId="10" label="Elderly" onClick={c7} />
         </TreeItem>
         <TreeItem nodeId="8" label="Other">
-            <TreeItem nodeId="7" label="Juvenile" onClick={c8}/>
-            <TreeItem nodeId="9" label="Youth" onClick={c4} />
-          <TreeItem nodeId="10" label="Elderly" onClick={c9} />
+            <TreeItem nodeId="11" label="Juvenile" onClick={c8}/>
+            <TreeItem nodeId="12" label="Youth" onClick={c4} />
+          <TreeItem nodeId="13" label="Elderly" onClick={c9} />
         </TreeItem>
       </TreeView>
     </Box>

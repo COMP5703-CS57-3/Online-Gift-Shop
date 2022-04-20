@@ -88,7 +88,7 @@ const routes = [
                 children: [
                     {
                         path: '/order/myorder',
-                        auth: false,
+                        auth: true,
                         role: ["user", "admin"],
                         component: MyOrder
                     },

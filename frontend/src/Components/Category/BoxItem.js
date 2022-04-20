@@ -6,8 +6,10 @@ import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 
 export default function BoxItem({id,gift_name,gift_price,gift_category,gift_cover_url}) {
+    console.log(gift_cover_url,gift_cover_url.indexOf("https://"),gift_cover_url.indexOf("http://") )
     let navigate = useNavigate();
     const nav =()=> navigate("/cart/"+id);
+
   return (
     <Box
       sx={{

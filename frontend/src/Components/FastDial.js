@@ -29,7 +29,7 @@ export default function FastDial() {
             setComponent(<InviteCode sx={{boxShadow: 2}}/>)
             setShowComponent(!showComponent)
         } else if (name === "Create New Wishlist") {
-            navigate("/wishForm")
+            navigate("/wish/wishForm")
         } else if (name === 'Return to Top') {
             document.body.scrollTop = document.documentElement.scrollTop = 0
         }
