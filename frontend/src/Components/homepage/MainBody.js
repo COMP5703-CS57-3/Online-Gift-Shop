@@ -87,7 +87,7 @@ export default function MainBody({props}) {
                             <Tab label="Usual Gift" value="2"/>
                             <Tab label="Regular Celebration" value="3"/>
                             <Tab label="Statutory Holidays" value="4"/>
-                            <Tab abel="Special Anniversary" value="5"/>
+                            <Tab label="Special Anniversary" value="5"/>
                             <Tab label="Other" value="6" onClick={ClickOther}/>
                         </TabList>
                     </Box>

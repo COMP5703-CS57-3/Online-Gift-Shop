@@ -10,7 +10,8 @@ import {useGift} from "../../tools/useGift";
 export default function SideBar() {
   const [expanded, setExpanded] = React.useState([]);
   const [selected, setSelected] = React.useState([]);
-  const {topBar,SideCategory} = useGift();
+  const {topBar,SideCategory,OnlySideCategory} = useGift();
+  let getnode = undefined;
 
   const handleToggle = (event, nodeIds) => {
     setExpanded(nodeIds);
@@ -18,7 +19,12 @@ export default function SideBar() {
 
   const handleSelect = (event, nodeIds) => {
     setSelected(nodeIds);
-    console.log(nodeIds)
+    // console.log(typeof(selected))
+    //   getnode = nodeIds;
+    // if(selected[0]=== "2") {
+    //     SideCategory(topBar,"Male, Juvenile","price-low-to-high");
+    //     console.log("在这呢")
+    // }
   };
 
   const handleExpandClick = () => {
@@ -29,36 +35,77 @@ export default function SideBar() {
 
   const handleSelectClick = () => {
     setSelected((oldSelected) =>
-      oldSelected.length === 0 ? ['2', '3', '4', '6', '7', '9','10','11'] : [],
+      oldSelected.length === 0 ? ['2', '3', '4', '6', '7', '9','10','11','12'] : [],
     );
   };
 
-    const c1 = ()=> {
-        SideCategory(topBar,"Male, Juvenile","price-low-to-high");
-    }
-    const c2= ()=> {
-        SideCategory(topBar,"Male, Youth","price-low-to-high");
-    }
-    const c3= ()=> {
-        SideCategory(topBar,"Male, Elderly","price-low-to-high");
-    }
-    const c5 = ()=> {
-        SideCategory(topBar,"Female, Juvenile","price-low-to-high");
-    }
-        const c6 = ()=> {
-        SideCategory(topBar,"Female, Youth","price-low-to-high");
-    }
-        const c7 = ()=> {
-        SideCategory(topBar,"Female, Elderly","price-low-to-high");
-    }
-        const c8 = ()=> {
-        SideCategory(topBar,"Other, Juvenile","price-low-to-high");
-    }
-        const c4 = ()=> {
-        SideCategory(topBar,"Other, Youth","price-low-to-high");
-    }
-    const c9 = ()=> {
-        SideCategory(topBar,"Other, Elderly","price-low-to-high");
+    const HandleClick = () => {
+        if(selected[0]==="2" && topBar === ""){
+            console.log(selected)
+            OnlySideCategory("Male, Juvenile","price-low-to-high");
+        }
+        if(selected[0]==="2" && topBar !== ""){
+            console.log(topBar)
+            SideCategory(topBar,"Male, Juvenile","price-low-to-high");
+        }
+        if(selected[0]==="3" && topBar.length < 1){
+            console.log(selected)
+            OnlySideCategory("Male, Youth","price-low-to-high");
+        }else if(selected[0]==="3"){
+            console.log(topBar)
+            SideCategory(topBar,"Male, Youth","price-low-to-high");
+        }
+        if(selected[0]==="4" && topBar.length < 1){
+            console.log(selected)
+            OnlySideCategory("Male, Elderly","price-low-to-high");
+        }else if(selected[0]==="4"){
+            console.log(topBar)
+            SideCategory(topBar,"Male, Elderly","price-low-to-high");
+        }
+        if(selected[0]==="6" && topBar.length < 1){
+            console.log(selected)
+            OnlySideCategory("Female, Juvenile","price-low-to-high");
+        }
+        if(selected[0]==="6"){
+            console.log(topBar)
+            SideCategory(topBar,"Female, Juvenile","price-low-to-high");
+        }
+        if(selected[0]==="7" && topBar.length < 1){
+            console.log(selected)
+            OnlySideCategory("Female, Youth","price-low-to-high");
+        }
+        if(selected[0]==="7"){
+            console.log(topBar)
+            SideCategory(topBar,"Female, Youth","price-low-to-high");
+        }
+        if(selected[0]==="9" && topBar.length < 1){
+            console.log(selected)
+            OnlySideCategory("Female, Elderly","price-low-to-high");
+        }else if(selected[0]==="9"){
+            console.log(topBar)
+            SideCategory(topBar,"Female, Elderly","price-low-to-high");
+        }
+        if(selected[0]==="10" && topBar.length < 1){
+            console.log(selected)
+            OnlySideCategory("Other, Juvenile","price-low-to-high");
+        }else if(selected[0]==="10"){
+            console.log(topBar)
+            SideCategory(topBar,"Other, Juvenile","price-low-to-high");
+        }
+        if(selected[0]==="11" && topBar.length < 1){
+            console.log(selected)
+            OnlySideCategory("Other, Youth","price-low-to-high");
+        }else if(selected[0]==="11"){
+            console.log(topBar)
+            SideCategory(topBar,"Other, Youth","price-low-to-high");
+        }
+        if(selected[0]==="12" && topBar.length < 1){
+            console.log(selected)
+            OnlySideCategory("Other, Elderly","price-low-to-high");
+        }else if(selected[0]==="12"){
+            console.log(topBar)
+            SideCategory(topBar,"Other, Elderly","price-low-to-high");
+        }
     }
 
 
@@ -83,19 +130,19 @@ export default function SideBar() {
         multiSelect
       >
         <TreeItem nodeId="1" label="Male" >
-          <TreeItem nodeId="2" label="Juvenile" onClick={c1} />
-          <TreeItem nodeId="3" label="Youth" onClick={c2} />
-          <TreeItem nodeId="4" label="Elderly" onClick={c3} />
+          <TreeItem nodeId="2" label="Juvenile" onClick={HandleClick} />
+          <TreeItem nodeId="3" label="Youth" onClick={HandleClick} />
+          <TreeItem nodeId="4" label="Elderly" onClick={HandleClick} />
         </TreeItem>
         <TreeItem nodeId="5" label="Female">
-          <TreeItem nodeId="7" label="Juvenile" onClick={c5}/>
-            <TreeItem nodeId="9" label="Youth" onClick={c6} />
-          <TreeItem nodeId="10" label="Elderly" onClick={c7} />
+          <TreeItem nodeId="6" label="Juvenile" onClick={HandleClick}/>
+            <TreeItem nodeId="7" label="Youth" onClick={HandleClick} />
+          <TreeItem nodeId="9" label="Elderly" onClick={HandleClick} />
         </TreeItem>
         <TreeItem nodeId="8" label="Other">
-            <TreeItem nodeId="11" label="Juvenile" onClick={c8}/>
-            <TreeItem nodeId="12" label="Youth" onClick={c4} />
-          <TreeItem nodeId="13" label="Elderly" onClick={c9} />
+            <TreeItem nodeId="10" label="Juvenile" onClick={HandleClick} />
+            <TreeItem nodeId="11" label="Youth" onClick={HandleClick} />
+          <TreeItem nodeId="12" label="Elderly" onClick={HandleClick} />
         </TreeItem>
       </TreeView>
     </Box>
