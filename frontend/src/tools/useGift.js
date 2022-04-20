@@ -32,7 +32,7 @@ export default function GiftProvider({children}){
         setLoading(true)
         fetch("http://127.0.0.1:5000/main_home_page").then(res=>res.json()).then(
             res=>{
-            if(Array.isArray(res)){
+            if(Array.isArray(res.gifts)){
                 setGifts(res.gifts);
             }else{
                 setGifts([]);
