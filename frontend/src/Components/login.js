@@ -29,7 +29,7 @@ export default function LogIn(props) {
     const {setRole} = useApp()
     const [Email, setEmail] = useState("")
     const [Password, setPassword] = useState("")
-
+    const [remember, setRemember] = useState(true)
     let from = "/";
     if (location?.state?.from?.pathname) {
         if (checkRouterAuth(location.state.from.pathname).auth)
@@ -44,11 +44,13 @@ export default function LogIn(props) {
     }
     const navigate = useNavigate()
     const HandleClick = () => {
+        console.log(remember)
         if (Password === "") {
             alert("please input password")
         } else if (checkEmail(Email) !== true) {
             alert("please input valid Email")
         } else {
+
             // console.log(this.state.Username,this.state.Password)
             axios.post('http://localhost:5000/login_signup/login', {
                 user_email: Email,
@@ -56,13 +58,18 @@ export default function LogIn(props) {
             }).then((response) => {
                 // console.log(status, 1)
                 if (response.data.message === 'User login successfully') {
-                    console.log("Success!")
-                    let ExpireTime = new Date(new Date().getTime() + 1 * 3600 * 1000);//60分钟后失效
-                    cookie.save("login", response.data.id, ExpireTime)
+                    // console.log("Success!")
+
+                    if (remember) {
+                        const ExpireTime = new Date(new Date().getTime() + 1 * 3600 * 1000);//60分钟后失效
+                        cookie.save("login", response.data.id, ExpireTime)
+                    } else {
+                        cookie.remove("login")
+                    }
                     setLogin(response.data.id)
                     setRole("user")
-                    sessionStorage.setItem("role","user")
-                    sessionStorage.setItem("user",response.data.user_name)
+                    sessionStorage.setItem("role", "user")
+                    sessionStorage.setItem("user", response.data.user_name)
                     // console.log(_session.get("curr"))
                     navigate(from)
                 } else {
@@ -127,7 +134,8 @@ export default function LogIn(props) {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                         <FormControlLabel
-                            control={<Checkbox value="remember" color="primary"/>}
+                            control={<Checkbox value="remember" color="primary" checked={remember}
+                                               onClick={() => setRemember(!remember)}/>}
                             label="Remember me"
                         />
                         <Button

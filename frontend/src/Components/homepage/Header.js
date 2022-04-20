@@ -12,7 +12,7 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useGift} from "../../tools/useGift";
 import Button from "@mui/material/Button";
 import cookie from "react-cookies";
@@ -31,7 +31,7 @@ export default function AccountMenu() {
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-
+    const navigate=useNavigate()
     const handleClose = () => {
         setAnchorEl(null);
     };
@@ -72,7 +72,7 @@ export default function AccountMenu() {
                             alt="pic"
                             src={Logo}
                             />
-                        <Button sx={{minWidth: 100}} onClick={click}>Home</Button>
+                        <Button sx={{minWidth: 100}} onClick={()=>navigate("/")}>Home</Button>
                         <Typography sx={{minWidth: 100}}>Shop</Typography>
                         <Typography sx={{minWidth: 100}}>Contact</Typography>
                         <Typography sx={{minWidth: 100}}>Profile</Typography>
@@ -89,7 +89,7 @@ export default function AccountMenu() {
                                 <Avatar sx={{width: 32, height: 32}}>{getInitials(sessionStorage.getItem("user"))}</Avatar>
                             </IconButton>
                         </Tooltip>
-                        <Typography sx={{minWidth: 100}}>{sessionStorage.getItem("user")!==null?"hello, "+sessionStorage.getItem("user")+"!":"Hello, Guest!"}</Typography>
+                        <Typography sx={{minWidth: 100}}>{login?"hello, "+sessionStorage.getItem("user")+"!":"Hello, Guest!"}</Typography>
                     </Box>
                 </Box>
                 <Menu

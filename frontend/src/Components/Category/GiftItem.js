@@ -16,7 +16,7 @@ export default function GiftItem({
                                  }) {
     let navigate = useNavigate();
     const nav = () => navigate("/gift/" + id);
-    console.log(gift_cover_url)
+    // console.log(gift_cover_url)
     if (gift_cover_url.indexOf("https://") === -1 && gift_cover_url.indexOf("http://") === -1) {
         gift_cover_url = "https://file02.16sucai.com/d/file/2014/1009/d8e01af8af650c70cef05fc7e2dd11fb.jpg"
     }

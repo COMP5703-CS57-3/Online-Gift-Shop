@@ -40,8 +40,8 @@ export const ShowCard = ({Title,getNumberFunc,Number,icon}) => {
                         <Avatar
                             sx={{
                                 backgroundColor: 'success.main',
-                                height: 56,
-                                width: 56
+                                height: 40,
+                                width: 40
                             }}
                         >
                             {icon}
