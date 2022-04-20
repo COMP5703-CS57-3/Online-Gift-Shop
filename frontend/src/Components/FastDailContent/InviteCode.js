@@ -14,7 +14,7 @@ const style = {
     left: '50%',
     width: 400,
     transform: 'translate(-50%, -70%)',
-    background: '#fff',
+    background: '#AFAFAF',
     zIndex: 999
 }
 export default function InviteCode() {
@@ -23,7 +23,7 @@ export default function InviteCode() {
     // HandleClickAway() {
     //     this.setState({visible:true})
     function HandleClick() {
-        navigate(`/wishlist/${InviteCode}`)
+        navigate(`/wish/wishlist/${InviteCode}`)
     }
 
     // }

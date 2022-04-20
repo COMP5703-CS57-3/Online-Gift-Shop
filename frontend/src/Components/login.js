@@ -54,15 +54,15 @@ export default function LogIn(props) {
                 user_email: Email,
                 user_password: Password
             }).then((response) => {
-                let status = response;
-                console.log(status, 1)
-                if (status.data.message === 'User login successfully') {
+                // console.log(status, 1)
+                if (response.data.message === 'User login successfully') {
                     console.log("Success!")
                     let ExpireTime = new Date(new Date().getTime() + 1 * 3600 * 1000);//60分钟后失效
                     cookie.save("login", response.data.id, ExpireTime)
                     setLogin(response.data.id)
                     setRole("user")
                     sessionStorage.setItem("role","user")
+                    sessionStorage.setItem("user",response.data.user_name)
                     // console.log(_session.get("curr"))
                     navigate(from)
                 } else {
