@@ -135,9 +135,9 @@ export default function AddGift() {
 
                         <Grid item xs={12}><TextField {...coverProps} label="coverUrl" fullWidth sx={{ m: 1 }}/></Grid>
                         <Grid item xs={12}><TextField {...show1Props} label="coverP" fullWidth sx={{ m: 1 }}/></Grid>
-                        {/*<Grid item xs={12}><TextField {...show2Props} label="coverP" fullWidth sx={{ m: 1 }}/></Grid>*/}
-                        {/*<Grid item xs={12}><TextField {...show3Props} label="coverP" fullWidth sx={{ m: 1 }}/></Grid>*/}
-                        {/*<Grid item xs={12}><TextField {...show4Props} label="coverP" fullWidth sx={{ m: 1 }}/></Grid>*/}
+                        <Grid item xs={12}><TextField {...show2Props} label="coverP" fullWidth sx={{ m: 1 }}/></Grid>
+                        <Grid item xs={12}><TextField {...show3Props} label="coverP" fullWidth sx={{ m: 1 }}/></Grid>
+                        <Grid item xs={12}><TextField {...show4Props} label="coverP" fullWidth sx={{ m: 1 }}/></Grid>
                        <Grid item xs={12}> <Button variant="contained" onClick={submit}>ADD</Button></Grid>
                     </Grid>
                 </Box>

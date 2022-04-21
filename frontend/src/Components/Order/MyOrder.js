@@ -25,9 +25,10 @@ export default function MyOrder(){
         if(user){
             setLoading(true)
             setSecond(true)
-            getOrderByPayer(user);
+            getOrderByPayer(parseInt(user));
         }
     },[])
+    console.log(typeof(user))
     if(!user){
         return (
             <Box style={{margin: "auto", textAlign: "center"}}>
