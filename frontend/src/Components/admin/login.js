@@ -118,10 +118,7 @@ export default function AdminLogIn(props) {
                             autoComplete="current-password"
                             onChange={(e) => setPassword(e.target.value)}
                         />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary"/>}
-                            label="Remember me"
-                        />
+
                         <Button
                             // type="submit"
                             fullWidth
@@ -133,11 +130,6 @@ export default function AdminLogIn(props) {
                         </Button>
 
                         <Grid container>
-                            <Grid item xs>
-                                <Link to={{pathname: "/findpwd"}}>
-                                    Forgot password?
-                                </Link>
-                            </Grid>
                             <Grid item>
                                 <Link to={{pathname: "/adsignup"}}>
                                     Sign Up

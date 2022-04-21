@@ -44,7 +44,7 @@ export default function WishForm() {
     const submit = e => {
         e.preventDefault();
         const address = address1.toString() + ", " + address2 + ", " + address3Props.value
-        const time = timeProps.toString().slice(0, 27)
+        const time = timeProps.toString().slice(0, 15)
         console.log(time)
         createWish(owner_id, firstnameProps.value, lastnameProps.value, titleProps.value, descriptionProps.value, address, phoneProps.value, postcodeProps.value, time);
         // resetTitle();

@@ -1,5 +1,5 @@
-export const getInitials = (name = '') => {
-    if (name!==null) {
+export const getInitials = (name) => {
+    if (name) {
         return name
             .replace(/\s+/, ' ')
             .split(' ')
