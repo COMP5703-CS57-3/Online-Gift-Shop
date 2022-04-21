@@ -4,7 +4,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useCart} from "../../tools/useCart";
 import {alpha} from "@mui/material/styles";
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
-import {Button, Input} from "@mui/material";
+import {Button, Input, TextField} from "@mui/material";
 import Background from "../../picture/background.png";
 import {useWish} from "../../tools/useWish";
 import ItemCard from "../Cart/ItemCard";
@@ -20,6 +20,7 @@ import Loading from "../normal/Loading";
 import cookie from "react-cookies";
 import ProductForNoOwner from "./ProductForNoOwner";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import Stack from "@mui/material/Stack";
 
 export default function WishListDetail() {
     let {id} = useParams();
@@ -28,7 +29,8 @@ export default function WishListDetail() {
     const nav =()=> navi("/order/createOrder/"+id)
     const [detail,setDetail] = useState();
     const [loading,setLoading] = useState(true);
-    const {deleteWish} = useWish();
+    const {deleteWish,sendEmail} = useWish();
+    const [targetEmailProps,resetTargetEmailProps] = useInput()
     useEffect(()=>{
         setLoading(true);
         fetch("http://127.0.0.1:5000/wishlist/search", {
@@ -42,6 +44,9 @@ export default function WishListDetail() {
         });
     },[id]);
     let {product} = useWish();
+    const handleSendEmail = ()=>{
+        sendEmail(detail.wishlist_id,targetEmailProps.value)
+    }
 
     if(detail&&parseInt(user)!==detail.owner_id){
         return(
@@ -113,6 +118,7 @@ export default function WishListDetail() {
                             }else{
                                nav()
                             }}}>Pay</Button>
+
                     </Box>
                 </Container>
                 </Box>
@@ -190,6 +196,15 @@ export default function WishListDetail() {
                             }else{
                                nav()
                             }}}>Pay</Button>
+                         <TextField
+                                {...targetEmailProps}
+                              label="Email"
+                              InputLabelProps={{
+                                shrink: true,
+                              }}
+                          sx={{my:2,mx:2,maxWidth:300,maxHeight:25}}
+                        />
+                        <Button onClick={()=>handleSendEmail()}> sendEmail</Button>
                     </Box>
                 </Container>
                 </Box>

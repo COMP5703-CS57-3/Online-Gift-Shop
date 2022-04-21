@@ -46,6 +46,23 @@ export default function WishProvider({children}){
             setLoading2(false);
         });
     }
+    const sendEmail = (wishlist,email)=>{
+        setError2()
+        setLoading2(true)
+        fetch("http://127.0.0.1:5000/wishlist/send_email", {
+            method: 'POST',
+            body: JSON.stringify({
+                wishlist_id:wishlist,
+                receiver_email:email
+            })
+        }).then(res=>res.json()).then(res=>{
+            if(res.message==="the email sent successfully"){
+            }else{
+                setError2("The email is not sent. Check the email format. If the email address is correct, an unknown network problem occurs")
+            }
+            setLoading2(false)
+        });
+    }
     const deleteWish = (ownerId,wishId)=>{
         const nav =()=> navi("/wish");
         fetch("http://127.0.0.1:5000/wishlist/delete", {
@@ -145,7 +162,7 @@ export default function WishProvider({children}){
     //
     // }、、
     return(
-            <WishContext.Provider value={{wish,createWish,deleteWish,addProduct,changeCount,removeProduct,loading2,getWish,error2,setLoading2}}>
+            <WishContext.Provider value={{wish,createWish,deleteWish,addProduct,changeCount,removeProduct,loading2,getWish,error2,setLoading2,sendEmail}}>
                 {children}
             </WishContext.Provider>
     )
