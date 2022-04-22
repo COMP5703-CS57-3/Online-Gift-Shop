@@ -34,7 +34,7 @@ top_categories = ['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebra
                   'Christmas', 'EasterDay', 'NewYear', 'Graduate', 'Other']
 side_categories1 = ['Male', 'Female', 'Other']
 side_categories2 = ['Juvenile', 'Youth', 'Elderly']
-the_sort_type = ['price-low-to-high', 'price-high-to-low', 'popular','discountprice']
+the_sort_type = ['price-low-to-high', 'price-high-to-low', 'popular','discountprice-low-to-high', 'discountprice-high-to-low']
 @main_home_page_namespace.route("/<top_category>, <sort>")
 class Category_design1(Resource):
     @staticmethod
