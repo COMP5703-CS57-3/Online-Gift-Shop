@@ -127,9 +127,10 @@ export default function MainBody({props}) {
                       <MenuItem value="price-low-to-high">
                         <em>price-low-to-high</em>
                       </MenuItem>
-                      {/*<MenuItem value="price-high-to-low">price-high-to-low</MenuItem>*/}
+                      <MenuItem value="price-high-to-low">price-high-to-low</MenuItem>
                       <MenuItem value="popular">popular</MenuItem>
-                      <MenuItem value="discountprice">discount price low to high</MenuItem>
+                      <MenuItem value="discountprice-low-to-high">discount-price-low-to-high</MenuItem>
+                        <MenuItem value="discountprice-high-to-low">discountprice-high-to-low</MenuItem>
                     </Select>
                     <FormHelperText>Sort type</FormHelperText>
                   </FormControl>
