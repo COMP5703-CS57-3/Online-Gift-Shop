@@ -96,14 +96,18 @@ def show_main_homepage_gifts_in_sort_method(args):
         "gifts": gift_model
     }
     sort = args["sort"]
-    the_sort_type = ['price-low-to-high', 'price-high-to-low', 'popular']
+    the_sort_type = ['price-low-to-high', 'price-high-to-low', 'popular', 'discountprice-low-to-high', 'discountprice-high-to-low']
     if sort in the_sort_type:
         if sort == 'popular':
             gifts = Gifts.query.order_by(Gifts.gift_sales.desc()).all()
         elif sort == 'price-high-to-low':
             gifts = Gifts.query.order_by(Gifts.gift_price.desc()).all()
         elif sort == 'price-low-to-high':
-            gifts = Gifts.query.order_by(Gifts.gift_price.asc).all()
+            gifts = Gifts.query.order_by(Gifts.gift_price.asc()).all()
+        elif sort == 'discountprice-low-to-high':
+            gifts = Gifts.query.order_by(Gifts.gift_discount_price.asc()).all()
+        elif sort == 'discountprice-high-to-low':
+            gifts = Gifts.query.order_by(Gifts.gift_discount_price.desc()).all()
     else:
         gifts = Gifts.query.order_by(Gifts.id.asc()).all()
     output_dictionary = {
@@ -174,7 +178,7 @@ def show_top_category_method(category, sort):
     }
     category = category
     sort = sort
-    all_sort = ['price-low-to-high', 'price-high-to-low', 'popular', 'discountprice']
+    all_sort = ['price-low-to-high', 'price-high-to-low', 'popular', 'discountprice-low-to-high', 'discountprice-high-to-low']
     top_categories = ['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
                       'Christmas', 'EasterDay', 'NewYear', 'Graduate']
     other_categories = ['Other']
@@ -182,11 +186,13 @@ def show_top_category_method(category, sort):
         if sort not in all_sort:
             gifts = Gifts.query.filter_by(gift_category=category).order_by(Gifts.id.asc()).all()
         elif sort == 'price-low-to-high':
-            gifts = Gifts.query.filter_by(gift_category=category).order_by(Gifts.gift_price).all()
+            gifts = Gifts.query.filter_by(gift_category=category).order_by(Gifts.gift_price.asc()).all()
         elif sort == 'price-high-to-low':
             gifts = Gifts.query.filter_by(gift_category=category).order_by(Gifts.gift_price.desc()).all()
-        elif sort == 'discountprice':
+        elif sort == 'discountprice-low-to-high':
             gifts = Gifts.query.filter_by(gift_category=category).order_by(Gifts.gift_discount_price.asc()).all()
+        elif sort == 'discountprice-high-to-low':
+            gifts = Gifts.query.filter_by(gift_category=category).order_by(Gifts.gift_discount_price.desc()).all()
         elif sort == 'popular':
             gifts = Gifts.query.filter_by(gift_category=category).order_by(Gifts.gift_sales.desc()).all()
     elif category in other_categories:
@@ -197,13 +203,16 @@ def show_top_category_method(category, sort):
                       'Christmas', 'EasterDay', 'NewYear', 'Graduate'])).order_by(Gifts.id.asc()).all()
         elif sort == 'price-low-to-high':
             gifts = Gifts.query.filter(Gifts.gift_category.notin_(['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
-                      'Christmas', 'EasterDay', 'NewYear', 'Graduate'])).order_by(Gifts.gift_price).all()
+                      'Christmas', 'EasterDay', 'NewYear', 'Graduate'])).order_by(Gifts.gift_price.asc()).all()
         elif sort == 'price-high-to-low':
             gifts = Gifts.query.filter(Gifts.gift_category.notin_(['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
                       'Christmas', 'EasterDay', 'NewYear', 'Graduate'])).order_by(Gifts.gift_price.desc()).all()
-        elif sort == 'discountprice':
+        elif sort == 'discountprice-low-to-high':
             gifts = Gifts.query.filter(Gifts.gift_category.notin_(['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
                       'Christmas', 'EasterDay', 'NewYear', 'Graduate'])).order_by(Gifts.gift_discount_price.asc()).all()
+        elif sort == 'discountprice-high-to-low':
+            gifts = Gifts.query.filter(Gifts.gift_category.notin_(['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
+                      'Christmas', 'EasterDay', 'NewYear', 'Graduate'])).order_by(Gifts.gift_discount_price.desc()).all()
         elif sort == 'popular':
             gifts = Gifts.query.filter(Gifts.gift_category.notin_(['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
                       'Christmas', 'EasterDay', 'NewYear', 'Graduate'])).order_by(Gifts.gift_sales.desc()).all()
@@ -284,7 +293,7 @@ def show_side_category_method(category, side_category1, side_category2, sort):
     side_category1 = side_category1
     side_category2 = side_category2
     sort = sort
-    all_type_sort = ['price-low-to-high', 'price-high-to-low', 'popular', 'discountprice']
+    all_type_sort = ['price-low-to-high', 'price-high-to-low', 'popular', 'discountprice-low-to-high', 'discountprice-high-to-low']
     top_categories = ['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
                       'Christmas', 'EasterDay', 'NewYear', 'Graduate']
     other_categories = ['Other']
@@ -300,13 +309,17 @@ def show_side_category_method(category, side_category1, side_category2, sort):
                 if sort not in all_type_sort:
                     gifts = Gifts.query.filter_by(gift_category=category, gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(Gifts.id.asc()).all()
                 elif sort == 'price-high-to-low':
-                    gifts = Gifts.query.filter_by(gift_category=category, gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(Gifts.gift_price.desc).all()
+                    gifts = Gifts.query.filter_by(gift_category=category, gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(Gifts.gift_price.desc()).all()
                 elif sort == 'price-low-to-high':
                     gifts = Gifts.query.filter_by(gift_category=category, gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(Gifts.gift_price.asc()).all()
                 elif sort == 'popular':
                     gifts = Gifts.query.filter_by(gift_category=category, gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(Gifts.gift_sales.desc()).all()
-                elif sort == 'discountprice':
+                elif sort == 'discountprice-high-to-low':
                     gifts = Gifts.query.filter_by(gift_category=category, gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(Gifts.gift_discount_price.desc()).all()
+                elif sort == 'discountprice-low-to-high':
+                    gifts = Gifts.query.filter_by(gift_category=category, gift_side_category1=side_category1,
+                                                  gift_side_category2=side_category2).order_by(
+                        Gifts.gift_discount_price.asc()).all()
             # side2没在列表中
             else:
                 response_data["message"] = "Do not have this side 2 category"
@@ -324,14 +337,15 @@ def show_side_category_method(category, side_category1, side_category2, sort):
                     gifts = Gifts.query.filter(Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(
                         gift_category=category, gift_side_category2=side_category2).order_by(Gifts.id.asc()).all()
                 elif sort == 'price-high-to-low':
-                    gifts = Gifts.query.filter(Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(gift_category=category, gift_side_category2=side_category2).order_by(Gifts.gift_price.desc).all()
+                    gifts = Gifts.query.filter(Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(gift_category=category, gift_side_category2=side_category2).order_by(Gifts.gift_price.desc()).all()
                 elif sort == 'price-low-to-high':
                     gifts = Gifts.query.filter(Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(gift_category=category, gift_side_category2=side_category2).order_by(Gifts.gift_price.asc()).all()
                 elif sort == 'popular':
                     gifts = Gifts.query.filter(Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(gift_category=category, gift_side_category2=side_category2).order_by(Gifts.gift_sales.desc()).all()
-                elif sort == 'discountprice':
+                elif sort == 'discountprice-high-to-low':
                     gifts = Gifts.query.filter(Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(gift_category=category, gift_side_category2=side_category2).order_by(Gifts.gift_discount_price.desc()).all()
-
+                elif sort == 'discountprice-low-to-high':
+                    gifts = Gifts.query.filter(Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(gift_category=category, gift_side_category2=side_category2).order_by(Gifts.gift_discount_price.asc()).all()
             # side2没在列表中
             else:
                 response_data["message"] = "Do not have this side 2 category"
@@ -364,7 +378,7 @@ def show_side_category_method(category, side_category1, side_category2, sort):
                     gifts = Gifts.query.filter(Gifts.gift_category.notin_(['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
                       'Christmas', 'EasterDay', 'NewYear', 'Graduate'])).filter_by(
                         gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(
-                        Gifts.gift_price.desc).all()
+                        Gifts.gift_price.desc()).all()
                 elif sort == 'price-low-to-high':
                     gifts = Gifts.query.filter(Gifts.gift_category.notin_(['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
                       'Christmas', 'EasterDay', 'NewYear', 'Graduate'])).filter_by(
@@ -375,11 +389,16 @@ def show_side_category_method(category, side_category1, side_category2, sort):
                       'Christmas', 'EasterDay', 'NewYear', 'Graduate'])).filter_by(
                         gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(
                         Gifts.gift_sales.desc()).all()
-                elif sort == 'discountprice':
+                elif sort == 'discountprice-high-to-low':
                     gifts = Gifts.query.filter(Gifts.gift_category.notin_(['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
                       'Christmas', 'EasterDay', 'NewYear', 'Graduate'])).filter_by(
                         gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(
                         Gifts.gift_discount_price.desc()).all()
+                elif sort == 'discountprice-low-to-high':
+                    gifts = Gifts.query.filter(Gifts.gift_category.notin_(['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
+                      'Christmas', 'EasterDay', 'NewYear', 'Graduate'])).filter_by(
+                        gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(
+                        Gifts.gift_discount_price.asc()).all()
             else:
                 response_data["message"] = "Do not have this side 2 category"
                 status_code = 404
@@ -403,7 +422,7 @@ def show_side_category_method(category, side_category1, side_category2, sort):
                     gifts = Gifts.query.filter(Gifts.gift_category.notin_(['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
                       'Christmas', 'EasterDay', 'NewYear', 'Graduate']),
                                                Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(gift_side_category2=side_category2).order_by(
-                        Gifts.gift_price.desc).all()
+                        Gifts.gift_price.desc()).all()
                 elif sort == 'price-low-to-high':
                     gifts = Gifts.query.filter(Gifts.gift_category.notin_(['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
                       'Christmas', 'EasterDay', 'NewYear', 'Graduate']),
@@ -414,11 +433,16 @@ def show_side_category_method(category, side_category1, side_category2, sort):
                       'Christmas', 'EasterDay', 'NewYear', 'Graduate']),
                                                Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(gift_side_category2=side_category2).order_by(
                         Gifts.gift_sales.desc()).all()
-                elif sort == 'discountprice':
+                elif sort == 'discountprice-high-to-low':
                     gifts = Gifts.query.filter(Gifts.gift_category.notin_(['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
                       'Christmas', 'EasterDay', 'NewYear', 'Graduate']),
                                                Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(gift_side_category2=side_category2).order_by(
                         Gifts.gift_discount_price.desc()).all()
+                elif sort == 'discountprice-low-to-high':
+                    gifts = Gifts.query.filter(Gifts.gift_category.notin_(['Clothing', 'Shoe', 'Electronics', 'Birthday', 'WeddingCelebration',
+                      'Christmas', 'EasterDay', 'NewYear', 'Graduate']),
+                                               Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(gift_side_category2=side_category2).order_by(
+                        Gifts.gift_discount_price.asc()).all()
 
             # side2 没在side2中
             else:
@@ -517,7 +541,7 @@ def just_search_side_category_method(side_category1, side_category2, sort):
     side_category1 = side_category1
     side_category2 = side_category2
     sort = sort
-    all_type_sort = ['price-low-to-high', 'price-high-to-low', 'popular', 'discountprice']
+    all_type_sort = ['price-low-to-high', 'price-high-to-low', 'popular', 'discountprice-low-to-high', 'discountprice-high-to-low']
     side_categories1 = ['Male', 'Female']
     other_side_categories = ['Other']
     side_categories2 = ['Juvenile', 'Youth', 'Elderly']
@@ -529,13 +553,17 @@ def just_search_side_category_method(side_category1, side_category2, sort):
                 if sort not in all_type_sort:
                     gifts = Gifts.query.filter_by(gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(Gifts.id.asc()).all()
                 elif sort == 'price-high-to-low':
-                    gifts = Gifts.query.filter_by(gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(Gifts.gift_price.desc).all()
+                    gifts = Gifts.query.filter_by(gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(Gifts.gift_price.desc()).all()
                 elif sort == 'price-low-to-high':
                     gifts = Gifts.query.filter_by(gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(Gifts.gift_price.asc()).all()
                 elif sort == 'popular':
                     gifts = Gifts.query.filter_by(gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(Gifts.gift_sales.desc()).all()
-                elif sort == 'discountprice':
-                    gifts = Gifts.query.filter_by(gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(Gifts.gift_discount_price.desc()).all()
+                elif sort == 'discountprice-low-to-high':
+                    gifts = Gifts.query.filter_by(gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(Gifts.gift_discount_price.asc()).all()
+                elif sort == 'discountprice-high-to-low':
+                    gifts = Gifts.query.filter_by(gift_side_category1=side_category1,
+                                                  gift_side_category2=side_category2).order_by(
+                        Gifts.gift_discount_price.desc()).all()
         # 没在side2里
         else:
             response_data["message"] = "Do not have this side 2 category"
@@ -558,7 +586,7 @@ def just_search_side_category_method(side_category1, side_category2, sort):
                     gifts = Gifts.query.filter(
                         Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(
                         gift_side_category2=side_category2).order_by(
-                        Gifts.gift_price.desc).all()
+                        Gifts.gift_price.desc()).all()
                 elif sort == 'price-low-to-high':
                     gifts = Gifts.query.filter(
                         Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(
@@ -569,7 +597,12 @@ def just_search_side_category_method(side_category1, side_category2, sort):
                         Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(
                         gift_side_category2=side_category2).order_by(
                         Gifts.gift_sales.desc()).all()
-                elif sort == 'discountprice':
+                elif sort == 'discountprice-low-to-high':
+                    gifts = Gifts.query.filter(
+                        Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(
+                        gift_side_category2=side_category2).order_by(
+                        Gifts.gift_discount_price.asc()).all()
+                elif sort == 'discountprice-high-to-low':
                     gifts = Gifts.query.filter(
                         Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(
                         gift_side_category2=side_category2).order_by(
