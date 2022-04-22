@@ -12,6 +12,7 @@ export default function SideBar() {
   const [expanded, setExpanded] = React.useState([]);
   const [selected, setSelected] = React.useState([]);
   const {topBar,SideCategory,OnlySideCategory} = useGift();
+  const {sort} = useGift()
   let getnode = undefined;
 
   const handleToggle = (event, nodeIds) => {
@@ -37,70 +38,70 @@ export default function SideBar() {
     const HandleClick = (number) => {
         if(number ==="2" && topBar === ""){
             console.log(number)
-            OnlySideCategory("Male, Juvenile","price-low-to-high");
+            OnlySideCategory("Male, Juvenile",sort);
         }
         if(number === "2" && topBar !== ""){
             console.log(topBar)
-            SideCategory(topBar,"Male, Juvenile","price-low-to-high");
+            SideCategory(topBar,"Male, Juvenile",sort);
         }
         if(number ==="3" && topBar.length < 1){
             console.log(selected)
-            OnlySideCategory("Male, Youth","price-low-to-high");
+            OnlySideCategory("Male, Youth",sort);
         }else if(number ==="3"){
             console.log(topBar)
-            SideCategory(topBar,"Male, Youth","price-low-to-high");
+            SideCategory(topBar,"Male, Youth",sort);
         }
         if(number ==="4" && topBar.length < 1){
             console.log(selected)
-            OnlySideCategory("Male, Elderly","price-low-to-high");
+            OnlySideCategory("Male, Elderly",sort);
         }else if(number ==="4"){
             console.log(topBar)
-            SideCategory(topBar,"Male, Elderly","price-low-to-high");
+            SideCategory(topBar,"Male, Elderly",sort);
         }
         if(number ==="6" && topBar.length < 1){
             console.log(selected)
-            OnlySideCategory("Female, Juvenile","price-low-to-high");
+            OnlySideCategory("Female, Juvenile",sort);
         }
         if(number ==="6"){
             console.log(topBar)
-            SideCategory(topBar,"Female, Juvenile","price-low-to-high");
+            SideCategory(topBar,"Female, Juvenile",sort);
         }
         if(number ==="7" && topBar.length < 1){
             console.log(selected)
-            OnlySideCategory("Female, Youth","price-low-to-high");
+            OnlySideCategory("Female, Youth",sort);
         }
         if(number ==="7"){
             console.log(topBar)
-            SideCategory(topBar,"Female, Youth","price-low-to-high");
+            SideCategory(topBar,"Female, Youth",sort);
         }
         if(number ==="9" && topBar.length < 1){
             console.log(selected)
-            OnlySideCategory("Female, Elderly","price-low-to-high");
+            OnlySideCategory("Female, Elderly",sort);
         }else if(number ==="9"){
             console.log(topBar)
-            SideCategory(topBar,"Female, Elderly","price-low-to-high");
+            SideCategory(topBar,"Female, Elderly",sort);
         }
         if(number ==="10" && topBar.length < 1){
             console.log(selected)
-            OnlySideCategory("Other, Juvenile","price-low-to-high");
+            OnlySideCategory("Other, Juvenile",sort);
         }else if(number ==="10"){
             console.log(topBar)
-            SideCategory(topBar,"Other, Juvenile","price-low-to-high");
+            SideCategory(topBar,"Other, Juvenile",sort);
         }
         if(number ==="11" && topBar.length < 1){
             console.log(selected)
-            OnlySideCategory("Other, Youth","price-low-to-high");
+            OnlySideCategory("Other, Youth",sort);
         }
         if(number ==="11"){
             console.log(topBar)
-            SideCategory(topBar,"Other, Youth","price-low-to-high");
+            SideCategory(topBar,"Other, Youth",sort);
         }
         if(number ==="12" && topBar.length < 1){
             console.log(selected)
-            OnlySideCategory("Other, Elderly","price-low-to-high");
+            OnlySideCategory("Other, Elderly",sort);
         }else if(number ==="12"){
             console.log(topBar)
-            SideCategory(topBar,"Other, Elderly","price-low-to-high");
+            SideCategory(topBar,"Other, Elderly",sort);
         }
     }
 

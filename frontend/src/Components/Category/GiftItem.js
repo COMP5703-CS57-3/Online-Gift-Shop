@@ -58,7 +58,8 @@ export default function GiftItem({
                             >
                                 {gift_category},{gift_side_category1},{gift_side_category2}
                             </Box>
-                            <Box sx={{fontSize: 25, lineHeight: 1}}>${gift_discount_price}</Box>
+                            <Box sx={{fontSize: 20, lineHeight: 1}}>Price: ${gift_price}</Box>
+                            <Box sx={{fontSize: 20, lineHeight: 1}}>discount : ${gift_discount_price}</Box>
                         </Box>
                     }
                     position="below"

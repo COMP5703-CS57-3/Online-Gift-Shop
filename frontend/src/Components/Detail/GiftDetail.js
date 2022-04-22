@@ -59,14 +59,16 @@ export default function GiftDetail() {
         getGiftDetail(id)
         getWish(login);
     },[])
-    console.log(error)
+    if(currentSize&&currentSize.length>0&&sizeA===undefined){
+        setSizeA(currentSize[0].size)
+    }
     if(loading||!second||loading2){
         return <Loading/>
     }
     if(second&&error==="no gift"){
         return <h2>the gift do not exist</h2>
     }
-    if(error&&error!=="normal"&&!wish){
+    if(error&&error==="no size"&&!wish){
         return (
         <React.Fragment>
             <CssBaseline />
@@ -195,7 +197,7 @@ export default function GiftDetail() {
         </React.Fragment>
     );
     }
-    if(second&&error&&error!=="normal"&&wish){
+    if(second&&error&&error==="no size"&&wish){
         return (
         <React.Fragment>
             <CssBaseline />
@@ -335,7 +337,7 @@ export default function GiftDetail() {
             </Box>
         </React.Fragment>
     );
-    }else if(second&&!wish&&!error){
+    }else if(second&&!wish&&error==="normal"){
         return (
         <React.Fragment>
             <CssBaseline />

@@ -7,6 +7,7 @@ export const useGift = ()=> useContext(GiftContext);
 export default function GiftProvider({children}){
     const [gifts,setGifts] = useState();
     const [currentGift,setCurrentGift] = useState()
+    const [sort,setSort] = useState("price-low-to-high");
     const [fakeGifts,setFakeGifts] = useState(giftdata);
     const [topBar,setTopBar] = useState("");
     const [loading,setLoading] = useState(true);
@@ -59,6 +60,7 @@ export default function GiftProvider({children}){
     const OnlySideCategory = (side,sort)=>{
         setError("normal")
         setLoading(true)
+        console.log(typeof(sort))
         fetch("http://127.0.0.1:5000/main_home_page/"+ side + ", " + sort).then(res=>res.json()).then(
             res=>{
             if(Array.isArray(res.gifts)){
@@ -115,7 +117,7 @@ export default function GiftProvider({children}){
          }).catch(setError)
     }
     return(
-        <GiftContext.Provider value={{gifts,currentGift,getGifts,topBar,setTopBar,TopCategory,homeCategory,OnlySideCategory,SideCategory,getSize,currentSize,loading,error,setLoading,getGiftDetail}}>
+        <GiftContext.Provider value={{gifts,currentGift,getGifts,topBar,setTopBar,TopCategory,homeCategory,OnlySideCategory,SideCategory,getSize,currentSize,loading,error,setLoading,getGiftDetail,setSort,sort}}>
             {children}
         </GiftContext.Provider>
     )

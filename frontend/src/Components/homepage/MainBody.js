@@ -12,15 +12,21 @@ import MenuItem from "@mui/material/MenuItem";
 import {Menu} from "@mui/material";
 import {TabPanel} from "@mui/lab";
 import Button from "@mui/material/Button";
+import {FormControl, FormHelperText, Select} from "@material-ui/core";
 
 
 
 export default function MainBody({props}) {
     /*通过属性的方式设置导航，跳转到不同的类别*/
     const [value, setValue] = React.useState('1');
+    const {sort,setSort} = useGift()
     const [id,setid]=React.useState('1');
     const handleChange = (event, newValue) => {
         setValue(newValue);
+    };
+    const handleSortChange = (event) => {
+        setSort(event.target.value);
+        console.log(sort)
     };
     const handleClick = (event,newid) => {
         setid(newid)
@@ -34,46 +40,46 @@ export default function MainBody({props}) {
     }
     const ClickCloth = () => {
         setTopBar("Clothing");
-        TopCategory("Clothing", "price-low-to-high");
-
+        console.log(sort)
+        TopCategory("Clothing", sort);
     }//
     const ClickShoe = () => {
         setTopBar("Shoe");
-        TopCategory("Shoe", "price-low-to-high");
+        TopCategory("Shoe", sort);
 
     }
     const ClickElec = () => {
         setTopBar("Electronics");
-        TopCategory("Electronics", "price-low-to-high");
+        TopCategory("Electronics", sort);
 
     }
     const ClickBrth = () => {
         setTopBar("Birthday");
-        TopCategory("Birthday", "price-low-to-high");
+        TopCategory("Birthday", sort);
     }
     const ClickWed = () => {
         setTopBar("Wedding Celebration");
-        TopCategory("Wedding Celebration", "price-low-to-high");
+        TopCategory("Wedding Celebration", sort);
     }
     const ClickChri = () => {
         setTopBar("Christmas");
-        TopCategory("Christmas", "price-low-to-high");
+        TopCategory("Christmas", sort);
     }
     const ClickEast = () => {
         setTopBar("Easter Day");
-        TopCategory("Easter Day", "price-low-to-high");
+        TopCategory("Easter Day", sort);
     }
     const ClickNY = () => {
         setTopBar("New Year");
-        TopCategory("New Year", "price-low-to-high");
+        TopCategory("New Year", sort);
     }
     const ClickGrad = () => {
         setTopBar("Graduate");
-        TopCategory("Graduate", "price-low-to-high");
+        TopCategory("Graduate", sort);
     }
     const ClickOther = () => {
         setTopBar("Other");
-        TopCategory("Other", "price-low-to-high");
+        TopCategory("Other", sort);
     }
 
 
@@ -112,6 +118,21 @@ export default function MainBody({props}) {
                     <TabPanel value="6" sx={{borderBottom: 1, borderColor: 'divider',height:20,mx:"auto"}}>
                     </TabPanel>
                 </TabContext>
+                <FormControl sx={{ m: 1, minWidth: 120 }}>
+                    <Select
+                      value={sort}
+                      onChange={handleSortChange}
+                      inputProps={{ 'aria-label': 'Without label' }}
+                    >
+                      <MenuItem value="price-low-to-high">
+                        <em>price-low-to-high</em>
+                      </MenuItem>
+                      {/*<MenuItem value="price-high-to-low">price-high-to-low</MenuItem>*/}
+                      <MenuItem value="popular">popular</MenuItem>
+                      <MenuItem value="discountprice">discount price low to high</MenuItem>
+                    </Select>
+                    <FormHelperText>Sort type</FormHelperText>
+                  </FormControl>
                     <Grid container spacing={0} value="1" style={{flexWrap: "nowrap", flexDirection: "row"}}>
                         <Grid item xs={6} style={{float: "left", flexBasis: "auto", width: 300}}><SideBar/></Grid>
                         <Grid item xs={6}
