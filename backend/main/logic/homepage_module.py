@@ -56,7 +56,7 @@ class Category_design2(Resource):
     @main_home_page_namespace.response(404, 'Not Found')
     def get():
         if 'top_type' in request.args.keys():
-            category = request.args['top_type'].lower()
+            category = request.args['top_type'].capitalize()
             if category in top_categories:
                 if 'gift_sort' in request.args.keys():
                     sort = request.args['gift_sort'].lower()
@@ -108,13 +108,13 @@ class Category_side_design2(Resource):
     @main_home_page_namespace.response(404, 'Not Found')
     def get():
         if 'top_type' in request.args.keys():
-            category = request.args['top_type'].lower()
+            category = request.args['top_type'].capitalize()
             if category in top_categories:
                 if 'side_type1' in request.args.keys():
-                    side_category1 = request.args['side_type1'].lower()
+                    side_category1 = request.args['side_type1'].capitalize()
                     if side_category1 in side_categories1:
                         if 'side_type2' in request.args.keys():
-                            side_category2 = request.args['side_type2'].lower()
+                            side_category2 = request.args['side_type2'].capitalize()
                             if side_category2 in side_categories2:
                                 if 'gift_sort' in request.args.keys():
                                     gift_sort = request.args['gift_sort'].lower()
