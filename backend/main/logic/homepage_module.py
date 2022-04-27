@@ -18,8 +18,8 @@ class Home(Resource):
     def get():
         # sort the main page gifts
         if request.args:
-            # output_gifts = show_main_homepage_gifts_in_sort_method(request.args)
-            output_gifts = show_main_homepage_gifts_in_sort_method()
+            output_gifts = show_main_homepage_gifts_in_sort_method(request.args)
+            # output_gifts = show_main_homepage_gifts_in_sort_method()
         # show the main page gifts
         else:
             output_gifts = show_main_homepage_method()
