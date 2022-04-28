@@ -469,18 +469,18 @@ def pay_wishlist(info):
                         database.session.commit()
                         database.session.flush()
                         database.session.refresh(order_product)
-                        each_size = Size.query.filter_by(gift_id=product_id, size=size).first()
-                        product_info = Gifts.query.filter_by(id=product_id).first()
-                        each_stock = each_size.stock
-                        each_sales = each_size.this_size_sales
-                        each_income = each_size.this_size_income
-                        each_size.stock = each_stock - 1
-                        each_size.this_size_sales = each_sales + 1
-                        each_size.this_size_income = each_income + price
-                        product_sales = product_info.gift_sales
-                        product_income = product_info.gift_income
-                        product_info.gift_sales = product_sales + 1
-                        product_info.gift_income = product_income + price
+                        # each_size = Size.query.filter_by(gift_id=product_id, size=size).first()
+                        # product_info = Gifts.query.filter_by(id=product_id).first()
+                        # each_stock = each_size.stock
+                        # each_sales = each_size.this_size_sales
+                        # each_income = each_size.this_size_income
+                        # each_size.stock = each_stock - 1
+                        # each_size.this_size_sales = each_sales + 1
+                        # each_size.this_size_income = each_income + price
+                        # product_sales = product_info.gift_sales
+                        # product_income = product_info.gift_income
+                        # product_info.gift_sales = product_sales + 1
+                        # product_info.gift_income = product_income + price
                         wishlist_item_information.count = system_count - count
                         update_wishlist = Wishlist.query.filter_by(owner_id=owner_id, wishlist_id=wishlist_id).first()
                         update_wishlist.state = 'partial'
@@ -513,18 +513,18 @@ def pay_wishlist(info):
                         database.session.commit()
                         database.session.flush()
                         database.session.refresh(order_product)
-                        each_size = Size.query.filter_by(gift_id=product_id, size=size).first()
-                        product_info = Gifts.query.filter_by(id=product_id).first()
-                        each_stock = each_size.stock
-                        each_sales = each_size.this_size_sales
-                        each_income = each_size.this_size_income
-                        each_size.stock = each_stock - 1
-                        each_size.this_size_sales = each_sales + 1
-                        each_size.this_size_income = each_income + price
-                        product_sales = product_info.gift_sales
-                        product_income = product_info.gift_income
-                        product_info.gift_sales = product_sales + 1
-                        product_info.gift_income = product_income + price
+                        # each_size = Size.query.filter_by(gift_id=product_id, size=size).first()
+                        # product_info = Gifts.query.filter_by(id=product_id).first()
+                        # each_stock = each_size.stock
+                        # each_sales = each_size.this_size_sales
+                        # each_income = each_size.this_size_income
+                        # each_size.stock = each_stock - 1
+                        # each_size.this_size_sales = each_sales + 1
+                        # each_size.this_size_income = each_income + price
+                        # product_sales = product_info.gift_sales
+                        # product_income = product_info.gift_income
+                        # product_info.gift_sales = product_sales + 1
+                        # product_info.gift_income = product_income + price
                         wishlist_item_information.this_gift_state = "paid"
                         wishlist_item_information.paid_count += count
                         wishlist_item_information.count = 0

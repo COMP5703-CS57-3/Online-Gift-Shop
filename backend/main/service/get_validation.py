@@ -43,7 +43,7 @@ def get_validation_method(user_input_dictionary):
             app.config['MAIL_USE_SSL'] = True
             app.config['MAIL_USE_TLS'] = False
             app.config["MAIL_USERNAME"] = "zhengli74@qq.com"
-            app.config["MAIL_PASSWORD"] = "ixsmrheedjkqbhdh"
+            app.config["MAIL_PASSWORD"] = "ldegcibyorucbggj"
             mail = Mail(app)
             user_email = user_input_dictionary["user_email"]
             msg = Message("Validation Code",
