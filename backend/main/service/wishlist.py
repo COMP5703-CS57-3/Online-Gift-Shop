@@ -475,8 +475,8 @@ def pay_wishlist(info):
                         each_sales = each_size.this_size_sales
                         each_income = each_size.this_size_income
                         each_size.stock = each_stock - 1
-                        each_size.this_size_income = each_sales + 1
-                        each_size.individual_income = each_income + price
+                        each_size.this_size_sales = each_sales + 1
+                        each_size.this_size_income = each_income + price
                         product_sales = product_info.gift_sales
                         product_income = product_info.gift_income
                         product_info.gift_sales = product_sales + 1
@@ -519,8 +519,8 @@ def pay_wishlist(info):
                         each_sales = each_size.this_size_sales
                         each_income = each_size.this_size_income
                         each_size.stock = each_stock - 1
-                        each_size.this_size_income = each_sales + 1
-                        each_size.individual_income = each_income + price
+                        each_size.this_size_sales = each_sales + 1
+                        each_size.this_size_income = each_income + price
                         product_sales = product_info.gift_sales
                         product_income = product_info.gift_income
                         product_info.gift_sales = product_sales + 1
