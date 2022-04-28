@@ -15,6 +15,7 @@
     "@mui/material": "^5.5.2",
     "@react-spring/web": "^9.4.4",
     "@testing-library/user-event": "^13.5.0",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.7",
     "axios": "^0.26.1",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
@@ -22,6 +23,7 @@
     "date-fns": "^2.28.0",
     "history": "^4.9.0",
     "identity-obj-proxy": "^3.0.0",
+    "jest-enzyme": "^7.1.2",
     "module": "^1.2.5",
     "next": "^12.1.4",
     "node": "^17.7.2",
@@ -80,7 +82,7 @@
     ],
     "testEnvironment": "jsdom",
     "setupFiles": [
-      "<rootDir>/__jest__/Enzyme.setup.js"
+      "<rootDir>/__jest__/Enzymesetup.js"
     ],
     "transform": {
       "^.+\\.(js|jsx)$": "babel-jest"

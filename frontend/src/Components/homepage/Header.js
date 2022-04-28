@@ -42,10 +42,11 @@ export default function AccountMenu() {
 
     function loginFunc() {
         const curr = !login
-        setLogin(curr)
+        console.log(curr)
+        //
         if (!curr) {
             cookie.remove("login")
-            setLogin(undefined)
+            setLogin(false)
             setRole("user")
             sessionStorage.setItem("role","user")
             sessionStorage.removeItem("user")
