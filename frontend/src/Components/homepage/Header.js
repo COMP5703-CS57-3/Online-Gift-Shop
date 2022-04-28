@@ -42,7 +42,7 @@ export default function AccountMenu() {
 
     function loginFunc() {
         const curr = !login
-        console.log(curr)
+        // console.log(curr)
         //
         if (!curr) {
             cookie.remove("login")

@@ -55,6 +55,7 @@ export default function AdminLogIn(props) {
                     setLogin(response.data.id)
                     setRole("admin")
                     sessionStorage.setItem("role","admin")
+                    sessionStorage.setItem("user","Admin")
                     // console.log(_session.get("curr"))
                     navigate(from)
                 } else {

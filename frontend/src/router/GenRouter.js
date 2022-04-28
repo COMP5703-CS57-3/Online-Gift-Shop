@@ -7,9 +7,6 @@ import NoMatch from "../Components/nomatch";
 import Cart from "../Components/Cart/Cart";
 import DetailContentProvider from "../Components/Detail/DetailContentProvider";
 import Account from "../Components/account";
-import WishList from "../Components/wishlist/WishList";
-import WishListContentProvider from "../Components/Detail/WishListContentProvider";
-import WishFormProvider from "../Components/wishlist/WishFormProvider";
 import FPassword from "../Components/FPassword";
 import AdminOrderList from "../Components/admin/AdminOrderList";
 import Dashboard from "../Components/admin/Dashboard";
@@ -57,62 +54,69 @@ const routes = [
                 component: Cart
             },
             {
+                path: '/account',
+                auth: true,
+                role: ["user"],
+                component: Account
+            },
+            {
                 path: '/wish',
                 auth: false,
                 component: WishContentProvider,
-                role: ["user", "admin"],
+                role: ["user"],
                 children: [
                     {
                         path: '/wish',
                         auth: false,
                         component: CategoryW
 
-                    },{
+                    }, {
                         path: '/wish/wishForm',
                         auth: false,
-                        role: ["user", "admin"],
+                        role: ["user"],
                         component: WishForm
-                    },{
+                    }, {
                         path: '/wish/wishlist/:id',
                         auth: false,
-                        role: ["user", "admin"],
+                        role: ["user"],
                         component: WishListDetail
-                    }
+                    },
+
                 ]
             },
             {
                 path: '/order',
                 auth: false,
                 component: OrderP,
-                role: ["user", "admin"],
+                role: ["user"],
                 children: [
                     {
                         path: '/order/myorder',
                         auth: true,
-                        role: ["user", "admin"],
+                        role: ["user"],
                         component: MyOrder
                     },
                     {
                         path: '/order/createOrder/:id',
                         auth: false,
-                        role: ["user", "admin"],
+                        role: ["user"],
                         component: CreateOrder
                     },
                     {
                         path: '/order/pay',
                         auth: false,
-                        role: ["user", "admin"],
+                        role: ["user"],
                         component: Payc
                     },
                     {
                         path: '/order/orderDetail/:number',
                         auth: false,
-                        role: ["user", "admin"],
+                        role: ["user"],
                         component: OrderDetail
                     }
                 ]
             },
-             {
+            {
                 path: '/gift/:id',
                 auth: false,
                 role: ["user", "admin"],
@@ -135,12 +139,7 @@ const routes = [
         role: ["user", "admin"],
         component: SignUp
     },
-    {
-        path: '/account',
-        auth: true,
-        role: ["user", "admin"],
-        component: Account
-    },
+
     {
         path: '/findpwd',
         auth: false,
@@ -150,7 +149,7 @@ const routes = [
     {
         path: '/paytest',
         auth: false,
-        role: ["user", "admin"],
+        role: ["user"],
         component: Payc
     },
 
