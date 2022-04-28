@@ -44,21 +44,21 @@ export default function SideBar() {
             console.log(topBar)
             SideCategory(topBar,"Male, Juvenile",sort);
         }
-        if(number ==="3" && topBar.length < 1){
+        if(number ==="3" && topBar === ""){
             console.log(selected)
             OnlySideCategory("Male, Youth",sort);
         }else if(number ==="3"){
             console.log(topBar)
             SideCategory(topBar,"Male, Youth",sort);
         }
-        if(number ==="4" && topBar.length < 1){
+        if(number ==="4" &&  topBar === ""){
             console.log(selected)
             OnlySideCategory("Male, Elderly",sort);
         }else if(number ==="4"){
             console.log(topBar)
             SideCategory(topBar,"Male, Elderly",sort);
         }
-        if(number ==="6" && topBar.length < 1){
+        if(number ==="6" &&  topBar === ""){
             console.log(selected)
             OnlySideCategory("Female, Juvenile",sort);
         }
@@ -66,7 +66,7 @@ export default function SideBar() {
             console.log(topBar)
             SideCategory(topBar,"Female, Juvenile",sort);
         }
-        if(number ==="7" && topBar.length < 1){
+        if(number ==="7" &&  topBar === ""){
             console.log(selected)
             OnlySideCategory("Female, Youth",sort);
         }
@@ -74,21 +74,21 @@ export default function SideBar() {
             console.log(topBar)
             SideCategory(topBar,"Female, Youth",sort);
         }
-        if(number ==="9" && topBar.length < 1){
+        if(number ==="9" &&  topBar === ""){
             console.log(selected)
             OnlySideCategory("Female, Elderly",sort);
         }else if(number ==="9"){
             console.log(topBar)
             SideCategory(topBar,"Female, Elderly",sort);
         }
-        if(number ==="10" && topBar.length < 1){
+        if(number ==="10" &&  topBar === ""){
             console.log(selected)
             OnlySideCategory("Other, Juvenile",sort);
         }else if(number ==="10"){
             console.log(topBar)
             SideCategory(topBar,"Other, Juvenile",sort);
         }
-        if(number ==="11" && topBar.length < 1){
+        if(number ==="11" &&  topBar === ""){
             console.log(selected)
             OnlySideCategory("Other, Youth",sort);
         }
@@ -96,7 +96,7 @@ export default function SideBar() {
             console.log(topBar)
             SideCategory(topBar,"Other, Youth",sort);
         }
-        if(number ==="12" && topBar.length < 1){
+        if(number ==="12" &&  topBar === ""){
             console.log(selected)
             OnlySideCategory("Other, Elderly",sort);
         }else if(number ==="12"){

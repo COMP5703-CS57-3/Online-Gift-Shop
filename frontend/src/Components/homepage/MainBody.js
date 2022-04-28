@@ -118,27 +118,51 @@ export default function MainBody({props}) {
                     <TabPanel value="6" sx={{borderBottom: 1, borderColor: 'divider',height:20,mx:"auto"}}>
                     </TabPanel>
                 </TabContext>
-                <FormControl sx={{ m: 1, minWidth: 120 }}>
-                    <Select
-                      value={sort}
-                      onChange={handleSortChange}
-                      inputProps={{ 'aria-label': 'Without label' }}
-                    >
-                      <MenuItem value="price-low-to-high">
-                        <em>price-low-to-high</em>
-                      </MenuItem>
-                      <MenuItem value="price-high-to-low">price-high-to-low</MenuItem>
-                      <MenuItem value="popular">popular</MenuItem>
-                      <MenuItem value="discountprice-low-to-high">discount-price-low-to-high</MenuItem>
-                        <MenuItem value="discountprice-high-to-low">discountprice-high-to-low</MenuItem>
-                    </Select>
-                    <FormHelperText>Sort type</FormHelperText>
+                <Grid container spacing={0} value="1" style={{flexWrap: "nowrap", flexDirection: "row"}}>
+                    <Grid style={{flexWrap: "nowrap", flexDirection: "row"}}>
+                    <Grid>
+                    <FormControl sx={{ m: 1, minWidth: 120 }}>
+                         <FormHelperText sx={{fontSize:16,m:0.5,color:'indigo'}}>Sort type</FormHelperText>
+                        <Select
+                            sx={{
+                                height: 30,
+                            }}
+                          value={sort}
+                          onChange={handleSortChange}
+                          inputProps={{ 'aria-label': 'Without label' }}
+                        >
+                          <MenuItem value="price-low-to-high">
+                            <em>price-low-to-high</em>
+                          </MenuItem>
+                          <MenuItem value="price-high-to-low">price-high-to-low</MenuItem>
+                          <MenuItem value="popular">popular</MenuItem>
+                          <MenuItem value="discountprice-low-to-high">discount-price-low-to-high</MenuItem>
+                            <MenuItem value="discountprice-high-to-low">discountprice-high-to-low</MenuItem>
+                        </Select>
                   </FormControl>
-                    <Grid container spacing={0} value="1" style={{flexWrap: "nowrap", flexDirection: "row"}}>
+                </Grid>
                         <Grid item xs={6} style={{float: "left", flexBasis: "auto", width: 300}}><SideBar/></Grid>
+                    </Grid>
                         <Grid item xs={6}
                               style={{float: "right", flexBasis: "auto", maxWidth: "80%"}}><CategoryG/></Grid>
                     </Grid>
+                {/*<FormControl sx={{ m: 1, minWidth: 120 }}>*/}
+                {/*    <Select*/}
+                {/*      value={sort}*/}
+                {/*      onChange={handleSortChange}*/}
+                {/*      inputProps={{ 'aria-label': 'Without label' }}*/}
+                {/*    >*/}
+                {/*      <MenuItem value="price-low-to-high">*/}
+                {/*        <em>price-low-to-high</em>*/}
+                {/*      </MenuItem>*/}
+                {/*      <MenuItem value="price-high-to-low">price-high-to-low</MenuItem>*/}
+                {/*      <MenuItem value="popular">popular</MenuItem>*/}
+                {/*      <MenuItem value="discountprice-low-to-high">discount-price-low-to-high</MenuItem>*/}
+                {/*        <MenuItem value="discountprice-high-to-low">discountprice-high-to-low</MenuItem>*/}
+                {/*    </Select>*/}
+                {/*    <FormHelperText>Sort type</FormHelperText>*/}
+                {/*  </FormControl>*/}
+
             </Box>
 
         </Box>
