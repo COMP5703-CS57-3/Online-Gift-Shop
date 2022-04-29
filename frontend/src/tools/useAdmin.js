@@ -34,7 +34,7 @@ export default function AdminProvider({children}) {
             // setShownOrder(orderList)
         }
 
-        fetch("http://127.0.0.1:5000/admin/admin_return_all_orders", {
+        fetch("http://127.0.0.1:5000/api/admin/admin_return_all_orders", {
             method: "POST"
         }).then(res => res.json()).then(
             res => {
@@ -77,7 +77,7 @@ export default function AdminProvider({children}) {
 
     const getUsers = () => {
         setLoading(true);
-        fetch("http://127.0.0.1:5000/admin/admin_return_all_users", {
+        fetch("http://127.0.0.1:5000/api/admin/admin_return_all_users", {
             method: "POST"
         }).then(res => res.json()).then(
             res => {
@@ -98,7 +98,7 @@ export default function AdminProvider({children}) {
     // }
 
     const changeItemCount = (id, giftName, giftPrice, giftDiscountPrice, giftDiscountState, giftDescription, giftCategory, sideCategory1, sideCategory2, coverUrl, showUrl1, showUrl2, showUrl3, showUrl4, sizeC) => {
-        fetch("http://127.0.0.1:5000/admin/admin_edit_items", {
+        fetch("http://127.0.0.1:5000/api/admin/admin_edit_items", {
             method: 'put',
             body: JSON.stringify(
                 {
@@ -122,7 +122,7 @@ export default function AdminProvider({children}) {
         }).then(r => console.log(r));
     }
     const addItems = (giftName, giftPrice, giftDiscountPrice, giftDiscountState, giftDescription, giftCategory, sideCategory1, sideCategory2, coverUrl, showUrl1, showUrl2, showUrl3, showUrl4, sizeC) => {
-        fetch("http://127.0.0.1:5000/admin/admin_add_items", {
+        fetch("http://127.0.0.1:5000/api/admin/admin_add_items", {
             method: 'POST',
             body: JSON.stringify(
                 {
@@ -145,13 +145,13 @@ export default function AdminProvider({children}) {
     }
 
     const removeItems = (id) => {
-        fetch(`http://127.0.0.1:5000/admin/admin_manage_items/delete/${id}`, {
+        fetch(`http://127.0.0.1:5000/api/admin/admin_manage_items/delete/${id}`, {
             method: 'DELETE'
         }).then(r => console.log(r));
     }
     const getAllGifts = () => {
         setLoading(true);
-        fetch("http://127.0.0.1:5000/admin/admin_return_all_gifts",
+        fetch("http://127.0.0.1:5000/api/admin/admin_return_all_gifts",
             {method: 'POST'}
         ).then(res => res.json()).then(
             res => {
@@ -167,7 +167,7 @@ export default function AdminProvider({children}) {
     }
     const orderCompleted = (id) => {
         setLoading(true);
-        fetch("http://127.0.0.1:5000/order/set_an_order_as_completed/" + id,
+        fetch("http://127.0.0.1:5000/api/order/set_an_order_as_completed/" + id,
             {method: 'POST'}
         ).then(console.log).then(() => {
             setLoading(false)
@@ -175,7 +175,7 @@ export default function AdminProvider({children}) {
     }
     const orderDelivery = (id) => {
         setLoading(true);
-        fetch("http://127.0.0.1:5000/order/set_an_order_as_delivery/" + id,
+        fetch("http://127.0.0.1:5000/api/order/set_an_order_as_delivery/" + id,
             {method: 'POST'}
         ).then(console.log).then(() => {
             setLoading(false)
