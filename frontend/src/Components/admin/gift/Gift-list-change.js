@@ -99,9 +99,9 @@ export default function BasicModal() {
     const [sideCategory2Props, resetSide2] = useInput();
     // const [coverProps, resetCover] = useInput();
     const [show1Props, resetShow1] = useInput();
-    // const [show2Props, resetShow2] = useInput();
-    // const [show3Props, resetShow3] = useInput();
-    // const [show4Props, resetShow4] = useInput();
+    const [show2Props, resetShow2] = useInput();
+    const [show3Props, resetShow3] = useInput();
+    const [show4Props, resetShow4] = useInput();
     const {changeItemCount} = useAdmin();
     // console.log(wishTitle.current.valueOf());
 
@@ -117,29 +117,29 @@ export default function BasicModal() {
                 }
                 newSizes.push(sizeTemplate)
             }
-            console.log(newSizes)
+            // console.log(newSizes)
         }
         console.log(sizes)
-        // changeItemCount(selectedGiftIds[0],
-        //     giftNameProps,
-        //     giftPriceProps.value,
-        //     giftDiscountPriceProps.value,
-        //     giftDiscountStateProps.value,
-        //     descriptionProps.value,
-        //     categoryProps.value,
-        //     sideCategory1Props.value,
-        //     sideCategory2Props.value,
-        //     coverProps,
-        //     show1Props.value,
-        //     // show2Props.value,
-        //     // show3Props.value,
-        //     // show4Props.value,
-        //     sizes);
+        changeItemCount(selectedGiftIds[0],
+            giftNameProps,
+            giftPriceProps.value,
+            giftDiscountPriceProps.value,
+            giftDiscountStateProps.value,
+            descriptionProps.value,
+            categoryProps.value,
+            sideCategory1Props.value,
+            sideCategory2Props.value,
+            coverProps,
+            show1Props.value,
+            show2Props.value,
+            show3Props.value,
+            show4Props.value,
+            sizes);
         setOpen(false)
         console.log(show1Props.value);
     }
 //------------------------------------table style---------------------------------
-    console.log(size)
+//     console.log(size)
 
     return (
         <div>
@@ -187,10 +187,11 @@ export default function BasicModal() {
                                     }}/>
                                 </Grid>
                         ))}
-                        {/*<Grid item xs={12}><TextField {...show2Props} label="show2" fullWidth sx={{ m: 1 }} /></Grid>*/}
-                        {/*<Grid item xs={12}><TextField {...show3Props} label="show3" fullWidth sx={{ m: 1 }} /></Grid>*/}
-                        {/*<Grid item xs={12}><TextField {...show4Props} label="show4" fullWidth sx={{ m: 1 }} /></Grid>*/}
-                       <Grid item xs={12}> <Button variant="contained" onClick={submit}>change</Button></Grid>
+                        {/*sx={{display:"none"}}*/}
+                        <Grid item xs={3} ><TextField {...show2Props} label="show2" fullWidth sx={{ m: 0.5 }} /></Grid>
+                        <Grid item xs={3} ><TextField {...show3Props} label="show3" fullWidth sx={{ m: 0.5 }} /></Grid>
+                        <Grid item xs={3} ><TextField {...show4Props} label="show4" fullWidth sx={{ m: 0.5 }} /></Grid>
+                       <Grid item xs={12} sx={{m:3}}> <Button variant="contained" onClick={submit}>change</Button></Grid>
                     </Grid>
                 </Box>
             </Modal>

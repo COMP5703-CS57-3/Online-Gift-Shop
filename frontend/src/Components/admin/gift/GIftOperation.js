@@ -96,7 +96,7 @@ export default function AddGift() {
             show3Props.value,
             show4Props.value,
             size);
-        console.log(coverProps.value);
+        // console.log(coverProps.value);
     }
 //------------------------------------table style---------------------------------
 
