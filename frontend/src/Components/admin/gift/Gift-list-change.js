@@ -9,6 +9,7 @@ import Grid from "@mui/material/Grid";
 import {useEffect, useReducer, useState} from "react";
 import ProductForNoOwner from "../../Detail/ProductForNoOwner";
 import SizeCard from "./SizeCard";
+import {useNumberInput} from "../../../tools/useNumberInput";
 
 const style = {
     position: 'absolute',
@@ -30,7 +31,7 @@ export default function BasicModal() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     let [giftNameProps,coverProps] = useState();
-    let [sizes,setSizes] = useState([]);
+    const [sizes,setSizes] = useState([]);
     let {gifts} = useAdmin();
     let loop = 0;
      let size = [
@@ -79,7 +80,6 @@ export default function BasicModal() {
         const GiftItem = foundGift;
         size = foundGift.sizes
         loop = foundGift.sizes.length
-        console.log(GiftItem.gift_cover_url)
         giftNameProps = GiftItem.gift_name;
         coverProps = GiftItem.gift_cover_url;
     }
@@ -90,8 +90,8 @@ export default function BasicModal() {
 
 
     // const [giftNameProps, resetgiftName] = useInput();
-    const [giftPriceProps, resetGiftPrice] = useInput();
-    const [giftDiscountPriceProps, resetGiftDiscountPrice] = useInput();
+    const [giftPriceProps, resetGiftPrice] = useNumberInput();
+    const [giftDiscountPriceProps, resetGiftDiscountPrice] = useNumberInput();
     const [giftDiscountStateProps, resetGiftDiscountState] = useInput();
     const [descriptionProps, resetDescription3] = useInput();
     const [categoryProps, resetCategory] = useInput();
@@ -103,23 +103,10 @@ export default function BasicModal() {
     const [show3Props, resetShow3] = useInput();
     const [show4Props, resetShow4] = useInput();
     const {changeItemCount} = useAdmin();
-    // console.log(wishTitle.current.valueOf());
 
 
     const submit = e => {
         e.preventDefault();
-        if(sizes.length===0){
-            let newSizes = []
-            for(let j =0;j<loop;j++){
-                const sizeTemplate = {
-                    size: size[j].size,
-                    size_stock: size[j].size_stock
-                }
-                newSizes.push(sizeTemplate)
-            }
-            // console.log(newSizes)
-        }
-        console.log(sizes)
         changeItemCount(selectedGiftIds[0],
             giftNameProps,
             giftPriceProps.value,
@@ -136,7 +123,6 @@ export default function BasicModal() {
             show4Props.value,
             sizes);
         setOpen(false)
-        console.log(show1Props.value);
     }
 //------------------------------------table style---------------------------------
 //     console.log(size)
@@ -177,13 +163,12 @@ export default function BasicModal() {
                                             }else{
                                                 const sizeTemplate = {
                                                     size: size[j].size,
-                                                    size_stock: size[j].size_stock
+                                                    size_stock: size[j].stock
                                                 }
                                                 newSizes.push(sizeTemplate)
                                             }
                                         }
                                         setSizes(newSizes)
-                                        console.log(sizes)
                                     }}/>
                                 </Grid>
                         ))}
