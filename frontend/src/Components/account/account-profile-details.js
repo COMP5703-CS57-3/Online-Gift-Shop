@@ -17,7 +17,6 @@ import Stack from "@mui/material/Stack";
 import {AccountCircle} from "@mui/icons-material";
 import {DatePicker, LocalizationProvider} from "@mui/lab";
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
-import {_local} from "../../logic/local$sess";
 import {checkNickName, checkPhone} from "../../logic/ValCheck";
 import {load} from "react-cookies";
 
@@ -72,7 +71,7 @@ export default class AccountProfileDetails extends React.Component {
 
     UNSAFE_componentWillMount() {
         const that = this
-        axios.get(`http://localhost:5000/user_information/user_profile/${this.state.id}`)
+        axios.get(`http://localhost:5000/api/user_information/user_profile/${this.state.id}`)
             .then(r => {
                 // console.log(r.data)
                 const address = r.data.user_address ? r.data.user_address.split(",") : ['', '', '']
@@ -130,7 +129,7 @@ export default class AccountProfileDetails extends React.Component {
 
         }
         // console.log(this.state.user.user_date_of_birth)
-        this.setState({errName:"",errPhone:""})
+        this.setState({errName: "", errPhone: ""})
 
     };
 
@@ -376,9 +375,9 @@ export default class AccountProfileDetails extends React.Component {
             // console.log(sessionStorage.getItem("id"))
             const res_name = checkNickName(data.user_name)
             const res_phone = checkPhone(data.user_mobile)
-            console.log(res_name === true , res_phone === true)
+            console.log(res_name === true, res_phone === true)
             if (res_name === true && res_phone === true) {
-                axios.put("http://localhost:5000/user_information/user_profile/update_user_information", {
+                axios.put("http://localhost:5000/api/user_information/user_profile/update_user_information", {
 
                         "id": load("login"),
                         "user_name": data.user_name,

@@ -8,22 +8,23 @@ from main.logic.admin_logic_module import admin_namespace
 from main.logic.search_item_logic_module import search_part_namespace
 from main.logic.create_order_logic_module import create_order_part_namespace
 from main.logic.dashboard_logic_module import dashboard_namespace
-from flask import Flask
+from flask import Flask, render_template
 from flask import Blueprint
 from flask_cors import CORS
 from flask_restplus import Api
 from flask_script import Manager
 
-
 # from main.namespace import add_namespace
 
 # Blueprints can be used to make your own templates in flask
-the_test_blueprint_page = Blueprint("gift_shop", __name__, url_prefix='')
+the_test_blueprint_page = Blueprint("gift_shop", __name__, url_prefix='/api')
 # define cross-origin resource sharing to handle cross-domain requirements
 
 # set the gift shop api's information
 # the flask_restplus's Api is about swagger
-gift_shop = Api(the_test_blueprint_page,title="Online gift shop",description='this test blueprint page is for Online Gift Shop backend test')
+gift_shop = Api(the_test_blueprint_page, title="Online gift shop",
+                description='this test blueprint page is for Online Gift Shop backend test')
+
 
 # @the_test_blueprint_page.route('/test')
 # def index():
@@ -41,12 +42,13 @@ def add_namespace():
     gift_shop.add_namespace(search_part_namespace, "/search")
     gift_shop.add_namespace(create_order_part_namespace, "/order")
     gift_shop.add_namespace(dashboard_namespace, "/dashboard")
-add_namespace()
 
+
+add_namespace()
 
 app = Flask(__name__,
             template_folder='../frontend/build',
-            static_folder='../frontend/build/static',)
+            static_folder='../frontend/build/static', )
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = aws_endpoint
@@ -68,24 +70,33 @@ def make_session_close():
     database.session.remove()
     database.engine.dispose()
 
+
 # Use flask_script's manager function to write commands
 manager_command = Manager(app)
+
+
 # use command 'python3 app.py create_database' or 'python app.py create_database' to create database
 @manager_command.command
 def create_database():
     database.create_all()
+
+
 # use command 'python3 app.py delete_database' or 'python app.py delete_database' to create database
 @manager_command.command
 def delete_database():
     database.drop_all()
+
+
 # use command to run the backend sevice
 @manager_command.command
 def run():
     app.run()
 
-@app.route('/index')
+
+@app.route('/')
 def index():
     return render_template('index.html')
+
 
 if __name__ == '__main__':
     manager_command.run()

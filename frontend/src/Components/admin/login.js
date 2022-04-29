@@ -41,7 +41,7 @@ export default function AdminLogIn(props) {
         } else if (checkEmail(Email) !== true) {
             alert("please input valid Email")
         } else {
-            axios.post('http://localhost:5000/admin/admin_login', {
+            axios.post('http://localhost:5000/api/admin/admin_login', {
                 admin_email: Email,
                 admin_password: Password
             }).then((response) => {

@@ -2,7 +2,7 @@ import React, {createContext, useContext, useState} from "react";
 import cookie from "react-cookies";
 import axios from "axios";
 import {checkPassword} from "../logic/ValCheck";
-import {_local} from "../logic/local$sess";
+
 
 const AccountContext = createContext();
 export const useAccount = () => useContext(AccountContext);
@@ -31,7 +31,7 @@ export default function AccountProvider({children}) {
         if (res["Pwd"] !== true || res["CPwd"] !== true) {
             setErrInfo({errOld: true, errNew: res["Pwd"], errCon: res["CPwd"]})
         } else {
-            axios.put("http://localhost:5000/login_signup/change_password", {
+            axios.put("http://localhost:5000/api/login_signup/change_password", {
                 id: cookie.load("login"),
                 user_old_password: oldPwd,
                 user_new_password: newPwd
@@ -47,19 +47,18 @@ export default function AccountProvider({children}) {
         }
     }
     const getUserProfile = () => {
-        axios.get(`http://localhost:5000/user_information/user_profile/${cookie.load("login")}`)
+        axios.get(`http://localhost:5000/api/user_information/user_profile/${cookie.load("login")}`)
             .then(r => {
                 // console.log(r.data)
-                const user=r.data
-                if(user.address){
-                    user["user_country"]=user.address.split(", ")[0]
-                    user["user_state"]=user.address.split(", ")[1]
-                    user["user_detail_street"]=user.address.split(", ")[2]
-                }
-                else {
-                    user["user_country"]="Australia"
-                    user["user_state"]="New South Wales"
-                    user["user_detail_street"]=""
+                const user = r.data
+                if (user.address) {
+                    user["user_country"] = user.address.split(", ")[0]
+                    user["user_state"] = user.address.split(", ")[1]
+                    user["user_detail_street"] = user.address.split(", ")[2]
+                } else {
+                    user["user_country"] = "Australia"
+                    user["user_state"] = "New South Wales"
+                    user["user_detail_street"] = ""
                 }
                 setUserProfile(user)
                 setNewUserProfile({...user})
@@ -74,18 +73,18 @@ export default function AccountProvider({children}) {
         data["user_address"] = [data["user_country"], data["user_state"], data["user_detail_street"]].join(", ")
         // this.setState({new_user: userProfile})
         // console.log(sessionStorage.getItem("id"))
-        axios.put("http://localhost:5000/user_information/user_profile/update_user_information", {
+        axios.put("http://localhost:5000/api/user_information/user_profile/update_user_information", {
 
-                "id": _local.get("id"),
+                "id": cookie.load("user"),
                 "user_name": data.user_name,
                 "user_mobile": data.user_mobile,
                 "user_date_of_birth": data.user_date_of_birth,
                 "user_address": data.user_address
             }
-        ).then(()=>{
-            setUserProfile(data)
-            setIsReadonly(true)
-        }//after axios
+        ).then(() => {
+                setUserProfile(data)
+                setIsReadonly(true)
+            }//after axios
             // console.log("success")
         ).catch(
             r => console.log(r)

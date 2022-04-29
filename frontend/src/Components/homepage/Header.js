@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {useState} from 'react';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
@@ -16,8 +15,6 @@ import {Link, useNavigate} from "react-router-dom";
 import {useGift} from "../../tools/useGift";
 import Button from "@mui/material/Button";
 import cookie from "react-cookies";
-import {_local} from "../../logic/local$sess";
-import BeforeEach from "../../router/BeforEach";
 import {useApp} from "../../tools/useApp";
 import Logo from "../../picture/Logo.png";
 import {getInitials} from "../../logic/get-initials";
@@ -26,12 +23,12 @@ import {getInitials} from "../../logic/get-initials";
 export default function AccountMenu() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     // console.log(cookie.load(_local.get("id")))
-    const {login, setLogin,setRole} = useApp()
+    const {login, setLogin, setRole} = useApp()
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const handleClose = () => {
         setAnchorEl(null);
     };
@@ -46,9 +43,9 @@ export default function AccountMenu() {
         //
         if (!curr) {
             cookie.remove("login")
-            setLogin(false)
+            setLogin(undefined)
             setRole("user")
-            sessionStorage.setItem("role","user")
+            sessionStorage.setItem("role", "user")
             sessionStorage.removeItem("user")
         }
     }
@@ -64,16 +61,16 @@ export default function AccountMenu() {
                         <Box
                             component="img"
                             sx={{
-                                paddingTop:2,
+                                paddingTop: 2,
                                 minWidth: 200,
                                 paddingRight: 75,
-                                width:200,
-                                height:50
+                                width: 200,
+                                height: 50
                             }}
                             alt="pic"
                             src={Logo}
-                            />
-                        <Button sx={{minWidth: 100}} onClick={()=>navigate("/")}>Home</Button>
+                        />
+                        <Button sx={{minWidth: 100}} onClick={() => navigate("/")}>Home</Button>
                         <Typography sx={{minWidth: 100}}>Shop</Typography>
                         <Typography sx={{minWidth: 100}}>Contact</Typography>
                         <Typography sx={{minWidth: 100}}>Profile</Typography>
@@ -87,10 +84,12 @@ export default function AccountMenu() {
                                 aria-haspopup="true"
                                 aria-expanded={open ? 'true' : undefined}
                             >
-                                <Avatar sx={{width: 32, height: 32}}>{getInitials(sessionStorage.getItem("user"))}</Avatar>
+                                <Avatar
+                                    sx={{width: 32, height: 32}}>{getInitials(sessionStorage.getItem("user"))}</Avatar>
                             </IconButton>
                         </Tooltip>
-                        <Typography sx={{minWidth: 100}}>{login?"hello, "+sessionStorage.getItem("user")+"!":"Hello, Guest!"}</Typography>
+                        <Typography
+                            sx={{minWidth: 100}}>{login ? "hello, " + sessionStorage.getItem("user") + "!" : "Hello, Guest!"}</Typography>
                     </Box>
                 </Box>
                 <Menu
@@ -139,7 +138,7 @@ export default function AccountMenu() {
                         <ListItemIcon>
                             <PersonAdd fontSize="small"/>
                         </ListItemIcon>
-                       <Link style={{textDecoration: 'none'}} to={{pathname: "/order/myorder"}}> My Purchase</Link>
+                        <Link style={{textDecoration: 'none'}} to={{pathname: "/order/myorder"}}> My Purchase</Link>
                     </MenuItem>
                     <Divider/>
                     <MenuItem>

@@ -5,11 +5,8 @@ import AccountProfile from "./account/account-profile";
 import AccountProfileDetails from "./account/account-profile-details";
 import Box from "@mui/material/Box";
 import Background from "../picture/background.png";
-import {_local} from "../logic/local$sess";
-import BeforEach from "../router/BeforEach";
 import cookie from "react-cookies";
 import AccountProvider from "../tools/useAccount";
-import ChangePassword from "./account/changepwd";
 
 export default function Account(props) {
     const id = cookie.load("login")

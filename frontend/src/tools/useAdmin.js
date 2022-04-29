@@ -49,25 +49,25 @@ export default function AdminProvider({children}) {
     }
 
     const getTotalWishlist = () => {
-        axios.post("http://localhost:5000/dashboard/show_wishlist_number")
+        axios.post("http://localhost:5000/api/dashboard/show_wishlist_number")
             .then(r => setTotalWishlistNumber(r.data.message.split(" ")[2]))
             .catch(() => setTotalWishlistNumber("4"))
 
     }
     const getTotalAccount = () => {
-        axios.post("http://localhost:5000/dashboard/show_users_number")
+        axios.post("http://localhost:5000/api/dashboard/show_users_number")
             .then(r => setTotalAccountNumber(r.data.message.split(" ")[2]))
             .catch(() => setTotalAccountNumber("12"))
 
     }
     const getTotalOrders = () => {
-        axios.post("http://localhost:5000/dashboard/show_all_order_number")
+        axios.post("http://localhost:5000/api/dashboard/show_all_order_number")
             .then(r => setTotalOrderNumber(r.data.message.split(" ")[2]))
             .catch(() => setTotalOrderNumber("22"))
 
     }
     const getCompleteOrders = () => {
-        axios.post("http://localhost:5000/dashboard/show_completed_order_number")
+        axios.post("http://localhost:5000/api/dashboard/show_completed_order_number")
             .then(r => setCompleteOrderNumber(r.data.message.split(" ")[2]))
             .catch(() => setCompleteOrderNumber("11"))
 
@@ -187,14 +187,14 @@ export default function AdminProvider({children}) {
         const currOrder = orderList.find((item) => item.order_number === currOpen)
         const currStatus = currOrder.order_state
         if (states.indexOf(currStatus) === 1) {
-            axios.post(`http://localhost:5000/order/set_an_order_as_completed/${currOpen}`).then(r => getOrderList()).catch(r => console.log(r))
+            axios.post(`http://localhost:5000/api/order/set_an_order_as_completed/${currOpen}`).then(r => getOrderList()).catch(r => console.log(r))
         } else if (states.indexOf(currStatus) === 0) {
-            axios.post(`http://localhost:5000/order/set_an_order_as_delivery/${currOpen}`).then(r => getOrderList()).catch(r => console.log(r))
+            axios.post(`http://localhost:5000/api/order/set_an_order_as_delivery/${currOpen}`).then(r => getOrderList()).catch(r => console.log(r))
         }
     }
     const getLastOrderList = () => {
         setLoading(true);
-        axios.post("http://localhost:5000/dashboard/return_new_orders").then(r => {
+        axios.post("http://localhost:5000/api/dashboard/return_new_orders").then(r => {
                 // console.log(r.data.orders_inf)
                 setLastOrderList(r.data.orders_inf)
 

@@ -17,7 +17,7 @@ export default function GiftProvider({children}){
     const getGifts = ()=>{
         setError("normal")
         setLoading(true)
-        fetch("http://127.0.0.1:5000/main_home_page").then(res=>res.json()).then(
+        fetch("http://localhost:5000/api/main_home_page").then(res=>res.json()).then(
             res=>{
             if(Array.isArray(res.gifts)){
                 setGifts(res.gifts);
@@ -31,7 +31,7 @@ export default function GiftProvider({children}){
     const homeCategory = ()=>{
         setError("normal")
         setLoading(true)
-        fetch("http://127.0.0.1:5000/main_home_page").then(res=>res.json()).then(
+        fetch("http://127.0.0.1:5000/api/main_home_page").then(res=>res.json()).then(
             res=>{
             if(Array.isArray(res.gifts)){
                 setGifts(res.gifts);
@@ -45,7 +45,7 @@ export default function GiftProvider({children}){
     const TopCategory = (top,sort)=> {
         setError("normal")
         setLoading(true)
-        fetch("http://127.0.0.1:5000/main_home_page/"+top+", "+sort).then(res => res.json()).then(
+        fetch("http://127.0.0.1:5000/api/main_home_page/"+top+", "+sort).then(res => res.json()).then(
             res => {
             if(Array.isArray(res.gifts)){
                 setGifts(res.gifts);
@@ -61,7 +61,7 @@ export default function GiftProvider({children}){
         setError("normal")
         setLoading(true)
         console.log(typeof(sort))
-        fetch("http://127.0.0.1:5000/main_home_page/"+ side + ", " + sort).then(res=>res.json()).then(
+        fetch("http://127.0.0.1:5000/api/main_home_page/"+ side + ", " + sort).then(res=>res.json()).then(
             res=>{
             if(Array.isArray(res.gifts)){
                 setGifts(res.gifts);
@@ -75,7 +75,7 @@ export default function GiftProvider({children}){
     const SideCategory = (top,side,sort)=>{
         setError("normal")
         setLoading(true)
-        fetch("http://127.0.0.1:5000/main_home_page/"+top + ", " +side+", "+ sort).then(res=>res.json()).then(
+        fetch("http://127.0.0.1:5000/api/main_home_page/"+top + ", " +side+", "+ sort).then(res=>res.json()).then(
             res=>{
             if(Array.isArray(res.gifts)){
                 setGifts(res.gifts);
@@ -89,7 +89,7 @@ export default function GiftProvider({children}){
     const getSize = (id)=>{
         setError("normal")
         setLoading(true)
-         fetch("http://127.0.0.1:5000/search/search_gift_id_return_size/"+id).then(res=>{
+         fetch("http://127.0.0.1:5000/api/search/search_gift_id_return_size/"+id).then(res=>{
              let tt = res
              if(tt.status===404){
                  setError("no size")
@@ -103,7 +103,7 @@ export default function GiftProvider({children}){
     const getGiftDetail = (id)=>{
         setError("normal")
         setLoading(true)
-         fetch("http://127.0.0.1:5000/search/search_gift_id/"+id).then(res=>res.json()
+         fetch("http://127.0.0.1:5000/api/search/search_gift_id/"+id).then(res=>res.json()
          ).then((res)=>{
              let tt = res
              console.log(tt)

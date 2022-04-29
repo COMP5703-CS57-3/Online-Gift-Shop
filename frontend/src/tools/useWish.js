@@ -19,7 +19,7 @@ export default function WishProvider({children}){
     //     setLoading(true)
     //     if(!login) return;
     //     // if(wish&&wish.owner_id === login) return;
-    //     fetch("http://127.0.0.1:5000/wishlist/show", {
+    //     fetch("http://127.0.0.1:5000/api/wishlist/show", {
     //         method: 'POST',
     //         body: JSON.stringify({owner_id:login})
     //     }).then(res=>res.json()).then(res=>{
@@ -38,7 +38,7 @@ export default function WishProvider({children}){
             return;
         }
         // if(wish&&wish.owner_id === login) return;
-        fetch("http://127.0.0.1:5000/wishlist/show", {
+        fetch("http://127.0.0.1:5000/api/wishlist/show", {
             method: 'POST',
             body: JSON.stringify({owner_id:id})
         }).then(res=>res.json()).then(res=>{
@@ -49,7 +49,7 @@ export default function WishProvider({children}){
     const sendEmail = (wishlist,email)=>{
         setError2()
         setLoading2(true)
-        fetch("http://127.0.0.1:5000/wishlist/send_email", {
+        fetch("http://127.0.0.1:5000/api/wishlist/send_email", {
             method: 'POST',
             body: JSON.stringify({
                 wishlist_id:wishlist,
@@ -65,7 +65,7 @@ export default function WishProvider({children}){
     }
     const deleteWish = (ownerId,wishId)=>{
         const nav =()=> navi("/wish");
-        fetch("http://127.0.0.1:5000/wishlist/delete", {
+        fetch("http://127.0.0.1:5000/api/wishlist/delete", {
             method: 'POST',
             body: JSON.stringify(
                 {
@@ -82,7 +82,7 @@ export default function WishProvider({children}){
     }
     const createWish = (id,firstname,lastname,wishlistnameP,descriptionP,addressP,phoneP,postcodeP,timeP)=>{
         const nav =()=> navi("/wish");
-        fetch("http://127.0.0.1:5000/wishlist/create", {
+        fetch("http://127.0.0.1:5000/api/wishlist/create", {
             method: 'POST',
             body: JSON.stringify(
                 {
@@ -102,7 +102,7 @@ export default function WishProvider({children}){
     }
 
     const addProduct = (ownerId,wishlistId,productId,sizeA)=>{
-        fetch("http://127.0.0.1:5000/wishlist/add", {
+        fetch("http://127.0.0.1:5000/api/wishlist/add", {
             method: 'POST',
             body: JSON.stringify(
                 {
@@ -115,7 +115,7 @@ export default function WishProvider({children}){
     }
 
     const changeCount = (wishlistId,proId,sizeA,countA)=>{
-        fetch("http://127.0.0.1:5000/wishlist/changeCount", {
+        fetch("http://127.0.0.1:5000/api/wishlist/changeCount", {
             method: 'put',
             body: JSON.stringify(
                 {
@@ -128,7 +128,7 @@ export default function WishProvider({children}){
     }
 
     const removeProduct = (ownerId,wishlistId,proId)=>{
-        fetch("http://127.0.0.1:5000/wishlist/remove", {
+        fetch("http://127.0.0.1:5000/api/wishlist/remove", {
             method: 'POST',
             body: JSON.stringify(
                 {

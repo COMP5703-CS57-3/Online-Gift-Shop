@@ -62,7 +62,7 @@ export default function FPassword() {
                 const valPwd = checkPassword(password)
 
                 if (valPwd["Pwd"] === true) {
-                    axios.put('http://localhost:5000/login_signup/forget_password', {
+                    axios.put('http://localhost:5000/api/login_signup/forget_password', {
                         "user_email": email,
                         "validation_code": validation,
                         "user_new_password": password

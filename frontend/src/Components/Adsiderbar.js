@@ -1,8 +1,5 @@
-import React, { useState } from 'react';
-import { Box } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import React from 'react';
 import DashboardSidebar from "../Components/siderbar/dashboard-sidebar";
-import DashItem from "./admin/dashboard/dash";
 // import { DashboardNavbar } from './dashboard-navbar';
 // import {AdminSiderHeader} from "./admin/AdminSiderHeader";
 
@@ -19,16 +16,16 @@ import DashItem from "./admin/dashboard/dash";
 export const Adsiderbar = () => {
 
 
-  return (
-    <>
-      {/*<DashboardLayoutRoot>*/}
-      {/*</DashboardLayoutRoot>*/}
-      {/*<DashboardNavbar onSidebarOpen={() => setSidebarOpen(true)} />*/}
-      <DashboardSidebar
-      />
+    return (
+        <>
+            {/*<DashboardLayoutRoot>*/}
+            {/*</DashboardLayoutRoot>*/}
+            {/*<DashboardNavbar onSidebarOpen={() => setSidebarOpen(true)} />*/}
+            <DashboardSidebar
+            />
 
-    </>
-  );
+        </>
+    );
 };
 
 export default Adsiderbar;

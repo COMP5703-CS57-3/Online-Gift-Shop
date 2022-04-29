@@ -14,7 +14,7 @@ export default function OrderProvider({children}){
     const [currentOrder,setCurrentOrder] = useState();
     const getOrderByPayer = (payerId)=>{
         setLoading(true)
-         fetch("http://127.0.0.1:5000/admin/admin_input_payer_id_orders", {
+         fetch("http://127.0.0.1:5000/api/admin/admin_input_payer_id_orders", {
             method: 'POST',
             body: JSON.stringify(
                 {
@@ -29,7 +29,7 @@ export default function OrderProvider({children}){
     const createOrder = (ownerId,wishlistId,fName,lName,phone,address,postCode,payerFName,payId,totalPrice,productList)=>{
         const nav =()=> navi("/order/pay");
         setLoading(true)
-        fetch("http://127.0.0.1:5000/wishlist/pay", {
+        fetch("http://127.0.0.1:5000/api/wishlist/pay", {
             method: 'POST',
             body: JSON.stringify(
                 {
