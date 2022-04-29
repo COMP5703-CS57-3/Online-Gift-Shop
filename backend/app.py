@@ -1,18 +1,19 @@
-from main.connect_to_aws import aws_endpoint
-from main.model.create_database import database
-from main.logic.user_logic_module import login_signup_namespace
-from main.logic.user_information_module import user_information_namespace
-from main.logic.homepage_module import main_home_page_namespace
-from main.logic.wishlist_logic_module import wishlist_ns
-from main.logic.admin_logic_module import admin_namespace
-from main.logic.search_item_logic_module import search_part_namespace
-from main.logic.create_order_logic_module import create_order_part_namespace
-from main.logic.dashboard_logic_module import dashboard_namespace
-from flask import Flask, render_template
 from flask import Blueprint
+from flask import Flask, render_template
 from flask_cors import CORS
 from flask_restplus import Api
 from flask_script import Manager
+
+from main.connect_to_aws import aws_endpoint
+from main.logic.admin_logic_module import admin_namespace
+from main.logic.create_order_logic_module import create_order_part_namespace
+from main.logic.dashboard_logic_module import dashboard_namespace
+from main.logic.homepage_module import main_home_page_namespace
+from main.logic.search_item_logic_module import search_part_namespace
+from main.logic.user_information_module import user_information_namespace
+from main.logic.user_logic_module import login_signup_namespace
+from main.logic.wishlist_logic_module import wishlist_ns
+from main.model.create_database import database
 
 # from main.namespace import add_namespace
 
@@ -95,6 +96,16 @@ def run():
 
 @app.route('/')
 def index():
+    return render_template('index.html')
+
+
+@app.route('/admin')
+def admin():
+    return render_template('index.html')
+
+
+@app.route('/login')
+def login():
     return render_template('index.html')
 
 

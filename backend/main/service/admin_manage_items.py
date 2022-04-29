@@ -4,7 +4,6 @@ from flask import make_response
 from ..connect_to_aws import database
 
 
-
 def admin_add_gift_method(product_info):
     output_message = {
         "message": "success",
@@ -127,7 +126,7 @@ def admin_edit_gift_method(product_info):
     product.gift_show_url2 = url2
     product.gift_show_url3 = url3
     product.gift_show_url4 = url4
-
+    print(product_sizes)
     sizes = Size.query.filter_by(gift_id=product_info['id']).all()
     for s in range(len(sizes)):
         sizes[s].size = product_sizes[s]['size']

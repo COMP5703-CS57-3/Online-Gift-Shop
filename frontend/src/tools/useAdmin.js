@@ -119,7 +119,7 @@ export default function AdminProvider({children}) {
                     gift_show_url4: showUrl4
 
                 })
-        }).then(r => console.log(r));
+        }).then(r => console.log(r)).catch(r => console.log(r));
     }
     const addItems = (giftName, giftPrice, giftDiscountPrice, giftDiscountState, giftDescription, giftCategory, sideCategory1, sideCategory2, coverUrl, showUrl1, showUrl2, showUrl3, showUrl4, sizeC) => {
         fetch("http://127.0.0.1:5000/api/admin/admin_add_items", {
