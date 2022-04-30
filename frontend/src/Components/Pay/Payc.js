@@ -37,7 +37,7 @@ export default function Payc() {
   }, []);
 	useEffect(()=>{
 		setLoading(true);
-		fetch("http://127.0.0.1:5000/order/search_an_order/"+currentOrder, {
+		fetch("http://127.0.0.1:5000/api/order/search_an_order/"+currentOrder, {
             method: 'POST',
         }).then(res=>res.json()).then(res=>{setDetail(res)
         setLoading(false)

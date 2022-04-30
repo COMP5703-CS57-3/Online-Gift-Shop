@@ -33,7 +33,7 @@ export default function WishListDetail() {
     const [targetEmailProps,resetTargetEmailProps] = useInput()
     useEffect(()=>{
         setLoading(true);
-        fetch("http://127.0.0.1:5000/wishlist/search", {
+        fetch("http://127.0.0.1:5000/api/wishlist/search", {
             method: 'POST',
             body: JSON.stringify({
                     wishlist_id : id
