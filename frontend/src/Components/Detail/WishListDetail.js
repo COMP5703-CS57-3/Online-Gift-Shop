@@ -127,6 +127,8 @@ export default function WishListDetail() {
                         <Button  endIcon={<AddShoppingCartIcon />} sx={{my:2}} variant="contained" size="large" onClick={()=>{
                             if(detail.state==="completed"){
                                 alert("this wish list is already completed, you can not pay for this")
+                            }else if(detail.products.length===0){
+                                        alert("this wish list is empty, you can not pay for this")
                             }else{
                                nav()
                             }}}>Pay</Button>
@@ -205,6 +207,7 @@ export default function WishListDetail() {
                             ))}
                         </Grid>
                         <Alert sx={{mt:2}} severity="info">If the wishlist is completed, the pay button will be disabled — check it out!</Alert>
+                        <Alert sx={{mt:2}} severity="info">If the number of gifts on your wish list drops, it's because someone has already paid for some of your gifts.- check it out!</Alert>
                         <Grid spacing={1} direction="row" container justifyContent="flex-start" alignItems="center">
                             <Grid item xs={11} sx={{mt:2}}>
                                 <Button onClick={()=>deleteWish(detail.owner_id,detail.wishlist_id)} variant="contained">delete this wish list</Button>
