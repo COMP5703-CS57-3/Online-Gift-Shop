@@ -50,7 +50,7 @@ export default function CategoryW() {
                 backgroundRepeat: "no-repeat"
             }}>
                 <Container maxWidth="lg" style={{backgroundColor: "white"}} sx={{boxShadow: 1, borderRadius: 2}}>
-                    <Button onClick={navi}>wishForm</Button>
+                    <Button onClick={navi}    sx={{mt:2}} variant="contained">Create new wish list</Button>
                     <h3>user do not have wish list, please create one</h3>
                 </Container>
             </Box>
@@ -65,7 +65,7 @@ export default function CategoryW() {
                 backgroundRepeat: "no-repeat"
             }}>
                 <Container maxWidth="lg" style={{backgroundColor: "white"}} sx={{boxShadow: 1, borderRadius: 2}}>
-                    <Button onClick={navi}>wishForm</Button>
+                    <Button onClick={navi}  sx={{mt:2}} variant="contained">Create new wish list</Button>
                     <Box sx={{
                         display: "grid",
                         gap: 1,

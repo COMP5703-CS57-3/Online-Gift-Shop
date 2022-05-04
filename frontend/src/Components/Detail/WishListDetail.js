@@ -213,6 +213,8 @@ export default function WishListDetail() {
                                 <Button endIcon={<AddShoppingCartIcon />} sx={{my:2}} variant="contained" size="large" onClick={()=>{
                                     if(detail.state==="completed"){
                                         alert("this wish list is already completed, you can not pay for this")
+                                    }else if(detail.products.length===0){
+                                        alert("this wish list is empty, you can not pay for this")
                                     }else{
                                        nav()
                                     }}}>Pay</Button>
