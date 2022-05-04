@@ -38,7 +38,7 @@ export default function OrderDetail() {
     }
     useEffect(()=>{
         setLoading(true);
-        fetch("http://127.0.0.1:5000/order/search_an_order/"+number, {
+        fetch("http://127.0.0.1:5000/api/order/search_an_order/"+number, {
             method: 'POST',
         }).then(res=>res.json()).then(res=>{
             setDetail(res)
