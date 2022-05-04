@@ -104,6 +104,7 @@ export default function WishProvider({children}){
     }
 
     const addProduct = (ownerId,wishlistId,productId,sizeA)=>{
+        const nav =()=> navi("/wish/wishlist/"+wishlistId);
         fetch("http://127.0.0.1:5000/api/wishlist/add", {
             method: 'POST',
             body: JSON.stringify(
@@ -113,7 +114,10 @@ export default function WishProvider({children}){
                     product_id: productId,
                     size: sizeA
                 })
-        }).then(console.log);
+        }).then(res=>{
+            console.log(res)
+            nav()
+        });
     }
 
     const changeCount = (wishlistId,proId,sizeA,countA)=>{

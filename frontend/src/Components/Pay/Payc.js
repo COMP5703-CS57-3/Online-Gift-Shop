@@ -65,9 +65,8 @@ export default function Payc() {
       <h3>order Number: {detail.order_number} </h3>
       </div>
     </div>
-	   <form action="http://localhost:5000/order/create_checkout_session" method="post">
+	   <form action="http://localhost:5000/api/order/create_checkout_session" method="post">
       <div>
-		  {detail.id}
 			<label>
 				Order ID:
 				<input name="orderId" value={detail.id}/>

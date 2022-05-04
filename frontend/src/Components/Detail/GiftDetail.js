@@ -9,7 +9,7 @@ import {Navigate, useLocation, useNavigate, useParams} from "react-router-dom";
 import {useCart} from "../../tools/useCart";
 import {alpha} from "@mui/material/styles";
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
-import {Button, CssBaseline, Input, Select} from "@mui/material";
+import {Button, CssBaseline, Input, Select, TextField} from "@mui/material";
 import Background from "../../picture/background.png";
 import MenuItem from "@mui/material/MenuItem";
 import {useWish} from "../../tools/useWish";
@@ -18,9 +18,10 @@ import Loading from "../normal/Loading";
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@material-ui/core";
 import Container from "@mui/material/Container";
 import cookie from "react-cookies";
+import {useInput} from "../../tools/useInput";
+import {useNumberInput} from "../../tools/useNumberInput";
 
 export default function GiftDetail() {
-    const [quantity,setQuantity] = useState(1);
     const [second,setSecond] = useState(false)
     const location = useLocation()
     const {wish} = useWish();
@@ -28,6 +29,7 @@ export default function GiftDetail() {
     const {addProduct} = useWish();
     const [targetWishList,setTargetWishlist] = useState();
     const {loading,setLoading,getGiftDetail,currentSize,error} = useGift();
+    const [countProps, resetCount] = useNumberInput(1);
     let {id} = useParams();
     const [open, setOpen] = useState(false);
     const handleClose = () => {
@@ -43,8 +45,8 @@ export default function GiftDetail() {
         setSizeA(event.target.value);
     }
     const addToWishList = ()=>{
-        if(sizeA){
-            addProduct(1,targetWishList,currentGift.id,sizeA);
+        if(sizeA&&targetWishList){
+            addProduct(countProps.value,targetWishList,currentGift.id,sizeA);
         }else{
             setOpen(true);
         }
@@ -153,11 +155,10 @@ export default function GiftDetail() {
                                                     </Typography>
                                               </Grid>
                                         <Grid item xs={4}>
-                                            <Input type="number" value={0}>
-                                            </Input>
+                                            <TextField {...countProps} label="Number" type="number"/>
                                         </Grid>
                                         <Grid item xs={4}>
-                                            <Button variant="outlined" startIcon={<AddShoppingCartOutlinedIcon />}>
+                                            <Button variant="outlined" onClick={()=>{alert(countProps.value)}} startIcon={<AddShoppingCartOutlinedIcon />}>
                                             Add to Cart
                                         </Button>
                                         </Grid>
@@ -282,11 +283,10 @@ export default function GiftDetail() {
                                                     </Typography>
                                               </Grid>
                                         <Grid item xs={4}>
-                                            <Input type="number" value={0}>
-                                            </Input>
+                                            <TextField {...countProps} label="Number" type="number"/>
                                         </Grid>
                                         <Grid item xs={4}>
-                                            <Button variant="outlined" startIcon={<AddShoppingCartOutlinedIcon />}>
+                                            <Button variant="outlined" onClick={()=>{alert(countProps.value)}} startIcon={<AddShoppingCartOutlinedIcon />}>
                                             Add to Cart
                                         </Button>
                                         </Grid>
@@ -421,11 +421,10 @@ export default function GiftDetail() {
                                                     </Typography>
                                               </Grid>
                                         <Grid item xs={4}>
-                                            <Input type="number" value={0}>
-                                            </Input>
+                                            <TextField {...countProps} label="Number" type="number"/>
                                         </Grid>
                                         <Grid item xs={4}>
-                                            <Button variant="outlined" startIcon={<AddShoppingCartOutlinedIcon />}>
+                                            <Button variant="outlined" onClick={()=>{alert(countProps.value)}} startIcon={<AddShoppingCartOutlinedIcon />}>
                                             Add to Cart
                                         </Button>
                                         </Grid>
@@ -548,11 +547,10 @@ export default function GiftDetail() {
                                                     </Typography>
                                               </Grid>
                                         <Grid item xs={4}>
-                                            <Input type="number" value={0}>
-                                            </Input>
+                                            <TextField {...countProps} label="Number" type="number"/>
                                         </Grid>
                                         <Grid item xs={4}>
-                                            <Button variant="outlined" startIcon={<AddShoppingCartOutlinedIcon />}>
+                                            <Button variant="outlined" onClick={()=>{alert(countProps.value)}} startIcon={<AddShoppingCartOutlinedIcon />}>
                                             Add to Cart
                                         </Button>
                                         </Grid>
@@ -589,11 +587,11 @@ export default function GiftDetail() {
             aria-describedby="alert-dialog-description"
           >
             <DialogTitle id="alert-dialog-title">
-              {"no size"}
+              {"no size or no target wish list"}
             </DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
-                Please select the size you want
+                Please select the size you want and target wish list.
               </DialogContentText>
             </DialogContent>
             <DialogActions>
