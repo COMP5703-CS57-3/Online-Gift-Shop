@@ -193,6 +193,7 @@ def add_items(info):
             response_data['wishlist_id'] = wishlist_id
             response_data['owner_id'] = owner_id
             response_data['product_id'] = product_id
+            response_data['message'] = 'successfully added'
             resp = make_response(response_data)
             resp.status_code = status_code
             database.session.close()
@@ -239,6 +240,7 @@ def add_items(info):
             response_data['wishlist_id'] = wishlist_id
             response_data['owner_id'] = owner_id
             response_data['product_id'] = product_id
+            response_data['message'] = 'successfully changed'
             resp = make_response(response_data)
             resp.status_code = status_code
             database.session.close()
