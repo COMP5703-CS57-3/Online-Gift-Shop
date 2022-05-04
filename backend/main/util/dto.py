@@ -215,6 +215,7 @@ class WishlistDto:
         # "product_name": fields.String,
         # "cover_url": fields.String,
         "size": fields.String,
+        "count" : fields.Integer,
         # "price": fields.Float,
     })
     remove_item_model = wishlist_ns.model("remove_item_model", {
