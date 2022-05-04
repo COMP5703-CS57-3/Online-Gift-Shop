@@ -13,7 +13,7 @@ export const useWish = ()=> useContext(WishContext);
 export default function WishProvider({children}){
     const login = cookie.load("login");
     const [wish,setWish] = useState();
-    const [error2,setError2] = useState();
+    const [error2,setError2] = useState("normal");
     const [loading2,setLoading2] = useState(true);
     // useEffect(()=>{
     //     setLoading(true)
@@ -47,7 +47,7 @@ export default function WishProvider({children}){
         });
     }
     const sendEmail = (wishlist,email)=>{
-        setError2()
+        setError2("normal")
         setLoading2(true)
         fetch("http://127.0.0.1:5000/api/wishlist/send_email", {
             method: 'POST',
@@ -57,9 +57,11 @@ export default function WishProvider({children}){
             })
         }).then(res=>res.json()).then(res=>{
             if(res.message==="the email sent successfully"){
+                console.log(123)
             }else{
                 setError2("The email is not sent. Check the email format. If the email address is correct, an unknown network problem occurs")
             }
+
             setLoading2(false)
         });
     }

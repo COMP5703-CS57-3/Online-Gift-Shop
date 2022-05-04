@@ -13,7 +13,15 @@ import giftdata from "../../data/giftlist.json";
 import {useInput} from "../../tools/useInput";
 import ProductDetail from "./ProductDetail";
 import {node} from "prop-types";
-import {Alert, CssBaseline, Grid} from "@material-ui/core";
+import {
+    Alert,
+    CssBaseline, Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Grid
+} from "@material-ui/core";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Loading from "../normal/Loading";
@@ -47,7 +55,6 @@ export default function WishListDetail() {
     const handleSendEmail = ()=>{
         sendEmail(detail.wishlist_id,targetEmailProps.value)
     }
-
     if(detail&&parseInt(user)!==detail.owner_id){
         return(
             <React.Fragment >
@@ -97,9 +104,14 @@ export default function WishListDetail() {
                                     Postcode: {detail.postcode}
                                 </Typography>
                             </Grid>
-                            <Grid item xs={11} sx={{ml:2}}>
+                            <Grid item xs={6} sx={{ml:2}}>
                                 <Typography >
                                     state: {detail.state}
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={5}>
+                                <Typography >
+                                    Expected delivery time: {detail.user_expected_delivery_time}
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -118,7 +130,6 @@ export default function WishListDetail() {
                             }else{
                                nav()
                             }}}>Pay</Button>
-
                     </Box>
                 </Container>
                 </Box>
@@ -174,9 +185,14 @@ export default function WishListDetail() {
                                     Postcode: {detail.postcode}
                                 </Typography>
                             </Grid>
-                            <Grid item xs={11} sx={{ml:2}}>
+                            <Grid item xs={6} sx={{ml:2}}>
                                 <Typography >
                                     state: {detail.state}
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={5}>
+                                <Typography >
+                                    Expected delivery time: {detail.user_expected_delivery_time}
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -189,22 +205,30 @@ export default function WishListDetail() {
                             ))}
                         </Grid>
                         <Alert sx={{mt:2}} severity="info">If the wishlist is completed, the pay button will be disabled — check it out!</Alert>
-                        <Button onClick={()=>deleteWish(detail.owner_id,detail.wishlist_id)}>delete this wish list</Button>
-                        <Button endIcon={<AddShoppingCartIcon />} sx={{my:2}} variant="contained" size="large" onClick={()=>{
-                            if(detail.state==="completed"){
-                                alert("this wish list is already completed, you can not pay for this")
-                            }else{
-                               nav()
-                            }}}>Pay</Button>
-                         <TextField
-                                {...targetEmailProps}
-                              label="Email"
-                              InputLabelProps={{
-                                shrink: true,
-                              }}
-                          sx={{my:2,mx:2,maxWidth:300,maxHeight:25}}
-                        />
-                        <Button onClick={()=>handleSendEmail()}> sendEmail</Button>
+                        <Grid spacing={1} direction="row" container justifyContent="flex-start" alignItems="center">
+                            <Grid item xs={11} sx={{mt:2}}>
+                                <Button onClick={()=>deleteWish(detail.owner_id,detail.wishlist_id)} variant="contained">delete this wish list</Button>
+                            </Grid>
+                            <Grid item xs={1}  sx={{mt:2}}>
+                                <Button endIcon={<AddShoppingCartIcon />} sx={{my:2}} variant="contained" size="large" onClick={()=>{
+                                    if(detail.state==="completed"){
+                                        alert("this wish list is already completed, you can not pay for this")
+                                    }else{
+                                       nav()
+                                    }}}>Pay</Button>
+                            </Grid>
+                            <Grid item xs={12}  >
+                                <TextField
+                                        {...targetEmailProps}
+                                      label="Email"
+                                      InputLabelProps={{
+                                        shrink: true,
+                                      }}
+                                  sx={{mb:2,maxWidth:300,maxHeight:25}}
+                                />
+                                <Button onClick={()=>handleSendEmail()} variant="contained" sx={{mx:2, my:2}}> sendEmail</Button>
+                            </Grid>
+                        </Grid>
                     </Box>
                 </Container>
                 </Box>
