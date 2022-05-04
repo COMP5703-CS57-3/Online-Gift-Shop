@@ -61,7 +61,6 @@ export default function WishProvider({children}){
             }else{
                 setError2("The email is not sent. Check the email format. If the email address is correct, an unknown network problem occurs")
             }
-
             setLoading2(false)
         });
     }
