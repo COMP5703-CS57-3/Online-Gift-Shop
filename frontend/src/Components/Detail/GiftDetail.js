@@ -46,7 +46,7 @@ export default function GiftDetail() {
     }
     const addToWishList = ()=>{
         if(sizeA&&targetWishList){
-            addProduct(login,targetWishList,currentGift.id,sizeA);
+            addProduct(login,targetWishList,currentGift.id,sizeA,countProps.value);
         }else{
             setOpen(true);
         }
