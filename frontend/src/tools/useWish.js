@@ -102,7 +102,7 @@ export default function WishProvider({children}){
         });
     }
 
-    const addProduct = (ownerId,wishlistId,productId,sizeA)=>{
+    const addProduct = (ownerId,wishlistId,productId,sizeA,count)=>{
         const nav =()=> navi("/wish/wishlist/"+wishlistId);
         fetch("http://127.0.0.1:5000/api/wishlist/add", {
             method: 'POST',
@@ -111,7 +111,8 @@ export default function WishProvider({children}){
                     owner_id: ownerId,
                     wishlist_id: wishlistId,
                     product_id: productId,
-                    size: sizeA
+                    size: sizeA,
+                    count: count
                 })
         }).then(res=>{
             console.log(res)
