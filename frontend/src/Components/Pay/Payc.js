@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import {useOrder} from "../../tools/useOrder";
-import {Button, Grid} from "@material-ui/core";
-import {TextField} from "@mui/material";
+import {Grid} from "@material-ui/core";
 import Loading from "../normal/Loading";
 import ProductCard from "../Detail/ProductCard";
-import ProductForNoOwner from "../Detail/ProductForNoOwner";
-
 
 
 const Message = ({ message }) => (
@@ -67,10 +64,10 @@ export default function Payc() {
     </div>
 	   <form action="http://localhost:5000/api/order/create_checkout_session" method="post">
       <div>
-			<label>
-				Order ID:
-				<input name="orderId" value={detail.id}/>
-			</label>
+          <label>
+              Order ID:
+              <input disabled name="orderId" value={detail.id}/>
+          </label>
 		</div>
 		{/*<div>*/}
 		{/*	<label>*/}
@@ -79,10 +76,10 @@ export default function Payc() {
 		{/*	</label>*/}
 		{/*</div>*/}
 		<div>
-			<label>
-				Currency:
-				<input name="currency" value="AUD" />
-			</label>
+            <label>
+                Currency:
+                <input disabled name="currency" value="AUD"/>
+            </label>
 		</div>
 		{/*<div>*/}
 		{/*	<label>*/}

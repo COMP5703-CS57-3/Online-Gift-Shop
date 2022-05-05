@@ -1,19 +1,15 @@
-import WishProvider, {useWish} from "../../tools/useWish";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useInput} from "../../tools/useInput";
 import Box from "@mui/material/Box";
-import {Button, CssBaseline, FormControl, Select, TextField} from "@mui/material";
+import {CssBaseline, TextField} from "@mui/material";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
-import Autocomplete from "@mui/material/Autocomplete";
 import countries from "../../data/CountrySelect";
 import states from "../../data/ProvinceSelect";
 import Background from "../../picture/background.png";
 import {useOrder} from "../../tools/useOrder";
 import {useParams} from "react-router-dom";
-import MenuItem from "@mui/material/MenuItem";
 import {Grid} from "@material-ui/core";
-import ProductDetail from "../Detail/ProductDetail";
 import ProductForShow from "../Detail/ProductForShow";
 import Loading from "../normal/Loading";
 import cookie from "react-cookies";
@@ -117,8 +113,8 @@ export default function CreateOrder() {
                             ))}
                         </Grid>
                          <Stack sx={{my:4}} spacing={4} direction="row" alignItems="center" justifyContent="flex-end" variant="outlined">
-                             <h2>totalPrice: {totalPrice}</h2>
-                            <button>Create</button>
+                             <h2>totalPrice: ${totalPrice}</h2>
+                             <button>Create</button>
                         </Stack>
                     </Box>
                     {/*<form onSubmit={submit2}>*/}

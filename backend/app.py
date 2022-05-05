@@ -134,8 +134,6 @@ def login():
 @app.route('/<any>')
 def red(any):
     return redirect(url_for('index'))
-
-
 @app.route('/admin/<any>')
 def adred(any):
     return redirect(url_for('admin'))

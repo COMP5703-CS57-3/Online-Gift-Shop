@@ -1,9 +1,9 @@
 import {Box, Container} from '@mui/material';
-import {OrderListResults} from './admin/order/order-list-results';
-import OrderListToolbar from './admin/order/order-list-toolbar';
-import {useAdmin} from "../tools/useAdmin";
+import {OrderListResults} from './order/order-list-results';
+import OrderListToolbar from './order/order-list-toolbar';
+import {useAdmin} from "../../tools/useAdmin";
 import React, {useEffect} from "react";
-import Loading from "./normal/Loading";
+import Loading from "../normal/Loading";
 
 const Orders = () => {
 
@@ -11,7 +11,7 @@ const Orders = () => {
     const {getOrderList} = useAdmin()
     const {loading} = useAdmin()
     useEffect(() => {
-        if(shownOrder===undefined){
+        if (shownOrder === undefined) {
             getOrderList();
         }
 

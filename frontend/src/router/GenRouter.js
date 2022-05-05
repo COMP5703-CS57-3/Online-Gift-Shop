@@ -15,8 +15,8 @@ import AddItemForm from "../Components/admin/AddItemForm";
 import BeforeEach from "./BeforEach";
 
 import Payc from "../Components/Pay/Payc";
-import Customers from "../Components/customers";
-import Gifts from "../Components/gift";
+import Customers from "../Components/admin/customers";
+import Gifts from "../Components/admin/gift";
 import MainBody from "../Components/homepage/MainBody";
 import WishContentProvider from "../Components/wishlist/WishContentProvider";
 import CategoryW from "../Components/wishlist/CategoryW";
@@ -28,7 +28,7 @@ import OrderDetail from "../Components/Order/OrderDetail";
 import AdminLogIn from "../Components/admin/login";
 import AdminSignUp from "../Components/admin/signup";
 import Test from "../Components/normal/Test";
-import Orders from "../Components/order";
+import Orders from "../Components/admin/order";
 import WishListDetail from "../Components/Detail/WishListDetail";
 import WishForm from "../Components/wishlist/WishForm";
 

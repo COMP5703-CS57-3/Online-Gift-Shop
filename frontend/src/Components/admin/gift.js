@@ -1,9 +1,9 @@
 import {Box, Container} from '@mui/material';
-import {GiftListResults} from './admin/gift/gift-list-results';
-import GiftListToolbar from './admin/gift/gift-list-toolbar';
-import {useAdmin} from "../tools/useAdmin";
+import {GiftListResults} from './gift/gift-list-results';
+import GiftListToolbar from './gift/gift-list-toolbar';
+import {useAdmin} from "../../tools/useAdmin";
 import React, {useEffect} from "react";
-import Loading from "./normal/Loading";
+import Loading from "../normal/Loading";
 
 const Gifts = () => {
 

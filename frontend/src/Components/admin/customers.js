@@ -1,9 +1,9 @@
 import {Box, Container} from '@mui/material';
-import {CustomerListResults} from './admin/customer/customer-list-results';
-import {CustomerListToolbar} from './admin/customer/customer-list-toolbar';
-import {useAdmin} from "../tools/useAdmin";
+import {CustomerListResults} from './customer/customer-list-results';
+import {CustomerListToolbar} from './customer/customer-list-toolbar';
+import {useAdmin} from "../../tools/useAdmin";
 import React, {useEffect} from "react";
-import Loading from "./normal/Loading";
+import Loading from "../normal/Loading";
 
 
 export function Customers() {
