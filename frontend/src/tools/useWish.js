@@ -1,4 +1,4 @@
-import React, {createContext, useState, useContext} from "react";
+import React, {createContext, useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import cookie from "react-cookies";
 
@@ -42,6 +42,7 @@ export default function WishProvider({children}){
             method: 'POST',
             body: JSON.stringify({owner_id:id})
         }).then(res=>res.json()).then(res=>{
+
             setWish(res.wishlists_inf);
             setLoading2(false);
         });

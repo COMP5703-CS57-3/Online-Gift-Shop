@@ -4,7 +4,6 @@ import Homepage from "../Components/homepage/Homepage"
 import LogIn from "../Components/login";
 import SignUp from "../Components/signup";
 import NoMatch from "../Components/nomatch";
-import Cart from "../Components/Cart/Cart";
 import DetailContentProvider from "../Components/Detail/DetailContentProvider";
 import Account from "../Components/account";
 import FPassword from "../Components/FPassword";
@@ -47,12 +46,12 @@ const routes = [
                 component: MainBody
 
             },
-            {
-                path: '/cart',
-                auth: false,
-                role: ["user", "admin"],
-                component: Cart
-            },
+            // {
+            //     path: '/cart',
+            //     auth: false,
+            //     role: ["user", "admin"],
+            //     component: Cart
+            // },
             {
                 path: '/account',
                 auth: true,
@@ -61,18 +60,18 @@ const routes = [
             },
             {
                 path: '/wish',
-                auth: false,
+                auth: true,
                 component: WishContentProvider,
                 role: ["user"],
                 children: [
                     {
                         path: '/wish',
-                        auth: false,
+                        auth: true,
                         component: CategoryW
 
                     }, {
                         path: '/wish/wishForm',
-                        auth: false,
+                        auth: true,
                         role: ["user"],
                         component: WishForm
                     }, {
@@ -86,7 +85,7 @@ const routes = [
             },
             {
                 path: '/order',
-                auth: false,
+                auth: true,
                 component: OrderP,
                 role: ["user"],
                 children: [
@@ -98,19 +97,19 @@ const routes = [
                     },
                     {
                         path: '/order/createOrder/:id',
-                        auth: false,
+                        auth: true,
                         role: ["user"],
                         component: CreateOrder
                     },
                     {
                         path: '/order/pay',
-                        auth: false,
+                        auth: true,
                         role: ["user"],
                         component: Payc
                     },
                     {
                         path: '/order/orderDetail/:number',
-                        auth: false,
+                        auth: true,
                         role: ["user"],
                         component: OrderDetail
                     }
@@ -148,7 +147,7 @@ const routes = [
     },
     {
         path: '/paytest',
-        auth: false,
+        auth: true,
         role: ["user"],
         component: Payc
     },
@@ -197,19 +196,19 @@ const routes = [
             },
             {
                 path: '/admin/gui',
-                auth: false,
+                auth: true,
                 component: Gifts,
                 role: ["admin"],
             },
             {
                 path: '/admin/cui',
-                auth: false,
+                auth: true,
                 component: Customers,
                 role: ["admin"],
             },
             {
                 path: '/admin/oui',
-                auth: false,
+                auth: true,
                 component: Orders,
                 role: ["admin"],
             },

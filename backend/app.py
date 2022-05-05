@@ -1,8 +1,9 @@
-from flask import Blueprint
+from flask import Blueprint, redirect, url_for
 from flask import Flask, render_template
 from flask_cors import CORS
 from flask_restplus import Api
 from flask_script import Manager
+from werkzeug.routing import BaseConverter
 
 from main.connect_to_aws import aws_endpoint
 from main.logic.admin_logic_module import admin_namespace
@@ -14,6 +15,14 @@ from main.logic.user_information_module import user_information_namespace
 from main.logic.user_logic_module import login_signup_namespace
 from main.logic.wishlist_logic_module import wishlist_ns
 from main.model.create_database import database
+
+
+# 自定义转换器
+class RegexConverter(BaseConverter):
+    def __init__(self, url_map, *items):
+        super(RegexConverter, self).__init__(url_map)
+        self.regex = items[0]
+
 
 # from main.namespace import add_namespace
 
@@ -50,6 +59,7 @@ add_namespace()
 app = Flask(__name__,
             template_folder='../frontend/build',
             static_folder='../frontend/build/static', )
+app.url_map.converters['reg'] = RegexConverter
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = aws_endpoint
@@ -94,6 +104,7 @@ def run():
     app.run()
 
 
+@app.route('/', defaults={'path': ''})
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -101,25 +112,33 @@ def index():
 
 #
 #
-# @app.route('/admin')
-# def admin():
-#     return render_template('index.html')
-#
-#
-# @app.route('/login')
-# def login():
-#     return render_template('index.html')
-@app.route('/<path:path>')
-def catch_all(path):
-    return render_template("index.html")
+@app.route('/admin')
+def admin():
+    return render_template('index.html')
 
 
-# @app.route('/<any>')
-# def red(any):
-#     return redirect(url_for('index'))
-# @app.route('/admin/<any>')
-# def adred(any):
-#     return redirect(url_for('admin'))
+@app.route('/login')
+def login():
+    return render_template('index.html')
+
+
+# @app.route('/'
+#            '<reg("^((?!static).)*")'
+#            ':path>')
+# def catch_all(path):
+#     # return redirect(url_for("index"))
+#     print(path)
+#     return render_template("index.html")
+
+
+@app.route('/<any>')
+def red(any):
+    return redirect(url_for('index'))
+
+
+@app.route('/admin/<any>')
+def adred(any):
+    return redirect(url_for('admin'))
 
 
 if __name__ == '__main__':

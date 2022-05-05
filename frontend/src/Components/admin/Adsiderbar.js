@@ -1,5 +1,5 @@
 import React from 'react';
-import DashboardSidebar from "../Components/siderbar/dashboard-sidebar";
+import DashboardSidebar from "./siderbar/dashboard-sidebar";
 // import { DashboardNavbar } from './dashboard-navbar';
 // import {AdminSiderHeader} from "./admin/AdminSiderHeader";
 
