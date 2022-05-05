@@ -1,8 +1,9 @@
-
-from ..model.create_database import User
-from flask import make_response
-from ..connect_to_aws import database
 import re
+
+from flask import make_response
+
+from ..connect_to_aws import database
+from ..model.create_database import User
 
 
 def update_user_information(user_input_dictionary):
@@ -14,10 +15,10 @@ def update_user_information(user_input_dictionary):
     this_row_user_information = User.query.filter_by(id=user_input_dictionary["id"]).first()
     # if this id's user is exsit, update information
     if this_row_user_information:
-        #email = user_input_dictionary["user_email"]
+        # email = user_input_dictionary["user_email"]
         mobile = user_input_dictionary["user_mobile"]
-        #if re.match(r'^[0-9a-zA-Z_]{0,19}@[0-9a-zA-Z]{1,13}\.[com,cn,net,sydney,edu,au]{1,6}.[com,cn,net,sydney,edu,au]{1,6}.[com,cn,net,sydney,edu,au]{1,6}$',email):
-        if re.match(r'^[0-9]{5,19}$',mobile):
+        # if re.match(r'^[0-9a-zA-Z_]{0,19}@[0-9a-zA-Z]{1,13}\.[com,cn,net,sydney,edu,au]{1,6}.[com,cn,net,sydney,edu,au]{1,6}.[com,cn,net,sydney,edu,au]{1,6}$',email):
+        if re.match(r'^[0-9]{5,19}$', mobile):
             status_code = 200
             output_message['message'] = "Information successfully updated"
             this_row_user_information.user_name = user_input_dictionary["user_name"]

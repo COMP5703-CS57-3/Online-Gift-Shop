@@ -240,7 +240,6 @@ const checkAuth = (routers, path) => {
     }
     return null
 }
-
 // 路由处理方式
 const generateRouter = (routers) => {
     return routers.map((item) => {

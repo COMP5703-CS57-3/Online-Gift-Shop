@@ -94,19 +94,30 @@ def run():
     app.run()
 
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+# @app.route('/')
+# def index():
+#     return render_template('index.html')
+#
+#
+# @app.route('/admin')
+# def admin():
+#     return render_template('index.html')
+#
+#
+# @app.route('/login')
+# def login():
+#     return render_template('index.html')
+@app.route('/<path:path>')
+def catch_all(path):
+    return render_template("index.html")
 
 
-@app.route('/admin')
-def admin():
-    return render_template('index.html')
-
-
-@app.route('/login')
-def login():
-    return render_template('index.html')
+# @app.route('/<any>')
+# def red(any):
+#     return redirect(url_for('index'))
+# @app.route('/admin/<any>')
+# def adred(any):
+#     return redirect(url_for('admin'))
 
 
 if __name__ == '__main__':
