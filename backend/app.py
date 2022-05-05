@@ -94,9 +94,11 @@ def run():
     app.run()
 
 
-# @app.route('/')
-# def index():
-#     return render_template('index.html')
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
 #
 #
 # @app.route('/admin')
