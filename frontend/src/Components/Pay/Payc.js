@@ -66,7 +66,7 @@ export default function Payc() {
       <div>
           <label>
               Order ID:
-              <input disabled name="orderId" value={detail.id}/>
+              <input name="orderId" value={detail.id}/>
           </label>
 		</div>
 		{/*<div>*/}
@@ -78,7 +78,7 @@ export default function Payc() {
 		<div>
             <label>
                 Currency:
-                <input disabled name="currency" value="AUD"/>
+                <input name="currency" value="AUD"/>
             </label>
 		</div>
 		{/*<div>*/}
