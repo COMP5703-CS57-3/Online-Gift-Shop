@@ -17,7 +17,7 @@ export function checkNickName(val) {
 
 export function checkEmail(val) {
     const reg = new RegExp(/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+/)
-    if (val.length === 0) {
+    if (!val || val.length === 0) {
         return "* Email is empty"
     } else if (val.match(reg) === null || val.match(reg)[0].length !== val.length) {
         return "* Please input a valid email"

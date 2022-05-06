@@ -19,6 +19,8 @@ export default function WishProvider({children}) {
     const [currId, setCurrId] = useState()
     const [detail, setDetail] = useState()
     const [showLoading, setShowLoading] = useState()
+    const [emailError, setEmailError] = useState(false)
+    const [emailText, setEmailText] = useState("")
     // useEffect(()=>{
     //     setLoading(true)
     //     if(!login) return;
@@ -65,9 +67,11 @@ export default function WishProvider({children}) {
         }).then(res => res.json()).then(res => {
             setShowLoading(false)
             if (res.message === "the email sent successfully") {
-                console.log(123)
+                setEmailText(`* your wish is sent to ${email} successfully`)
+                // console.log(123)
             } else {
-                setError2("The email is not sent. Check the email format. If the email address is correct, an unknown network problem occurs")
+                setEmailError(true)
+                setEmailText("* The email is not sent. Check the email format. If the email address is correct, an unknown network problem occurs")
             }
             setLoading2(false)
         });
@@ -216,7 +220,9 @@ export default function WishProvider({children}) {
             sendEmail,
             getDetail,
             loading, setLoading,
-            detail, setDetail
+            detail, setDetail,
+            emailError, setEmailError,
+            emailText, setEmailText
         }}>
             {children}
         </WishContext.Provider>

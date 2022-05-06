@@ -13,6 +13,7 @@ import Loading from "../normal/Loading";
 import cookie from "react-cookies";
 import ProductForNoOwner from "./ProductForNoOwner";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import {checkEmail} from "../../logic/ValCheck";
 
 export default function WishListDetail() {
     let {id} = useParams();
@@ -25,6 +26,8 @@ export default function WishListDetail() {
     const {getDetail} = useWish()
     const [targetEmailProps, resetTargetEmailProps] = useInput()
     const {showLoading, setShowLoading} = useWish()
+    const {emailError, setEmailError} = useWish()
+    const {emailText, setEmailText} = useWish()
     let {product} = useWish();
     useEffect(() => {
         setLoading(true);
@@ -34,7 +37,14 @@ export default function WishListDetail() {
     }, [id]);
 
     const handleSendEmail = () => {
-        sendEmail(detail.wishlist_id, targetEmailProps.value)
+        const valCheck = checkEmail(targetEmailProps.value)
+        if (valCheck === true) {
+            sendEmail(detail.wishlist_id, targetEmailProps.value)
+        } else {
+
+            setEmailError(true)
+            setEmailText(valCheck)
+        }
     }
     if (detail && parseInt(user) !== detail.owner_id) {
         return (
@@ -230,6 +240,8 @@ export default function WishListDetail() {
                                     <TextField
                                         {...targetEmailProps}
                                         label="Email"
+                                        error={emailError}
+                                        helperText={emailText}
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
