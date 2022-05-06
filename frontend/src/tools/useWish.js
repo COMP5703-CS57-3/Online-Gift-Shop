@@ -85,13 +85,15 @@ export default function WishProvider({children}) {
                     owner_id: ownerId,
                     wishlist_id: wishId
                 })
-        }).then(console.log).then(() => {
-            const data = wish.filter(item => item.wishlist_id !== wishId)
-            if (!data) {
-                setWish(data);
-            }
-            nav();
-        });
+        })
+            .then(() => nav())
+        //     .then(() => {
+        //     const data = wish.filter(item => item.wishlist_id !== wishId)
+        //     if (!data) {
+        //         setWish(data);
+        //     }
+        //
+        // });
     }
     const createWish = (id, firstname, lastname, wishlistnameP, descriptionP, addressP, phoneP, postcodeP, timeP) => {
         const nav = () => navi("/wish");

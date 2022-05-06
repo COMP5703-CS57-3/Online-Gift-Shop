@@ -141,13 +141,13 @@ export default function AdminProvider({children}) {
                     gift_show_url3: showUrl3,
                     gift_show_url4: showUrl4
                 })
-        }).then(console.log);
+        }).then(() => getAllGifts());
     }
 
     const removeItems = (id) => {
         fetch(`http://127.0.0.1:5000/api/admin/admin_manage_items/delete/${id}`, {
             method: 'DELETE'
-        }).then(r => console.log(r));
+        }).then(r => getAllGifts());
     }
     const getAllGifts = () => {
         setLoading(true);

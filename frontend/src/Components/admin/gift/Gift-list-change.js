@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
@@ -6,8 +7,6 @@ import {TextField} from "@mui/material";
 import {useInput} from "../../../tools/useInput";
 import {useAdmin} from "../../../tools/useAdmin";
 import Grid from "@mui/material/Grid";
-import {useEffect, useReducer, useState} from "react";
-import ProductForNoOwner from "../../Detail/ProductForNoOwner";
 import SizeCard from "./SizeCard";
 import {useNumberInput} from "../../../tools/useNumberInput";
 
@@ -26,15 +25,15 @@ const style = {
 
 export default function BasicModal() {
     // const {setOpen} = useAdmin();
-    const [open,setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(false);
     const {selectedGiftIds} = useAdmin()
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    let [giftNameProps,coverProps] = useState();
-    const [sizes,setSizes] = useState([]);
+    let [giftNameProps, coverProps] = useState();
+    const [sizes, setSizes] = useState([]);
     let {gifts} = useAdmin();
     let loop = 0;
-     let size = [
+    let size = [
         {
             size: "S",
             size_stock: 2
@@ -77,11 +76,14 @@ export default function BasicModal() {
                 return item.id === selectedGiftIds[0]
             }
         );
-        const GiftItem = foundGift;
-        size = foundGift.sizes
-        loop = foundGift.sizes.length
-        giftNameProps = GiftItem.gift_name;
-        coverProps = GiftItem.gift_cover_url;
+        if (foundGift) {
+            const GiftItem = foundGift;
+            size = foundGift.sizes
+            loop = foundGift.sizes.length
+            giftNameProps = GiftItem.gift_name;
+            coverProps = GiftItem.gift_cover_url;
+        }
+
     }
     // }
     // useEffect(()=>{
@@ -137,46 +139,48 @@ export default function BasicModal() {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Grid container spacing={2} >
+                    <Grid container spacing={2}>
                         <a>Gift Edit From</a>
-                        <Grid item xs={12}><TextField defaultValue={giftNameProps} label="giftName" fullWidth sx={{ m: 1 }} /></Grid>
+                        <Grid item xs={12}><TextField defaultValue={giftNameProps} label="giftName" fullWidth
+                                                      sx={{m: 1}}/></Grid>
                         <Grid item xs={4}><TextField {...giftPriceProps} label="giftPrice"/></Grid>
                         <Grid item xs={4}><TextField {...giftDiscountPriceProps} label="giftDiscountPrice"/></Grid>
                         <Grid item xs={4}><TextField {...giftDiscountStateProps} label="giftDiscountState"/></Grid>
-                        <Grid item xs={12}><TextField {...descriptionProps} label="description" fullWidth sx={{ m: 1 }} /></Grid>
+                        <Grid item xs={12}><TextField {...descriptionProps} label="description" fullWidth sx={{m: 1}}/></Grid>
                         <Grid item xs={4}><TextField {...categoryProps} label="category"/></Grid>
                         <Grid item xs={4}><TextField {...sideCategory1Props} label="sideCategory1"/></Grid>
                         <Grid item xs={4}><TextField {...sideCategory2Props} label="sideCategory2"/></Grid>
-                        <Grid item xs={12}><TextField defaultValue={coverProps} label="coverUrl" fullWidth sx={{ m: 1 }} /></Grid>
-                        <Grid item xs={12}><TextField {...show1Props} label="show1" fullWidth sx={{ m: 1 }} /></Grid>
-                        {size.map((gift,i)=>(
-                                <Grid key={i} item xs={4}>
-                                    <SizeCard {...gift} changeP={count=>{
-                                        let newSizes = []
-                                        for(let j =0;j<loop;j++){
-                                            if(j===i){
-                                                const sizeTemplate = {
-                                                    size: size[j].size,
-                                                    size_stock: count
-                                                }
-                                                newSizes.push(sizeTemplate)
-                                            }else{
-                                                const sizeTemplate = {
-                                                    size: size[j].size,
-                                                    size_stock: size[j].stock
-                                                }
-                                                newSizes.push(sizeTemplate)
+                        <Grid item xs={12}><TextField defaultValue={coverProps} label="coverUrl" fullWidth sx={{m: 1}}/></Grid>
+                        <Grid item xs={12}><TextField {...show1Props} label="show1" fullWidth sx={{m: 1}}/></Grid>
+                        {size.map((gift, i) => (
+                            <Grid key={i} item xs={4}>
+                                <SizeCard {...gift} changeP={count => {
+                                    let newSizes = []
+                                    for (let j = 0; j < loop; j++) {
+                                        if (j === i) {
+                                            const sizeTemplate = {
+                                                size: size[j].size,
+                                                size_stock: count
                                             }
+                                            newSizes.push(sizeTemplate)
+                                        } else {
+                                            const sizeTemplate = {
+                                                size: size[j].size,
+                                                size_stock: size[j].stock
+                                            }
+                                            newSizes.push(sizeTemplate)
                                         }
-                                        setSizes(newSizes)
-                                    }}/>
-                                </Grid>
+                                    }
+                                    setSizes(newSizes)
+                                }}/>
+                            </Grid>
                         ))}
                         {/*sx={{display:"none"}}*/}
-                        <Grid item xs={3} ><TextField {...show2Props} label="show2" fullWidth sx={{ m: 0.5 }} /></Grid>
-                        <Grid item xs={3} ><TextField {...show3Props} label="show3" fullWidth sx={{ m: 0.5 }} /></Grid>
-                        <Grid item xs={3} ><TextField {...show4Props} label="show4" fullWidth sx={{ m: 0.5 }} /></Grid>
-                       <Grid item xs={12} sx={{m:3}}> <Button variant="contained" onClick={submit}>change</Button></Grid>
+                        <Grid item xs={3}><TextField {...show2Props} label="show2" fullWidth sx={{m: 0.5}}/></Grid>
+                        <Grid item xs={3}><TextField {...show3Props} label="show3" fullWidth sx={{m: 0.5}}/></Grid>
+                        <Grid item xs={3}><TextField {...show4Props} label="show4" fullWidth sx={{m: 0.5}}/></Grid>
+                        <Grid item xs={12} sx={{m: 3}}> <Button variant="contained"
+                                                                onClick={submit}>change</Button></Grid>
                     </Grid>
                 </Box>
             </Modal>

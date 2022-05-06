@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {useEffect, useState} from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -26,20 +25,20 @@ const style = {
 };
 
 export default function ChangePassword(props) {
-    const [open, setOpen] = useState(true);
+    // const [open, setOpen] = useState(true);
     const {changePwd} = useAccount();
     const {setOldPwd, setNewPwd, setConPwd} = useAccount()
     const {errInfo, setErrInfo} = useAccount()
 
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleOpen = () => props.setIsOpen({isOpen: true});
+    const handleClose = () => props.setIsOpen({isOpen: false});
 
     return (
         <div>
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
-                open={open}
+                open={props.open}
                 onClose={handleClose}
                 closeAfterTransition
                 BackdropComponent={Backdrop}
@@ -47,7 +46,7 @@ export default function ChangePassword(props) {
                     timeout: 500,
                 }}
             >
-                <Fade in={open}>
+                <Fade in={props.open}>
                     <Box sx={style}>
                         <Card sx={{minWidth: 275}}>
                             <CardContent>
@@ -81,7 +80,7 @@ export default function ChangePassword(props) {
                             </CardContent>
                             <CardActions>
                                 <Button size="small" onClick={() => {
-                                    props.setIsOpen();
+                                    props.setIsOpen(false);
 
                                 }}>Cancel</Button>
                                 <Button size="small" onClick={() => {

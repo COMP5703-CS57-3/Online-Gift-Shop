@@ -33,6 +33,10 @@ export default class AccountProfile extends React.Component {
             .catch(r => console.log(r))
     }
 
+    setIsOpen(e) {
+        this.setState({isOpen: e})
+    }
+
     render() {
         return (
             <>
@@ -98,7 +102,8 @@ export default class AccountProfile extends React.Component {
                         </Button>
                     </CardActions>
                 </Card>
-                {this.state.isOpen ? <ChangePassword setIsOpen={()=>this.setState({isOpen:false})}/> : <div/>}
+                {this.state.isOpen ? <ChangePassword open={this.state.isOpen} setIsOpen={() => this.setIsOpen()}/> :
+                    <div/>}
             </>
         )
     }
