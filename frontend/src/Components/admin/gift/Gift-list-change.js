@@ -142,16 +142,19 @@ export default function BasicModal() {
                     <Grid container spacing={2}>
                         <a>Gift Edit From</a>
                         <Grid item xs={12}><TextField defaultValue={giftNameProps} label="giftName" fullWidth
-                                                      sx={{m: 1}}/></Grid>
+                                                      sx={{m: 0.5}}/></Grid>
                         <Grid item xs={4}><TextField {...giftPriceProps} label="giftPrice"/></Grid>
                         <Grid item xs={4}><TextField {...giftDiscountPriceProps} label="giftDiscountPrice"/></Grid>
                         <Grid item xs={4}><TextField {...giftDiscountStateProps} label="giftDiscountState"/></Grid>
-                        <Grid item xs={12}><TextField {...descriptionProps} label="description" fullWidth sx={{m: 1}}/></Grid>
+                        <Grid item xs={12}><TextField {...descriptionProps} label="description" fullWidth sx={{m: 0.5}}/></Grid>
                         <Grid item xs={4}><TextField {...categoryProps} label="category"/></Grid>
                         <Grid item xs={4}><TextField {...sideCategory1Props} label="sideCategory1"/></Grid>
                         <Grid item xs={4}><TextField {...sideCategory2Props} label="sideCategory2"/></Grid>
-                        <Grid item xs={12}><TextField defaultValue={coverProps} label="coverUrl" fullWidth sx={{m: 1}}/></Grid>
-                        <Grid item xs={12}><TextField {...show1Props} label="show1" fullWidth sx={{m: 1}}/></Grid>
+                        <Grid item xs={12}><TextField defaultValue={coverProps} label="coverUrl" fullWidth sx={{m: 0.5}}/></Grid>
+                        <Grid item xs={12}><TextField {...show1Props} label="show1" fullWidth sx={{m: 0.5}}/></Grid>
+                        <Grid item xs={4}><TextField {...show2Props} label="show2" fullWidth sx={{m: 0.5}}/></Grid>
+                        <Grid item xs={4}><TextField {...show3Props} label="show3" fullWidth sx={{m: 0.5}}/></Grid>
+                        <Grid item xs={4}><TextField {...show4Props} label="show4" fullWidth sx={{m: 0.5}}/></Grid>
                         {size.map((gift, i) => (
                             <Grid key={i} item xs={4}>
                                 <SizeCard {...gift} changeP={count => {
@@ -176,11 +179,7 @@ export default function BasicModal() {
                             </Grid>
                         ))}
                         {/*sx={{display:"none"}}*/}
-                        <Grid item xs={3}><TextField {...show2Props} label="show2" fullWidth sx={{m: 0.5}}/></Grid>
-                        <Grid item xs={3}><TextField {...show3Props} label="show3" fullWidth sx={{m: 0.5}}/></Grid>
-                        <Grid item xs={3}><TextField {...show4Props} label="show4" fullWidth sx={{m: 0.5}}/></Grid>
-                        <Grid item xs={12} sx={{m: 3}}> <Button variant="contained"
-                                                                onClick={submit}>change</Button></Grid>
+                        <Grid item xs={12} sx={{m: 3}}> <Button variant="contained" onClick={submit} >change</Button></Grid>
                     </Grid>
                 </Box>
             </Modal>
