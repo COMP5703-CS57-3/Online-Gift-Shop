@@ -7,6 +7,7 @@ import random
 import string
 import datetime
 
+
 def create_wishlist(info):
     response_data = {
         "message": "success",
@@ -40,9 +41,9 @@ def create_wishlist(info):
     user_expected_delivery_time = info['user_expected_delivery_time']
     wishlist_id = ''.join(random.sample(string.ascii_letters + string.digits, 6))
     new_wishlist = Wishlist(wishlist_id=wishlist_id, owner_id=owner_id, wishlist_name=wishlist_name,
-                                      wishlist_description=description, first_name=owner_first_name,
+                            wishlist_description=description, first_name=owner_first_name,
                             last_name=owner_last_name, address=address, phone=phone, postcode=postcode,
-                            user_expected_delivery_time = user_expected_delivery_time
+                            user_expected_delivery_time=user_expected_delivery_time
                             )
     database.session.add(new_wishlist)
     database.session.commit()
@@ -103,9 +104,11 @@ def add_items(info):
     }
     check_owner = Wishlist.query.filter_by(owner_id=info['owner_id']).first()
     check_product = Gifts.query.filter_by(id=info['product_id']).first()
-    check_duplicate = WishlistItems.query.filter_by(wishlist_id=info['wishlist_id'], products_id=info['product_id'], size=info['size']).first()
+    check_duplicate = WishlistItems.query.filter_by(wishlist_id=info['wishlist_id'], products_id=info['product_id'],
+                                                    size=info['size']).first()
     check_size = Size.query.filter_by(gift_id=info['product_id'], size=info['size']).first()
-    check_wishlist_item = WishlistItems.query.filter_by(wishlist_id=info['wishlist_id'], products_id=info['product_id'], size=info['size']).first()
+    check_wishlist_item = WishlistItems.query.filter_by(wishlist_id=info['wishlist_id'], products_id=info['product_id'],
+                                                        size=info['size']).first()
     check_wishlist_state = Wishlist.query.filter_by(wishlist_id=info['wishlist_id'], state='completed').first()
     check_wishlist_state_part = Wishlist.query.filter_by(wishlist_id=info['wishlist_id'], state='partial').first()
     if check_wishlist_state:
@@ -116,7 +119,8 @@ def add_items(info):
         database.session.close()
         return resp
     if check_wishlist_state_part:
-        response_data['message'] = 'this wishlist has been partial paid by your friends, if you want new gift. please create a new wishlist.'
+        response_data[
+            'message'] = 'this wishlist has been partial paid by your friends, if you want new gift. please create a new wishlist.'
         status_code = 404
         resp = make_response(response_data)
         resp.status_code = status_code
@@ -170,17 +174,19 @@ def add_items(info):
             this_gift = Gifts.query.filter_by(id=product_id).first()
             product_name = this_gift.gift_name
             cover_url = this_gift.gift_cover_url
-            #product_name = info['product_name']
-            #cover_url = info['cover_url']
+            # product_name = info['product_name']
+            # cover_url = info['cover_url']
             size = info['size']
             price = this_gift.gift_discount_price
-            #price = info['price']
+            # price = info['price']
             find_wishlistID = Wishlist.query.filter_by(wishlist_id=info['wishlist_id']).first()
             wishlistID = find_wishlistID.id
             this_gift_state = 'waiting'
             paid_count = 0
-            product = WishlistItems(wishlist_id=wishlist_id, wishlistID = wishlistID,products_id=product_id, product_name=product_name, product_cover=cover_url,
-                                    size=size, price=price, count=count, this_gift_state=this_gift_state, paid_count= paid_count)
+            product = WishlistItems(wishlist_id=wishlist_id, wishlistID=wishlistID, products_id=product_id,
+                                    product_name=product_name, product_cover=cover_url,
+                                    size=size, price=price, count=count, this_gift_state=this_gift_state,
+                                    paid_count=paid_count)
             database.session.add(product)
             database.session.commit()
             # count = product.count
@@ -217,17 +223,19 @@ def add_items(info):
             this_gift = Gifts.query.filter_by(id=product_id).first()
             product_name = this_gift.gift_name
             cover_url = this_gift.gift_cover_url
-            #product_name = info['product_name']
-            #cover_url = info['cover_url']
+            # product_name = info['product_name']
+            # cover_url = info['cover_url']
             size = info['size']
             price = this_gift.gift_discount_price
-            #price = info['price']
+            # price = info['price']
             find_wishlistID = Wishlist.query.filter_by(wishlist_id=info['wishlist_id']).first()
             wishlistID = find_wishlistID.id
             this_gift_state = 'waiting'
             paid_count = 0
-            product = WishlistItems(wishlist_id=wishlist_id, wishlistID = wishlistID,products_id=product_id, product_name=product_name, product_cover=cover_url,
-                                    size=size, price=price, count=count, this_gift_state=this_gift_state, paid_count= paid_count)
+            product = WishlistItems(wishlist_id=wishlist_id, wishlistID=wishlistID, products_id=product_id,
+                                    product_name=product_name, product_cover=cover_url,
+                                    size=size, price=price, count=count, this_gift_state=this_gift_state,
+                                    paid_count=paid_count)
             database.session.add(product)
             database.session.commit()
             # count = product.count
@@ -255,7 +263,6 @@ def add_items(info):
             return resp
 
 
-
 def remove_item(info):
     response_data = {
         "message": "success",
@@ -266,7 +273,7 @@ def remove_item(info):
     check_owner = Wishlist.query.filter_by(owner_id=info['owner_id']).first()
     check_product = Gifts.query.filter_by(id=info['product_id']).first()
     check_exists = WishlistItems.query.filter_by(wishlist_id=info['wishlist_id'],
-                                                    products_id=info['product_id']).first()
+                                                 products_id=info['product_id']).first()
     if not check_owner:
         response_data['message'] = 'This user has no wishlist.'
         status_code = 404
@@ -304,7 +311,6 @@ def remove_item(info):
     return resp
 
 
-
 def remove_item_size(info):
     response_data = {
         "message": "success",
@@ -313,10 +319,10 @@ def remove_item_size(info):
         "wishlist_id": "none",
         "size": "none"
     }
-    #check_owner = Wishlist.query.filter_by(owner_id=info['owner_id']).first()
+    # check_owner = Wishlist.query.filter_by(owner_id=info['owner_id']).first()
     check_product = Gifts.query.filter_by(id=info['product_id']).first()
     check_exists = WishlistItems.query.filter_by(wishlist_id=info['wishlist_id'],
-                                                    products_id=info['product_id'],
+                                                 products_id=info['product_id'],
                                                  size=info['size']).first()
     # if not check_owner:
     #     response_data['message'] = 'This user has no wishlist.'
@@ -340,21 +346,22 @@ def remove_item_size(info):
         resp.status_code = status_code
         database.session.close()
         return resp
-    #owner_id = info['owner_id']
+    # owner_id = info['owner_id']
     wishlist_id = info['wishlist_id']
     product_id = info['product_id']
     size = info['size']
-    WishlistItems.query.filter_by(products_id=product_id, wishlist_id=wishlist_id, size= size).delete()
+    WishlistItems.query.filter_by(products_id=product_id, wishlist_id=wishlist_id, size=size).delete()
     database.session.commit()
     status_code = 200
     response_data['wishlist_id'] = wishlist_id
-    #response_data['owner_id'] = owner_id
+    # response_data['owner_id'] = owner_id
     response_data['product_id'] = product_id
     response_data['size'] = size
     resp = make_response(response_data)
     resp.status_code = status_code
     database.session.close()
     return resp
+
 
 def show_all(info):
     status_code = 200
@@ -485,8 +492,9 @@ def pay_wishlist(info):
             user_expected_delivery_time = check_owner.user_expected_delivery_time
             order = Order(user_id=owner_id, order_time=order_time, order_total=total_price, order_number=order_number,
                           first_name=owner_first_name, last_name=owner_last_name, phone=phone,
-                          address=address, postcode=postcode, wishlist_code = wishlist_id, payer_id = payer_id,
-                          payer_name = payer_first_name, order_state = order_state, user_expected_delivery_time = user_expected_delivery_time)
+                          address=address, postcode=postcode, wishlist_code=wishlist_id, payer_id=payer_id,
+                          payer_name=payer_first_name, order_state=order_state,
+                          user_expected_delivery_time=user_expected_delivery_time)
             database.session.add(order)
             database.session.commit()
             database.session.flush()
@@ -508,7 +516,8 @@ def pay_wishlist(info):
                         check_stock = Size.query.filter_by(gift_id=product_id, size=size).first()
                         if not check_stock or check_stock.stock < 1:
                             status_code = 400
-                            response_message['message'] = 'Product: ' + str(product_id) + ' size:' + str(size) + ' out of stock.'
+                            response_message['message'] = 'Product: ' + str(product_id) + ' size:' + str(
+                                size) + ' out of stock.'
                             # WishlistItems.query.filter_by(products_id=product_id, wishlist_id=wishlist_id).delete()
                             # database.session.commit()
                             resp = make_response(response_message)
@@ -516,9 +525,9 @@ def pay_wishlist(info):
                             database.session.close()
                             return resp
                         order_product = OrderItems(gift_name=product_name, item_cover_url=product_cover, size=size,
-                                                                  count=count,
-                                                                  price=price, each_total_price=price,
-                                                                  productID=product_id, order_id=oid)
+                                                   count=count,
+                                                   price=price, each_total_price=price,
+                                                   productID=product_id, order_id=oid)
                         database.session.add(order_product)
                         database.session.commit()
                         database.session.flush()
@@ -552,7 +561,8 @@ def pay_wishlist(info):
                         check_stock = Size.query.filter_by(gift_id=product_id, size=size).first()
                         if not check_stock or check_stock.stock < 1:
                             status_code = 400
-                            response_message['message'] = 'Product: ' + str(product_id) + ' size:' + str(size) + ' out of stock.'
+                            response_message['message'] = 'Product: ' + str(product_id) + ' size:' + str(
+                                size) + ' out of stock.'
                             # WishlistItems.query.filter_by(products_id=product_id, wishlist_id=wishlist_id).delete()
                             # database.session.commit()
                             resp = make_response(response_message)
@@ -560,9 +570,9 @@ def pay_wishlist(info):
                             database.session.close()
                             return resp
                         order_product = OrderItems(gift_name=product_name, item_cover_url=product_cover, size=size,
-                                                                  count=count,
-                                                                  price=price, each_total_price=price,
-                                                                  productID=product_id, order_id=oid)
+                                                   count=count,
+                                                   price=price, each_total_price=price,
+                                                   productID=product_id, order_id=oid)
                         database.session.add(order_product)
                         database.session.commit()
                         database.session.flush()
@@ -587,9 +597,10 @@ def pay_wishlist(info):
                         update_wishlist = Wishlist.query.filter_by(owner_id=owner_id, wishlist_id=wishlist_id).first()
                         update_wishlist.state = 'partial'
                         find_this_item_state_wating = WishlistItems.query.filter_by(wishlist_id=wishlist_id,
-                                                                                this_gift_state='waiting').first()
+                                                                                    this_gift_state='waiting').first()
                         if not find_this_item_state_wating:
-                            update_wishlist = Wishlist.query.filter_by(owner_id=owner_id, wishlist_id=wishlist_id).first()
+                            update_wishlist = Wishlist.query.filter_by(owner_id=owner_id,
+                                                                       wishlist_id=wishlist_id).first()
                             update_wishlist.state = 'completed'
                             database.session.commit()
                             database.session.close()
@@ -620,7 +631,6 @@ def pay_wishlist(info):
             resp.response_data = response_data
             database.session.close()
             return resp
-
 
 
 def search(info):
@@ -689,6 +699,7 @@ def search(info):
     database.session.close()
     return resp
 
+
 def wishlist_change_count_method(changeCountInformation):
     output_message = {
         "message": "Message information waiting for response"
@@ -717,4 +728,3 @@ def wishlist_change_count_method(changeCountInformation):
     output_json.message = output_message['message']
     database.session.close()
     return output_json
-

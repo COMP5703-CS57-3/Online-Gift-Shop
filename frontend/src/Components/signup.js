@@ -62,17 +62,29 @@ export default function SignUp() {
                 user_mobile: User.Phone,
                 user_password: User.Password
             }).then((response) => {
+                    console.log(response)
                     // console.log(response, 1)
                     if (response.data.message === 'User successfully sign up') {
                         console.log("Success!")
                         navigate("/login")
                     } else {
+
+                        // if
                         console.log("Error!")
                     }
                 }
             )
                 .catch((response) => {
-
+                    console.log("Error!")
+                    if (response.response.data.message === "User already exits") {
+                        HandleErrChange({
+                            errNick: res_name,
+                            errEmail: "* This Email have been used, please change your email or login",
+                            errPhone: res_phone,
+                            errPwd: res_password["Pwd"],
+                            errCPwd: res_password["CPwd"],
+                        })
+                    }
                     // console.log(response, 2)
                 });
         } else {

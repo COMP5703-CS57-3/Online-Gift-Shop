@@ -104,15 +104,21 @@ def run():
     app.run()
 
 
-@app.route('/', defaults={'path': ''})
+# @app.route('/', defaults={'path': ''})
 @app.route('/')
 def index():
     return render_template('index.html')
 
 
+@app.route('/adlogin')
+def adlogin():
+    return render_template('index.html')
+
+
 #
 #
-@app.route('/admin')
+
+@app.route('/administer')
 def admin():
     return render_template('index.html')
 
@@ -134,9 +140,11 @@ def login():
 @app.route('/<any>')
 def red(any):
     return redirect(url_for('index'))
-@app.route('/admin/<any>')
+
+
+@app.route('/administer/<any>')
 def adred(any):
-    return redirect(url_for('admin'))
+    return redirect(url_for("admin"))
 
 
 if __name__ == '__main__':

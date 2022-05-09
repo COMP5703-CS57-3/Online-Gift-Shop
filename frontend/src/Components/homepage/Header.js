@@ -25,6 +25,7 @@ export default function AccountMenu() {
     // console.log(cookie.load(_local.get("id")))
     const {login, setLogin, setRole} = useApp()
     const open = Boolean(anchorEl);
+    // sessionStorage.setItem("user",cookie.load("login"))
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -85,11 +86,11 @@ export default function AccountMenu() {
                                 aria-expanded={open ? 'true' : undefined}
                             >
                                 <Avatar
-                                    sx={{width: 32, height: 32}}>{getInitials(sessionStorage.getItem("user"))}</Avatar>
+                                    sx={{width: 32, height: 32}}>{getInitials(cookie.load("user"))}</Avatar>
                             </IconButton>
                         </Tooltip>
                         <Typography
-                            sx={{minWidth: 100}}>{login ? "hello, " + sessionStorage.getItem("user") + "!" : "Hello, Guest!"}</Typography>
+                            sx={{minWidth: 100}}>{login ? "hello, " + cookie.load("user") + "!" : "Hello, Guest!"}</Typography>
                     </Box>
                 </Box>
                 <Menu

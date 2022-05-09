@@ -70,6 +70,7 @@ export default function LogIn(props) {
                     setRole("user")
                     sessionStorage.setItem("role", "user")
                     sessionStorage.setItem("user", response.data.user_name)
+                    cookie.save("user",response.data.user_name)
                     // console.log(_session.get("curr"))
                     navigate(from)
                 } else {
