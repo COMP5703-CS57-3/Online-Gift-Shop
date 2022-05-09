@@ -28,7 +28,7 @@ export default function FPassword() {
 
             if (email !== "") {
                 if (checkEmail(email) === true) {
-                    axios.post('http://localhost:5000/login_signup/get_validation', {
+                    axios.post('http://localhost:5000/api/login_signup/get_validation', {
                         user_email: email,
                     }).then((response) => {
 

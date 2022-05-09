@@ -1,12 +1,11 @@
+import pprint
 import random
 import unittest
 from time import sleep
 
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 
-chrome_options = Options()
-chrome_options.add_argument('--headless')
+from frontend.Testing.chrome_options import chrome_options
 
 
 class TestLogin(unittest.TestCase):
@@ -30,7 +29,6 @@ class TestLogin(unittest.TestCase):
         self.assertEqual(curr_url, "http://localhost:3000/")  # 预期测试结果
         sleep(1)
 
-    # driver.find_element_by_partial_link_text("CSDN").click()
     # sleep(5)
     def good_username_bad_password(self):
         """Cannot login with correct username and bad password"""
@@ -40,7 +38,7 @@ class TestLogin(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="password"]').clear()
         driver.find_element_by_xpath('//*[@id="password"]').send_keys("12345677")
         driver.find_element_by_xpath('//*[@id="root"]/main/div/form/button').click()
-        sleep(3)
+        sleep(8)
         dig_alert = driver.switch_to.alert
 
         self.assertEqual(dig_alert.text, "Please input correct password")  # 预期测试结果
@@ -54,7 +52,7 @@ class TestLogin(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="password"]').clear()
         driver.find_element_by_xpath('//*[@id="password"]').send_keys("12345678")
         driver.find_element_by_xpath('//*[@id="root"]/main/div/form/button').click()
-        sleep(3)
+        sleep(8)
         dig_alert = driver.switch_to.alert
 
         self.assertEqual(dig_alert.text, "User did not exit, please sign up first")  # 预期测试结果
@@ -210,7 +208,7 @@ class TestSignUp(unittest.TestCase):
         driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[5]/div/input').clear()
         driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[5]/div/input').send_keys("12345678")
         driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/button').click()
-        sleep(5)
+        sleep(8)
         curr_url = driver.current_url
         self.assertEqual(curr_url, "http://localhost:3000/login")  # 预期测试结果
         sleep(1)
@@ -230,7 +228,7 @@ class TestSignUp(unittest.TestCase):
         driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[5]/div/input').clear()
         driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[5]/div/input').send_keys("12345678")
         driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/button').click()
-        sleep(3)
+        sleep(8)
 
         self.assertEqual(driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[2]/p').text,
                          "* This Email have been used, please change your email or login")
@@ -243,6 +241,40 @@ class TestSignUp(unittest.TestCase):
         sleep(3)
         self.assertEqual(driver.current_url, "http://localhost:3000/login")  # 预期测试结果
         sleep(1)
+
+    def tearDown(self):
+        self.driver.quit()
+
+
+class TestForgetPassword(unittest.TestCase):
+    def setUp(self):
+        # self.driver = webdriver.Chrome(options=chrome_options)  # 不显示浏览器，静默模式
+        self.driver = webdriver.Chrome()
+        self.driver.get("http://localhost:3000/findpwd")
+
+    def normal(self):
+        """Use forget password to """
+        driver = self.driver
+        self.assertEqual(driver.find_element_by_xpath(
+            '//*[@id="root"]/div/div/div[1]/div[1]/span/span[2]/span').value_of_css_property("font-weight"), "500")
+        driver.find_element_by_xpath('//*[@id="root"]/div/div/div[2]/div/input').send_keys("2910842215@qq.com")
+        driver.find_element_by_xpath('//*[@id="root"]/div/div/div[3]/button[2]').click()
+        sleep(8)
+        self.assertEqual(driver.find_element_by_xpath(
+            '//*[@id="root"]/div/div/div[1]/div[3]/span/span[2]/span').value_of_css_property("font-weight"), "500")
+        pprint.pprint('\nPlease give me the Val code:')
+        valCode = input()
+        driver.find_element_by_xpath('//*[@id="root"]/div/div/div[3]/div/input').send_keys(valCode)
+        driver.find_element_by_xpath('//*[@id="root"]/div/div/div[4]/button[2]').click()
+        sleep(2)
+        self.assertEqual(driver.find_element_by_xpath(
+            '//*[@id="root"]/div/div/div[1]/div[5]/span/span[2]/span').value_of_css_property("font-weight"), "500")
+        driver.find_element_by_xpath('//*[@id="root"]/div/div/div[2]/div/input').send_keys("12345678")
+        driver.find_element_by_xpath('//*[@id="root"]/div/div/div[3]/button[2]').click()
+        sleep(4)
+        self.assertEqual(driver.find_element_by_xpath(
+            '//*[@id="root"]/div/div/div[1]/div[7]/span/span[2]/span').value_of_css_property("font-weight"), "500")
+        # self.assertEqual(driver.current_url, "http://localhost:3000/login")  # 预期测试结果
 
     def tearDown(self):
         self.driver.quit()
