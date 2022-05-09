@@ -350,7 +350,7 @@ a.popup_link:hover {
     width: 500px;
 }
 
-}
+
 /* -- report ------------------------------------------------------------------------ */
 #show_detail_line {
     margin-top: 3ex;

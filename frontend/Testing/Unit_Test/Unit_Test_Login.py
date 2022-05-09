@@ -3,11 +3,16 @@ import unittest
 from time import sleep
 
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
+chrome_options = Options()
+chrome_options.add_argument('--headless')
 
 
 class TestLogin(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(options=chrome_options)  # 不显示浏览器，静默模式
+        # self.driver = webdriver.Chrome()
         self.driver.get("http://localhost:3000/login")
 
     # self.driver.implicitly_wait(10)
@@ -111,13 +116,31 @@ class TestLogin(unittest.TestCase):
         self.assertEqual(dig_alert.text, "please input valid Email")  # 预期测试结果
         sleep(1)
 
+    def go_to_sign_up(self):
+        """Click and go to signup page"""
+        driver = self.driver
+
+        driver.find_element_by_xpath('//*[@id="root"]/main/div/form/div[3]/div[2]/a').click()
+        sleep(3)
+        self.assertEqual(driver.current_url, "http://localhost:3000/signup")  # 预期测试结果
+        sleep(1)
+
+    def go_to_forget_password(self):
+        """Click and go to forget password page"""
+        driver = self.driver
+        driver.find_element_by_xpath('//*[@id="root"]/main/div/form/div[3]/div[1]/a').click()
+        sleep(3)
+        self.assertEqual(driver.current_url, "http://localhost:3000/findpwd")  # 预期测试结果
+        sleep(1)
+
     def tearDown(self):
         self.driver.quit()
 
 
 class TestSignUp(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(options=chrome_options)  # 不显示浏览器，静默模式
+        # self.driver = webdriver.Chrome()
         self.driver.get("http://localhost:3000/signup")
 
     def all_empty(self):
@@ -135,11 +158,16 @@ class TestSignUp(unittest.TestCase):
         driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[5]/div/input').send_keys("")
         driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/button').click()
         sleep(3)
-        self.assertEqual(driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[1]/p').text, "* Nick name is empty")
-        self.assertEqual(driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[2]/p').text, "* Email is empty")
-        self.assertEqual(driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[3]/p').text, "* Phone number is empty")
-        self.assertEqual(driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[4]/p').text, "* Password is empty")
+        self.assertEqual(driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[1]/p').text,
+                         "* Nick name is empty")
+        self.assertEqual(driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[2]/p').text,
+                         "* Email is empty")
+        self.assertEqual(driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[3]/p').text,
+                         "* Phone number is empty")
+        self.assertEqual(driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[4]/p').text,
+                         "* Password is empty")
         sleep(1)
+
     def bad_input(self):
         """Cannot sign up with bad nickname or invalid password or invalid E-mail or invalid phone number or incorrect confirm password """
         driver = self.driver
@@ -155,19 +183,26 @@ class TestSignUp(unittest.TestCase):
         driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[5]/div/input').send_keys("12345")
         driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/button').click()
         sleep(3)
-        self.assertEqual(driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[1]/p').text, "* Nick name should only allow a-zA-z0-9_")
-        self.assertEqual(driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[2]/p').text, "* Please input a valid email")
-        self.assertEqual(driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[3]/p').text, "* Please input a valid phone number")
-        self.assertEqual(driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[4]/p').text, "* Password must be more than eight characters")
-        self.assertEqual(driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[5]/p').text, "* Please confirm your input")
+        self.assertEqual(driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[1]/p').text,
+                         "* Nick name should only allow a-zA-z0-9_")
+        self.assertEqual(driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[2]/p').text,
+                         "* Please input a valid email")
+        self.assertEqual(driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[3]/p').text,
+                         "* Please input a valid phone number")
+        self.assertEqual(driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[4]/p').text,
+                         "* Password must be more than eight characters")
+        self.assertEqual(driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[5]/p').text,
+                         "* Please confirm your input")
         sleep(1)
+
     def normal(self):
         """Resister successfully after entering the required information"""
         driver = self.driver
         driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[1]/div/input').clear()
         driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[1]/div/input').send_keys("Daniel")
         driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[2]/div/input').clear()
-        driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[2]/div/input').send_keys(str(random.randint(10000000,99999999))+"@qq.com")
+        driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[2]/div/input').send_keys(
+            str(random.randint(10000000, 99999999)) + "@qq.com")
         driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[3]/div/input').clear()
         driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[3]/div/input').send_keys("18633617653")
         driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[4]/div/input').clear()
@@ -186,7 +221,8 @@ class TestSignUp(unittest.TestCase):
         driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[1]/div/input').clear()
         driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[1]/div/input').send_keys("Daniel")
         driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[2]/div/input').clear()
-        driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[2]/div/input').send_keys("2910842215@qq.com")
+        driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[2]/div/input').send_keys(
+            "2910842215@qq.com")
         driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[3]/div/input').clear()
         driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[3]/div/input').send_keys("18633617653")
         driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[4]/div/input').clear()
@@ -198,6 +234,14 @@ class TestSignUp(unittest.TestCase):
 
         self.assertEqual(driver.find_element_by_xpath('/html/body/div[1]/div/main/div/form/div[2]/p').text,
                          "* This Email have been used, please change your email or login")
+        sleep(1)
+
+    def go_to_login(self):
+        """Click and go to login page"""
+        driver = self.driver
+        driver.find_element_by_xpath('//*[@id="root"]/main/div/form/div[6]/div/a').click()
+        sleep(3)
+        self.assertEqual(driver.current_url, "http://localhost:3000/login")  # 预期测试结果
         sleep(1)
 
     def tearDown(self):
