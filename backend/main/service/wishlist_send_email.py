@@ -25,7 +25,7 @@ def wishlist_send_email_method(user_input_dictionary):
         response_data['message'] = "the email sent successfully"
         receiver_email = user_input_dictionary["receiver_email"]
         my_sender = '519231856@qq.com'
-        my_pass = 'ldegcibyorucbggj'
+        my_pass = 'klgdsstejzlybhca'
         my_user = receiver_email
 
         # mail_msg = """
