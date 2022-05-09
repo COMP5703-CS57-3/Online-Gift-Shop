@@ -248,12 +248,13 @@ class TestSignUp(unittest.TestCase):
 
 class TestForgetPassword(unittest.TestCase):
     def setUp(self):
-        # self.driver = webdriver.Chrome(options=chrome_options)  # 不显示浏览器，静默模式
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(options=chrome_options)  # 不显示浏览器，静默模式
+        # self.driver = webdriver.Chrome()
         self.driver.get("http://localhost:3000/findpwd")
 
     def normal(self):
-        """Use forget password to """
+        """Use forget password to find password"""
+        # print("?")
         driver = self.driver
         self.assertEqual(driver.find_element_by_xpath(
             '//*[@id="root"]/div/div/div[1]/div[1]/span/span[2]/span').value_of_css_property("font-weight"), "500")
@@ -262,7 +263,7 @@ class TestForgetPassword(unittest.TestCase):
         sleep(8)
         self.assertEqual(driver.find_element_by_xpath(
             '//*[@id="root"]/div/div/div[1]/div[3]/span/span[2]/span').value_of_css_property("font-weight"), "500")
-        pprint.pprint('\nPlease give me the Val code:')
+        # pprint.pprint('\nPlease give me the Val code:')
         valCode = input()
         driver.find_element_by_xpath('//*[@id="root"]/div/div/div[3]/div/input').send_keys(valCode)
         driver.find_element_by_xpath('//*[@id="root"]/div/div/div[4]/button[2]').click()
@@ -271,10 +272,72 @@ class TestForgetPassword(unittest.TestCase):
             '//*[@id="root"]/div/div/div[1]/div[5]/span/span[2]/span').value_of_css_property("font-weight"), "500")
         driver.find_element_by_xpath('//*[@id="root"]/div/div/div[2]/div/input').send_keys("12345678")
         driver.find_element_by_xpath('//*[@id="root"]/div/div/div[3]/button[2]').click()
-        sleep(4)
-        self.assertEqual(driver.find_element_by_xpath(
-            '//*[@id="root"]/div/div/div[1]/div[7]/span/span[2]/span').value_of_css_property("font-weight"), "500")
+        sleep(12)
+        self.assertEqual(driver.current_url, "http://localhost:3000/login")
         # self.assertEqual(driver.current_url, "http://localhost:3000/login")  # 预期测试结果
+
+    def invalid_email(self):
+        """Cannot input invalid email"""
+        driver = self.driver
+        self.assertEqual(driver.find_element_by_xpath(
+            '//*[@id="root"]/div/div/div[1]/div[1]/span/span[2]/span').value_of_css_property("font-weight"), "500")
+        driver.find_element_by_xpath('//*[@id="root"]/div/div/div[2]/div/input').send_keys("2910842215")
+        driver.find_element_by_xpath('//*[@id="root"]/div/div/div[3]/button[2]').click()
+        sleep(3)
+        self.assertEqual(driver.find_element_by_xpath(
+            '//*[@id="root"]/div/div/div[2]/p').text, "* Please input a valid Email")
+
+    def not_exist_email(self):
+        """Cannot forward when user do not exist """
+        driver = self.driver
+        self.assertEqual(driver.find_element_by_xpath(
+            '//*[@id="root"]/div/div/div[1]/div[1]/span/span[2]/span').value_of_css_property("font-weight"), "500")
+        driver.find_element_by_xpath('//*[@id="root"]/div/div/div[2]/div/input').send_keys("210842215@qq.com")
+        driver.find_element_by_xpath('//*[@id="root"]/div/div/div[3]/button[2]').click()
+        sleep(8)
+        self.assertEqual(driver.find_element_by_xpath('//*[@id="root"]/div/div/div[2]/p').text, "* No such User")
+
+    def incorrect_val_code(self):
+        """Cannot forward when val code is incorrect"""
+        driver = self.driver
+        self.assertEqual(driver.find_element_by_xpath(
+            '//*[@id="root"]/div/div/div[1]/div[1]/span/span[2]/span').value_of_css_property("font-weight"), "500")
+        driver.find_element_by_xpath('//*[@id="root"]/div/div/div[2]/div/input').send_keys("2910842215@qq.com")
+        driver.find_element_by_xpath('//*[@id="root"]/div/div/div[3]/button[2]').click()
+        sleep(8)
+        self.assertEqual(driver.find_element_by_xpath(
+            '//*[@id="root"]/div/div/div[1]/div[3]/span/span[2]/span').value_of_css_property("font-weight"), "500")
+        driver.find_element_by_xpath('//*[@id="root"]/div/div/div[3]/div/input').send_keys("123456")
+        driver.find_element_by_xpath('//*[@id="root"]/div/div/div[4]/button[2]').click()
+        sleep(1)
+        self.assertEqual(driver.find_element_by_xpath(
+            '//*[@id="root"]/div/div/div[1]/div[5]/span/span[2]/span').value_of_css_property("font-weight"), "500")
+        driver.find_element_by_xpath('//*[@id="root"]/div/div/div[2]/div/input').send_keys("12345678")
+        driver.find_element_by_xpath('//*[@id="root"]/div/div/div[3]/button[2]').click()
+        sleep(8)
+        self.assertEqual(driver.find_element_by_xpath('//*[@id="root"]/div/div/div[3]/p').text,
+                         "* Wrong Validation Code")
+
+    def invalid_password(self):
+        """Cannot forward when password is invalid"""
+        driver = self.driver
+        self.assertEqual(driver.find_element_by_xpath(
+            '//*[@id="root"]/div/div/div[1]/div[1]/span/span[2]/span').value_of_css_property("font-weight"), "500")
+        driver.find_element_by_xpath('//*[@id="root"]/div/div/div[2]/div/input').send_keys("2910842215@qq.com")
+        driver.find_element_by_xpath('//*[@id="root"]/div/div/div[3]/button[2]').click()
+        sleep(8)
+        self.assertEqual(driver.find_element_by_xpath(
+            '//*[@id="root"]/div/div/div[1]/div[3]/span/span[2]/span').value_of_css_property("font-weight"), "500")
+        driver.find_element_by_xpath('//*[@id="root"]/div/div/div[3]/div/input').send_keys("valcod")
+        driver.find_element_by_xpath('//*[@id="root"]/div/div/div[4]/button[2]').click()
+        sleep(1)
+        self.assertEqual(driver.find_element_by_xpath(
+            '//*[@id="root"]/div/div/div[1]/div[5]/span/span[2]/span').value_of_css_property("font-weight"), "500")
+        driver.find_element_by_xpath('//*[@id="root"]/div/div/div[2]/div/input').send_keys("1234")
+        driver.find_element_by_xpath('//*[@id="root"]/div/div/div[3]/button[2]').click()
+        sleep(8)
+        self.assertEqual(driver.find_element_by_xpath('//*[@id="root"]/div/div/div[2]/p').text,
+                         "* Password must be more than eight characters")
 
     def tearDown(self):
         self.driver.quit()
