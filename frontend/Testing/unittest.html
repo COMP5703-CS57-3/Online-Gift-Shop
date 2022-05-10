@@ -53,7 +53,7 @@ a.popup_link:hover {
     width: 500px;
 }
 
-}
+
 /* -- report ------------------------------------------------------------------------ */
 #show_detail_line {
     margin-top: 3ex;
@@ -189,9 +189,9 @@ function showOutput(id, name) {
 
 <div class='heading'>
 <h1>Online Gift Shop Testing</h1>
-<p class='attribute'><strong>Start Time:</strong> 2022-05-09 10:57:09</p>
-<p class='attribute'><strong>Duration:</strong> 0:01:00.023187</p>
-<p class='attribute'><strong>Status:</strong> Pass 4</p>
+<p class='attribute'><strong>Start Time:</strong> 2022-05-10 20:11:02</p>
+<p class='attribute'><strong>Duration:</strong> 0:01:03.795975</p>
+<p class='attribute'><strong>Status:</strong> Pass 5</p>
 
 <p class='description'>Testing Results：</p>
 </div>
@@ -222,21 +222,21 @@ function showOutput(id, name) {
 </tr>
 
 <tr class='passClass'>
-    <td>Unit_Test.Unit_Test_Login.TestSignUp</td>
-    <td>4</td>
-    <td>4</td>
+    <td>frontend.Testing.Unit_Test.Unit_Test_Login.TestSignUp</td>
+    <td>5</td>
+    <td>5</td>
     <td>0</td>
     <td>0</td>
-    <td><a href="javascript:showClassDetail('c1',4)">Detail</a></td>
+    <td><a href="javascript:showClassDetail('c1',5)">Detail</a></td>
 </tr>
 
 <tr id='pt1.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>normal: Resister successfully after entering the required information</div></td>
+    <td class='none'><div class='testcase'>bad_input: Cannot sign up with bad nickname or invalid password or invalid E-mail or invalid phone number or incorrect confirm password</div></td>
     <td colspan='5' align='center'>pass</td>
 </tr>
 
 <tr id='pt1.2' class='hiddenRow'>
-    <td class='none'><div class='testcase'>bad_input: Cannot sign up with bad nickname or invalid password or invalid E-mail or invalid phone number or incorrect confirm password</div></td>
+    <td class='none'><div class='testcase'>normal: Resister successfully after entering the required information</div></td>
     <td colspan='5' align='center'>pass</td>
 </tr>
 
@@ -246,14 +246,19 @@ function showOutput(id, name) {
 </tr>
 
 <tr id='pt1.4' class='hiddenRow'>
+    <td class='none'><div class='testcase'>go_to_login: Click and go to login page</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt1.5' class='hiddenRow'>
     <td class='none'><div class='testcase'>all_empty: Cannot sign up with empty space</div></td>
     <td colspan='5' align='center'>pass</td>
 </tr>
 
 <tr id='total_row'>
     <td>Total</td>
-    <td>4</td>
-    <td>4</td>
+    <td>5</td>
+    <td>5</td>
     <td>0</td>
     <td>0</td>
     <td>&nbsp;</td>
