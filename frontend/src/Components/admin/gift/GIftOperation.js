@@ -1,12 +1,14 @@
 import * as React from 'react';
+import {useState} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import {TextField} from "@mui/material";
 import {useInput} from "../../../tools/useInput";
-import  {useNumberInput} from "../../../tools/useNumberInput"
+import {useNumberInput} from "../../../tools/useNumberInput"
 import {useAdmin} from "../../../tools/useAdmin";
 import Grid from "@mui/material/Grid";
+import SizeBlock from "./size";
 
 const style = {
     position: 'absolute',
@@ -22,7 +24,7 @@ const style = {
 };
 
 export default function AddGift() {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
@@ -44,41 +46,41 @@ export default function AddGift() {
     const [SizeProps1, resetSize1] = useInput();
     const [SizeStock1, resetStock1] = useNumberInput();
     const [SizeProps2, resetSize2] = useInput();
-    const [SizeStock2, resetStock2]  = useNumberInput();
+    const [SizeStock2, resetStock2] = useNumberInput();
     const [SizeProps3, resetSize3] = useInput();
-    const [SizeStock3, resetStock3]  = useNumberInput();
+    const [SizeStock3, resetStock3] = useNumberInput();
     const [SizeProps4, resetSize4] = useInput();
-    const [SizeStock4, resetStock4]  = useNumberInput();
+    const [SizeStock4, resetStock4] = useNumberInput();
 
     const {addItems} = useAdmin();
     // console.log(wishTitle.current.valueOf());
 
-    const size = [
-        {
-            size: SizeProps1.value,
-            size_stock : SizeStock1.value
-            // size : "S",
-            // size_stock : 2
-        },
-        {
-            size: SizeProps2.value,
-            size_stock : SizeStock2.value
-            // size : "X",
-            // size_stock : 2
-        },
-        {
-            size: SizeProps3.value,
-            size_stock : SizeStock3.value
-            // size : "SL",
-            // size_stock : 2
-        },
-        {
-            size: SizeProps4.value,
-            size_stock : SizeStock4.value
-            // size : "XS",
-            // size_stock : 2
-        },
-    ]
+    // const size = [
+    //     {
+    //         size: SizeProps1.value,
+    //         size_stock: SizeStock1.value
+    //         // size : "S",
+    //         // size_stock : 2
+    //     },
+    //     {
+    //         size: SizeProps2.value,
+    //         size_stock: SizeStock2.value
+    //         // size : "X",
+    //         // size_stock : 2
+    //     },
+    //     {
+    //         size: SizeProps3.value,
+    //         size_stock: SizeStock3.value
+    //         // size : "SL",
+    //         // size_stock : 2
+    //     },
+    //     {
+    //         size: SizeProps4.value,
+    //         size_stock: SizeStock4.value
+    //         // size : "XS",
+    //         // size_stock : 2
+    //     },
+    // ]
     const submit = e => {
         e.preventDefault();
         addItems(
@@ -95,17 +97,25 @@ export default function AddGift() {
             show2Props.value,
             show3Props.value,
             show4Props.value,
-            size);
+            sizeList);
         // console.log(coverProps.value);
     }
 //------------------------------------table style---------------------------------
 
 
+    const [tmp, setTmp] = useState([0])
+    let sizeList = []
 
+    // const [sizeId, setSizeId] = useState(0)
+
+    function getSize(id, name, stock) {
+        console.log(id, name, stock)
+        sizeList[id] = {size: name, size_stock: stock}
+    }
 
     return (
         <div>
-            <a onClick ={handleOpen}>Add Gift</a>
+            <a onClick={handleOpen}>Add Gift</a>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -113,32 +123,43 @@ export default function AddGift() {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Grid container spacing={2} >
+                    <Grid container spacing={2}>
                         <a>Gift ADD From</a>
-                        <Grid item xs={12}><TextField {...giftNameProps} label="giftName"  fullWidth sx={{ m: 1 }}/></Grid>
+                        <Grid item xs={12}><TextField {...giftNameProps} label="giftName" fullWidth sx={{m: 1}}/></Grid>
                         <Grid item xs={4}><TextField {...giftPriceProps} label="giftPrice"/></Grid>
                         <Grid item xs={4}><TextField {...giftDiscountPriceProps} label="giftDiscountPrice"/></Grid>
                         <Grid item xs={4}><TextField {...giftDiscountStateProps} label="giftDiscountState"/></Grid>
-                        <Grid item xs={12}><TextField {...descriptionProps} label="description" fullWidth sx={{ m: 1 }} /></Grid>
+                        <Grid item xs={12}><TextField {...descriptionProps} label="description" fullWidth sx={{m: 1}}/></Grid>
                         <Grid item xs={4}><TextField {...categoryProps} label="category"/></Grid>
                         <Grid item xs={4}><TextField {...sideCategory1Props} label="sideCategory1"/></Grid>
                         <Grid item xs={4}><TextField {...sideCategory2Props} label="sideCategory2"/></Grid>
 
-                        <Grid item xs={3}><TextField {...SizeProps1} label="size1"/></Grid>
-                        <Grid item xs={3}><TextField {...SizeProps2} label="size2"/></Grid>
-                        <Grid item xs={3}><TextField {...SizeProps3} label="size3"/></Grid>
-                        <Grid item xs={3}><TextField {...SizeProps4} label="size4"/></Grid>
-                        <Grid item xs={3}><TextField {...SizeStock1} label="Stock1"/></Grid>
-                        <Grid item xs={3}><TextField {...SizeStock2} label="Stock2"/></Grid>
-                        <Grid item xs={3}><TextField {...SizeStock3} label="Stock3"/></Grid>
-                        <Grid item xs={3}><TextField {...SizeStock4} label="Stock4"/></Grid>
+                        {/*<Grid item xs={3}><TextField {...SizeProps1} label="size1"/></Grid>*/}
+                        {/*<Grid item xs={3}><TextField {...SizeProps2} label="size2"/></Grid>*/}
+                        {/*<Grid item xs={3}><TextField {...SizeProps3} label="size3"/></Grid>*/}
+                        {/*<Grid item xs={3}><TextField {...SizeProps4} label="size4"/></Grid>*/}
+                        {/*<Grid item xs={3}><TextField {...SizeStock1} label="Stock1"/></Grid>*/}
+                        {/*<Grid item xs={3}><TextField {...SizeStock2} label="Stock2"/></Grid>*/}
+                        {/*<Grid item xs={3}><TextField {...SizeStock3} label="Stock3"/></Grid>*/}
+                        {/*<Grid item xs={3}><TextField {...SizeStock4} label="Stock4"/></Grid>*/}
+                        <Grid>
+                            <Button onClick={() => setTmp([...tmp, tmp[-1] + 1])}>加组件</Button>
+                        </Grid>
+                        <Grid>
 
-                        <Grid item xs={12}><TextField {...coverProps} label="coverUrl" fullWidth sx={{ m: 1 }}/></Grid>
-                        <Grid item xs={12}><TextField {...show1Props} label="coverP" fullWidth sx={{ m: 1 }}/></Grid>
-                        <Grid item xs={4}><TextField {...show2Props} label="coverP" fullWidth sx={{ m: 0.5 }}/></Grid>
-                        <Grid item xs={4}><TextField {...show3Props} label="coverP" fullWidth sx={{ m: 0.5 }}/></Grid>
-                        <Grid item xs={4}><TextField {...show4Props} label="coverP" fullWidth sx={{ m: 0.5 }}/></Grid>
-                       <Grid item xs={12}> <Button variant="contained" onClick={submit}>ADD</Button></Grid>
+                            <div>
+                                {tmp.map(t => {
+                                    return <SizeBlock id={t} sendSize={getSize}/>
+                                })}
+                            </div>
+                        </Grid>
+
+                        <Grid item xs={12}><TextField {...coverProps} label="coverUrl" fullWidth sx={{m: 1}}/></Grid>
+                        <Grid item xs={12}><TextField {...show1Props} label="coverP" fullWidth sx={{m: 1}}/></Grid>
+                        <Grid item xs={4}><TextField {...show2Props} label="coverP" fullWidth sx={{m: 0.5}}/></Grid>
+                        <Grid item xs={4}><TextField {...show3Props} label="coverP" fullWidth sx={{m: 0.5}}/></Grid>
+                        <Grid item xs={4}><TextField {...show4Props} label="coverP" fullWidth sx={{m: 0.5}}/></Grid>
+                        <Grid item xs={12}> <Button variant="contained" onClick={submit}>ADD</Button></Grid>
                     </Grid>
                 </Box>
             </Modal>
