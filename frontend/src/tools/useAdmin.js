@@ -98,6 +98,30 @@ export default function AdminProvider({children}) {
     // }
 
     const changeItemCount = (id, giftName, giftPrice, giftDiscountPrice, giftDiscountState, giftDescription, giftCategory, sideCategory1, sideCategory2, coverUrl, showUrl1, showUrl2, showUrl3, showUrl4, sizeC) => {
+        let newSize=[]
+        console.log(sizeC)
+        for (const s in sizeC){
+            newSize.push({size:sizeC[s].size,size_stock:sizeC[s].stock})
+        }
+
+        console.log({
+                    id: id,
+                    gift_name: giftName,
+                    gift_price: giftPrice,
+                    gift_discount_price: giftDiscountPrice,
+                    gift_discount_state: giftDiscountState,
+                    gift_description: giftDescription,
+                    sizes: newSize,
+                    gift_category: giftCategory,
+                    gift_side_category1: sideCategory1,
+                    gift_side_category2: sideCategory2,
+                    gift_cover_url: coverUrl,
+                    gift_show_url1: showUrl1,
+                    gift_show_url2: showUrl2,
+                    gift_show_url3: showUrl3,
+                    gift_show_url4: showUrl4
+
+                })
         fetch("http://127.0.0.1:5000/api/admin/admin_edit_items", {
             method: 'put',
             body: JSON.stringify(
@@ -108,7 +132,7 @@ export default function AdminProvider({children}) {
                     gift_discount_price: giftDiscountPrice,
                     gift_discount_state: giftDiscountState,
                     gift_description: giftDescription,
-                    sizes: sizeC,
+                    sizes: newSize,
                     gift_category: giftCategory,
                     gift_side_category1: sideCategory1,
                     gift_side_category2: sideCategory2,
@@ -161,7 +185,8 @@ export default function AdminProvider({children}) {
     }
 
     const removeItems = (id) => {
-        fetch(`http://127.0.0.1:5000/api/admin/admin_manage_items/delete/${id}`, {
+        const ids=id.join()
+        fetch(`http://127.0.0.1:5000/api/admin/admin_manage_items/delete/${ids}`, {
             method: 'DELETE'
         }).then(r => getAllGifts());
     }

@@ -15,9 +15,9 @@ import {
     Typography
 } from '@mui/material';
 import {getInitials} from '../../../logic/get-initials';
-import BasicModal from "./Gift-list-change";
+import ChangeGift from "./Gift-list-change";
 import {useAdmin} from "../../../tools/useAdmin";
-import AddGift from "./GIftOperation";
+import AddGift from "./GIft-item-add";
 
 export const GiftListResults = ({gift, ...rest}) => {
     const {selectedGiftIds, setSelectedGiftIds} = useAdmin();

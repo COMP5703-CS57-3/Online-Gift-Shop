@@ -8,7 +8,7 @@ import {useInput} from "../../../tools/useInput";
 import {useAdmin} from "../../../tools/useAdmin";
 import Grid from "@mui/material/Grid";
 import SizeCard from "./SizeCard";
-import {useNumberInput} from "../../../tools/useNumberInput";
+import {Autocomplete, InputAdornment} from "@material-ui/core";
 
 const style = {
     position: 'absolute',
@@ -23,48 +23,32 @@ const style = {
     p: 4,
 };
 
-export default function BasicModal() {
+export default function ChangeGift() {
     // const {setOpen} = useAdmin();
+    const [giftPriceProps, setGiftPrice] = useState("");
+    const [giftDiscountStateProps, setGiftDiscountState] = useState(100);
+    const [descriptionProps, resetDescription3] = useInput();
+    const [categoryProps, resetCategory] = useInput();
+    const [sideCategory1Props, resetSide1] = useInput();
+    const [sideCategory2Props, resetSide2] = useInput();
+    // const [coverProps, resetCover] = useInput();
+    const [show1Props, resetShow1] = useInput("");
+    const [show2Props, resetShow2] = useInput("");
+    const [show3Props, resetShow3] = useInput("");
+    const [show4Props, resetShow4] = useInput("");
+    const {changeItemCount} = useAdmin();
     const [open, setOpen] = React.useState(false);
     const {selectedGiftIds} = useAdmin()
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    let [giftNameProps, coverProps] = useState();
+    let giftNameProps, coverProps, des
+    let size = []
     const [sizes, setSizes] = useState([]);
     let {gifts} = useAdmin();
     let loop = 0;
-    let size = [
-        {
-            size: "S",
-            size_stock: 2
-            // size : [SizeProps, resetSize] = useInput();
-            // size_stock : []
-        },
-        {
-            size: "M",
-            size_stock: 2
-            // size : [SizeProps, resetSize] = useInput();
-            // size_stock : []
-        },
-        {
-            size: "L",
-            size_stock: 2
-            // size : [SizeProps, resetSize] = useInput();
-            // size_stock : []
-        },
-        {
-            size: "XL",
-            size_stock: 2
-            // size : [SizeProps, resetSize] = useInput();
-            // size_stock : []
-        },
-        {
-            size: "XXL",
-            size_stock: 2
-            // size : [SizeProps, resetSize] = useInput();
-            // size_stock : []
-        },
-    ]
+    const TopSelections = ["Clothing", "Birthday", "Christmas", "New Year", "Shoe", "Wedding Celebration", "Easter Day", "Graduate", "Electronics"]
+    const SideSelections1 = ['Male', "Female", "Other"]
+    const SideSelections2 = ['Juvenile', "Young", "Elderly"]
     //console.log(selectedGiftIds[0])
     // let foundGift = gifts.find(
     //     item => {return item.id === selectedGiftIds[0]}
@@ -82,6 +66,7 @@ export default function BasicModal() {
             loop = foundGift.sizes.length
             giftNameProps = GiftItem.gift_name;
             coverProps = GiftItem.gift_cover_url;
+            des = GiftItem.gift_description;
         }
 
     }
@@ -92,38 +77,25 @@ export default function BasicModal() {
 
 
     // const [giftNameProps, resetgiftName] = useInput();
-    const [giftPriceProps, resetGiftPrice] = useNumberInput();
-    const [giftDiscountPriceProps, resetGiftDiscountPrice] = useNumberInput();
-    const [giftDiscountStateProps, resetGiftDiscountState] = useInput();
-    const [descriptionProps, resetDescription3] = useInput();
-    const [categoryProps, resetCategory] = useInput();
-    const [sideCategory1Props, resetSide1] = useInput();
-    const [sideCategory2Props, resetSide2] = useInput();
-    // const [coverProps, resetCover] = useInput();
-    const [show1Props, resetShow1] = useInput();
-    const [show2Props, resetShow2] = useInput();
-    const [show3Props, resetShow3] = useInput();
-    const [show4Props, resetShow4] = useInput();
-    const {changeItemCount} = useAdmin();
 
 
     const submit = e => {
         e.preventDefault();
         changeItemCount(selectedGiftIds[0],
             giftNameProps,
-            giftPriceProps.value,
-            giftDiscountPriceProps.value,
-            giftDiscountStateProps.value,
-            descriptionProps.value,
-            categoryProps.value,
-            sideCategory1Props.value,
-            sideCategory2Props.value,
+            giftPriceProps,
+            (giftDiscountStateProps * parseFloat(giftPriceProps) / 100).toString(),
+            giftDiscountStateProps.toString() + "%",
+            descriptionProps.value ? descriptionProps.value : des,
+            TopSelections[categoryProps.value],
+            SideSelections1[sideCategory1Props.value],
+            SideSelections2[sideCategory2Props.value],
             coverProps,
             show1Props.value,
             show2Props.value,
             show3Props.value,
             show4Props.value,
-            sizes);
+            sizes===[]?size:sizes);
         setOpen(false)
     }
 //------------------------------------table style---------------------------------
@@ -140,21 +112,123 @@ export default function BasicModal() {
             >
                 <Box sx={style}>
                     <Grid container spacing={2}>
-                        <a>Gift Edit From</a>
-                        <Grid item xs={12}><TextField defaultValue={giftNameProps} label="giftName" fullWidth
+                        <h4>Gift Edit From</h4>
+                        <Grid item xs={12}><TextField disabled defaultValue={giftNameProps} label="giftName" fullWidth
                                                       sx={{m: 0.5}}/></Grid>
-                        <Grid item xs={4}><TextField {...giftPriceProps} label="giftPrice"/></Grid>
-                        <Grid item xs={4}><TextField {...giftDiscountPriceProps} label="giftDiscountPrice"/></Grid>
-                        <Grid item xs={4}><TextField {...giftDiscountStateProps} label="giftDiscountState"/></Grid>
-                        <Grid item xs={12}><TextField {...descriptionProps} label="description" fullWidth sx={{m: 0.5}}/></Grid>
-                        <Grid item xs={4}><TextField {...categoryProps} label="category"/></Grid>
-                        <Grid item xs={4}><TextField {...sideCategory1Props} label="sideCategory1"/></Grid>
-                        <Grid item xs={4}><TextField {...sideCategory2Props} label="sideCategory2"/></Grid>
-                        <Grid item xs={12}><TextField defaultValue={coverProps} label="coverUrl" fullWidth sx={{m: 0.5}}/></Grid>
-                        <Grid item xs={12}><TextField {...show1Props} label="show1" fullWidth sx={{m: 0.5}}/></Grid>
-                        <Grid item xs={4}><TextField {...show2Props} label="show2" fullWidth sx={{m: 0.5}}/></Grid>
-                        <Grid item xs={4}><TextField {...show3Props} label="show3" fullWidth sx={{m: 0.5}}/></Grid>
-                        <Grid item xs={4}><TextField {...show4Props} label="show4" fullWidth sx={{m: 0.5}}/></Grid>
+                        <Grid item xs={4}><TextField
+                            value={giftPriceProps}
+                            onChange={e => {
+                                const filter = /^([1-9]\d*|0)(\.)?(\d{1,2})?$/;
+                                if (!filter.test(e.target.value) || parseFloat(e.target.value).toString() === 'NaN' || parseFloat(e.target.value) <= 0) {
+                                    setGiftPrice(e.target.value.slice(0, e.target.value.length - 1))
+
+                                } else if (e.target.value.length > 8) {
+                                    setGiftPrice(e.target.value.slice(0, 9))
+                                } else if (e.target.value.indexOf('.') !== e.target.value.length - 1) {
+                                    // console.log((Math.round(parseFloat(e.target.value) * 100) / 100))
+                                    setGiftPrice((Math.round(parseFloat(e.target.value) * 100) / 100).toString())
+                                } else {
+                                    setGiftPrice(e.target.value)
+                                }
+                            }}
+                            label="giftPrice"
+                            InputProps={{
+                                startAdornment: <InputAdornment
+                                    position="start">$</InputAdornment>,
+                            }}
+                        /></Grid>
+                        <Grid item xs={4}>
+                            <TextField disabled
+                                       error={parseFloat(giftPriceProps).toString() === 'NaN' && giftPriceProps !== ""}
+                                       value={
+                                           parseFloat(giftPriceProps).toString() === 'NaN' ?
+                                               0 : Math.round(giftDiscountStateProps * giftPriceProps) / 100}
+                                       helperText={parseFloat(giftPriceProps).toString() === 'NaN' && giftPriceProps !== ""
+                                           ? "* Check your gift price" : "price after discount"}
+                            />
+                        </Grid>
+                        <Grid item xs={4}><TextField value={giftDiscountStateProps}
+                                                     type={"number"}
+                                                     InputProps={{
+                                                         endAdornment: <InputAdornment
+                                                             position="end">%</InputAdornment>,
+                                                     }}
+                                                     onChange={e => {
+                                                         if (e.target.value && parseInt(e.target.value).toString() === "NaN" ||
+                                                             parseInt(e.target.value) > 100 ||
+                                                             parseInt(e.target.value) < 0) {
+                                                             setGiftDiscountState(100)
+
+                                                         } else if (e.target.value) {
+                                                             setGiftDiscountState(parseInt(e.target.value))
+                                                         } else {
+                                                             setGiftDiscountState(1)
+                                                         }
+                                                     }}
+                                                     label="Discount"/>
+                        </Grid>
+                        <Grid item xs={12}><TextField defaultValue={des} {...descriptionProps} label="Description"
+                                                      fullWidth
+                                                      sx={{m: 0.5}}/></Grid>
+                        <Grid item xs={3.5}>
+                            <Autocomplete
+                                freeSolo
+                                disableClearable
+                                options={TopSelections.map((option) => option)}
+                                {...categoryProps}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label="Category"
+                                        InputProps={{
+                                            ...params.InputProps,
+                                            type: 'search',
+                                        }}
+                                    />
+                                )}
+                            />
+                        </Grid>
+                        <Grid item xs={0.5}><span>{"/"}</span></Grid>
+                        <Grid item xs={3.5}>
+                            <Autocomplete
+                                freeSolo
+                                disableClearable
+                                options={SideSelections1.map((option) => option)}
+                                {...sideCategory1Props}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label="Gender"
+                                        InputProps={{
+                                            ...params.InputProps,
+                                            type: 'search',
+                                        }}
+                                    />
+                                )}
+                            />
+                        </Grid>
+                        <Grid item xs={0.5}><span>{"/"}</span></Grid>
+                        <Grid item xs={3.5}>
+                            <Autocomplete
+                                freeSolo
+                                disableClearable
+                                options={SideSelections2.map((option) => option)}
+                                {...sideCategory2Props}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label="Age"
+                                        InputProps={{
+                                            ...params.InputProps,
+                                            type: 'search',
+                                        }}
+                                    />
+                                )}
+                            />
+                        </Grid>
+
+                        <Grid item xs={12}><TextField disabled defaultValue={coverProps} label="coverUrl" fullWidth
+                                                      sx={{m: 0.5}}/></Grid>
                         {size.map((gift, i) => (
                             <Grid key={i} item xs={4}>
                                 <SizeCard {...gift} changeP={count => {
@@ -163,13 +237,13 @@ export default function BasicModal() {
                                         if (j === i) {
                                             const sizeTemplate = {
                                                 size: size[j].size,
-                                                size_stock: count
+                                                stock: count
                                             }
                                             newSizes.push(sizeTemplate)
                                         } else {
                                             const sizeTemplate = {
                                                 size: size[j].size,
-                                                size_stock: size[j].stock
+                                                stock: size[j].stock
                                             }
                                             newSizes.push(sizeTemplate)
                                         }
@@ -179,7 +253,8 @@ export default function BasicModal() {
                             </Grid>
                         ))}
                         {/*sx={{display:"none"}}*/}
-                        <Grid item xs={12} sx={{m: 3}}> <Button variant="contained" onClick={submit} >change</Button></Grid>
+                        <Grid item xs={12} sx={{m: 3}}> <Button variant="contained"
+                                                                onClick={submit}>change</Button></Grid>
                     </Grid>
                 </Box>
             </Modal>

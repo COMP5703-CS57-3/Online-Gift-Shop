@@ -33,7 +33,6 @@ export default function AddGift() {
 
     const [giftNameProps, resetgiftName] = useInput();
     const [giftPriceProps, setGiftPrice] = useState();
-    const [giftDiscountPriceProps, resetGiftDiscountPrice] = useInput();
     const [giftDiscountStateProps, setGiftDiscountState] = useState(100);
     const [descriptionProps, resetDescription3] = useInput();
     const [categoryProps, resetCategory] = useInput();
@@ -60,8 +59,7 @@ export default function AddGift() {
         if (errorStock) {
             setStockError("Please check the stock number")
             setError(true)
-        }
-        else{
+        } else {
             console.log("2")
             setError(false)
         }
@@ -72,7 +70,7 @@ export default function AddGift() {
                 giftNameProps.value,
                 giftPriceProps,
                 (giftDiscountStateProps * parseFloat(giftPriceProps) / 100).toString(),
-                giftDiscountStateProps.toString()+"%",
+                giftDiscountStateProps.toString() + "%",
                 descriptionProps.value,
                 TopSelections[categoryProps.value],
                 SideSelections1[sideCategory1Props.value],
@@ -114,54 +112,58 @@ export default function AddGift() {
                     <Grid container spacing={2}>
                         <a>Gift ADD From</a>
                         <Grid item xs={12}><TextField {...giftNameProps} label="giftName" fullWidth sx={{m: 1}}/></Grid>
-                        <Grid item xs={4}><TextField error={errorPrice !== true}
-                                                     value={giftPriceProps}
-                                                     onChange={e => {
-                                                         const filter  = /^([1-9]\d*|0)(\.)?(\d{1,2})?$/;
-                                                         if (!filter.test(e.target.value) ||parseFloat(e.target.value).toString() === 'NaN' || parseFloat(e.target.value) <= 0) {
-                                                             setGiftPrice(e.target.value.slice(0,e.target.value.length-1))
+                       <Grid item xs={4}><TextField
+                            value={giftPriceProps}
+                            onChange={e => {
+                                const filter = /^([1-9]\d*|0)(\.)?(\d{1,2})?$/;
+                                if (!filter.test(e.target.value) || parseFloat(e.target.value).toString() === 'NaN' || parseFloat(e.target.value) <= 0) {
+                                    setGiftPrice(e.target.value.slice(0, e.target.value.length - 1))
 
-                                                         } else if (e.target.value.length > 8) {
-                                                             setGiftPrice(e.target.value.slice(0, 9))
-                                                         } else if(e.target.value.indexOf('.')!==e.target.value.length-1){
-                                                             // console.log((Math.round(parseFloat(e.target.value) * 100) / 100))
-                                                             setGiftPrice((Math.round(parseFloat(e.target.value) * 100) / 100).toString())
-                                                         }else {
-                                                             setGiftPrice(e.target.value)
-                                                         }
-                                                     }}
-                                                     label="giftPrice"
-                                                     InputProps={{
-                                                         startAdornment: <InputAdornment
-                                                             position="start">$</InputAdornment>,
-                                                     }}
+                                } else if (e.target.value.length > 8) {
+                                    setGiftPrice(e.target.value.slice(0, 9))
+                                } else if (e.target.value.indexOf('.') !== e.target.value.length - 1) {
+                                    // console.log((Math.round(parseFloat(e.target.value) * 100) / 100))
+                                    setGiftPrice((Math.round(parseFloat(e.target.value) * 100) / 100).toString())
+                                } else {
+                                    setGiftPrice(e.target.value)
+                                }
+                            }}
+                            label="giftPrice"
+                            InputProps={{
+                                startAdornment: <InputAdornment
+                                    position="start">$</InputAdornment>,
+                            }}
                         /></Grid>
                         <Grid item xs={4}>
                             <TextField disabled
                                        error={parseFloat(giftPriceProps).toString() === 'NaN' && giftPriceProps !== ""}
                                        value={
                                            parseFloat(giftPriceProps).toString() === 'NaN' ?
-                                               0 : giftDiscountStateProps * giftPriceProps / 100}
+                                               0 : Math.round(giftDiscountStateProps * giftPriceProps) / 100 }
                                        helperText={parseFloat(giftPriceProps).toString() === 'NaN' && giftPriceProps !== ""
                                            ? "* Check your gift price" : "price after discount"}
                             />
                         </Grid>
                         <Grid item xs={4}><TextField value={giftDiscountStateProps}
+                                                     type={"number"}
                                                      InputProps={{
                                                          endAdornment: <InputAdornment
                                                              position="end">%</InputAdornment>,
                                                      }}
                                                      onChange={e => {
-                                                         if (parseInt(e.target.value).toString() === "NaN" ||
+                                                         if (e.target.value && parseInt(e.target.value).toString() === "NaN" ||
                                                              parseInt(e.target.value) > 100 ||
                                                              parseInt(e.target.value) < 0) {
                                                              setGiftDiscountState(100)
 
-                                                         } else {
+                                                         } else if (e.target.value) {
                                                              setGiftDiscountState(parseInt(e.target.value))
+                                                         } else {
+                                                             setGiftDiscountState(1)
                                                          }
                                                      }}
-                                                     label="giftDiscountState"/></Grid>
+                                                     label="Discount"/>
+                        </Grid>
                         <Grid item xs={12}><TextField {...descriptionProps} label="description" fullWidth sx={{m: 1}}/></Grid>
                         <Grid item xs={3.5}>
                             <Autocomplete
@@ -240,7 +242,7 @@ export default function AddGift() {
                                 <RemoveCircleOutlineIcon fontSize="inherit"/>
                             </IconButton>
                         </Grid>
-                        <Grid item xs={5}><span>{error?"Please Check the Stock Number!":""}</span></Grid>
+                        <Grid item xs={5}><span>{error ? "Please Check the Stock Number!" : ""}</span></Grid>
                         <Grid container rowSpacing={1.5} columnSpacing={1} alignItems="center">
 
                             {tmp.map(t => {

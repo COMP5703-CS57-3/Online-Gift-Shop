@@ -1,7 +1,7 @@
 import {Box, Button, Card, CardContent, InputAdornment, SvgIcon, TextField, Typography} from '@mui/material';
 import {useAdmin} from "../../../tools/useAdmin";
-import BasicModal from "./Gift-list-change";
-import AddGift from "./GIftOperation";
+import ChangeGift from "./Gift-list-change";
+import AddGift from "./GIft-item-add";
 
 // import { Search as SearchIcon } from '../../icons/search';
 // import { Upload as UploadIcon } from '../../icons/upload';
@@ -25,7 +25,7 @@ export default function GiftListToolbar(props) {
     }
 
     function delGift() {
-        const id = selectedGiftIds[0]
+        const id = selectedGiftIds
         removeItems(id)
     }
 
@@ -81,7 +81,7 @@ export default function GiftListToolbar(props) {
                         // onClick={() => changeDes()}
                         disabled={selectedGiftIds.length !== 1}
                     >
-                        <BasicModal/>
+                        <ChangeGift/>
                     </Button>
 
                 </Box>
