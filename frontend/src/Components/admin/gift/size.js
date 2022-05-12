@@ -12,12 +12,12 @@ export default function SizeBlock(props) {
             <Grid item xs={2}><span>&nbsp;</span></Grid>
             <Grid item xs={4}><TextField {...SizeProps} onChange={(e) => {
                 setSize(e.target.value);
-                props.sendSize(props.id, e.target.value, SizeStock)
+                props.sendSize(props.Sid, e.target.value, SizeStock)
             }}
                                          label="Size"/></Grid>
             <Grid item xs={4}><TextField {...SizeStock} onChange={(e) => {
                 setStock(e.target.value);
-                props.sendSize(props.id, SizeProps, e.target.value)
+                props.sendSize(props.Sid, SizeProps, e.target.value)
             }}
                                          label="Stock"/></Grid>
             <Grid item xs={2}><span>&nbsp;</span></Grid>

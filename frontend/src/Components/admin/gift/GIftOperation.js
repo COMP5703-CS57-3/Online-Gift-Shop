@@ -5,7 +5,6 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import {TextField} from "@mui/material";
 import {useInput} from "../../../tools/useInput";
-import {useNumberInput} from "../../../tools/useNumberInput"
 import {useAdmin} from "../../../tools/useAdmin";
 import Grid from "@mui/material/Grid";
 import SizeBlock from "./size";
@@ -33,7 +32,7 @@ export default function AddGift() {
     const handleClose = () => setOpen(false);
 
     const [giftNameProps, resetgiftName] = useInput();
-    const [giftPriceProps, resetGiftPrice] = useInput();
+    const [giftPriceProps, setGiftPrice] = useState();
     const [giftDiscountPriceProps, resetGiftDiscountPrice] = useInput();
     const [giftDiscountStateProps, setGiftDiscountState] = useState(100);
     const [descriptionProps, resetDescription3] = useInput();
@@ -47,40 +46,51 @@ export default function AddGift() {
     const [show3Props, resetShow3] = useInput("");
     const [show4Props, resetShow4] = useInput("");
     const [errorPrice, setErrorPrice] = useState(true)
-
+    const [stockError, setStockError] = useState('')
+    const [error, setError] = useState(false)
     const {addItems} = useAdmin();
     const TopSelections = ["Clothing", "Birthday", "Christmas", "New Year", "Shoe", "Wedding Celebration", "Easter Day", "Graduate", "Electronics"]
     const SideSelections1 = ['Male', "Female", "Other"]
     const SideSelections2 = ['Juvenile', "Young", "Elderly"]
     const submit = e => {
         e.preventDefault();
-        addItems(
-            giftNameProps.value,
-            giftPriceProps.value,
-            (giftDiscountStateProps * giftPriceProps.value / 100).toString(),
-            giftDiscountStateProps.toString(),
-            descriptionProps.value,
-            TopSelections[categoryProps.value],
-            SideSelections1[sideCategory1Props.value],
-            SideSelections2[sideCategory2Props.value],
-            coverProps.value,
-            show1Props.value,
-            show2Props.value,
-            show3Props.value,
-            show4Props.value,
-            sizeList);
-        // console.log(coverProps.value);
+
+        const errorStock = sizeList.find(item => parseInt(item.size_stock).toString() === "NaN")
+        console.log(errorStock)
+        if (errorStock.length > 0) {
+            setStockError("Please check the stock number")
+            setError(true)
+        }
+
+        if (!Error) {
+            addItems(
+                giftNameProps.value,
+                giftPriceProps,
+                (giftDiscountStateProps * parseFloat(giftPriceProps) / 100).toString(),
+                giftDiscountStateProps.toString(),
+                descriptionProps.value,
+                TopSelections[categoryProps.value],
+                SideSelections1[sideCategory1Props.value],
+                SideSelections2[sideCategory2Props.value],
+                coverProps.value,
+                show1Props.value,
+                show2Props.value,
+                show3Props.value,
+                show4Props.value,
+                sizeList);
+            // console.log(coverProps.value);
+        }
     }
 //------------------------------------table style---------------------------------
 
 
     const [tmp, setTmp] = useState([0])
-    const [sizeList,setSizeList] = useState([])
+    const [sizeList, setSizeList] = useState([])
 
     // const [sizeId, setSizeId] = useState(0)
 
     function getSize(id, name, stock) {
-        const copy=[...sizeList]
+        const copy = [...sizeList]
         copy[id] = {size: name, size_stock: stock}
         setSizeList(copy)
         // console.log(sizeList)
@@ -101,21 +111,34 @@ export default function AddGift() {
                         <Grid item xs={12}><TextField {...giftNameProps} label="giftName" fullWidth sx={{m: 1}}/></Grid>
                         <Grid item xs={4}><TextField error={errorPrice !== true}
                                                      helperText={errorPrice}
-                                                     {...giftPriceProps}
+                                                     value={giftPriceProps}
+                                                     onChange={e => {
+                                                         if (parseFloat(e.target.value).toString() === 'NaN' || parseFloat(e.target.value) <= 0) {
+                                                             setGiftPrice("")
+
+                                                         } else if (e.target.value.length > 8) {
+                                                             setGiftPrice(e.target.value.slice(0, 8))
+                                                         } else {
+                                                             console.log((Math.round(parseFloat(e.target.value) * 100) / 100))
+                                                             setGiftPrice((Math.round(parseFloat(e.target.value) * 100) / 100).toString())
+                                                         }
+                                                     }}
                                                      label="giftPrice"
                                                      InputProps={{
                                                          startAdornment: <InputAdornment
                                                              position="start">$</InputAdornment>,
                                                      }}
                         /></Grid>
-                        <Grid item xs={4}><TextField disabled
-                                                     error={parseFloat(giftPriceProps.value).toString() === 'NaN'}
-                                                     value={
-                                                         parseFloat(giftPriceProps.value).toString() === 'NaN' ?
-                                                             0 : giftDiscountStateProps * giftPriceProps.value / 100}
-                                                     helperText={parseFloat(giftPriceProps.value).toString() === 'NaN'
-                                                         ? "* Check your gift price" : "price after discount"}
-                        /></Grid>
+                        <Grid item xs={4}>
+                            <TextField disabled
+                                       error={parseFloat(giftPriceProps).toString() === 'NaN' && giftPriceProps !== ""}
+                                       value={
+                                           parseFloat(giftPriceProps).toString() === 'NaN' ?
+                                               0 : giftDiscountStateProps * giftPriceProps / 100}
+                                       helperText={parseFloat(giftPriceProps).toString() === 'NaN' && giftPriceProps !== ""
+                                           ? "* Check your gift price" : "price after discount"}
+                            />
+                        </Grid>
                         <Grid item xs={4}><TextField value={giftDiscountStateProps}
                                                      InputProps={{
                                                          endAdornment: <InputAdornment
@@ -189,30 +212,32 @@ export default function AddGift() {
                                 )}
                             />
                         </Grid>
-                        <Grid>
+                        <Grid item xs={2}>
                             <IconButton size="large" onClick={() => setTmp([...tmp, tmp[tmp.length - 1] + 1])}
                                         aria-label="add">
                                 <AddCircleOutlineIcon fontSize="inherit"/>
                             </IconButton>
                         </Grid>
-                        <Grid>
+                        <Grid item xs={2}>
                             <IconButton disabled={tmp.length === 1} size="large" onClick={() => {
 
                                 const t = [...tmp];
                                 t.pop();
-                                const s = [sizeList];
+                                const s = [...sizeList];
                                 s.pop();
                                 setTmp(t)
+                                setSizeList(s)
 
                             }}
                                         aria-label="remove">
                                 <RemoveCircleOutlineIcon fontSize="inherit"/>
                             </IconButton>
                         </Grid>
+                        <Grid item xs={3}><span>{stockError}</span></Grid>
                         <Grid container rowSpacing={1.5} columnSpacing={1} alignItems="center">
 
                             {tmp.map(t => {
-                                return <SizeBlock id={t} sendSize={getSize}/>
+                                return <SizeBlock Sid={t} sendSize={getSize}/>
                             })}
                         </Grid>
 

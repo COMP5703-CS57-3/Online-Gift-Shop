@@ -124,7 +124,7 @@ export default class AccountProfileDetails extends React.Component {
                 new_user: data
             });
         } else {
-            data["user_date_of_birth"] = event.toString().slice(0, -27)
+            data["user_date_of_birth"] = event?event.toString().slice(0, -27):""
             this.setState({new_user: data})
 
         }
