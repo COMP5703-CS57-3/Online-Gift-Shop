@@ -113,7 +113,7 @@ export default function AddGift() {
                 <Box sx={style}>
                     <Grid container spacing={2}>
                         <a>Gift ADD From</a>
-                        <Grid item xs={12}><TextField {...giftNameProps} label="giftName" fullWidth sx={{m: 1}}/></Grid>
+                        <Grid item xs={12}><TextField {...giftNameProps} label="giftName" fullWidth required/></Grid>
                         <Grid item xs={4}><TextField error={errorPrice !== true}
                                                      value={giftPriceProps}
                                                      onChange={e => {
@@ -135,6 +135,7 @@ export default function AddGift() {
                                                          startAdornment: <InputAdornment
                                                              position="start">$</InputAdornment>,
                                                      }}
+                                                     required
                         /></Grid>
                         <Grid item xs={4}>
                             <TextField disabled
@@ -161,8 +162,10 @@ export default function AddGift() {
                                                              setGiftDiscountState(parseInt(e.target.value))
                                                          }
                                                      }}
-                                                     label="giftDiscountState"/></Grid>
-                        <Grid item xs={12}><TextField {...descriptionProps} label="description" fullWidth sx={{m: 1}}/></Grid>
+                                                     label="giftDiscountState"
+                                                     required
+                        /></Grid>
+                        <Grid item xs={12}><TextField {...descriptionProps} label="description" fullWidth required /></Grid>
                         <Grid item xs={3.5}>
                             <Autocomplete
                                 freeSolo
@@ -196,6 +199,7 @@ export default function AddGift() {
                                             ...params.InputProps,
                                             type: 'search',
                                         }}
+                                        required
                                     />
                                 )}
                             />
@@ -215,6 +219,7 @@ export default function AddGift() {
                                             ...params.InputProps,
                                             type: 'search',
                                         }}
+                                        required
                                     />
                                 )}
                             />
@@ -248,7 +253,7 @@ export default function AddGift() {
                             })}
                         </Grid>
 
-                        <Grid item xs={12}><TextField {...coverProps} label="Image Url" fullWidth sx={{m: 1}}/></Grid>
+                        <Grid item xs={12}><TextField {...coverProps} label="Image Url" fullWidth required /></Grid>
                         <Grid item xs={12}> <Button variant="contained" onClick={submit}>ADD</Button></Grid>
                     </Grid>
                 </Box>
