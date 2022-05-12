@@ -57,17 +57,22 @@ export default function AddGift() {
 
         const errorStock = sizeList.find(item => parseInt(item.size_stock).toString() === "NaN")
         console.log(errorStock)
-        if (errorStock.length > 0) {
+        if (errorStock) {
             setStockError("Please check the stock number")
             setError(true)
         }
+        else{
+            console.log("2")
+            setError(false)
+        }
 
-        if (!Error) {
+        if (!error) {
+            console.log("3")
             addItems(
                 giftNameProps.value,
                 giftPriceProps,
                 (giftDiscountStateProps * parseFloat(giftPriceProps) / 100).toString(),
-                giftDiscountStateProps.toString(),
+                giftDiscountStateProps.toString()+"%",
                 descriptionProps.value,
                 TopSelections[categoryProps.value],
                 SideSelections1[sideCategory1Props.value],
@@ -110,17 +115,19 @@ export default function AddGift() {
                         <a>Gift ADD From</a>
                         <Grid item xs={12}><TextField {...giftNameProps} label="giftName" fullWidth sx={{m: 1}}/></Grid>
                         <Grid item xs={4}><TextField error={errorPrice !== true}
-                                                     helperText={errorPrice}
                                                      value={giftPriceProps}
                                                      onChange={e => {
-                                                         if (parseFloat(e.target.value).toString() === 'NaN' || parseFloat(e.target.value) <= 0) {
-                                                             setGiftPrice("")
+                                                         const filter  = /^([1-9]\d*|0)(\.)?(\d{1,2})?$/;
+                                                         if (!filter.test(e.target.value) ||parseFloat(e.target.value).toString() === 'NaN' || parseFloat(e.target.value) <= 0) {
+                                                             setGiftPrice(e.target.value.slice(0,e.target.value.length-1))
 
                                                          } else if (e.target.value.length > 8) {
-                                                             setGiftPrice(e.target.value.slice(0, 8))
-                                                         } else {
-                                                             console.log((Math.round(parseFloat(e.target.value) * 100) / 100))
+                                                             setGiftPrice(e.target.value.slice(0, 9))
+                                                         } else if(e.target.value.indexOf('.')!==e.target.value.length-1){
+                                                             // console.log((Math.round(parseFloat(e.target.value) * 100) / 100))
                                                              setGiftPrice((Math.round(parseFloat(e.target.value) * 100) / 100).toString())
+                                                         }else {
+                                                             setGiftPrice(e.target.value)
                                                          }
                                                      }}
                                                      label="giftPrice"
@@ -212,13 +219,13 @@ export default function AddGift() {
                                 )}
                             />
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={1}>
                             <IconButton size="large" onClick={() => setTmp([...tmp, tmp[tmp.length - 1] + 1])}
                                         aria-label="add">
                                 <AddCircleOutlineIcon fontSize="inherit"/>
                             </IconButton>
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={1}>
                             <IconButton disabled={tmp.length === 1} size="large" onClick={() => {
 
                                 const t = [...tmp];
@@ -233,7 +240,7 @@ export default function AddGift() {
                                 <RemoveCircleOutlineIcon fontSize="inherit"/>
                             </IconButton>
                         </Grid>
-                        <Grid item xs={3}><span>{stockError}</span></Grid>
+                        <Grid item xs={5}><span>{error?"Please Check the Stock Number!":""}</span></Grid>
                         <Grid container rowSpacing={1.5} columnSpacing={1} alignItems="center">
 
                             {tmp.map(t => {
