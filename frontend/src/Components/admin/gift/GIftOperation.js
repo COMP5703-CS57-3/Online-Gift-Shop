@@ -35,7 +35,7 @@ export default function AddGift() {
     const [giftNameProps, resetgiftName] = useInput();
     const [giftPriceProps, resetGiftPrice] = useInput();
     const [giftDiscountPriceProps, resetGiftDiscountPrice] = useInput();
-    const [giftDiscountStateProps, resetGiftDiscountState] = useInput(100);
+    const [giftDiscountStateProps, setGiftDiscountState] = useState(100);
     const [descriptionProps, resetDescription3] = useInput();
     const [categoryProps, resetCategory] = useInput();
     const [sideCategory1Props, resetSide1] = useInput();
@@ -59,6 +59,8 @@ export default function AddGift() {
 
     const {addItems} = useAdmin();
     const TopSelections = ["Clothing", "Birthday", "Christmas", "New Year", "Shoe", "Wedding Celebration", "Easter Day", "Graduate", "Electronics"]
+    const SideSelections1 = ['Male', "Female", "Other"]
+    const SideSelections2 = ['Juvenile', "Young", "Elderly"]
     const submit = e => {
         e.preventDefault();
         if (parseFloat(giftPriceProps.value).toString() === 'NaN') {
@@ -117,19 +119,27 @@ export default function AddGift() {
                                                      }}
                         /></Grid>
                         <Grid item xs={4}><TextField disabled
-                                                     error={parseFloat(giftPriceProps.value).toString() === 'NaN' ||
-                                                     parseFloat(giftDiscountStateProps.value).toString() === 'NaN'}
+                                                     error={parseFloat(giftPriceProps.value).toString() === 'NaN'}
                                                      value={
-                                                         parseFloat(giftPriceProps.value).toString() === 'NaN' ||
-                                                         parseFloat(giftDiscountStateProps.value).toString() === 'NaN' ?
-                                                             0 : giftDiscountStateProps.value * giftPriceProps.value / 100}
-                                                     helperText={parseFloat(giftPriceProps.value).toString() === 'NaN' ||
-                                                     parseFloat(giftDiscountStateProps.value).toString() === 'NaN' ? "* Check your price and discount" : "price after discount"}
+                                                         parseFloat(giftPriceProps.value).toString() === 'NaN' ?
+                                                             0 : giftDiscountStateProps * giftPriceProps.value / 100}
+                                                     helperText={parseFloat(giftPriceProps.value).toString() === 'NaN'
+                                                         ? "* Check your gift price" : "price after discount"}
                         /></Grid>
-                        <Grid item xs={4}><TextField {...giftDiscountStateProps}
+                        <Grid item xs={4}><TextField value={giftDiscountStateProps}
                                                      InputProps={{
                                                          endAdornment: <InputAdornment
                                                              position="end">%</InputAdornment>,
+                                                     }}
+                                                     onChange={e => {
+                                                         if (parseInt(e.target.value).toString() === "NaN" ||
+                                                             parseInt(e.target.value) > 100 ||
+                                                             parseInt(e.target.value) < 0) {
+                                                             setGiftDiscountState(100)
+
+                                                         } else {
+                                                             setGiftDiscountState(parseInt(e.target.value))
+                                                         }
                                                      }}
                                                      label="giftDiscountState"/></Grid>
                         <Grid item xs={12}><TextField {...descriptionProps} label="description" fullWidth sx={{m: 1}}/></Grid>
@@ -142,7 +152,7 @@ export default function AddGift() {
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
-                                        label="Search input"
+                                        label="Category"
                                         InputProps={{
                                             ...params.InputProps,
                                             type: 'search',
@@ -152,9 +162,43 @@ export default function AddGift() {
                             />
                         </Grid>
                         <Grid item xs={0.5}><span>{"/"}</span></Grid>
-                        <Grid item xs={3.5}><TextField {...sideCategory1Props} label="sideCategory1"/></Grid>
+                        <Grid item xs={3.5}>
+                            <Autocomplete
+                                freeSolo
+                                disableClearable
+                                options={SideSelections1.map((option) => option)}
+                                {...sideCategory1Props}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label="Gender"
+                                        InputProps={{
+                                            ...params.InputProps,
+                                            type: 'search',
+                                        }}
+                                    />
+                                )}
+                            />
+                        </Grid>
                         <Grid item xs={0.5}><span>{"/"}</span></Grid>
-                        <Grid item xs={3.5}><TextField {...sideCategory2Props} label="sideCategory2"/></Grid>
+                        <Grid item xs={3.5}>
+                            <Autocomplete
+                                freeSolo
+                                disableClearable
+                                options={SideSelections2.map((option) => option)}
+                                {...sideCategory2Props}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label="Age"
+                                        InputProps={{
+                                            ...params.InputProps,
+                                            type: 'search',
+                                        }}
+                                    />
+                                )}
+                            />
+                        </Grid>
                         <Grid>
                             <IconButton size="large" onClick={() => setTmp([...tmp, tmp[tmp.length - 1] + 1])}
                                         aria-label="add">
@@ -171,7 +215,7 @@ export default function AddGift() {
                                 setTmp(t)
 
                             }}
-                                        aria-label="add">
+                                        aria-label="remove">
                                 <RemoveCircleOutlineIcon fontSize="inherit"/>
                             </IconButton>
                         </Grid>
@@ -183,10 +227,6 @@ export default function AddGift() {
                         </Grid>
 
                         <Grid item xs={12}><TextField {...coverProps} label="coverUrl" fullWidth sx={{m: 1}}/></Grid>
-                        {/*<Grid item xs={12}><TextField {...show1Props} label="coverP" fullWidth sx={{m: 1}}/></Grid>*/}
-                        {/*<Grid item xs={4}><TextField {...show2Props} label="coverP" fullWidth sx={{m: 0.5}}/></Grid>*/}
-                        {/*<Grid item xs={4}><TextField {...show3Props} label="coverP" fullWidth sx={{m: 0.5}}/></Grid>*/}
-                        {/*<Grid item xs={4}><TextField {...show4Props} label="coverP" fullWidth sx={{m: 0.5}}/></Grid>*/}
                         <Grid item xs={12}> <Button variant="contained" onClick={submit}>ADD</Button></Grid>
                     </Grid>
                 </Box>
