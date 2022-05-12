@@ -189,9 +189,9 @@ function showOutput(id, name) {
 
 <div class='heading'>
 <h1>Online Gift Shop Testing</h1>
-<p class='attribute'><strong>Start Time:</strong> 2022-05-11 19:20:40</p>
-<p class='attribute'><strong>Duration:</strong> 0:00:12.815092</p>
-<p class='attribute'><strong>Status:</strong> Pass 1</p>
+<p class='attribute'><strong>Start Time:</strong> 2022-05-12 13:19:13</p>
+<p class='attribute'><strong>Duration:</strong> 0:02:10.505284</p>
+<p class='attribute'><strong>Status:</strong> Pass 8</p>
 
 <p class='description'>Testing Results：</p>
 </div>
@@ -222,23 +222,58 @@ function showOutput(id, name) {
 </tr>
 
 <tr class='passClass'>
-    <td>frontend.Testing.Unit_Test.Unit_Test_Admin.TestAdmin</td>
-    <td>1</td>
-    <td>1</td>
+    <td>frontend.Testing.Unit_Test.Unit_Test_Admin.TestAdminLogin</td>
+    <td>8</td>
+    <td>8</td>
     <td>0</td>
     <td>0</td>
-    <td><a href="javascript:showClassDetail('c1',1)">Detail</a></td>
+    <td><a href="javascript:showClassDetail('c1',8)">Detail</a></td>
 </tr>
 
 <tr id='pt1.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>bad_username_good_password: Cannot login with bad username and correct password</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt1.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>bad_username_empty_password: Cannot login with empty username and empty password</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt1.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>empty_username_empty_password: Cannot login with empty username and empty password</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt1.4' class='hiddenRow'>
+    <td class='none'><div class='testcase'>incorrect_username_good_password: Cannot login with incorrect username and correct password</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt1.5' class='hiddenRow'>
+    <td class='none'><div class='testcase'>good_username_bad_password: Cannot login with correct username and bad password</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt1.6' class='hiddenRow'>
+    <td class='none'><div class='testcase'>empty_username_bad_password: Cannot login with empty username and empty password</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt1.7' class='hiddenRow'>
+    <td class='none'><div class='testcase'>go_to_sign_up: Click and go to signup page</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt1.8' class='hiddenRow'>
     <td class='none'><div class='testcase'>normal</div></td>
     <td colspan='5' align='center'>pass</td>
 </tr>
 
 <tr id='total_row'>
     <td>Total</td>
-    <td>1</td>
-    <td>1</td>
+    <td>8</td>
+    <td>8</td>
     <td>0</td>
     <td>0</td>
     <td>&nbsp;</td>

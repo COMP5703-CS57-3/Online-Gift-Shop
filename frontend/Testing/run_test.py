@@ -12,13 +12,13 @@ if __name__ == '__main__':
     signupTestList = list(set(dir(TestSignUp)) ^ set(dir(unittest.TestCase)))
     forgetPwdTestList = list(set(dir(TestForgetPassword)) ^ set(dir(unittest.TestCase)))
     accountTestList = list(set(dir(TestAccount)) ^ set(dir(unittest.TestCase)))
-    adminTestList = list(set(dir(TestAdmin)) ^ set(dir(unittest.TestCase)))
+    adminTestList = list(set(dir(TestAdminLogin)) ^ set(dir(unittest.TestCase)))
     # for test in loginTestList:
     #     testunit.addTest(TestLogin(test))
     # for test in signupTestList:
     #     testunit.addTest(TestSignUp(test))
     for test in adminTestList:
-        testunit.addTest(TestAdmin(test))
+        testunit.addTest(TestAdminLogin(test))
     # for test in forgetPwdTestList:
     #     # if test != "normal":
     #         testunit.addTest(TestForgetPassword(test))

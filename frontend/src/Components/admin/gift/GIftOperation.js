@@ -9,6 +9,10 @@ import {useNumberInput} from "../../../tools/useNumberInput"
 import {useAdmin} from "../../../tools/useAdmin";
 import Grid from "@mui/material/Grid";
 import SizeBlock from "./size";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import IconButton from "@mui/material/IconButton";
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import {Autocomplete, InputAdornment} from "@material-ui/core";
 
 const style = {
     position: 'absolute',
@@ -31,17 +35,17 @@ export default function AddGift() {
     const [giftNameProps, resetgiftName] = useInput();
     const [giftPriceProps, resetGiftPrice] = useInput();
     const [giftDiscountPriceProps, resetGiftDiscountPrice] = useInput();
-    const [giftDiscountStateProps, resetGiftDiscountState] = useInput();
+    const [giftDiscountStateProps, resetGiftDiscountState] = useInput(100);
     const [descriptionProps, resetDescription3] = useInput();
     const [categoryProps, resetCategory] = useInput();
     const [sideCategory1Props, resetSide1] = useInput();
     const [sideCategory2Props, resetSide2] = useInput();
 
     const [coverProps, resetCover] = useInput();
-    const [show1Props, resetShow1] = useInput();
-    const [show2Props, resetShow2] = useInput();
-    const [show3Props, resetShow3] = useInput();
-    const [show4Props, resetShow4] = useInput();
+    const [show1Props, resetShow1] = useInput("");
+    const [show2Props, resetShow2] = useInput("");
+    const [show3Props, resetShow3] = useInput("");
+    const [show4Props, resetShow4] = useInput("");
 
     const [SizeProps1, resetSize1] = useInput();
     const [SizeStock1, resetStock1] = useNumberInput();
@@ -51,38 +55,15 @@ export default function AddGift() {
     const [SizeStock3, resetStock3] = useNumberInput();
     const [SizeProps4, resetSize4] = useInput();
     const [SizeStock4, resetStock4] = useNumberInput();
+    const [errorPrice, setErrorPrice] = useState(true)
 
     const {addItems} = useAdmin();
-    // console.log(wishTitle.current.valueOf());
-
-    // const size = [
-    //     {
-    //         size: SizeProps1.value,
-    //         size_stock: SizeStock1.value
-    //         // size : "S",
-    //         // size_stock : 2
-    //     },
-    //     {
-    //         size: SizeProps2.value,
-    //         size_stock: SizeStock2.value
-    //         // size : "X",
-    //         // size_stock : 2
-    //     },
-    //     {
-    //         size: SizeProps3.value,
-    //         size_stock: SizeStock3.value
-    //         // size : "SL",
-    //         // size_stock : 2
-    //     },
-    //     {
-    //         size: SizeProps4.value,
-    //         size_stock: SizeStock4.value
-    //         // size : "XS",
-    //         // size_stock : 2
-    //     },
-    // ]
+    const TopSelections = ["Clothing", "Birthday", "Christmas", "New Year", "Shoe", "Wedding Celebration", "Easter Day", "Graduate", "Electronics"]
     const submit = e => {
         e.preventDefault();
+        if (parseFloat(giftPriceProps.value).toString() === 'NaN') {
+
+        }
         addItems(
             giftNameProps.value,
             giftPriceProps.value,
@@ -126,39 +107,86 @@ export default function AddGift() {
                     <Grid container spacing={2}>
                         <a>Gift ADD From</a>
                         <Grid item xs={12}><TextField {...giftNameProps} label="giftName" fullWidth sx={{m: 1}}/></Grid>
-                        <Grid item xs={4}><TextField {...giftPriceProps} label="giftPrice"/></Grid>
-                        <Grid item xs={4}><TextField {...giftDiscountPriceProps} label="giftDiscountPrice"/></Grid>
-                        <Grid item xs={4}><TextField {...giftDiscountStateProps} label="giftDiscountState"/></Grid>
+                        <Grid item xs={4}><TextField error={errorPrice !== true}
+                                                     helperText={errorPrice}
+                                                     {...giftPriceProps}
+                                                     label="giftPrice"
+                                                     InputProps={{
+                                                         startAdornment: <InputAdornment
+                                                             position="start">$</InputAdornment>,
+                                                     }}
+                        /></Grid>
+                        <Grid item xs={4}><TextField disabled
+                                                     error={parseFloat(giftPriceProps.value).toString() === 'NaN' ||
+                                                     parseFloat(giftDiscountStateProps.value).toString() === 'NaN'}
+                                                     value={
+                                                         parseFloat(giftPriceProps.value).toString() === 'NaN' ||
+                                                         parseFloat(giftDiscountStateProps.value).toString() === 'NaN' ?
+                                                             0 : giftDiscountStateProps.value * giftPriceProps.value / 100}
+                                                     helperText={parseFloat(giftPriceProps.value).toString() === 'NaN' ||
+                                                     parseFloat(giftDiscountStateProps.value).toString() === 'NaN' ? "* Check your price and discount" : "price after discount"}
+                        /></Grid>
+                        <Grid item xs={4}><TextField {...giftDiscountStateProps}
+                                                     InputProps={{
+                                                         endAdornment: <InputAdornment
+                                                             position="end">%</InputAdornment>,
+                                                     }}
+                                                     label="giftDiscountState"/></Grid>
                         <Grid item xs={12}><TextField {...descriptionProps} label="description" fullWidth sx={{m: 1}}/></Grid>
-                        <Grid item xs={4}><TextField {...categoryProps} label="category"/></Grid>
-                        <Grid item xs={4}><TextField {...sideCategory1Props} label="sideCategory1"/></Grid>
-                        <Grid item xs={4}><TextField {...sideCategory2Props} label="sideCategory2"/></Grid>
-
-                        {/*<Grid item xs={3}><TextField {...SizeProps1} label="size1"/></Grid>*/}
-                        {/*<Grid item xs={3}><TextField {...SizeProps2} label="size2"/></Grid>*/}
-                        {/*<Grid item xs={3}><TextField {...SizeProps3} label="size3"/></Grid>*/}
-                        {/*<Grid item xs={3}><TextField {...SizeProps4} label="size4"/></Grid>*/}
-                        {/*<Grid item xs={3}><TextField {...SizeStock1} label="Stock1"/></Grid>*/}
-                        {/*<Grid item xs={3}><TextField {...SizeStock2} label="Stock2"/></Grid>*/}
-                        {/*<Grid item xs={3}><TextField {...SizeStock3} label="Stock3"/></Grid>*/}
-                        {/*<Grid item xs={3}><TextField {...SizeStock4} label="Stock4"/></Grid>*/}
+                        <Grid item xs={3.5}>
+                            <Autocomplete
+                                freeSolo
+                                disableClearable
+                                options={TopSelections.map((option) => option)}
+                                {...categoryProps}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label="Search input"
+                                        InputProps={{
+                                            ...params.InputProps,
+                                            type: 'search',
+                                        }}
+                                    />
+                                )}
+                            />
+                        </Grid>
+                        <Grid item xs={0.5}><span>{"/"}</span></Grid>
+                        <Grid item xs={3.5}><TextField {...sideCategory1Props} label="sideCategory1"/></Grid>
+                        <Grid item xs={0.5}><span>{"/"}</span></Grid>
+                        <Grid item xs={3.5}><TextField {...sideCategory2Props} label="sideCategory2"/></Grid>
                         <Grid>
-                            <Button onClick={() => setTmp([...tmp, tmp[-1] + 1])}>加组件</Button>
+                            <IconButton size="large" onClick={() => setTmp([...tmp, tmp[tmp.length - 1] + 1])}
+                                        aria-label="add">
+                                <AddCircleOutlineIcon fontSize="inherit"/>
+                            </IconButton>
                         </Grid>
                         <Grid>
+                            <IconButton disabled={tmp.length === 1} size="large" onClick={() => {
 
-                            <div>
-                                {tmp.map(t => {
-                                    return <SizeBlock id={t} sendSize={getSize}/>
-                                })}
-                            </div>
+                                const t = [...tmp];
+                                t.pop();
+                                const s = [sizeList];
+                                s.pop();
+                                setTmp(t)
+
+                            }}
+                                        aria-label="add">
+                                <RemoveCircleOutlineIcon fontSize="inherit"/>
+                            </IconButton>
+                        </Grid>
+                        <Grid container rowSpacing={1.5} columnSpacing={1} alignItems="center">
+
+                            {tmp.map(t => {
+                                return <SizeBlock id={t} sendSize={getSize}/>
+                            })}
                         </Grid>
 
                         <Grid item xs={12}><TextField {...coverProps} label="coverUrl" fullWidth sx={{m: 1}}/></Grid>
-                        <Grid item xs={12}><TextField {...show1Props} label="coverP" fullWidth sx={{m: 1}}/></Grid>
-                        <Grid item xs={4}><TextField {...show2Props} label="coverP" fullWidth sx={{m: 0.5}}/></Grid>
-                        <Grid item xs={4}><TextField {...show3Props} label="coverP" fullWidth sx={{m: 0.5}}/></Grid>
-                        <Grid item xs={4}><TextField {...show4Props} label="coverP" fullWidth sx={{m: 0.5}}/></Grid>
+                        {/*<Grid item xs={12}><TextField {...show1Props} label="coverP" fullWidth sx={{m: 1}}/></Grid>*/}
+                        {/*<Grid item xs={4}><TextField {...show2Props} label="coverP" fullWidth sx={{m: 0.5}}/></Grid>*/}
+                        {/*<Grid item xs={4}><TextField {...show3Props} label="coverP" fullWidth sx={{m: 0.5}}/></Grid>*/}
+                        {/*<Grid item xs={4}><TextField {...show4Props} label="coverP" fullWidth sx={{m: 0.5}}/></Grid>*/}
                         <Grid item xs={12}> <Button variant="contained" onClick={submit}>ADD</Button></Grid>
                     </Grid>
                 </Box>
