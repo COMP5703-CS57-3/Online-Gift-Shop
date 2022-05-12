@@ -19,20 +19,20 @@ export default function WishForm() {
     const location = useLocation()
     const [address1, setAddress1] = useState(countries[12].label.toString());
     const [address2, setAddress2] = useState(states[0].label);
-    const [titleProps, resetTitle] = useInput("123");
+    const [titleProps, resetTitle] = useInput();
     const [timeProps, setTime] = useState();
-    const [firstnameProps, resetfirst] = useInput("123");
-    const [lastnameProps, resetLast] = useInput("123");
-    const [descriptionProps, resetDescription] = useInput("123");
-    const [address3Props, resetAddress3] = useInput("123");
-    const [phoneProps, resetPhone] = useInput("123");
-    const [postcodeProps, resetPostcode] = useInput("123");
+    const [firstnameProps, resetfirst] = useInput();
+    const [lastnameProps, resetLast] = useInput();
+    const [descriptionProps, resetDescription] = useInput();
+    const [address3Props, resetAddress3] = useInput();
+    const [phoneProps, resetPhone] = useInput();
+    const [postcodeProps, resetPostcode] = useInput();
     const {createWish} = useWish()
 
-    const [productNameProps, resetProductName] = useInput("123");
-    const [coverUrlProps, resetCoverUrl] = useInput("123");
-    const [sizeProps, resetSize] = useInput("123");
-    const [priceProps, resetPrice] = useInput(123);
+    const [productNameProps, resetProductName] = useInput();
+    const [coverUrlProps, resetCoverUrl] = useInput();
+    const [sizeProps, resetSize] = useInput();
+    const [priceProps, resetPrice] = useInput();
     // console.log(wishTitle.current.valueOf());
     const onC = () => {
         let address = address1 + " " + address2 + " " + address3Props.value
@@ -89,11 +89,11 @@ export default function WishForm() {
                                 form</h2>
                             <Stack spacing={4} direction="row" alignItems="center" justifyContent="space-between"
                                    variant="outlined">
-                                <TextField {...titleProps} label="title"/>
-                                <TextField {...firstnameProps} label="firstname"/>
-                                <TextField {...lastnameProps} label="lastname"/>
+                                <TextField {...titleProps} label="title" required/>
+                                <TextField {...firstnameProps} label="firstname" required/>
+                                <TextField {...lastnameProps} label="lastname" required/>
                             </Stack>
-                            <TextField sx={{mt: 4}} {...descriptionProps} fullWidth label="description:"/>
+                            <TextField sx={{mt: 4}} {...descriptionProps} fullWidth label="description:" required/>
                             <Stack spacing={2} sx={{my: 4}} direction="row" alignItems="center"
                                    justifyContent="space-between" variant="outlined">
                                 <Autocomplete
@@ -127,6 +127,7 @@ export default function WishForm() {
                                                 ...params.inputProps,
                                                 autoComplete: 'new-password', // disable autocomplete and autofill
                                             }}
+
                                         />
                                     )}
                                 />
@@ -141,12 +142,12 @@ export default function WishForm() {
                                     sx={{width: 300}}
                                     renderInput={(params) => <TextField {...params} label="State" required/>}
                                 />
-                                <TextField {...address3Props} label="street(detailed adress)"/>
+                                <TextField {...address3Props} label="street(detailed adress)" required/>
                             </Stack>
                             <Stack sx={{my: 4}} spacing={2} direction="row" alignItems="center"
                                    justifyContent="space-between" variant="outlined">
-                                <TextField {...phoneProps} label="phone"/>
-                                <TextField {...postcodeProps} label="postcode"/>
+                                <TextField {...phoneProps} label="phone" required/>
+                                <TextField {...postcodeProps} label="postcode" required/>
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                                     <DatePicker
                                         fullWidth
@@ -159,7 +160,7 @@ export default function WishForm() {
                                         }
 
                                         renderInput={(params) => <TextField {...params}
-                                                                            helperText={params ? "" : "Please input your Expected Deliver Time"}/>}
+                                                                            helperText={params ? "" : "Please input your Expected Deliver Time"} required/>}
                                     />
                                 </LocalizationProvider>
                             </Stack>
