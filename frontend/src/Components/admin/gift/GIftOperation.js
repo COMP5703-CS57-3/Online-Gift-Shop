@@ -46,15 +46,6 @@ export default function AddGift() {
     const [show2Props, resetShow2] = useInput("");
     const [show3Props, resetShow3] = useInput("");
     const [show4Props, resetShow4] = useInput("");
-
-    const [SizeProps1, resetSize1] = useInput();
-    const [SizeStock1, resetStock1] = useNumberInput();
-    const [SizeProps2, resetSize2] = useInput();
-    const [SizeStock2, resetStock2] = useNumberInput();
-    const [SizeProps3, resetSize3] = useInput();
-    const [SizeStock3, resetStock3] = useNumberInput();
-    const [SizeProps4, resetSize4] = useInput();
-    const [SizeStock4, resetStock4] = useNumberInput();
     const [errorPrice, setErrorPrice] = useState(true)
 
     const {addItems} = useAdmin();
@@ -63,18 +54,15 @@ export default function AddGift() {
     const SideSelections2 = ['Juvenile', "Young", "Elderly"]
     const submit = e => {
         e.preventDefault();
-        if (parseFloat(giftPriceProps.value).toString() === 'NaN') {
-
-        }
         addItems(
             giftNameProps.value,
             giftPriceProps.value,
-            giftDiscountPriceProps.value,
-            giftDiscountStateProps.value,
+            (giftDiscountStateProps * giftPriceProps.value / 100).toString(),
+            giftDiscountStateProps.toString(),
             descriptionProps.value,
-            categoryProps.value,
-            sideCategory1Props.value,
-            sideCategory2Props.value,
+            TopSelections[categoryProps.value],
+            SideSelections1[sideCategory1Props.value],
+            SideSelections2[sideCategory2Props.value],
             coverProps.value,
             show1Props.value,
             show2Props.value,
@@ -87,13 +75,15 @@ export default function AddGift() {
 
 
     const [tmp, setTmp] = useState([0])
-    let sizeList = []
+    const [sizeList,setSizeList] = useState([])
 
     // const [sizeId, setSizeId] = useState(0)
 
     function getSize(id, name, stock) {
-        console.log(id, name, stock)
-        sizeList[id] = {size: name, size_stock: stock}
+        const copy=[...sizeList]
+        copy[id] = {size: name, size_stock: stock}
+        setSizeList(copy)
+        // console.log(sizeList)
     }
 
     return (
@@ -226,7 +216,7 @@ export default function AddGift() {
                             })}
                         </Grid>
 
-                        <Grid item xs={12}><TextField {...coverProps} label="coverUrl" fullWidth sx={{m: 1}}/></Grid>
+                        <Grid item xs={12}><TextField {...coverProps} label="Image Url" fullWidth sx={{m: 1}}/></Grid>
                         <Grid item xs={12}> <Button variant="contained" onClick={submit}>ADD</Button></Grid>
                     </Grid>
                 </Box>

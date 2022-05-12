@@ -122,7 +122,22 @@ export default function AdminProvider({children}) {
         }).then(r => console.log(r)).catch(r => console.log(r));
     }
     const addItems = (giftName, giftPrice, giftDiscountPrice, giftDiscountState, giftDescription, giftCategory, sideCategory1, sideCategory2, coverUrl, showUrl1, showUrl2, showUrl3, showUrl4, sizeC) => {
-        console.log(sizeC)
+        console.log({
+                    gift_name: giftName,
+                    gift_price: giftPrice,
+                    gift_discount_price: giftDiscountPrice,
+                    gift_discount_state: giftDiscountState,
+                    gift_description: giftDescription,
+                    sizes: sizeC,
+                    gift_category: giftCategory,
+                    gift_side_category1: sideCategory1,
+                    gift_side_category2: sideCategory2,
+                    gift_cover_url: coverUrl,
+                    gift_show_url1: showUrl1,
+                    gift_show_url2: showUrl2,
+                    gift_show_url3: showUrl3,
+                    gift_show_url4: showUrl4
+                })
         fetch("http://127.0.0.1:5000/api/admin/admin_add_items", {
             method: 'POST',
             body: JSON.stringify(
