@@ -116,15 +116,23 @@ export default function AddGift() {
                             value={giftPriceProps}
                             onChange={e => {
                                 const filter = /^([1-9]\d*|0)(\.)?(\d{1,2})?$/;
-                                if (!filter.test(e.target.value) || parseFloat(e.target.value).toString() === 'NaN' || parseFloat(e.target.value) <= 0) {
+                                if (e.target.value.length > 1 && isNaN(e.target.value)) {
+                                    // console.log(2)
+                                    setGiftPrice("")
+                                } else if (!filter.test(e.target.value) || parseFloat(e.target.value).toString() === 'NaN' || parseFloat(e.target.value) <= 0) {
+                                    // console.log(1)
                                     setGiftPrice(e.target.value.slice(0, e.target.value.length - 1))
 
+
                                 } else if (e.target.value.length > 8) {
+                                    // console.log(3)
                                     setGiftPrice(e.target.value.slice(0, 9))
                                 } else if (e.target.value.indexOf('.') !== e.target.value.length - 1) {
+                                    // console.log(4)
                                     // console.log((Math.round(parseFloat(e.target.value) * 100) / 100))
                                     setGiftPrice((Math.round(parseFloat(e.target.value) * 100) / 100).toString())
                                 } else {
+                                    // console.log(5)
                                     setGiftPrice(e.target.value)
                                 }
                             }}
