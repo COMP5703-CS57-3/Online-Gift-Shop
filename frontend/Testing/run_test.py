@@ -1,5 +1,5 @@
 from HTMLTestRunner import HTMLTestRunner  # 导入生成HTML报告的包
-from frontend.Testing.Unit_Test.Unit_Test_HomePage import TestWhlistList
+from frontend.Testing.Unit_Test.Unit_Test_WlishlistFrom import TestWhlistList
 
 from frontend.Testing.Unit_Test.Unit_Test_Login import *
 from frontend.Testing.Unit_Test.Unit_Test_Account import *

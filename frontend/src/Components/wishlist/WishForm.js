@@ -13,7 +13,7 @@ import cookie from "react-cookies";
 import {Navigate, useLocation} from "react-router-dom";
 import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
 import {DatePicker, LocalizationProvider} from "@mui/lab";
-import {checkLastName, checkTime, checkTitel} from "../../logic/ValCheck";
+import {checkContry, checkFirstName, checkLastName, checkStreet, checkTime, checkTitel} from "../../logic/ValCheck";
 
 export default function WishForm() {
     const owner_id = cookie.load("login");
@@ -46,9 +46,18 @@ export default function WishForm() {
         e.preventDefault();
         const address = address1.toString() + ", " + address2 + ", " + address3Props.value
         const time = timeProps.toString().slice(0, 15)
-        console.log(time)
-        if(checkTitel(titleProps.value) && checkTime(time) && checkLastName(lastnameProps))
-        createWish(owner_id, firstnameProps.value, lastnameProps.value, titleProps.value, descriptionProps.value, address, phoneProps.value, postcodeProps.value, time);
+        if(checkContry(address1) && checkStreet(address3Props.value) && checkTitel(titleProps.value) && checkTime(time)
+            && checkLastName(lastnameProps.value) && checkFirstName(firstnameProps.value)!== true){
+            alert("please input correct address")
+            console.log(checkStreet(address3Props.value),checkContry(address1))
+        }else {
+            console.log(time)
+        // const address = address1.toString() + ", " + address2 + ", " + address3Props.value
+        // time = timeProps.toString().slice(0, 15)
+        // console.log(time)
+            createWish(owner_id, firstnameProps.value, lastnameProps.value, titleProps.value, descriptionProps.value, address, phoneProps.value, postcodeProps.value, time);
+        }
+        // createWish(owner_id, firstnameProps.value, lastnameProps.value, titleProps.value, descriptionProps.value, address, phoneProps.value, postcodeProps.value, time);
         // resetTitle();
         // resetAddress();
         // resetDescription();
@@ -85,7 +94,7 @@ export default function WishForm() {
                                 <TextField {...firstnameProps} label="firstname" id="firstP" required/>
                                 <TextField {...lastnameProps} label="lastname" id="lastP" required/>
                             </Stack>
-                            <TextField sx={{mt: 4}} id= "desprops" {...descriptionProps} fullWidth label="description:" />
+                            <TextField sx={{mt: 4}} id= "desprops" {...descriptionProps} fullWidth label="description:" required/>
                             <Stack spacing={2} sx={{my: 4}} direction="row" alignItems="center"
                                    justifyContent="space-between" variant="outlined">
                                 <Autocomplete

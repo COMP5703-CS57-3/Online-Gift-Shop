@@ -11,8 +11,6 @@ export function checkNickName(val) {
     } else {
         return true
     }
-
-
 }
 
 export function checkEmail(val) {
@@ -104,16 +102,16 @@ export function checkPostcode(val) {
 export function checkContry(val) {
     const reg = new RegExp(/[[a-zA-Z]+/);
      if (val.match(reg) === null || val.match(reg)[0].length !== val.length) {
-        return "* First name should only allow a-zA-z"
+        return "* Contry should only allow a-zA-z"
     } else {
         return true
     }
 }
 
 export function checkStreet(val) {
-    const reg = new RegExp(/[[a-zA-Z]+/);
+    const reg = new RegExp(/[[a-zA-Z0-9]+/);
      if (val.match(reg) === null || val.match(reg)[0].length !== val.length) {
-        return "* First name should only allow a-zA-z"
+        return "* Street should only allow a-zA-z0-9"
     } else {
         return true
     }

@@ -267,7 +267,7 @@ export default function ChangeGift() {
                                                       sx={{m: 0.5}}/></Grid>
                         {size.map((gift, i) => (
                             <Grid key={i} item xs={4}>
-                                <SizeCard gid={} {...gift} changeP={count => {
+                                <SizeCard {...gift} changeP={count => {
                                     let newSizes = []
                                     for (let j = 0; j < loop; j++) {
                                         if (j === i) {
