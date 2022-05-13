@@ -15,7 +15,7 @@ if __name__ == '__main__':
     forgetPwdTestList = list(set(dir(TestForgetPassword)) ^ set(dir(unittest.TestCase)))
     accountTestList = list(set(dir(TestAccount)) ^ set(dir(unittest.TestCase)))
     adminLoginTestList = list(set(dir(TestAdminLogin)) ^ set(dir(unittest.TestCase)))
-    homepageTestList = list(set(dir(TestWhlistList)) ^ set(dir(unittest.TestCase)))
+    wlishlistTestList = list(set(dir(TestWhlistList)) ^ set(dir(unittest.TestCase)))
     adminTestList = list(set(dir(TestAdmin)) ^ set(dir(unittest.TestCase)))
     # for test in loginTestList:
     #     testunit.addTest(TestLogin(test))
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     #         testunit.addTest(TestForgetPassword(test))
     # for test in accountTestList:
     #     testunit.addTest(TestAccount(test))
-    for test in homepageTestList:
+    for test in wlishlistTestList:
         testunit.addTest(TestWhlistList(test))
     # testunit.addTest(TestLogin("bad_password"))  # 加载测试用例
     fp = open('./unittest.html', 'wb')  # 创建测试报告，以写的方式存入某个路径

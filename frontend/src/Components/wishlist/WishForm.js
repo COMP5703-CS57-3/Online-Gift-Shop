@@ -57,14 +57,7 @@ export default function WishForm() {
         // console.log(time)
             createWish(owner_id, firstnameProps.value, lastnameProps.value, titleProps.value, descriptionProps.value, address, phoneProps.value, postcodeProps.value, time);
         }
-        // createWish(owner_id, firstnameProps.value, lastnameProps.value, titleProps.value, descriptionProps.value, address, phoneProps.value, postcodeProps.value, time);
-        // resetTitle();
-        // resetAddress();
-        // resetDescription();
-        // resetfirst();
-        // resetLast();
-        // resetPhone();
-        // resetPostcode();
+
     }
 
 
