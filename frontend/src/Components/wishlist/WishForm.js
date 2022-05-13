@@ -13,6 +13,7 @@ import cookie from "react-cookies";
 import {Navigate, useLocation} from "react-router-dom";
 import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
 import {DatePicker, LocalizationProvider} from "@mui/lab";
+import {checkLastName, checkTime, checkTitel} from "../../logic/ValCheck";
 
 export default function WishForm() {
     const owner_id = cookie.load("login");
@@ -46,6 +47,7 @@ export default function WishForm() {
         const address = address1.toString() + ", " + address2 + ", " + address3Props.value
         const time = timeProps.toString().slice(0, 15)
         console.log(time)
+        if(checkTitel(titleProps.value) && checkTime(time) && checkLastName(lastnameProps))
         createWish(owner_id, firstnameProps.value, lastnameProps.value, titleProps.value, descriptionProps.value, address, phoneProps.value, postcodeProps.value, time);
         // resetTitle();
         // resetAddress();
@@ -55,17 +57,7 @@ export default function WishForm() {
         // resetPhone();
         // resetPostcode();
     }
-    // const submit2 = e=>{
-    //     e.preventDefault();
-    //     createWish(owner_id,firstnameProps.value,lastnameProps.value,titleProps.value,descriptionProps.value,addressProps.value,phoneProps.value,postcodeProps.value);
-    //     // resetTitle();
-    //     // resetAddress();
-    //     // resetDescription();
-    //     // resetfirst();
-    //     // resetLast();
-    //     // resetPhone();
-    //     // resetPostcode();
-    // }
+
 
     function after_n_days(n) {
         const date = new Date()
@@ -93,7 +85,7 @@ export default function WishForm() {
                                 <TextField {...firstnameProps} label="firstname" id="firstP" required/>
                                 <TextField {...lastnameProps} label="lastname" id="lastP" required/>
                             </Stack>
-                            <TextField sx={{mt: 4}} id= "desprops" {...descriptionProps} fullWidth label="description:" required/>
+                            <TextField sx={{mt: 4}} id= "desprops" {...descriptionProps} fullWidth label="description:" />
                             <Stack spacing={2} sx={{my: 4}} direction="row" alignItems="center"
                                    justifyContent="space-between" variant="outlined">
                                 <Autocomplete
@@ -168,9 +160,6 @@ export default function WishForm() {
                                 <button>ADD</button>
                             </Stack>
                         </Box>
-                        {/*<form onSubmit={submit2}>*/}
-                        {/*    <button>ADD product</button>*/}
-                        {/*</form>*/}
                     </Box>
                 </Container>
             </Box>
