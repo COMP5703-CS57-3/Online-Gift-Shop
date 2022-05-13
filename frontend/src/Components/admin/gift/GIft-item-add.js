@@ -90,8 +90,9 @@ export default function AddGift() {
                 show4Props.value,
                 sizeList);
             // console.log(coverProps.value);
+            setTimeout("setOpen(false)", 1000)
         }
-        setTimeout("setOpen(false)", 1000)
+
 
     }
 //------------------------------------table style---------------------------------

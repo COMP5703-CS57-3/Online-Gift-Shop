@@ -108,7 +108,7 @@ export default function ChangeGift() {
             show3Props.value,
             show4Props.value,
             sizes.length === 0 ? size : sizes);
-        setOpen(false)
+        setTimeout("setOpen(false)", 1000)
     }
 //------------------------------------table style---------------------------------
 //     console.log(size)

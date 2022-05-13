@@ -154,10 +154,10 @@ export const GiftListResults = ({gift, ...rest}) => {
                                     <TableCell id={"giftIncome-" + gift.id + "-Show"}>
                                         ${gift.gift_income}
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell id={"giftCategories-" + gift.id + "-Show"}>
                                         {`${gift.gift_category}/${gift.gift_side_category1}/${gift.gift_side_category2}`}
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell id={"giftDes-" + gift.id + "-Show"}>
                                         {gift.gift_description}
                                     </TableCell>
                                 </TableRow>
