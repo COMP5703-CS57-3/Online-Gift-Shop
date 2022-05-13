@@ -91,6 +91,8 @@ export default function AddGift() {
                 sizeList);
             // console.log(coverProps.value);
         }
+        setTimeout("setOpen(false)", 1000)
+
     }
 //------------------------------------table style---------------------------------
 
