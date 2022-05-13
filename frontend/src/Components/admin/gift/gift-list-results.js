@@ -15,9 +15,7 @@ import {
     Typography
 } from '@mui/material';
 import {getInitials} from '../../../logic/get-initials';
-import ChangeGift from "./Gift-list-change";
 import {useAdmin} from "../../../tools/useAdmin";
-import AddGift from "./GIft-item-add";
 
 export const GiftListResults = ({gift, ...rest}) => {
     const {selectedGiftIds, setSelectedGiftIds} = useAdmin();
@@ -110,6 +108,7 @@ export const GiftListResults = ({gift, ...rest}) => {
                                 >
                                     <TableCell padding="checkbox">
                                         <Checkbox
+                                            id={"giftSelect-" + gift.id + "-Show"}
                                             checked={selectedGiftIds.indexOf(gift.id) !== -1}
                                             onChange={(event) => handleSelectOne(event, gift.id)}
                                             value="true"
@@ -129,6 +128,7 @@ export const GiftListResults = ({gift, ...rest}) => {
                                                 {getInitials(gift.name)}
                                             </Avatar>
                                             <Typography
+                                                id={"giftName-" + gift.id + "-Show"}
                                                 color="textPrimary"
                                                 variant="body1"
                                             >
@@ -139,18 +139,19 @@ export const GiftListResults = ({gift, ...rest}) => {
                                     <TableCell>
                                         {gift.gift_discount_state !== "100%" ?
                                             <>
-                                                <Box sx={{
+                                                <Box id={"giftPrice-" + gift.id + "-Show"} sx={{
                                                     textDecoration: "line-through"
                                                 }}>${gift.gift_price}
                                                 </Box>
-                                                <span>${gift.gift_discount_price}</span>
+                                                <span
+                                                    id={"giftDiscountPrice-" + gift.id + "-Show"}>${gift.gift_discount_price}</span>
                                             </> :
-                                            <Box>${gift.gift_price}</Box>}
+                                            <Box id={"giftPrice-" + gift.id + "-Show"}>${gift.gift_price}</Box>}
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell id={"giftSales-" + gift.id + "-Show"}>
                                         {gift.gift_sales}
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell id={"giftIncome-" + gift.id + "-Show"}>
                                         ${gift.gift_income}
                                     </TableCell>
                                     <TableCell>
