@@ -20,12 +20,12 @@ export default function CreateOrder() {
 
     const [address2,setAddress2] = useState(states[0].label);
     const [address1,setAddress1] = useState(countries[12].label.toString());
-    const [payerFName,resetTitle] = useInput("123");
-    const [firstnameProps,resetfirst] = useInput("123");
-    const [lastnameProps,resetLast] = useInput("123");
-    const [address3Props,resetAddress3] = useInput("123");
-    const [phoneProps,resetPhone] =useInput("123");
-    const [postcodeProps,resetPostcode] = useInput("123");
+    const [payerFName,resetTitle] = useInput();
+    const [firstnameProps,resetfirst] = useInput();
+    const [lastnameProps,resetLast] = useInput();
+    const [address3Props,resetAddress3] = useInput();
+    const [phoneProps,resetPhone] =useInput();
+    const [postcodeProps,resetPostcode] = useInput();
     const {createOrder} = useOrder();
     const [targetProduct,setTargetProduct] = useState();
     const {currentProduct,setCurrentProduct} =useOrder();

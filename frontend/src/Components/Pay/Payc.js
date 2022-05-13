@@ -52,7 +52,8 @@ export default function Payc() {
             <Message message={message}/>
         ) : (
             <section>
-                <div className="product">
+                <div className="product" sx={{position: "absolute",margin:"auto"}}>
+
                     <Grid container justifyContent="flex-start" alignItems="center" spacing={1} direction="row">
                         {detail.products.map((gift, i) => (
                             <Grid key={i} item xs={6}>
@@ -71,39 +72,13 @@ export default function Payc() {
                             <input name="orderId" value={detail.id}/>
                         </label>
                     </div>
-                    {/*<div>*/}
-                    {/*	<label>*/}
-                    {/*		Order Price:*/}
-                    {/*		<input name="orderPrice" type="number" value="12000" />*/}
-                    {/*	</label>*/}
-                    {/*</div>*/}
                     <div>
                         <label>
                             Currency:
                             <input name="currency" value="AUD"/>
                         </label>
                     </div>
-                    {/*<div>*/}
-                    {/*	<label>*/}
-                    {/*		Product Name:*/}
-                    {/*		<input name="productName" value="Gold Special" />*/}
-                    {/*	</label>*/}
-                    {/*</div>*/}
-                    {/*<div>*/}
-                    {/*	<label>*/}
-                    {/*		Product Description:*/}
-                    {/*		<input name="productDesc" value="Cool pic " />*/}
-                    {/*	</label>*/}
-                    {/*</div>*/}
-                    {/*<div>*/}
-                    {/*	<label>*/}
-                    {/*		Product Image:*/}
-                    {/*		<input name="productImage" value="https://bpic.588ku.com/element_pic/21/10/27/5809626baa43e153b15cc3bcfb4bb0eb.jpg!/fw/329/quality/90/unsharp/true/compress/true" />*/}
-                    {/*	</label>*/}
-                    {/*</div>*/}
-                    {/*<Button onClick={click}>*/}
-                    {/*  Checkout*/}
-                    {/*</Button>*/}
+
                     <button type="submit">check out</button>
                 </form>
             </section>

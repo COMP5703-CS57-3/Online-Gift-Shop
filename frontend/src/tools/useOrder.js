@@ -46,7 +46,7 @@ export default function OrderProvider({children}){
                     product_list:productList
                 })
         }).then(res=>res.json()).then(res=>{
-            setCurrentOrder(res)
+            setCurrentOrder(res.order_number)
             nav()
             setLoading(false)
         }

@@ -189,9 +189,9 @@ function showOutput(id, name) {
 
 <div class='heading'>
 <h1>Online Gift Shop Testing</h1>
-<p class='attribute'><strong>Start Time:</strong> 2022-05-13 00:27:25</p>
-<p class='attribute'><strong>Duration:</strong> 0:02:47.178135</p>
-<p class='attribute'><strong>Status:</strong> Pass 4 Error 1</p>
+<p class='attribute'><strong>Start Time:</strong> 2022-05-13 15:45:29</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:18.317191</p>
+<p class='attribute'><strong>Status:</strong> Error 1</p>
 
 <p class='description'>Testing Results：</p>
 </div>
@@ -222,114 +222,104 @@ function showOutput(id, name) {
 </tr>
 
 <tr class='errorClass'>
-    <td>frontend.Testing.Unit_Test.Unit_Test_AdminO.TestAdmin</td>
-    <td>5</td>
-    <td>4</td>
+    <td>frontend.Testing.Unit_Test.Unit_Test_HomePage.TestWhlistList</td>
+    <td>1</td>
+    <td>0</td>
     <td>0</td>
     <td>1</td>
-    <td><a href="javascript:showClassDetail('c1',5)">Detail</a></td>
+    <td><a href="javascript:showClassDetail('c1',1)">Detail</a></td>
 </tr>
 
-<tr id='pt1.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>accountManagement</div></td>
-    <td colspan='5' align='center'>pass</td>
-</tr>
-
-<tr id='pt1.2' class='hiddenRow'>
-    <td class='none'><div class='testcase'>dashboard</div></td>
-    <td colspan='5' align='center'>pass</td>
-</tr>
-
-<tr id='ft1.3' class='none'>
-    <td class='errorCase'><div class='testcase'>addGift</div></td>
+<tr id='ft1.1' class='none'>
+    <td class='errorCase'><div class='testcase'>normal: Can generated normal wlishlist</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft1.3')" >
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft1.1')" >
         error</a>
 
-    <div id='div_ft1.3' class="popup_window">
+    <div id='div_ft1.1' class="popup_window">
         <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_ft1.3').style.display = 'none' " >
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft1.1').style.display = 'none' " >
            [x]</a>
         </div>
         <pre>
         
-ft1.3: Traceback (most recent call last):
-  File "C:\Users\utopia\Desktop\Sydney\GitHub\1\Online-Gift-Shop\frontend\Testing\Unit_Test\Unit_Test_AdminO.py", line 65, in addGift
-    driver.find_element_by_xpath('//*[@id="mui-10"]').send_keys("gift name")
-  File "C:\Users\utopia\Desktop\Sydney\GitHub\1\Online-Gift-Shop\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 526, in find_element_by_xpath
-    return self.find_element(by=By.XPATH, value=xpath)
-  File "C:\Users\utopia\Desktop\Sydney\GitHub\1\Online-Gift-Shop\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 1253, in find_element
-    'value': value})['value']
-  File "C:\Users\utopia\Desktop\Sydney\GitHub\1\Online-Gift-Shop\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 430, in execute
+ft1.1: Traceback (most recent call last):
+  File "E:\学校-悉尼大学\COMP5703\Online-Gift-Shop\frontend\Testing\Unit_Test\Unit_Test_HomePage.py", line 53, in normal
+    driver.find_element_by_css_selector("[value = 'New South Wales']").click()
+  File "E:\学校-悉尼大学\COMP5703\Online-Gift-Shop\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 814, in find_element_by_css_selector
+    return self.find_element(by=By.CSS_SELECTOR, value=css_selector)
+  File "E:\学校-悉尼大学\COMP5703\Online-Gift-Shop\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 1251, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "E:\学校-悉尼大学\COMP5703\Online-Gift-Shop\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 430, in execute
     self.error_handler.check_response(response)
-  File "C:\Users\utopia\Desktop\Sydney\GitHub\1\Online-Gift-Shop\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 247, in check_response
+  File "E:\学校-悉尼大学\COMP5703\Online-Gift-Shop\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 247, in check_response
     raise exception_class(message, screen, stacktrace)
-selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//*[@id="mui-10"]"}
-  (Session info: headless chrome=101.0.4951.54)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"css selector","selector":"[value = 'New South Wales']"}
+  (Session info: chrome=101.0.4951.64)
 Stacktrace:
 Backtrace:
-	Ordinal0 [0x0093B8F3+2406643]
-	Ordinal0 [0x008CAF31+1945393]
-	Ordinal0 [0x007BC748+837448]
-	Ordinal0 [0x007E92E0+1020640]
-	Ordinal0 [0x007E957B+1021307]
-	Ordinal0 [0x00816372+1205106]
-	Ordinal0 [0x008042C4+1131204]
-	Ordinal0 [0x00814682+1197698]
-	Ordinal0 [0x00804096+1130646]
-	Ordinal0 [0x007DE636+976438]
-	Ordinal0 [0x007DF546+980294]
-	GetHandleVerifier [0x00BA9612+2498066]
-	GetHandleVerifier [0x00B9C920+2445600]
-	GetHandleVerifier [0x009D4F2A+579370]
-	GetHandleVerifier [0x009D3D36+574774]
-	Ordinal0 [0x008D1C0B+1973259]
-	Ordinal0 [0x008D6688+1992328]
-	Ordinal0 [0x008D6775+1992565]
-	Ordinal0 [0x008DF8D1+2029777]
-	BaseThreadInitThunk [0x7521FA29+25]
-	RtlGetAppContainerNamedObjectPath [0x77397A7E+286]
-	RtlGetAppContainerNamedObjectPath [0x77397A4E+238]
+	Ordinal0 [0x00B7B8F3+2406643]
+	Ordinal0 [0x00B0AF31+1945393]
+	Ordinal0 [0x009FC748+837448]
+	Ordinal0 [0x00A292E0+1020640]
+	Ordinal0 [0x00A2957B+1021307]
+	Ordinal0 [0x00A56372+1205106]
+	Ordinal0 [0x00A442C4+1131204]
+	Ordinal0 [0x00A54682+1197698]
+	Ordinal0 [0x00A44096+1130646]
+	Ordinal0 [0x00A1E636+976438]
+	Ordinal0 [0x00A1F546+980294]
+	GetHandleVerifier [0x00DE9612+2498066]
+	GetHandleVerifier [0x00DDC920+2445600]
+	GetHandleVerifier [0x00C14F2A+579370]
+	GetHandleVerifier [0x00C13D36+574774]
+	Ordinal0 [0x00B11C0B+1973259]
+	Ordinal0 [0x00B16688+1992328]
+	Ordinal0 [0x00B16775+1992565]
+	Ordinal0 [0x00B1F8D1+2029777]
+	BaseThreadInitThunk [0x762CFA29+25]
+	RtlGetAppContainerNamedObjectPath [0x77BC7A9E+286]
+	RtlGetAppContainerNamedObjectPath [0x77BC7A6E+238]
 
 Traceback (most recent call last):
-  File "C:\Users\utopia\Desktop\Sydney\GitHub\1\Online-Gift-Shop\frontend\Testing\Unit_Test\Unit_Test_AdminO.py", line 65, in addGift
-    driver.find_element_by_xpath('//*[@id="mui-10"]').send_keys("gift name")
-  File "C:\Users\utopia\Desktop\Sydney\GitHub\1\Online-Gift-Shop\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 526, in find_element_by_xpath
-    return self.find_element(by=By.XPATH, value=xpath)
-  File "C:\Users\utopia\Desktop\Sydney\GitHub\1\Online-Gift-Shop\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 1253, in find_element
-    'value': value})['value']
-  File "C:\Users\utopia\Desktop\Sydney\GitHub\1\Online-Gift-Shop\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 430, in execute
+  File "E:\学校-悉尼大学\COMP5703\Online-Gift-Shop\frontend\Testing\Unit_Test\Unit_Test_HomePage.py", line 53, in normal
+    driver.find_element_by_css_selector("[value = 'New South Wales']").click()
+  File "E:\学校-悉尼大学\COMP5703\Online-Gift-Shop\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 814, in find_element_by_css_selector
+    return self.find_element(by=By.CSS_SELECTOR, value=css_selector)
+  File "E:\学校-悉尼大学\COMP5703\Online-Gift-Shop\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 1251, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "E:\学校-悉尼大学\COMP5703\Online-Gift-Shop\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 430, in execute
     self.error_handler.check_response(response)
-  File "C:\Users\utopia\Desktop\Sydney\GitHub\1\Online-Gift-Shop\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 247, in check_response
+  File "E:\学校-悉尼大学\COMP5703\Online-Gift-Shop\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 247, in check_response
     raise exception_class(message, screen, stacktrace)
-selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//*[@id="mui-10"]"}
-  (Session info: headless chrome=101.0.4951.54)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"css selector","selector":"[value = 'New South Wales']"}
+  (Session info: chrome=101.0.4951.64)
 Stacktrace:
 Backtrace:
-	Ordinal0 [0x0093B8F3+2406643]
-	Ordinal0 [0x008CAF31+1945393]
-	Ordinal0 [0x007BC748+837448]
-	Ordinal0 [0x007E92E0+1020640]
-	Ordinal0 [0x007E957B+1021307]
-	Ordinal0 [0x00816372+1205106]
-	Ordinal0 [0x008042C4+1131204]
-	Ordinal0 [0x00814682+1197698]
-	Ordinal0 [0x00804096+1130646]
-	Ordinal0 [0x007DE636+976438]
-	Ordinal0 [0x007DF546+980294]
-	GetHandleVerifier [0x00BA9612+2498066]
-	GetHandleVerifier [0x00B9C920+2445600]
-	GetHandleVerifier [0x009D4F2A+579370]
-	GetHandleVerifier [0x009D3D36+574774]
-	Ordinal0 [0x008D1C0B+1973259]
-	Ordinal0 [0x008D6688+1992328]
-	Ordinal0 [0x008D6775+1992565]
-	Ordinal0 [0x008DF8D1+2029777]
-	BaseThreadInitThunk [0x7521FA29+25]
-	RtlGetAppContainerNamedObjectPath [0x77397A7E+286]
-	RtlGetAppContainerNamedObjectPath [0x77397A4E+238]
+	Ordinal0 [0x00B7B8F3+2406643]
+	Ordinal0 [0x00B0AF31+1945393]
+	Ordinal0 [0x009FC748+837448]
+	Ordinal0 [0x00A292E0+1020640]
+	Ordinal0 [0x00A2957B+1021307]
+	Ordinal0 [0x00A56372+1205106]
+	Ordinal0 [0x00A442C4+1131204]
+	Ordinal0 [0x00A54682+1197698]
+	Ordinal0 [0x00A44096+1130646]
+	Ordinal0 [0x00A1E636+976438]
+	Ordinal0 [0x00A1F546+980294]
+	GetHandleVerifier [0x00DE9612+2498066]
+	GetHandleVerifier [0x00DDC920+2445600]
+	GetHandleVerifier [0x00C14F2A+579370]
+	GetHandleVerifier [0x00C13D36+574774]
+	Ordinal0 [0x00B11C0B+1973259]
+	Ordinal0 [0x00B16688+1992328]
+	Ordinal0 [0x00B16775+1992565]
+	Ordinal0 [0x00B1F8D1+2029777]
+	BaseThreadInitThunk [0x762CFA29+25]
+	RtlGetAppContainerNamedObjectPath [0x77BC7A9E+286]
+	RtlGetAppContainerNamedObjectPath [0x77BC7A6E+238]
 
 
 
@@ -340,20 +330,10 @@ Backtrace:
     </td>
 </tr>
 
-<tr id='pt1.4' class='hiddenRow'>
-    <td class='none'><div class='testcase'>GiftManagement</div></td>
-    <td colspan='5' align='center'>pass</td>
-</tr>
-
-<tr id='pt1.5' class='hiddenRow'>
-    <td class='none'><div class='testcase'>OrderManagement</div></td>
-    <td colspan='5' align='center'>pass</td>
-</tr>
-
 <tr id='total_row'>
     <td>Total</td>
-    <td>5</td>
-    <td>4</td>
+    <td>1</td>
+    <td>0</td>
     <td>0</td>
     <td>1</td>
     <td>&nbsp;</td>

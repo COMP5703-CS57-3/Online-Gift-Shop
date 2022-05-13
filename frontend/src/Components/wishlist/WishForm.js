@@ -89,15 +89,17 @@ export default function WishForm() {
                                 form</h2>
                             <Stack spacing={4} direction="row" alignItems="center" justifyContent="space-between"
                                    variant="outlined">
-                                <TextField {...titleProps} label="title" required/>
-                                <TextField {...firstnameProps} label="firstname" required/>
-                                <TextField {...lastnameProps} label="lastname" required/>
+                                <TextField {...titleProps} label="title" id="titleP" required/>
+                                <TextField {...firstnameProps} label="firstname" id="firstP" required/>
+                                <TextField {...lastnameProps} label="lastname" id="lastP" required/>
                             </Stack>
-                            <TextField sx={{mt: 4}} {...descriptionProps} fullWidth label="description:" required/>
+                            <TextField sx={{mt: 4}} id= "desprops" {...descriptionProps} fullWidth label="description:" required/>
                             <Stack spacing={2} sx={{my: 4}} direction="row" alignItems="center"
                                    justifyContent="space-between" variant="outlined">
                                 <Autocomplete
+                                    required
                                     inputValue={address1}
+                                    id="country"
                                     onInputChange={(event, newInputValue) => {
                                         setAddress1(newInputValue);
                                     }}
@@ -121,13 +123,11 @@ export default function WishForm() {
                                     renderInput={(params) => (
                                         <TextField
                                             {...params}
-                                            required
                                             label="Choose a country"
                                             inputProps={{
                                                 ...params.inputProps,
                                                 autoComplete: 'new-password', // disable autocomplete and autofill
                                             }}
-
                                         />
                                     )}
                                 />
@@ -142,12 +142,12 @@ export default function WishForm() {
                                     sx={{width: 300}}
                                     renderInput={(params) => <TextField {...params} label="State" required/>}
                                 />
-                                <TextField {...address3Props} label="street(detailed adress)" required/>
+                                <TextField {...address3Props} label="street(detailed adress)" id="adderss" required/>
                             </Stack>
                             <Stack sx={{my: 4}} spacing={2} direction="row" alignItems="center"
                                    justifyContent="space-between" variant="outlined">
-                                <TextField {...phoneProps} label="phone" required/>
-                                <TextField {...postcodeProps} label="postcode" required/>
+                                <TextField {...phoneProps} label="phone" id="phone" required/>
+                                <TextField {...postcodeProps} label="postcode" id="postcode" required/>
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                                     <DatePicker
                                         fullWidth
@@ -158,9 +158,8 @@ export default function WishForm() {
                                         onChange={(newVal) =>
                                             setTime(newVal)
                                         }
-
                                         renderInput={(params) => <TextField {...params}
-                                                                            helperText={params ? "" : "Please input your Expected Deliver Time"} required/>}
+                                                                            helperText={params ? "" : "Please input your Expected Deliver Time"} id="time" required/>}
                                     />
                                 </LocalizationProvider>
                             </Stack>
