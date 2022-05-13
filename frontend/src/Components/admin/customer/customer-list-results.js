@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
-import {format} from 'date-fns';
 import {
     Avatar,
     Box,
@@ -17,7 +16,6 @@ import {
 } from '@mui/material';
 import {getInitials} from '../../../logic/get-initials';
 import {useAdmin} from "../../../tools/useAdmin";
-import Loading from "../../normal/Loading";
 
 export const CustomerListResults = ({users, ...rest}) => {
     const {selectedCustomerIds, setSelectedCustomerIds} = useAdmin();

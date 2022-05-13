@@ -2,6 +2,8 @@ import {Box, Button, Card, CardContent, InputAdornment, SvgIcon, TextField, Typo
 import {useAdmin} from "../../../tools/useAdmin";
 import ChangeGift from "./Gift-list-change";
 import AddGift from "./GIft-item-add";
+import {CircularProgress} from "@material-ui/core";
+import React from "react";
 
 // import { Search as SearchIcon } from '../../icons/search';
 // import { Upload as UploadIcon } from '../../icons/upload';
@@ -10,6 +12,8 @@ import AddGift from "./GIft-item-add";
 export default function GiftListToolbar(props) {
     const {selectedGiftIds, gifts, setShownGift} = useAdmin();
     const {removeItems} = useAdmin();
+    const {showLoading} = useAdmin()
+
     // const {submit} = BasicModal();
 
 
@@ -33,7 +37,7 @@ export default function GiftListToolbar(props) {
         const shownGift = []
         let j = 0
         for (let i in gifts) {
-            if (gifts[i].gift_name.split(e.target.value).length >1 || gifts[i].id.toString() === e.target.value) {
+            if (gifts[i].gift_name.split(e.target.value).length > 1 || gifts[i].id.toString() === e.target.value) {
                 shownGift[j++] = gifts[i]
             }
         }
@@ -58,6 +62,9 @@ export default function GiftListToolbar(props) {
                 >
                     Gifts
                 </Typography>
+                {showLoading ? <Box sx={{position: 'flex', top: 16, right: 16}}>
+                    <CircularProgress/>
+                </Box> : <div/>}
                 <Box sx={{m: 1}}>
 
                     <Button
@@ -65,7 +72,7 @@ export default function GiftListToolbar(props) {
                         variant="contained"
                         // onClick={() => addGift()}
                     >
-                      <AddGift/>
+                        <AddGift/>
                     </Button>
                     <Button
                         color="primary"

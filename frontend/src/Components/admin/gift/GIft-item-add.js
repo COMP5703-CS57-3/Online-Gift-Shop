@@ -32,7 +32,7 @@ export default function AddGift() {
     const handleClose = () => setOpen(false);
 
     const [giftNameProps, resetgiftName] = useInput();
-    const [giftPriceProps, setGiftPrice] = useState();
+    const [giftPriceProps, setGiftPrice] = useState("");
     const [giftDiscountStateProps, setGiftDiscountState] = useState(100);
     const [descriptionProps, resetDescription3] = useInput();
     const [categoryProps, setCategory] = useState();
@@ -119,10 +119,11 @@ export default function AddGift() {
                 <Box sx={style}>
                     <Grid container spacing={2}>
                         <a>Gift ADD From</a>
-                        <Grid item xs={12}><TextField {...giftNameProps} label="giftName" fullWidth sx={{m: 1}}/></Grid>
+                        <Grid item xs={12}>< TextField id="giftName-Add"{...giftNameProps} label="giftName" fullWidth
+                                                       sx={{m: 1}}/></Grid>
                         <Grid item xs={4}>
                             <TextField
-                                id={"giftPrice"}
+                                id="giftPrice-Add"
                                 value={giftPriceProps}
                                 onChange={e => {
                                     const filter = /^([1-9]\d*|0)(\.)?(\d{1,2})?$/;
@@ -155,6 +156,7 @@ export default function AddGift() {
                         </Grid>
                         <Grid item xs={4}>
                             <TextField disabled
+                                       id='giftDiscountPrice-Add'
                                        error={parseFloat(giftPriceProps).toString() === 'NaN' && giftPriceProps !== ""}
                                        value={
                                            parseFloat(giftPriceProps).toString() === 'NaN' ?
@@ -163,31 +165,35 @@ export default function AddGift() {
                                            ? "* Check your gift price" : "price after discount"}
                             />
                         </Grid>
-                        <Grid item xs={4}><TextField value={giftDiscountStateProps}
-                                                     type={"number"}
-                                                     InputProps={{
-                                                         endAdornment: <InputAdornment
-                                                             position="end">%</InputAdornment>,
-                                                     }}
-                                                     onChange={e => {
-                                                         if (e.target.value && parseInt(e.target.value).toString() === "NaN" ||
-                                                             parseInt(e.target.value) > 100 ||
-                                                             parseInt(e.target.value) < 0) {
-                                                             setGiftDiscountState(100)
+                        <Grid item xs={4}>
+                            <TextField value={giftDiscountStateProps}
+                                       id='giftDiscountState-Add'
+                                       type={"number"}
+                                       InputProps={{
+                                           endAdornment: <InputAdornment
+                                               position="end">%</InputAdornment>,
+                                       }}
+                                       onChange={e => {
+                                           if (e.target.value && parseInt(e.target.value).toString() === "NaN" ||
+                                               parseInt(e.target.value) > 100 ||
+                                               parseInt(e.target.value) < 0) {
+                                               setGiftDiscountState(100)
 
-                                                         } else if (e.target.value) {
-                                                             setGiftDiscountState(parseInt(e.target.value))
-                                                         } else {
-                                                             setGiftDiscountState(1)
-                                                         }
-                                                     }}
-                                                     label="Discount"/>
+                                           } else if (e.target.value) {
+                                               setGiftDiscountState(parseInt(e.target.value))
+                                           } else {
+                                               setGiftDiscountState(1)
+                                           }
+                                       }}
+                                       label="Discount"/>
                         </Grid>
-                        <Grid item xs={12}><TextField {...descriptionProps} label="description" fullWidth sx={{m: 1}}/></Grid>
+                        <Grid item xs={12}><TextField {...descriptionProps} id='giftDescription-Add' label="description"
+                                                      fullWidth sx={{m: 1}}/></Grid>
                         <Grid item xs={3.5}>
                             <Autocomplete
                                 freeSolo
                                 disableClearable
+                                id='giftCategory-Add'
                                 options={TopSelections.map((option) => option.label)}
                                 value={categoryProps}
                                 onChange={e => {
@@ -195,6 +201,7 @@ export default function AddGift() {
                                 }}
                                 renderInput={(params) => (
                                     <TextField
+                                        required
                                         {...params}
                                         label="Category"
                                         InputProps={{
@@ -210,6 +217,7 @@ export default function AddGift() {
                             <Autocomplete
                                 freeSolo
                                 disableClearable
+                                id='giftSideCategory1-Add'
                                 options={SideSelections1.map((option) => option.label)}
                                 value={sideCategory1Props}
                                 onChange={e => {
@@ -217,6 +225,7 @@ export default function AddGift() {
                                 }}
                                 renderInput={(params) => (
                                     <TextField
+                                        required
                                         {...params}
                                         label="Gender"
                                         InputProps={{
@@ -232,6 +241,7 @@ export default function AddGift() {
                             <Autocomplete
                                 freeSolo
                                 disableClearable
+                                id='giftSideCategory2-Add'
                                 options={SideSelections2.map((option) => option.label)}
                                 value={sideCategory2Props}
                                 onChange={e => {
@@ -239,6 +249,7 @@ export default function AddGift() {
                                 }}
                                 renderInput={(params) => (
                                     <TextField
+                                        required
                                         {...params}
                                         label="Age"
                                         InputProps={{
@@ -250,22 +261,24 @@ export default function AddGift() {
                             />
                         </Grid>
                         <Grid item xs={1}>
-                            <IconButton size="large" onClick={() => setTmp([...tmp, tmp[tmp.length - 1] + 1])}
+                            <IconButton id='giftAddSizeButt-Add' size="large"
+                                        onClick={() => setTmp([...tmp, tmp[tmp.length - 1] + 1])}
                                         aria-label="add">
                                 <AddCircleOutlineIcon fontSize="inherit"/>
                             </IconButton>
                         </Grid>
                         <Grid item xs={1}>
-                            <IconButton disabled={tmp.length === 1} size="large" onClick={() => {
+                            <IconButton id='giftRemoveSizeButt-Add' disabled={tmp.length === 1} size="large"
+                                        onClick={() => {
 
-                                const t = [...tmp];
-                                t.pop();
-                                const s = [...sizeList];
-                                s.pop();
-                                setTmp(t)
-                                setSizeList(s)
+                                            const t = [...tmp];
+                                            t.pop();
+                                            const s = [...sizeList];
+                                            s.pop();
+                                            setTmp(t)
+                                            setSizeList(s)
 
-                            }}
+                                        }}
                                         aria-label="remove">
                                 <RemoveCircleOutlineIcon fontSize="inherit"/>
                             </IconButton>
@@ -278,8 +291,10 @@ export default function AddGift() {
                             })}
                         </Grid>
 
-                        <Grid item xs={12}><TextField {...coverProps} label="Image Url" fullWidth sx={{m: 1}}/></Grid>
-                        <Grid item xs={12}> <Button variant="contained" onClick={submit}>ADD</Button></Grid>
+                        <Grid item xs={12}><TextField id='giftImgUrl-Add' {...coverProps} label="Image Url" fullWidth
+                                                      sx={{m: 1}}/></Grid>
+                        <Grid item xs={12}> <Button id='submit-Add' variant="contained"
+                                                    onClick={submit}>ADD</Button></Grid>
                     </Grid>
                 </Box>
             </Modal>
