@@ -45,6 +45,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="country"]').send_keys("Australia")
         driver.find_element_by_xpath('//*[@id="country"]').send_keys(Keys.ENTER)
         sleep(2)
+        # 这里需要选取州的值，但是不能使用回车进行确定
         driver.find_element_by_xpath('//*[@id="combo-box-demo"]').clear()
         selectAddress = driver.find_element_by_xpath('//*[@id="combo-box-demo"]')
         selectAddress.click()
