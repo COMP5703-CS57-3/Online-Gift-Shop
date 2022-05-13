@@ -125,9 +125,11 @@ export default function ChangeGift() {
                 <Box sx={style}>
                     <Grid container spacing={2}>
                         <h4>Gift Edit From</h4>
-                        <Grid item xs={12}><TextField disabled defaultValue={giftNameProps} label="giftName" fullWidth
+                        <Grid item xs={12}><TextField id="giftName-Edit" disabled defaultValue={giftNameProps}
+                                                      label="giftName" fullWidth
                                                       sx={{m: 0.5}}/></Grid>
                         <Grid item xs={4}><TextField
+                            id="giftPrice-Edit"
                             value={giftPriceProps}
                             onChange={e => {
                                 const filter = /^([1-9]\d*|0)(\.)?(\d{1,2})?$/;
@@ -159,6 +161,7 @@ export default function ChangeGift() {
                         /></Grid>
                         <Grid item xs={4}>
                             <TextField disabled
+                                       id='giftDiscountPrice-Edit'
                                        error={parseFloat(giftPriceProps).toString() === 'NaN' && giftPriceProps !== ""}
                                        value={
                                            parseFloat(giftPriceProps).toString() === 'NaN' ?
@@ -168,6 +171,7 @@ export default function ChangeGift() {
                             />
                         </Grid>
                         <Grid item xs={4}><TextField value={giftDiscountStateProps}
+                                                     id='giftDiscountState-Edit'
                                                      type={"number"}
                                                      InputProps={{
                                                          endAdornment: <InputAdornment
@@ -188,12 +192,13 @@ export default function ChangeGift() {
                                                      label="Discount"/>
                         </Grid>
                         <Grid item xs={12}><TextField defaultValue={des} {...descriptionProps} label="Description"
-                                                      fullWidth
+                                                      fullWidth id='giftDescription-Edit'
                                                       sx={{m: 0.5}}/></Grid>
                         <Grid item xs={3.5}>
                             <Autocomplete
                                 freeSolo
                                 disableClearable
+                                id='giftCategory-Edit'
                                 options={TopSelections.map((option) => option.label)}
                                 value={categoryProps}
                                 onChange={e => {
@@ -216,6 +221,7 @@ export default function ChangeGift() {
                             <Autocomplete
                                 freeSolo
                                 disableClearable
+                                id='giftSideCategory1-Edit'
                                 options={SideSelections1.map((option) => option.label)}
                                 value={sideCategory1Props}
                                 onChange={e => {
@@ -238,6 +244,7 @@ export default function ChangeGift() {
                             <Autocomplete
                                 freeSolo
                                 disableClearable
+                                id='giftSideCategory2-Edit'
                                 options={SideSelections2.map((option) => option.label)}
                                 value={sideCategory2Props}
                                 onChange={e => {
@@ -260,7 +267,7 @@ export default function ChangeGift() {
                                                       sx={{m: 0.5}}/></Grid>
                         {size.map((gift, i) => (
                             <Grid key={i} item xs={4}>
-                                <SizeCard {...gift} changeP={count => {
+                                <SizeCard gid={} {...gift} changeP={count => {
                                     let newSizes = []
                                     for (let j = 0; j < loop; j++) {
                                         if (j === i) {
@@ -282,7 +289,7 @@ export default function ChangeGift() {
                             </Grid>
                         ))}
                         {/*sx={{display:"none"}}*/}
-                        <Grid item xs={12} sx={{m: 3}}> <Button variant="contained"
+                        <Grid item xs={12} sx={{m: 3}}> <Button id={'submit-Edit'} variant="contained"
                                                                 onClick={submit}>change</Button></Grid>
                     </Grid>
                 </Box>
