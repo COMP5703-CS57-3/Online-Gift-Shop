@@ -28,9 +28,9 @@ export default function ChangeGift() {
     const [giftPriceProps, setGiftPrice] = useState("");
     const [giftDiscountStateProps, setGiftDiscountState] = useState(100);
     const [descriptionProps, resetDescription3] = useInput();
-    const [categoryProps, resetCategory] = useInput();
-    const [sideCategory1Props, resetSide1] = useInput();
-    const [sideCategory2Props, resetSide2] = useInput();
+    const [categoryProps, setCategory] = useState();
+    const [sideCategory1Props, setSide1] = useState();
+    const [sideCategory2Props, setSide2] = useState();
     // const [coverProps, resetCover] = useInput();
     const [show1Props, resetShow1] = useInput("");
     const [show2Props, resetShow2] = useInput("");
@@ -46,9 +46,17 @@ export default function ChangeGift() {
     const [sizes, setSizes] = useState([]);
     let {gifts} = useAdmin();
     let loop = 0;
-    const TopSelections = ["Clothing", "Birthday", "Christmas", "New Year", "Shoe", "Wedding Celebration", "Easter Day", "Graduate", "Electronics"]
-    const SideSelections1 = ['Male', "Female", "Other"]
-    const SideSelections2 = ['Juvenile', "Young", "Elderly"]
+    const TopSelections = [{'label': 'Clothing', 'id': 0},
+        {'label': 'Birthday', 'id': 1},
+        {'label': 'Christmas', 'id': 2},
+        {'label': 'New Year', 'id': 3},
+        {'label': 'Shoe', 'id': 4},
+        {'label': 'Wedding Celebration', 'id': 5},
+        {'label': 'Easter Day', 'id': 6},
+        {'label': 'Graduate', 'id': 7},
+        {'label': 'Electronics', 'id': 8}]
+    const SideSelections1 = [{'label': 'Male', 'id': 0}, {'label': 'Female', 'id': 1}, {'label': 'Other', 'id': 2}]
+    const SideSelections2 = [{'label': 'Juvenile', 'id': 0}, {'label': 'Young', 'id': 1}, {'label': 'Elderly', 'id': 2}]
     //console.log(selectedGiftIds[0])
     // let foundGift = gifts.find(
     //     item => {return item.id === selectedGiftIds[0]}
@@ -87,9 +95,9 @@ export default function ChangeGift() {
             (giftDiscountStateProps * parseFloat(giftPriceProps) / 100).toString(),
             giftDiscountStateProps.toString() + "%",
             descriptionProps.value ? descriptionProps.value : des,
-            TopSelections[categoryProps.value],
-            SideSelections1[sideCategory1Props.value],
-            SideSelections2[sideCategory2Props.value],
+            categoryProps,
+            sideCategory1Props,
+            sideCategory2Props,
             coverProps,
             show1Props.value,
             show2Props.value,
@@ -182,8 +190,11 @@ export default function ChangeGift() {
                             <Autocomplete
                                 freeSolo
                                 disableClearable
-                                options={TopSelections.map((option) => option)}
-                                {...categoryProps}
+                                options={TopSelections.map((option) => option.label)}
+                                value={categoryProps}
+                                onChange={e => {
+                                    setCategory(e.target.innerText)
+                                }}
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
@@ -201,8 +212,11 @@ export default function ChangeGift() {
                             <Autocomplete
                                 freeSolo
                                 disableClearable
-                                options={SideSelections1.map((option) => option)}
-                                {...sideCategory1Props}
+                                options={SideSelections1.map((option) => option.label)}
+                                value={sideCategory1Props}
+                                onChange={e => {
+                                    setSide1(e.target.innerText)
+                                }}
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
@@ -220,8 +234,11 @@ export default function ChangeGift() {
                             <Autocomplete
                                 freeSolo
                                 disableClearable
-                                options={SideSelections2.map((option) => option)}
-                                {...sideCategory2Props}
+                                options={SideSelections2.map((option) => option.label)}
+                                value={sideCategory2Props}
+                                onChange={e => {
+                                    setSide2(e.target.innerText)
+                                }}
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
