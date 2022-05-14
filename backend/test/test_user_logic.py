@@ -103,3 +103,19 @@ def test_get_validation_with_not_exist_user_email(client):
     }))
     assert response.status_code == 400
     assert response.json['message'] == "user did not exits"
+
+
+def test_get_validation_with_valid_email_and_not_validation(client):
+    response = client.post('/login_signup/get_validation', data=json.dumps({
+        "user_email": '2910842215@qq.com',
+    }))
+    assert response.status_code == 200
+    assert response.json['message'] == "the validation code already sent to your email"
+
+
+def test_get_validation_with_valid_email_and_validation(client):
+    response = client.post('/login_signup/get_validation', data=json.dumps({
+        "user_email": '2910842215@qq.com',
+    }))
+    assert response.status_code == 200
+    assert response.json['message'] == "the validation code already sent to your email"
