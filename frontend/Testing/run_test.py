@@ -23,15 +23,15 @@ if __name__ == '__main__':
     #     testunit.addTest(TestSignUp(test))
     # for test in adminLoginTestList:
     #     testunit.addTest(TestAdminLogin(test))
-    # for test in adminTestList:
-    #       testunit.addTest(TestAdmin(test))
+    for test in adminTestList:
+          testunit.addTest(TestAdmin(test))
     # for test in forgetPwdTestList:
     #     # if test != "normal":
     #         testunit.addTest(TestForgetPassword(test))
     # for test in accountTestList:
     #     testunit.addTest(TestAccount(test))
-    for test in wlishlistTestList:
-        testunit.addTest(TestWhlistList(test))
+    # for test in wlishlistTestList:
+    #     testunit.addTest(TestWhlistList(test))
     # testunit.addTest(TestLogin("bad_password"))  # 加载测试用例
     fp = open('./unittest.html', 'wb')  # 创建测试报告，以写的方式存入某个路径
     runner = HTMLTestRunner(
