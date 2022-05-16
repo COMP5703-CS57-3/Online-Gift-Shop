@@ -1,5 +1,6 @@
 import React, {createContext, useContext, useState} from "react";
 import giftdata from "../data/giftlist.json";
+import {ip} from "../ip";
 
 const GiftContext = createContext();
 export const useGift = ()=> useContext(GiftContext);
@@ -18,7 +19,7 @@ export default function GiftProvider({children}){
     const getGifts = ()=>{
         setError("normal")
         setLoading(true)
-        fetch("http://localhost:5000/api/main_home_page").then(res => res.json()).then(
+        fetch("http://" + ip + ":5000/api/main_home_page").then(res => res.json()).then(
             res => {
                 if (Array.isArray(res.gifts)) {
                     setGifts(res.gifts);
