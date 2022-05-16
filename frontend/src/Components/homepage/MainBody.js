@@ -88,32 +88,32 @@ export default function MainBody({props}) {
             <Box sx={{width: '70%', typography: 'body1'}}>
                 <TabContext value={value} id={id}>
                     <Box sx={{borderBottom: 1, borderColor: 'divider', paddingTop: 3}}>
-                        <TabList onChange={handleChange} aria-label="menu lab" centered>
-                            <Tab label="Hot Products" value="1" onClick={click}/>
-                            <Tab label="Usual Gift" value="2"/>
-                            <Tab label="Regular Celebration" value="3"/>
-                            <Tab label="Statutory Holidays" value="4"/>
-                            <Tab label="Special Anniversary" value="5"/>
-                            <Tab label="Other" value="6" onClick={ClickOther}/>
+                        <TabList onChange={handleChange} aria-label="menu lab" centered id="TopBar">
+                            <Tab label="Hot Products" value="1" id="HotProduct" onClick={click}/>
+                            <Tab label="Usual Gift" value="2" id="UsualGift" />
+                            <Tab label="Regular Celebration" value="3" id="Regular" />
+                            <Tab label="Statutory Holidays" value="4" id="Statutory" />
+                            <Tab label="Special Anniversary" value="5" id="Special" />
+                            <Tab label="Other" value="6" onClick={ClickOther} id= "Other" />
                         </TabList>
                     </Box>
                     {/*<TabPanel value="1" sx={{borderBottom: 1, borderColor: 'divider',}} >Item One</TabPanel>*/}
-                    <TabPanel value="2" sx={{borderBottom: 1, borderColor: 'divider',height:20,mx:"auto"}}>
-                        <Button variant="text" sx={{ml:40}} id ="11" onClick={ClickCloth}>Clothing</Button>
-                        <Button variant="text" sx={{ml:10}} onClick={ClickShoe}>Shoe</Button>
-                        <Button variant="text" sx={{ml:10}} onClick={ClickElec}>Electronics</Button>
+                    <TabPanel value="2" sx={{borderBottom: 1, borderColor: 'divider',height:20,mx:"auto"}} id="HotProduct">
+                        <Button variant="text" sx={{ml:40}} id="Clothing" onClick={ClickCloth}>Clothing</Button>
+                        <Button variant="text" sx={{ml:10}}  id="Shoe" onClick={ClickShoe}>Shoe</Button>
+                        <Button variant="text" sx={{ml:10}}  id="Electronics" onClick={ClickElec}>Electronics</Button>
                     </TabPanel>
                     <TabPanel value="3" sx={{borderBottom: 1, borderColor: 'divider',height:20,mx:"auto"}}>
-                        <Button variant="text" sx={{ml:40}} onClick={ClickBrth}>Birthday </Button>
-                        <Button variant="text" sx={{ml:10}} onClick={ClickWed}>Wedding Celebration</Button>
+                        <Button variant="text" sx={{ml:40}}  id="Birthday" onClick={ClickBrth}>Birthday </Button>
+                        <Button variant="text" sx={{ml:10}}  id="Wedding" onClick={ClickWed}>Wedding Celebration</Button>
                     </TabPanel>
                     <TabPanel value="4" sx={{borderBottom: 1, borderColor: 'divider',height:20,mx:"auto"}}>
-                        <Button variant="text" sx={{ml:40}} onClick={ClickChri}>Christmas</Button>
-                        <Button variant="text" sx={{ml:10}} onClick={ClickEast}>Easter Day</Button>
+                        <Button variant="text" sx={{ml:40}}  id="Christmas" onClick={ClickChri}>Christmas</Button>
+                        <Button variant="text" sx={{ml:10}}  id="Easter Day" onClick={ClickEast}>Easter Day</Button>
                     </TabPanel>
                     <TabPanel value="5" sx={{borderBottom: 1, borderColor: 'divider',height:20,mx:"auto"}}>
-                        <Button variant="text" sx={{ml:40}} onClick={ClickNY}>New Year</Button>
-                        <Button variant="text" sx={{ml:10}} onClick={ClickGrad}>Graduate</Button>
+                        <Button variant="text" sx={{ml:40}}  id="New Year" onClick={ClickNY}>New Year</Button>
+                        <Button variant="text" sx={{ml:10}}  id="Graduate" onClick={ClickGrad}>Graduate</Button>
                     </TabPanel>
                     <TabPanel value="6" sx={{borderBottom: 1, borderColor: 'divider',height:20,mx:"auto"}}>
                     </TabPanel>
@@ -146,23 +146,6 @@ export default function MainBody({props}) {
                         <Grid item xs={6}
                               style={{float: "right", flexBasis: "auto", maxWidth: "80%"}}><CategoryG/></Grid>
                     </Grid>
-                {/*<FormControl sx={{ m: 1, minWidth: 120 }}>*/}
-                {/*    <Select*/}
-                {/*      value={sort}*/}
-                {/*      onChange={handleSortChange}*/}
-                {/*      inputProps={{ 'aria-label': 'Without label' }}*/}
-                {/*    >*/}
-                {/*      <MenuItem value="price-low-to-high">*/}
-                {/*        <em>price-low-to-high</em>*/}
-                {/*      </MenuItem>*/}
-                {/*      <MenuItem value="price-high-to-low">price-high-to-low</MenuItem>*/}
-                {/*      <MenuItem value="popular">popular</MenuItem>*/}
-                {/*      <MenuItem value="discountprice-low-to-high">discount-price-low-to-high</MenuItem>*/}
-                {/*        <MenuItem value="discountprice-high-to-low">discountprice-high-to-low</MenuItem>*/}
-                {/*    </Select>*/}
-                {/*    <FormHelperText>Sort type</FormHelperText>*/}
-                {/*  </FormControl>*/}
-
             </Box>
 
         </Box>

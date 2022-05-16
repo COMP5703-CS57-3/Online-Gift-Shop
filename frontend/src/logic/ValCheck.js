@@ -1,5 +1,5 @@
 export function checkNickName(val) {
-    const reg = new RegExp(/[[a-zA-Z0-9_]+/);
+    const reg = new RegExp(/[[a-zA-Z0-9_]+[\s*]/);
     if (val.length > 12) {
         return "* Nick name is limited to 12 characters"
     } else if (val.length === 0) {
@@ -52,7 +52,7 @@ export function checkPassword(val, val_twice) {
 }
 
 export function checkTitel(val) {
-    const reg = new RegExp(/[[a-zA-Z0-9_]+/);
+    const reg = new RegExp(/[a-zA-Z0-9_]+/);
      if (val.length === 0) {
         return "* Titel name is empty"
     }  else {
@@ -62,9 +62,10 @@ export function checkTitel(val) {
 }
 
 export function checkFirstName(val) {
-    const reg = new RegExp(/[[a-zA-Z]+/);
+    const reg = new RegExp(/[a-zA-Z]+/);
      if (val.match(reg) === null || val.match(reg)[0].length !== val.length) {
-        return "* First name should only allow a-zA-z"
+        // return "* First name should only allow a-zA-z"
+         return false
     } else {
         return true
     }
@@ -73,27 +74,29 @@ export function checkFirstName(val) {
 export function checkLastName(val) {
     const reg = new RegExp(/[[a-zA-Z]+/);
      if (val.match(reg) === null || val.match(reg)[0].length !== val.length) {
-        return "* First name should only allow a-zA-z"
+        // return "* First name should only allow a-zA-z"
+         return false
     } else {
         return true
     }
 }
 
 export function checkTime(val) {
-    const reg = new RegExp(/[[0-9_]+/);
+    const reg = new RegExp(/[[0-9_/]+/);
      if (val.match(reg) === null || val.match(reg)[0].length !== val.length) {
-        return "* Time should only allow 0-9_"
+        // return "* First name should only allow a-zA-z"
+         return false
     } else {
         return true
     }
 }
 
 export function checkPostcode(val) {
-    const reg = new RegExp(/[[0-9_]+/);
+    const reg = new RegExp(/^[0-9]+/);
     if (val.length < 6) {
-        return "* Postcode should be at least 6 characters"
+        return false
     } else if (val.match(reg) === null || val.match(reg)[0].length !== val.length) {
-        return "* Time should only allow 0-9_"
+        return false
     } else {
         return true
     }
@@ -102,16 +105,18 @@ export function checkPostcode(val) {
 export function checkContry(val) {
     const reg = new RegExp(/[[a-zA-Z]+/);
      if (val.match(reg) === null || val.match(reg)[0].length !== val.length) {
-        return "* Contry should only allow a-zA-z"
+        // return "* First name should only allow a-zA-z"
+         return false
     } else {
         return true
     }
 }
 
 export function checkStreet(val) {
-    const reg = new RegExp(/[[a-zA-Z0-9]+/);
-     if (val.match(reg) === null || val.match(reg)[0].length !== val.length) {
-        return "* Street should only allow a-zA-z0-9"
+    const reg = new RegExp(/[a-zA-Z0-9_]+/);
+     if (val.match(reg) === null ) {
+        // return "* First name should only allow a-zA-z"
+         return false
     } else {
         return true
     }

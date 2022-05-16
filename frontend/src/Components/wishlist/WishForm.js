@@ -13,7 +13,15 @@ import cookie from "react-cookies";
 import {Navigate, useLocation} from "react-router-dom";
 import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
 import {DatePicker, LocalizationProvider} from "@mui/lab";
-import {checkContry, checkFirstName, checkLastName, checkStreet, checkTime, checkTitel} from "../../logic/ValCheck";
+import {
+    checkContry,
+    checkFirstName,
+    checkLastName, checkPhone,
+    checkPostcode,
+    checkStreet,
+    checkTime,
+    checkTitel
+} from "../../logic/ValCheck";
 
 export default function WishForm() {
     const owner_id = cookie.load("login");
@@ -46,12 +54,11 @@ export default function WishForm() {
         e.preventDefault();
         const address = address1.toString() + ", " + address2 + ", " + address3Props.value
         const time = timeProps.toString().slice(0, 15)
-        if(checkContry(address1) && checkStreet(address3Props.value) && checkTitel(titleProps.value) && checkTime(time)
-            && checkLastName(lastnameProps.value) && checkFirstName(firstnameProps.value)!== true){
+        if((checkContry(address1) && checkStreet(address3Props.value) && checkTitel(titleProps.value) && checkLastName(lastnameProps.value) && checkFirstName(firstnameProps.value) && checkPostcode(postcodeProps.value) && checkPhone(phoneProps.value)) !== true){
             alert("please input correct address")
-            console.log(checkStreet(address3Props.value),checkContry(address1))
+            console.log(checkContry(address1), checkStreet(address3Props.value), checkTitel(titleProps.value), checkLastName(lastnameProps.value), checkFirstName(firstnameProps.value), checkPostcode(postcodeProps.value), checkPhone(phoneProps.value))
         }else {
-            console.log(time)
+            console.log(checkFirstName(firstnameProps.value))
         // const address = address1.toString() + ", " + address2 + ", " + address3Props.value
         // time = timeProps.toString().slice(0, 15)
         // console.log(time)
@@ -84,7 +91,7 @@ export default function WishForm() {
                             <Stack spacing={4} direction="row" alignItems="center" justifyContent="space-between"
                                    variant="outlined">
                                 <TextField {...titleProps} label="title" id="titleP" required/>
-                                <TextField {...firstnameProps} label="firstname" id="firstP" required/>
+                                <TextField {...firstnameProps} label="firstname" id="firstP" />
                                 <TextField {...lastnameProps} label="lastname" id="lastP" required/>
                             </Stack>
                             <TextField sx={{mt: 4}} id= "desprops" {...descriptionProps} fullWidth label="description:" required/>

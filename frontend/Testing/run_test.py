@@ -1,4 +1,5 @@
 from HTMLTestRunner import HTMLTestRunner  # 导入生成HTML报告的包
+from frontend.Testing.Unit_Test.Unit_Test_HomePage import TestCategory
 from frontend.Testing.Unit_Test.Unit_Test_WlishlistFrom import TestWhlistList
 
 from frontend.Testing.Unit_Test.Unit_Test_Login import *
@@ -16,6 +17,7 @@ if __name__ == '__main__':
     accountTestList = list(set(dir(TestAccount)) ^ set(dir(unittest.TestCase)))
     adminLoginTestList = list(set(dir(TestAdminLogin)) ^ set(dir(unittest.TestCase)))
     wlishlistTestList = list(set(dir(TestWhlistList)) ^ set(dir(unittest.TestCase)))
+    homePageTestList = (list(set(dir(TestCategory)) ^ set(dir(unittest.TestCase))))
     adminTestList = list(set(dir(TestAdmin)) ^ set(dir(unittest.TestCase)))
     # for test in loginTestList:
     #     testunit.addTest(TestLogin(test))
@@ -30,8 +32,10 @@ if __name__ == '__main__':
     #         testunit.addTest(TestForgetPassword(test))
     # for test in accountTestList:
     #     testunit.addTest(TestAccount(test))
-    for test in wlishlistTestList:
-        testunit.addTest(TestWhlistList(test))
+    # for test in wlishlistTestList:
+    #     testunit.addTest(TestWhlistList(test))
+    for test in homePageTestList:
+        testunit.addTest(TestCategory(test))
     # testunit.addTest(TestLogin("bad_password"))  # 加载测试用例
     fp = open('./unittest.html', 'wb')  # 创建测试报告，以写的方式存入某个路径
     runner = HTMLTestRunner(

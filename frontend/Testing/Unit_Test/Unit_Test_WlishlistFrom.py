@@ -22,7 +22,8 @@ class TestWhlistList(unittest.TestCase):
             self.driver.find_element_by_xpath('//*[@id="password"]').clear()
             self.driver.find_element_by_xpath('//*[@id="password"]').send_keys("1234")
             self.driver.find_element_by_xpath('//*[@id="root"]/main/div/form/button').click()
-            sleep(5)
+            self.driver.find_element_by_xpath('//*[@id="root"]/main/div/form/button').click()
+            sleep(10)
 
 
     def normal(self):
@@ -56,7 +57,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -69,181 +70,6 @@ class TestWhlistList(unittest.TestCase):
         self.assertEqual(curr_url, "http://localhost:3000/wish")  # 预期测试结果
         sleep(1)
 
-    def nick_name_is_English_text(self):
-        """Can generated normal wlishlist nick_name_is_English_text"""
-        driver = self.driver
-        driver.find_element_by_xpath('//*[@id="titleP"]').clear()
-        driver.find_element_by_xpath('//*[@id="titleP"]').send_keys("test two")
-        driver.find_element_by_xpath('//*[@id="firstP"]').clear()
-        driver.find_element_by_xpath('//*[@id="firstP"]').send_keys("reni")
-        driver.find_element_by_xpath('//*[@id="lastP"]').clear()
-        driver.find_element_by_xpath('//*[@id="lastP"]').send_keys("niei")
-        driver.find_element_by_xpath('//*[@id="desprops"]').clear()
-        driver.find_element_by_xpath('//*[@id="desprops"]').send_keys("this wlishlist is for test")
-        driver.find_element_by_xpath('//*[@id="country"]').clear()
-        selectCountry = driver.find_element_by_xpath('//*[@id="country"]')
-        selectCountry.click()
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="country"]').send_keys("Australia")
-        driver.find_element_by_xpath('//*[@id="country"]').send_keys(Keys.ENTER)
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="combo-box-demo"]').clear()
-        selectAddress = driver.find_element_by_xpath('//*[@id="combo-box-demo"]')
-        selectAddress.click()
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="combo-box-demo"]').send_keys("New South Wales")
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="combo-box-demo"]').send_keys(Keys.DOWN)
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="combo-box-demo"]').send_keys(Keys.ENTER)
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="adderss"]').clear()
-        driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
-        driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
-        driver.find_element_by_xpath('//*[@id="postcode"]').clear()
-        driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
-        driver.find_element_by_xpath('//*[@id="time"]').click()
-        driver.find_element_by_xpath('//*[@id="time"]').send_keys(Keys.CONTROL,"a")
-        driver.find_element_by_xpath('//*[@id="time"]').send_keys(Keys.DELETE)
-        driver.find_element_by_xpath('//*[@id="time"]').send_keys("06192022")
-        driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/div/form/div[5]/button').click()
-        sleep(10)
-        curr_url = driver.current_url
-        self.assertEqual(curr_url, "http://localhost:3000/wish")  # 预期测试结果
-        sleep(1)
-
-    def nick_name_is_null(self):
-        """Can't generated normal wlishlist nick_name_is_null"""
-        driver = self.driver
-        driver.find_element_by_xpath('//*[@id="titleP"]').clear()
-        driver.find_element_by_xpath('//*[@id="titleP"]').send_keys("")
-        driver.find_element_by_xpath('//*[@id="firstP"]').clear()
-        driver.find_element_by_xpath('//*[@id="firstP"]').send_keys("reni")
-        driver.find_element_by_xpath('//*[@id="lastP"]').clear()
-        driver.find_element_by_xpath('//*[@id="lastP"]').send_keys("niei")
-        driver.find_element_by_xpath('//*[@id="desprops"]').clear()
-        driver.find_element_by_xpath('//*[@id="desprops"]').send_keys("this wlishlist is for test")
-        driver.find_element_by_xpath('//*[@id="country"]').clear()
-        selectCountry = driver.find_element_by_xpath('//*[@id="country"]')
-        selectCountry.click()
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="country"]').send_keys("Australia")
-        driver.find_element_by_xpath('//*[@id="country"]').send_keys(Keys.ENTER)
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="combo-box-demo"]').clear()
-        selectAddress = driver.find_element_by_xpath('//*[@id="combo-box-demo"]')
-        selectAddress.click()
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="combo-box-demo"]').send_keys("New South Wales")
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="combo-box-demo"]').send_keys(Keys.DOWN)
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="combo-box-demo"]').send_keys(Keys.ENTER)
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="adderss"]').clear()
-        driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
-        driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
-        driver.find_element_by_xpath('//*[@id="postcode"]').clear()
-        driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
-        driver.find_element_by_xpath('//*[@id="time"]').click()
-        driver.find_element_by_xpath('//*[@id="time"]').send_keys(Keys.CONTROL,"a")
-        driver.find_element_by_xpath('//*[@id="time"]').send_keys(Keys.DELETE)
-        driver.find_element_by_xpath('//*[@id="time"]').send_keys("06192022")
-        driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/div/form/div[5]/button').click()
-        sleep(10)
-        curr_url = driver.current_url
-        self.assertEqual(curr_url, "http://localhost:3000/wish/wishForm")  # 预期测试结果
-        sleep(1)
-
-    def nick_name_Special_characters(self):
-        """Can generated normal wlishlist  nick_name_Special_characters"""
-        driver = self.driver
-        driver.find_element_by_xpath('//*[@id="titleP"]').clear()
-        driver.find_element_by_xpath('//*[@id="titleP"]').send_keys("$@#$%!#@!$")
-        driver.find_element_by_xpath('//*[@id="firstP"]').clear()
-        driver.find_element_by_xpath('//*[@id="firstP"]').send_keys("reni")
-        driver.find_element_by_xpath('//*[@id="lastP"]').clear()
-        driver.find_element_by_xpath('//*[@id="lastP"]').send_keys("niei")
-        driver.find_element_by_xpath('//*[@id="desprops"]').clear()
-        driver.find_element_by_xpath('//*[@id="desprops"]').send_keys("this wlishlist is for test")
-        driver.find_element_by_xpath('//*[@id="country"]').clear()
-        selectCountry = driver.find_element_by_xpath('//*[@id="country"]')
-        selectCountry.click()
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="country"]').send_keys("Australia")
-        driver.find_element_by_xpath('//*[@id="country"]').send_keys(Keys.ENTER)
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="combo-box-demo"]').clear()
-        selectAddress = driver.find_element_by_xpath('//*[@id="combo-box-demo"]')
-        selectAddress.click()
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="combo-box-demo"]').send_keys("New South Wales")
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="combo-box-demo"]').send_keys(Keys.DOWN)
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="combo-box-demo"]').send_keys(Keys.ENTER)
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="adderss"]').clear()
-        driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
-        driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
-        driver.find_element_by_xpath('//*[@id="postcode"]').clear()
-        driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
-        driver.find_element_by_xpath('//*[@id="time"]').click()
-        driver.find_element_by_xpath('//*[@id="time"]').send_keys(Keys.CONTROL,"a")
-        driver.find_element_by_xpath('//*[@id="time"]').send_keys(Keys.DELETE)
-        driver.find_element_by_xpath('//*[@id="time"]').send_keys("06192022")
-        driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/div/form/div[5]/button').click()
-        sleep(10)
-        curr_url = driver.current_url
-        self.assertEqual(curr_url, "http://localhost:3000/wish")  # 预期测试结果
-        sleep(1)
-
-    def nick_name_Combining_characters(self):
-        """Can generated normal wlishlist nick_name_Combining_characters"""
-        driver = self.driver
-        driver.find_element_by_xpath('//*[@id="titleP"]').clear()
-        driver.find_element_by_xpath('//*[@id="titleP"]').send_keys("$#!21331fasfasc")
-        driver.find_element_by_xpath('//*[@id="firstP"]').clear()
-        driver.find_element_by_xpath('//*[@id="firstP"]').send_keys("reni")
-        driver.find_element_by_xpath('//*[@id="lastP"]').clear()
-        driver.find_element_by_xpath('//*[@id="lastP"]').send_keys("niei")
-        driver.find_element_by_xpath('//*[@id="desprops"]').clear()
-        driver.find_element_by_xpath('//*[@id="desprops"]').send_keys("this wlishlist is for test")
-        driver.find_element_by_xpath('//*[@id="country"]').clear()
-        selectCountry = driver.find_element_by_xpath('//*[@id="country"]')
-        selectCountry.click()
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="country"]').send_keys("Australia")
-        driver.find_element_by_xpath('//*[@id="country"]').send_keys(Keys.ENTER)
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="combo-box-demo"]').clear()
-        selectAddress = driver.find_element_by_xpath('//*[@id="combo-box-demo"]')
-        selectAddress.click()
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="combo-box-demo"]').send_keys("New South Wales")
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="combo-box-demo"]').send_keys(Keys.DOWN)
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="combo-box-demo"]').send_keys(Keys.ENTER)
-        sleep(2)
-        driver.find_element_by_xpath('//*[@id="adderss"]').clear()
-        driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
-        driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
-        driver.find_element_by_xpath('//*[@id="postcode"]').clear()
-        driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
-        driver.find_element_by_xpath('//*[@id="time"]').click()
-        driver.find_element_by_xpath('//*[@id="time"]').send_keys(Keys.CONTROL,"a")
-        driver.find_element_by_xpath('//*[@id="time"]').send_keys(Keys.DELETE)
-        driver.find_element_by_xpath('//*[@id="time"]').send_keys("06192022")
-        driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/div/form/div[5]/button').click()
-        sleep(10)
-        curr_url = driver.current_url
-        self.assertEqual(curr_url, "http://localhost:3000/wish")  # 预期测试结果
-        sleep(1)
 
     def first_name_is_English_text(self):
         """Can generated normal wlishlist first_name_is_English_text"""
@@ -276,7 +102,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -289,7 +115,7 @@ class TestWhlistList(unittest.TestCase):
         self.assertEqual(curr_url, "http://localhost:3000/wish")  # 预期测试结果
         sleep(1)
 
-    def nfirst_name_is_null(self):
+    def first_name_is_null(self):
         """Can't generated normal wlishlist first_name_is_null"""
         driver = self.driver
         driver.find_element_by_xpath('//*[@id="titleP"]').clear()
@@ -320,7 +146,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -364,7 +190,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -373,8 +199,8 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="time"]').send_keys("06192022")
         driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/div/form/div[5]/button').click()
         sleep(10)
-        curr_url = driver.current_url
-        self.assertEqual(curr_url, "http://localhost:3000/wish/wishForm")  # 预期测试结果
+        dig_alert = driver.switch_to.alert
+        self.assertEqual(dig_alert.text, "please input correct address")  # 预期测试结果
         sleep(1)
 
     def first_name_Combining_characters(self):
@@ -408,7 +234,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -417,8 +243,8 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="time"]').send_keys("06192022")
         driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/div/form/div[5]/button').click()
         sleep(10)
-        curr_url = driver.current_url
-        self.assertEqual(curr_url, "http://localhost:3000/wish/wishForm")  # 预期测试结果
+        dig_alert = driver.switch_to.alert
+        self.assertEqual(dig_alert.text, "please input correct address")  # 预期测试结果
         sleep(1)
 
     def last_name_is_English_text(self):
@@ -452,7 +278,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -496,7 +322,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -540,7 +366,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -549,8 +375,8 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="time"]').send_keys("06192022")
         driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/div/form/div[5]/button').click()
         sleep(10)
-        curr_url = driver.current_url
-        self.assertEqual(curr_url, "http://localhost:3000/wish/wishForm")  # 预期测试结果
+        dig_alert = driver.switch_to.alert
+        self.assertEqual(dig_alert.text, "please input correct address")  # 预期测试结果
         sleep(1)
 
     def last_name_Combining_characters(self):
@@ -584,7 +410,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -593,8 +419,8 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="time"]').send_keys("06192022")
         driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/div/form/div[5]/button').click()
         sleep(10)
-        curr_url = driver.current_url
-        self.assertEqual(curr_url, "http://localhost:3000/wish/wishForm")  # 预期测试结果
+        dig_alert = driver.switch_to.alert
+        self.assertEqual(dig_alert.text, "please input correct address")  # 预期测试结果
         sleep(1)
 
     def description_is_English_text(self):
@@ -628,7 +454,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -672,7 +498,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -682,7 +508,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/div/form/div[5]/button').click()
         sleep(10)
         curr_url = driver.current_url
-        self.assertEqual(curr_url, "http://localhost:3000/wish")  # 预期测试结果
+        self.assertEqual(curr_url, "http://localhost:3000/wish/wishForm")  # 预期测试结果
         sleep(1)
 
     def description_Special_characters(self):
@@ -716,7 +542,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -760,7 +586,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -804,7 +630,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -848,7 +674,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -892,7 +718,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("%#@$@#$@#$#@%@$@3")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -902,7 +728,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/div/form/div[5]/button').click()
         sleep(10)
         curr_url = driver.current_url
-        self.assertEqual(curr_url, "http://localhost:3000/wish/wishForm")  # 预期测试结果
+        self.assertEqual(curr_url, "http://localhost:3000/wish")  # 预期测试结果
         sleep(1)
 
     def street_Combining_characters(self):
@@ -936,7 +762,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("$@#$@#fsdfsdfs54352")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -946,7 +772,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/div/form/div[5]/button').click()
         sleep(10)
         curr_url = driver.current_url
-        self.assertEqual(curr_url, "http://localhost:3000/wish/wishForm")  # 预期测试结果
+        self.assertEqual(curr_url, "http://localhost:3000/wish")  # 预期测试结果
         sleep(1)
 
     def phone_is_English_text(self):
@@ -989,8 +815,8 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="time"]').send_keys("06192022")
         driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/div/form/div[5]/button').click()
         sleep(10)
-        curr_url = driver.current_url
-        self.assertEqual(curr_url, "http://localhost:3000/wish/wishForm")  # 预期测试结果
+        dig_alert = driver.switch_to.alert
+        self.assertEqual(dig_alert.text, "please input correct address")  # 预期测试结果
         sleep(1)
 
     def phone_is_null(self):
@@ -1077,8 +903,8 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="time"]').send_keys("06192022")
         driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/div/form/div[5]/button').click()
         sleep(10)
-        curr_url = driver.current_url
-        self.assertEqual(curr_url, "http://localhost:3000/wish/wishForm")  # 预期测试结果
+        dig_alert = driver.switch_to.alert
+        self.assertEqual(dig_alert.text, "please input correct address")  # 预期测试结果
         sleep(1)
 
     def phone_Combining_characters(self):
@@ -1121,8 +947,8 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="time"]').send_keys("06192022")
         driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/div/form/div[5]/button').click()
         sleep(10)
-        curr_url = driver.current_url
-        self.assertEqual(curr_url, "http://localhost:3000/wish/wishForm")  # 预期测试结果
+        dig_alert = driver.switch_to.alert
+        self.assertEqual(dig_alert.text, "please input correct address")  # 预期测试结果
         sleep(1)
 
     def postcode_is_English_text(self):
@@ -1156,7 +982,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("testee")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -1165,8 +991,8 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="time"]').send_keys("06192022")
         driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/div/form/div[5]/button').click()
         sleep(10)
-        curr_url = driver.current_url
-        self.assertEqual(curr_url, "http://localhost:3000/wish/wishForm")  # 预期测试结果
+        dig_alert = driver.switch_to.alert
+        self.assertEqual(dig_alert.text, "please input correct address")  # 预期测试结果
         sleep(1)
 
     def postcode_is_null(self):
@@ -1200,7 +1026,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -1244,7 +1070,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("@$@$@#$@#@$")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -1253,8 +1079,8 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="time"]').send_keys("06192022")
         driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/div/form/div[5]/button').click()
         sleep(10)
-        curr_url = driver.current_url
-        self.assertEqual(curr_url, "http://localhost:3000/wish/wishForm")  # 预期测试结果
+        dig_alert = driver.switch_to.alert
+        self.assertEqual(dig_alert.text, "please input correct address")  # 预期测试结果
         sleep(1)
 
     def postcode_Combining_characters(self):
@@ -1288,7 +1114,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("afas#$@$324")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -1297,8 +1123,8 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="time"]').send_keys("06192022")
         driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/div/form/div[5]/button').click()
         sleep(10)
-        curr_url = driver.current_url
-        self.assertEqual(curr_url, "http://localhost:3000/wish/wishForm")  # 预期测试结果
+        dig_alert = driver.switch_to.alert
+        self.assertEqual(dig_alert.text, "please input correct address")  # 预期测试结果
         sleep(1)
 
     def time_is_English_text(self):
@@ -1332,7 +1158,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -1376,7 +1202,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -1420,7 +1246,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -1430,7 +1256,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/div/form/div[5]/button').click()
         sleep(10)
         curr_url = driver.current_url
-        self.assertEqual(curr_url, "http://localhost:3000/wish/wishForm")  # 预期测试结果
+        self.assertEqual(curr_url, "http://localhost:3000/wish")  # 预期测试结果
         sleep(1)
 
     def time_Combining_characters(self):
@@ -1464,7 +1290,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -1508,7 +1334,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -1552,7 +1378,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -1561,8 +1387,8 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="time"]').send_keys("06192022")
         driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/div/form/div[5]/button').click()
         sleep(10)
-        curr_url = driver.current_url
-        self.assertEqual(curr_url, "http://localhost:3000/wish/wishForm")  # 预期测试结果
+        dig_alert = driver.switch_to.alert
+        self.assertEqual(dig_alert.text, "please input correct address")  # 预期测试结果
         sleep(1)
 
     def country_Combining_characters(self):
@@ -1596,7 +1422,7 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="adderss"]').clear()
         driver.find_element_by_xpath('//*[@id="adderss"]').send_keys("noemwr test dsop")
         driver.find_element_by_xpath('//*[@id="phone"]').clear()
-        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("12222112133")
+        driver.find_element_by_xpath('//*[@id="phone"]').send_keys("0413168646")
         driver.find_element_by_xpath('//*[@id="postcode"]').clear()
         driver.find_element_by_xpath('//*[@id="postcode"]').send_keys("518993")
         driver.find_element_by_xpath('//*[@id="time"]').click()
@@ -1605,8 +1431,8 @@ class TestWhlistList(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="time"]').send_keys("06192022")
         driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/div/form/div[5]/button').click()
         sleep(10)
-        curr_url = driver.current_url
-        self.assertEqual(curr_url, "http://localhost:3000/wish/wishForm")  # 预期测试结果
+        dig_alert = driver.switch_to.alert
+        self.assertEqual(dig_alert.text, "please input correct address")  # 预期测试结果
         sleep(1)
 
 

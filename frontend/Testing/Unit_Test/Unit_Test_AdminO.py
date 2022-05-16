@@ -2,14 +2,15 @@ import unittest
 from time import sleep
 
 from selenium import webdriver
+from selenium.webdriver import Keys
 
 from frontend.Testing.chrome_options import chrome_options
 
 
 class TestAdmin(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome(options=chrome_options)  # 不显示浏览器，静默模式
-        # self.driver = webdriver.Chrome()
+        #self.driver = webdriver.Chrome(options=chrome_options)  # 不显示浏览器，静默模式
+        self.driver = webdriver.Chrome()
         self.driver.get("http://localhost:3000/administer")
         if self.driver.current_url == "http://localhost:3000/adlogin":
             driver = self.driver
@@ -57,21 +58,28 @@ class TestAdmin(unittest.TestCase):
         driver = self.driver
         driver.find_element_by_xpath(
             '//*[@id="root"]/div/div/div/nav/div[3]').click()
-        sleep(100)
+        sleep(80)
         if self.driver.current_url == "http://localhost:3000/administer/gui":
             driver.find_element_by_xpath(
                 '//*[@id="root"]/div/main/main/div/div[1]/div[1]/div/button[1]').click()
             sleep(10)
-            driver.find_element_by_xpath('//*[@id="mui-40"]"]').send_keys("gift name")
-            driver.find_element_by_xpath('//*[@id="mui-11"]').send_keys("123")
-            driver.find_element_by_xpath('//*[@id="mui-13"]').send_keys("80")
-            driver.find_element_by_xpath('//*[@id="mui-14"]').send_keys("gift description")
-            driver.find_element_by_xpath('//*[@id="mui-924288226"]').send_keys("Birthday")
-            driver.find_element_by_xpath('//*[@id="mui-556043016"]').send_keys("Male")
-            driver.find_element_by_xpath('//*[@id="mui-630284639"]').send_keys("Young")
-            driver.find_element_by_xpath('/html/body/div[2]/div[3]/div/div[14]/div[2]/div/div/input').send_keys("S")
-            driver.find_element_by_xpath('/html/body/div[2]/div[3]/div/div[14]/div[3]/div/div/input').send_keys("300")
-            driver.find_element_by_xpath('//*[@id="mui-18"]').send_keys("url123")
+            driver.find_element_by_xpath('//*[@id="giftName-Add"]').send_keys("gift name123")
+            driver.find_element_by_xpath('//*[@id="giftPrice-Add"]').send_keys("123")
+            driver.find_element_by_xpath('//*[@id="giftDiscountState-Add"]').send_keys("80")
+            driver.find_element_by_xpath('//*[@id="giftDescription-Add"]').send_keys("gift description")
+            driver.find_element_by_xpath('//*[@id="giftCategory-Add"]').send_keys("Birthday")
+            driver.find_element_by_xpath('//*[@id="giftCategory-Add"]').send_keys(Keys.ENTER)
+            driver.find_element_by_xpath('//*[@id="giftSideCategory1-Add"]').send_keys("Male")
+            driver.find_element_by_xpath('//*[@id="giftSideCategory1-Add"]').send_keys(Keys.ENTER)
+            driver.find_element_by_xpath('//*[@id="giftSideCategory2-Add"]').send_keys("Young")
+            driver.find_element_by_xpath('//*[@id="giftSideCategory2-Add"]').send_keys(Keys.ENTER)
+            driver.find_element_by_xpath('//*[@id="giftSize-0-Add"]').send_keys("S")
+            driver.find_element_by_xpath('//*[@id="giftSizeStock-0-Add"]').send_keys("300")
+            driver.find_element_by_xpath('//*[@id="giftImgUrl-Add"]').send_keys("url123")
+            driver.find_element_by_xpath(
+                '// *[ @ id = "submit-Add"]').click()
+
+            sleep(100)
             curr_url = driver.current_url
             self.assertEqual(curr_url, "http://localhost:3000/administer/gui")
 
