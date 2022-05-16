@@ -109,6 +109,7 @@ function DashboardSidebar() {
     function handleClick(route) {
         if(route==="/adlogin"){
             cookie.remove("login")
+            cookie.remove("user")
             setLogin(undefined)
             setRole("user")
             sessionStorage.setItem("role","user")

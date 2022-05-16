@@ -18,7 +18,7 @@ export default function GiftProvider({children}){
     const getGifts = ()=>{
         setError("normal")
         setLoading(true)
-        fetch("http://3.82.213.219:5000/api/main_home_page").then(res => res.json()).then(
+        fetch("http://localhost:5000/api/main_home_page").then(res => res.json()).then(
             res => {
                 if (Array.isArray(res.gifts)) {
                     setGifts(res.gifts);
@@ -32,7 +32,7 @@ export default function GiftProvider({children}){
     const homeCategory = ()=>{
         setError("normal")
         setLoading(true)
-        fetch("http://3.82.213.219/:5000/api/main_home_page").then(res => res.json()).then(
+        fetch("http://localhost:5000/api/main_home_page").then(res => res.json()).then(
             res => {
                 if (Array.isArray(res.gifts)) {
                     setGifts(res.gifts);

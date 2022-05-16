@@ -44,6 +44,7 @@ export default function AccountMenu() {
         //
         if (!curr) {
             cookie.remove("login")
+            cookie.remove("user")
             setLogin(undefined)
             setRole("user")
             sessionStorage.setItem("role", "user")

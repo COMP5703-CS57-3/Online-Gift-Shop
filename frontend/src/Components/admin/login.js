@@ -50,6 +50,7 @@ export default function AdminLogIn(props) {
                     console.log("Success!")
                     let ExpireTime = new Date(new Date().getTime() + 1 * 3600 * 1000);//60分钟后失效
                     cookie.save("login", response.data.id, ExpireTime)
+                    cookie.save("user", "Admin", ExpireTime)
                     setLogin(response.data.id)
                     setRole("admin")
                     sessionStorage.setItem("role","admin")

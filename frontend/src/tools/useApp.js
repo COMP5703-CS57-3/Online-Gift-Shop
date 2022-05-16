@@ -8,7 +8,7 @@ export const useApp = () => useContext(AppContext);
 export default function AppProvider({children}) {
     // cookie.remove("login")
     const [login, setLogin] = useState(cookie.load("login"))
-    const [Role, setRole] = useState("user")
+    const [Role, setRole] = useState(cookie.load("user") === "Admin" ? "admin" : "user")
     return (
         <AppContext.Provider value={{login, setLogin, Role, setRole}}>
             {children}
