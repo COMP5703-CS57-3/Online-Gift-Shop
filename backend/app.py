@@ -148,4 +148,4 @@ def adred(any):
 
 
 if __name__ == '__main__':
-    manager_command.run()
+    app.run(host="0.0.0.0")

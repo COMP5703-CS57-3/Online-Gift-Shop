@@ -28,6 +28,10 @@ const BeforeEach = ({children}) => {
             return obj.role.indexOf("user") !== -1 ? <Navigate to="/login" state={{from: location}} replace/> :
                 <Navigate to="/adlogin" state={{from: location}} replace/>
 
+        } else if (children.type.name !== "LogIn" || children.type.name !== "AdminLogIn") {
+            // return obj.role.indexOf("user") !== -1 ? <Navigate to="/login" state={{from: location}} replace/> :
+            //     <Navigate to="/adlogin" state={{from: location}} replace/>
+            // console.log(children)
         }
     }
     return children;

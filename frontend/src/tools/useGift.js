@@ -1,4 +1,4 @@
-import React, {createContext, useState, useContext, useEffect} from "react";
+import React, {createContext, useContext, useState} from "react";
 import giftdata from "../data/giftlist.json";
 
 const GiftContext = createContext();
@@ -14,33 +14,34 @@ export default function GiftProvider({children}){
     const [currentSize,setCurrentSize] = useState();
     const [error,setError] = useState()
     const[sideBar,setSideBar] = useState("");
+
     const getGifts = ()=>{
         setError("normal")
         setLoading(true)
-        fetch("http://localhost:5000/api/main_home_page").then(res=>res.json()).then(
-            res=>{
-            if(Array.isArray(res.gifts)){
-                setGifts(res.gifts);
-                console.log(res)
-            }else{
-                setGifts([]);
-                console.log(res)
-            }
-        }).then(console.log).then(()=>setLoading(false));
+        fetch("http://3.82.213.219:5000/api/main_home_page").then(res => res.json()).then(
+            res => {
+                if (Array.isArray(res.gifts)) {
+                    setGifts(res.gifts);
+                    console.log(res)
+                } else {
+                    setGifts([]);
+                    console.log(res)
+                }
+            }).then(console.log).then(()=>setLoading(false));
     }
     const homeCategory = ()=>{
         setError("normal")
         setLoading(true)
-        fetch("http://127.0.0.1:5000/api/main_home_page").then(res=>res.json()).then(
-            res=>{
-            if(Array.isArray(res.gifts)){
-                setGifts(res.gifts);
-            }else{
-                setGifts([]);
-                console.log(res)
-            }
-            setLoading(false);
-        }).then(console.log);
+        fetch("http://3.82.213.219/:5000/api/main_home_page").then(res => res.json()).then(
+            res => {
+                if (Array.isArray(res.gifts)) {
+                    setGifts(res.gifts);
+                } else {
+                    setGifts([]);
+                    console.log(res)
+                }
+                setLoading(false);
+            }).then(console.log);
     }
     const TopCategory = (top,sort)=> {
         setError("normal")

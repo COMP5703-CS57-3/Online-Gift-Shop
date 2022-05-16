@@ -4,8 +4,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -29,7 +27,7 @@ export default function AdminLogIn(props) {
     const [Email, setEmail] = useState("")
     const [Password, setPassword] = useState("")
 
-    let from = "/admin";
+    let from = "/administer";
     if (location?.state?.from?.pathname) {
         if (checkRouterAuth(location.state.from.pathname).auth)
             from = location.state.from.pathname
