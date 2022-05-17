@@ -6,7 +6,7 @@ import ProductCard from "../Detail/ProductCard";
 import {CssBaseline} from "@mui/material";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import {ip} from "../../../node_modules/ip"
+import {ip} from "../../ip";
 
 const Message = ({message}) => (
     <section>

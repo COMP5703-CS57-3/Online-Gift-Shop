@@ -16,7 +16,7 @@ import {checkEmail, checkNickName, checkPassword, checkPhone} from "../logic/Val
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import FastDial from "./FastDial";
-import {ip} from "../../node_modules/ip"
+import {ip} from "../ip";
 
 const theme = createTheme();
 

@@ -1,16 +1,17 @@
 import React, {createContext, useContext, useState} from "react";
 import giftdata from "../data/giftlist.json";
-import {ip} from "../../node_modules/ip";
+
+import {ip} from "../ip";
 
 const GiftContext = createContext();
-export const useGift = ()=> useContext(GiftContext);
+export const useGift = () => useContext(GiftContext);
 
-export default function GiftProvider({children}){
-    const [gifts,setGifts] = useState();
-    const [currentGift,setCurrentGift] = useState()
-    const [sort,setSort] = useState("price-low-to-high");
-    const [fakeGifts,setFakeGifts] = useState(giftdata);
-    const [topBar,setTopBar] = useState("");
+export default function GiftProvider({children}) {
+    const [gifts, setGifts] = useState();
+    const [currentGift, setCurrentGift] = useState()
+    const [sort, setSort] = useState("price-low-to-high");
+    const [fakeGifts, setFakeGifts] = useState(giftdata);
+    const [topBar, setTopBar] = useState("");
     const [loading,setLoading] = useState(true);
     const [currentSize,setCurrentSize] = useState();
     const [error,setError] = useState()

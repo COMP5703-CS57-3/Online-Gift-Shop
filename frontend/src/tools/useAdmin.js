@@ -1,6 +1,6 @@
 import React, {createContext, useContext, useState} from "react";
 import axios from "axios";
-import {ip} from "../../node_modules/ip"
+import {ip} from "../ip";
 
 const AdminContext = createContext();
 export const useAdmin = () => useContext(AdminContext);

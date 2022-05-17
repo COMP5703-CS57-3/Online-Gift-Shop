@@ -31,11 +31,12 @@ const BeforeEach = ({children}) => {
         } else if (children.type.name !== "LogIn" || children.type.name !== "AdminLogIn") {
             // console.log(Role, obj, obj.role, obj.auth)
             if (Role === 'user' && obj && obj.role.length === 1 && obj.role[0] === 'admin' && obj.auth) {
-                console.log('1')
+                // console.log('1')
                 return <Navigate to="/adlogin" state={{from: location}} replace/>
             } else if (Role === 'user' && obj && obj.role.length === 2 && obj.auth) {
                 return <Navigate to="/login" state={{from: location}} replace/>
             }
+            // console.log("pass")
             //     console.log(1)
             //     return <Navigate to="/login" state={{from: location}} replace/>
             // }
@@ -47,6 +48,7 @@ const BeforeEach = ({children}) => {
             // console.log(children)
         }
     }
+    console.log("pass")
     return children;
 
 }

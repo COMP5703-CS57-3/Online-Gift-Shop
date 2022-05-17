@@ -1,6 +1,6 @@
-import React, {createContext, useState, useContext, useEffect} from "react";
+import React, {createContext, useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {ip} from "../../node_modules/ip"
+import {ip} from "../ip";
 
 
 const OrderContext = createContext();

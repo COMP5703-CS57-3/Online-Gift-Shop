@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import {checkEmail, checkPassword} from "../logic/ValCheck";
 import {useNavigate} from "react-router-dom";
-import {ip} from "../../node_modules/ip"
+import {ip} from "../ip";
 
 const steps = ['Please input your email', 'Please input validation code', 'Please input your new password', 'Finish'];
 

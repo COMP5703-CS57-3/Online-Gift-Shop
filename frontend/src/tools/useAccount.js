@@ -2,7 +2,7 @@ import React, {createContext, useContext, useState} from "react";
 import cookie from "react-cookies";
 import axios from "axios";
 import {checkPassword} from "../logic/ValCheck";
-import {ip} from "../../node_modules/ip"
+import {ip} from "../ip";
 
 
 const AccountContext = createContext();
