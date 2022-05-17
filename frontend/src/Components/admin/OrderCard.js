@@ -11,7 +11,7 @@ export default function OrderCard({id,order_time,order_total,order_state,order_n
     const [state,setState]=useState(order_state)
     const {orderCompleted,orderDelivery}=useAdmin()
     const stateAction =()=>{
-        console.log(state)
+        //console.log(state)
         if (state==="waiting"){
             orderDelivery(order_number)
             setState("delivery")

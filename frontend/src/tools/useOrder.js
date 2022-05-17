@@ -26,7 +26,7 @@ export default function OrderProvider({children}){
          });
     }
     let navi = useNavigate();
-    console.log(currentOrder)
+    //console.log(currentOrder)
     const createOrder = (ownerId,wishlistId,fName,lName,phone,address,postCode,payerFName,payId,totalPrice,productList)=>{
         const nav =()=> navi("/order/pay");
         setLoading(true)

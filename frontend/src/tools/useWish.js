@@ -111,7 +111,7 @@ export default function WishProvider({children}) {
                     postcode: postcodeP,
                     user_expected_delivery_time: timeP
                 })
-        }).then(console.log).then(() => {
+        }).then().then(() => {
             nav()
         });
     }

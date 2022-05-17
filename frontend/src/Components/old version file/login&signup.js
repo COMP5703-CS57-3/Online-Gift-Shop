@@ -163,11 +163,11 @@ export default class Login extends React.Component {
                         user_password: this.state.Password
                     }).then((response) => {
                         let status = response;
-                        console.log(status, 1)
+                        (status, 1)
                         if (status.data.message === 'Information waiting for confirmation') {
-                            console.log("Success!")
+                            ("Success!")
                         } else {
-                            console.log("Error!")
+                            ("Error!")
                         }
                     })
                         .catch((response) => {
@@ -186,7 +186,7 @@ export default class Login extends React.Component {
                 if (this.state.InviteCode===""){
                     alert("please input invite code")
                 }
-                console.log(this.state.InviteCode)
+                (this.state.InviteCode)
             }
         } else {
             const res_name = checkNickName(this.state.Username)
@@ -196,9 +196,9 @@ export default class Login extends React.Component {
 
             if (res_name === true && res_email === true && res_phone === true && res_password === true) {
                 this.setState({isShow: false})
-                console.log("send message to backend")
+                ("send message to backend")
             } else {
-                console.log(res_phone)
+                (res_phone)
                 this.setState({
                     isShow: true,
                     errNick: res_name === true ? "" : res_name,

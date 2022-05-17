@@ -31,7 +31,7 @@ export default class AccountProfile extends React.Component {
                 // console.log(r.data)
                 that.setState({"user": r.data, "isLoad": true})
             })
-            .catch(r => console.log(r))
+            //.catch(r => console.log(r))
     }
 
     setIsOpen(e) {

@@ -72,7 +72,7 @@ export default function ChangeGift() {
 
             const GiftItem = foundGift;
             size = foundGift.sizes
-            console.log(size)
+            //console.log(size)
             loop = foundGift.sizes.length
             giftNameProps = GiftItem.gift_name;
             coverProps = GiftItem.gift_cover_url;
@@ -91,8 +91,8 @@ export default function ChangeGift() {
 
     const submit = e => {
         e.preventDefault();
-        console.log(size)
-        console.log(sizes.length === 0)
+        //console.log(size)
+        //console.log(sizes.length === 0)
         changeItemCount(selectedGiftIds[0],
             giftNameProps,
             giftPriceProps,

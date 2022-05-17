@@ -45,7 +45,7 @@ export default function WishForm() {
     // console.log(wishTitle.current.valueOf());
     const onC = () => {
         let address = address1 + " " + address2 + " " + address3Props.value
-        console.log(address)
+        (address)
     }
     if (!owner_id) {
         return <Navigate to='/login' state={{from: location}} replace/>
@@ -56,9 +56,9 @@ export default function WishForm() {
         const time = timeProps.toString().slice(0, 15)
         if((checkContry(address1) && checkStreet(address3Props.value) && checkTitel(titleProps.value) && checkLastName(lastnameProps.value) && checkFirstName(firstnameProps.value) && checkPostcode(postcodeProps.value) && checkPhone(phoneProps.value)) !== true){
             alert("please input correct address")
-            console.log(checkContry(address1), checkStreet(address3Props.value), checkTitel(titleProps.value), checkLastName(lastnameProps.value), checkFirstName(firstnameProps.value), checkPostcode(postcodeProps.value), checkPhone(phoneProps.value))
+            (checkContry(address1), checkStreet(address3Props.value), checkTitel(titleProps.value), checkLastName(lastnameProps.value), checkFirstName(firstnameProps.value), checkPostcode(postcodeProps.value), checkPhone(phoneProps.value))
         }else {
-            console.log(checkFirstName(firstnameProps.value))
+            (checkFirstName(firstnameProps.value))
         // const address = address1.toString() + ", " + address2 + ", " + address3Props.value
         // time = timeProps.toString().slice(0, 15)
         // console.log(time)

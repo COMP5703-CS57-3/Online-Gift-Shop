@@ -39,7 +39,7 @@ export default function AdminProvider({children}) {
             method: "POST"
         }).then(res => res.json()).then(
             res => {
-                console.log(res)
+                (res)
                 setOrderList(res.orders_inf)
                 setShownOrder(res.orders_inf)
             }
@@ -107,29 +107,29 @@ export default function AdminProvider({children}) {
 
     const changeItemCount = (id, giftName, giftPrice, giftDiscountPrice, giftDiscountState, giftDescription, giftCategory, sideCategory1, sideCategory2, coverUrl, showUrl1, showUrl2, showUrl3, showUrl4, sizeC) => {
         let newSize = []
-        console.log(sizeC)
+        (sizeC)
         for (const s in sizeC) {
             newSize.push({size: sizeC[s].size, size_stock: sizeC[s].stock})
         }
 
-        console.log({
-            id: id,
-            gift_name: giftName,
-            gift_price: giftPrice,
-            gift_discount_price: giftDiscountPrice,
-            gift_discount_state: giftDiscountState,
-            gift_description: giftDescription,
-            sizes: newSize,
-            gift_category: giftCategory,
-            gift_side_category1: sideCategory1,
-            gift_side_category2: sideCategory2,
-            gift_cover_url: coverUrl,
-            gift_show_url1: showUrl1,
-            gift_show_url2: showUrl2,
-            gift_show_url3: showUrl3,
-            gift_show_url4: showUrl4
-
-        })
+        // console.log({
+        //     id: id,
+        //     gift_name: giftName,
+        //     gift_price: giftPrice,
+        //     gift_discount_price: giftDiscountPrice,
+        //     gift_discount_state: giftDiscountState,
+        //     gift_description: giftDescription,
+        //     sizes: newSize,
+        //     gift_category: giftCategory,
+        //     gift_side_category1: sideCategory1,
+        //     gift_side_category2: sideCategory2,
+        //     gift_cover_url: coverUrl,
+        //     gift_show_url1: showUrl1,
+        //     gift_show_url2: showUrl2,
+        //     gift_show_url3: showUrl3,
+        //     gift_show_url4: showUrl4
+        //
+        // })
         fetch("http://"+ ip +"/api/admin/admin_edit_items", {
             method: 'put',
             body: JSON.stringify(
@@ -151,25 +151,25 @@ export default function AdminProvider({children}) {
                     gift_show_url4: showUrl4
 
                 })
-        }).then(r => getAllGifts()).catch(r => console.log(r));
+        }).then(r => getAllGifts()).catch();
     }
     const addItems = (giftName, giftPrice, giftDiscountPrice, giftDiscountState, giftDescription, giftCategory, sideCategory1, sideCategory2, coverUrl, showUrl1, showUrl2, showUrl3, showUrl4, sizeC) => {
-        console.log({
-            gift_name: giftName,
-            gift_price: giftPrice,
-            gift_discount_price: giftDiscountPrice,
-            gift_discount_state: giftDiscountState,
-            gift_description: giftDescription,
-            sizes: sizeC,
-            gift_category: giftCategory,
-            gift_side_category1: sideCategory1,
-            gift_side_category2: sideCategory2,
-            gift_cover_url: coverUrl,
-            gift_show_url1: showUrl1,
-            gift_show_url2: showUrl2,
-            gift_show_url3: showUrl3,
-            gift_show_url4: showUrl4
-        })
+        // console.log({
+        //     gift_name: giftName,
+        //     gift_price: giftPrice,
+        //     gift_discount_price: giftDiscountPrice,
+        //     gift_discount_state: giftDiscountState,
+        //     gift_description: giftDescription,
+        //     sizes: sizeC,
+        //     gift_category: giftCategory,
+        //     gift_side_category1: sideCategory1,
+        //     gift_side_category2: sideCategory2,
+        //     gift_cover_url: coverUrl,
+        //     gift_show_url1: showUrl1,
+        //     gift_show_url2: showUrl2,
+        //     gift_show_url3: showUrl3,
+        //     gift_show_url4: showUrl4
+        // })
         fetch("http://"+ ip +"/api/admin/admin_add_items", {
             method: 'POST',
             body: JSON.stringify(
@@ -214,8 +214,7 @@ export default function AdminProvider({children}) {
                 setGifts(res.gifts_inf)
                 setShownGift(res.gifts_inf)
             }
-        ).catch(e =>
-            console.log(e))
+        ).catch()
             .then(() => {
                 setShowLoading(false)
                 setLoading(false)
@@ -225,7 +224,7 @@ export default function AdminProvider({children}) {
         setLoading(true);
         fetch("http://"+ ip +"/api/order/set_an_order_as_completed/" + id,
             {method: 'POST'}
-        ).then(console.log).then(() => {
+        ).then().then(() => {
             setLoading(false)
         });
     }
@@ -233,7 +232,7 @@ export default function AdminProvider({children}) {
         setLoading(true);
         fetch("http://"+ ip +"/api/order/set_an_order_as_delivery/" + id,
             {method: 'POST'}
-        ).then(console.log).then(() => {
+        ).then().then(() => {
             setLoading(false)
         });
     }
@@ -243,9 +242,9 @@ export default function AdminProvider({children}) {
         const currOrder = orderList.find((item) => item.order_number === currOpen)
         const currStatus = currOrder.order_state
         if (states.indexOf(currStatus) === 1) {
-            axios.post(`http://`+ ip +`/api/order/set_an_order_as_completed/${currOpen}`).then(r => getOrderList()).catch(r => console.log(r))
+            axios.post(`http://`+ ip +`/api/order/set_an_order_as_completed/${currOpen}`).then(r => getOrderList()).catch()
         } else if (states.indexOf(currStatus) === 0) {
-            axios.post(`http://`+ ip +`/api/order/set_an_order_as_delivery/${currOpen}`).then(r => getOrderList()).catch(r => console.log(r))
+            axios.post(`http://`+ ip +`/api/order/set_an_order_as_delivery/${currOpen}`).then(r => getOrderList()).catch()
         }
     }
     const getLastOrderList = () => {
@@ -256,7 +255,7 @@ export default function AdminProvider({children}) {
 
             }
         ).catch(
-            r => console.log(r.response)
+            //r => console.log(r.response)
         ).then(() =>
             setLoading(false)
         )

@@ -37,70 +37,70 @@ export default function SideBar() {
 
     const HandleClick = (number) => {
         if(number ==="2" && topBar === ""){
-            console.log(number)
+            //console.log(number)
             OnlySideCategory("Male, Juvenile",sort);
         }
         if(number === "2" && topBar !== ""){
-            console.log(topBar)
+            //console.log(topBar)
             SideCategory(topBar,"Male, Juvenile",sort);
         }
         if(number ==="3" && topBar === ""){
-            console.log(selected)
+            //console.log(selected)
             OnlySideCategory("Male, Youth",sort);
         }else if(number ==="3"){
-            console.log(topBar)
+            //console.log(topBar)
             SideCategory(topBar,"Male, Youth",sort);
         }
         if(number ==="4" &&  topBar === ""){
-            console.log(selected)
+            //console.log(selected)
             OnlySideCategory("Male, Elderly",sort);
         }else if(number ==="4"){
-            console.log(topBar)
+            //console.log(topBar)
             SideCategory(topBar,"Male, Elderly",sort);
         }
         if(number ==="6" &&  topBar === ""){
-            console.log(selected)
+            //console.log(selected)
             OnlySideCategory("Female, Juvenile",sort);
         }
         if(number ==="6"){
-            console.log(topBar)
+            //console.log(topBar)
             SideCategory(topBar,"Female, Juvenile",sort);
         }
         if(number ==="7" &&  topBar === ""){
-            console.log(selected)
+            //console.log(selected)
             OnlySideCategory("Female, Youth",sort);
         }
         if(number ==="7"){
-            console.log(topBar)
+           // console.log(topBar)
             SideCategory(topBar,"Female, Youth",sort);
         }
         if(number ==="9" &&  topBar === ""){
-            console.log(selected)
+            //console.log(selected)
             OnlySideCategory("Female, Elderly",sort);
         }else if(number ==="9"){
-            console.log(topBar)
+            //console.log(topBar)
             SideCategory(topBar,"Female, Elderly",sort);
         }
         if(number ==="10" &&  topBar === ""){
-            console.log(selected)
+            //console.log(selected)
             OnlySideCategory("Other, Juvenile",sort);
         }else if(number ==="10"){
-            console.log(topBar)
+            //console.log(topBar)
             SideCategory(topBar,"Other, Juvenile",sort);
         }
         if(number ==="11" &&  topBar === ""){
-            console.log(selected)
+            //console.log(selected)
             OnlySideCategory("Other, Youth",sort);
         }
         if(number ==="11"){
-            console.log(topBar)
+            (topBar)
             SideCategory(topBar,"Other, Youth",sort);
         }
         if(number ==="12" &&  topBar === ""){
-            console.log(selected)
+            (selected)
             OnlySideCategory("Other, Elderly",sort);
         }else if(number ==="12"){
-            console.log(topBar)
+            (topBar)
             SideCategory(topBar,"Other, Elderly",sort);
         }
     }

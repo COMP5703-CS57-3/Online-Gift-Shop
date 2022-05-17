@@ -20,7 +20,7 @@ export default function Payc() {
     const [second, setSecond] = useState(false)
     const {currentOrder} = useOrder();
     const {loading, setLoading} = useOrder();
-    console.log(currentOrder)
+    //console.log(currentOrder)
     useEffect(() => {
         // Check to see if this is a redirect back from Checkout
         const query = new URLSearchParams(window.location.search);
@@ -45,7 +45,7 @@ export default function Payc() {
             setSecond(true)
         });
     }, []);
-    console.log(detail)
+    //console.log(detail)
     if (loading || !detail) {
         return <Loading/>
     }

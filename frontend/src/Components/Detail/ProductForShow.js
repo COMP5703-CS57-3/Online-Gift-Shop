@@ -23,7 +23,7 @@ export default function ProductForShow({products_id,product_name,product_cover,s
             const pr= (pro.products_id+pro.size)!==(products_id+size);
             return pr;
         }))
-        console.log(currentProduct);
+        //console.log(currentProduct);
     }////
     let navigate = useNavigate();
     const nav =()=> navigate("/cart/"+products_id);
@@ -40,7 +40,7 @@ export default function ProductForShow({products_id,product_name,product_cover,s
         deleteOld.push(newProduct)
         setCurrentProduct(deleteOld)
     }
-    console.log(currentProduct)
+    //console.log(currentProduct)
     // if(count<=0){
     //     return null;
     // }

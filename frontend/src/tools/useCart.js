@@ -11,7 +11,7 @@ const saveJSON = (key,data)=>
 
 export default function CartProvider({children,login}){
     const [items,setItems] = useState(loadJSON("test"));
-    console.log(giftdata)
+    (giftdata)
     localStorage.clear()
     //
     useEffect(()=>{
@@ -22,7 +22,7 @@ export default function CartProvider({children,login}){
     useEffect(()=>{
         //saveJSON("test",items);
     },[items])
-    console.log(items)
+    (items)
     const removeItems = id => setItems(items.filter(item=>item.id!==id));
     if(items)
         return (

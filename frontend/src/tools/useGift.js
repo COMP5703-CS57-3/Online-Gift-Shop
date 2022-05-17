@@ -23,12 +23,12 @@ export default function GiftProvider({children}){
             res => {
                 if (Array.isArray(res.gifts)) {
                     setGifts(res.gifts);
-                    console.log(res)
+                    (res)
                 } else {
                     setGifts([]);
-                    console.log(res)
+                    (res)
                 }
-            }).then(console.log).then(()=>setLoading(false));
+            }).then().then(()=>setLoading(false));
     }
     const homeCategory = ()=>{
         setError("normal")
@@ -39,10 +39,10 @@ export default function GiftProvider({children}){
                     setGifts(res.gifts);
                 } else {
                     setGifts([]);
-                    console.log(res)
+                    (res)
                 }
                 setLoading(false);
-            }).then(console.log);
+            }).then();
     }
     const TopCategory = (top,sort)=> {
         setError("normal")
@@ -51,28 +51,28 @@ export default function GiftProvider({children}){
             res => {
             if(Array.isArray(res.gifts)){
                 setGifts(res.gifts);
-                console.log(res)
+                (res)
             }else{
                 setGifts([]);
-                console.log(res)
+                (res)
             }
                 setLoading(false)
-            }).then(console.log);
+            }).then();
     }
     const OnlySideCategory = (side,sort)=>{
         setError("normal")
         setLoading(true)
-        console.log(typeof(sort))
+        (typeof(sort))
         fetch("http://" + ip + "/api/main_home_page/"+ side + ", " + sort).then(res=>res.json()).then(
             res=>{
             if(Array.isArray(res.gifts)){
                 setGifts(res.gifts);
             }else{
                 setGifts([]);
-                console.log(res)
+                (res)
             }
             setLoading(false);
-        }).then(console.log);
+        }).then();
     }
     const SideCategory = (top,side,sort)=>{
         setError("normal")
@@ -83,10 +83,10 @@ export default function GiftProvider({children}){
                 setGifts(res.gifts);
             }else{
                 setGifts([]);
-                console.log(res)
+                (res)
             }
             setLoading(false)
-        }).then(console.log);
+        }).then();
     }
     const getSize = (id)=>{
         setError("normal")
@@ -108,7 +108,7 @@ export default function GiftProvider({children}){
          fetch("http://" + ip + "/api/search/search_gift_id/"+id).then(res=>res.json()
          ).then((res)=>{
              let tt = res
-             console.log(tt)
+             (tt)
              if(tt.message==="this gift id does not exist"){
                  setError("no gift")
                  setLoading(false)

@@ -26,12 +26,12 @@ export default function MainBody({props}) {
     };
     const handleSortChange = (event) => {
         setSort(event.target.value);
-        console.log(sort)
+        //console.log(sort)
     };
     const handleClick = (event,newid) => {
         setid(newid)
-        console.log(id)
-        console.log(value)
+        //console.log(id)
+        //console.log(value)
     };
     const {setTopBar,TopCategory} = useGift();
     const {homeCategory} = useGift();
@@ -40,7 +40,7 @@ export default function MainBody({props}) {
     }
     const ClickCloth = () => {
         setTopBar("Clothing");
-        console.log(sort)
+        //console.log(sort)
         TopCategory("Clothing", sort);
     }//
     const ClickShoe = () => {

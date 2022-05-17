@@ -376,7 +376,7 @@ export default class AccountProfileDetails extends React.Component {
             // console.log(sessionStorage.getItem("id"))
             const res_name = checkNickName(data.user_name)
             const res_phone = checkPhone(data.user_mobile)
-            console.log(res_name === true, res_phone === true)
+            //console.log(res_name === true, res_phone === true)
             if (res_name === true && res_phone === true) {
                 axios.put("http://" + ip +"/api/user_information/user_profile/update_user_information", {
 
@@ -390,7 +390,7 @@ export default class AccountProfileDetails extends React.Component {
                     that.setState({user: data, isReadonly: true}) //after axios
                     // console.log("success")
                 ).catch(
-                    r => console.log(r)
+                    //r => console.log(r)
                 )
             } else {
                 if (res_name !== true) {
