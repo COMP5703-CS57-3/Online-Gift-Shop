@@ -4,10 +4,9 @@ import {Grid} from "@material-ui/core";
 import Loading from "../normal/Loading";
 import ProductCard from "../Detail/ProductCard";
 import {CssBaseline} from "@mui/material";
-import Background from "../../picture/background.png";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import {ip} from "../../node_modules/ip"
+import {ip} from "../../../node_modules/ip"
 
 const Message = ({message}) => (
     <section>
@@ -78,7 +77,7 @@ export default function Payc() {
                              <h2 style={{marginLeft:0,marginRight:0,textAlign:"center"}}>Order Information</h2>
                              </Grid>
                         <Grid item xs={3}>
-                            <form action="http://localhost:5000/api/order/create_checkout_session" method="post">
+                            <form action={"http://" + ip + ":5000/api/order/create_checkout_session"} method="post">
                                 <div>
                                     <label>
                                         Order ID:

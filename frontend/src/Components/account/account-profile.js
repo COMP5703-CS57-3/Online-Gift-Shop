@@ -3,7 +3,7 @@ import axios from "axios";
 import * as React from 'react';
 import {Skeleton} from "@mui/lab";
 import ChangePassword from "./changepwd";
-import {ip} from "../../node_modules/ip"
+import {ip} from "../../../node_modules/ip"
 
 
 const sample = {

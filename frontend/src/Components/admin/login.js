@@ -17,7 +17,7 @@ import {checkEmail} from "../../logic/ValCheck";
 import cookie from 'react-cookies'
 import {useApp} from "../../tools/useApp";
 import {checkRouterAuth} from "../../router/GenRouter";
-import {ip} from "../../node_modules/ip"
+import {ip} from "../../../node_modules/ip"
 
 const theme = createTheme();
 
