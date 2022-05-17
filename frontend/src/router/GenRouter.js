@@ -231,7 +231,12 @@ const routes = [
 //根据路径获取路由
 const checkAuth = (routers, path) => {
     for (const data of routers) {
+        // console.log(data.path.split("/"))
         if (data.path === path) return data
+        if (data.path.split("/").length === 3 && data.path.split("/")[1] === path.split("/")[1]) return data
+        if (data.path.split("/").length === 4 && data.path.split("/")[2] === path.split("/")[2]) return data
+
+
         if (data.children) {
             const res = checkAuth(data.children, path)
             if (res) return res
