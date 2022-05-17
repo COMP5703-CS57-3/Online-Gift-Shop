@@ -14,7 +14,7 @@ import ProductForShow from "../Detail/ProductForShow";
 import Loading from "../normal/Loading";
 import cookie from "react-cookies";
 import Typography from "@mui/material/Typography";
-import {ip} from "../../../node_modules/ip"
+import {ip} from "../../ip";
 
 export default function CreateOrder() {
     const {id} = useParams();

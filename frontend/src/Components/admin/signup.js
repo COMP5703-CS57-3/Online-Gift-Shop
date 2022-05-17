@@ -16,7 +16,7 @@ import {checkNickName, checkPassword, checkPhone} from "../../logic/ValCheck";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {InputAdornment} from "@material-ui/core";
-import {ip} from "../../../node_modules/ip"
+import {ip} from "../../ip";
 
 
 const theme = createTheme();

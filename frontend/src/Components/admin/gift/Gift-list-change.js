@@ -56,7 +56,7 @@ export default function ChangeGift() {
         {'label': 'Graduate', 'id': 7},
         {'label': 'Electronics', 'id': 8}]
     const SideSelections1 = [{'label': 'Male', 'id': 0}, {'label': 'Female', 'id': 1}, {'label': 'Other', 'id': 2}]
-    const SideSelections2 = [{'label': 'Juvenile', 'id': 0}, {'label': 'Young', 'id': 1}, {'label': 'Elderly', 'id': 2}]
+    const SideSelections2 = [{'label': 'Juvenile', 'id': 0}, {'label': 'Youth', 'id': 1}, {'label': 'Elderly', 'id': 2}]
     //console.log(selectedGiftIds[0])
     // let foundGift = gifts.find(
     //     item => {return item.id === selectedGiftIds[0]}

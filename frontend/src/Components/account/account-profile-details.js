@@ -19,7 +19,7 @@ import {DatePicker, LocalizationProvider} from "@mui/lab";
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 import {checkNickName, checkPhone} from "../../logic/ValCheck";
 import {load} from "react-cookies";
-import {ip} from "../../../node_modules/ip"
+import {ip} from "../../ip";
 
 const states = [
     {

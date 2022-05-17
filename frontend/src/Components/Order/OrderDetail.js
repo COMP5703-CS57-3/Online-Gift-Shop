@@ -12,17 +12,19 @@ import Loading from "../normal/Loading";
 import cookie from "react-cookies";
 import Typography from "@mui/material/Typography";
 import ProductOnlyShow from "../Detail/ProductOnlyShow";
-import {ip} from "../../../node_modules/ip";
+import {ip} from "../../ip";
+
+;
 
 export default function OrderDetail() {
     const {number} = useParams();
-    const [payerFName,resetTitle] = useInput("123");
+    const [payerFName, resetTitle] = useInput("123");
     const {createOrder} = useOrder();
-    const {currentProduct,setCurrentProduct} =useOrder();
-    const {totalPrice,setTotal} = useOrder()
-    const summ =()=>{
-        let sum =0;
-        currentProduct.map((gift,i)=>{
+    const {currentProduct, setCurrentProduct} = useOrder();
+    const {totalPrice, setTotal} = useOrder()
+    const summ = () => {
+        let sum = 0;
+        currentProduct.map((gift, i) => {
             sum = gift.price*gift.count + sum;
         })
         return sum

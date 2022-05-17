@@ -1,7 +1,9 @@
 import React, {createContext, useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import cookie from "react-cookies";
-import {ip} from "../../node_modules/ip";
+import {ip} from "../ip";
+
+;
 
 const WishContext = createContext();
 export const useWish = () => useContext(WishContext);

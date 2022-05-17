@@ -1,16 +1,18 @@
 import React, {createContext, useContext, useState} from "react";
 import giftdata from "../data/giftlist.json";
-import {ip} from "../../node_modules/ip";
+import {ip} from "../ip";
+
+;
 
 const GiftContext = createContext();
-export const useGift = ()=> useContext(GiftContext);
+export const useGift = () => useContext(GiftContext);
 
-export default function GiftProvider({children}){
-    const [gifts,setGifts] = useState();
-    const [currentGift,setCurrentGift] = useState()
-    const [sort,setSort] = useState("price-low-to-high");
-    const [fakeGifts,setFakeGifts] = useState(giftdata);
-    const [topBar,setTopBar] = useState("");
+export default function GiftProvider({children}) {
+    const [gifts, setGifts] = useState();
+    const [currentGift, setCurrentGift] = useState()
+    const [sort, setSort] = useState("price-low-to-high");
+    const [fakeGifts, setFakeGifts] = useState(giftdata);
+    const [topBar, setTopBar] = useState("");
     const [loading,setLoading] = useState(true);
     const [currentSize,setCurrentSize] = useState();
     const [error,setError] = useState()
@@ -62,7 +64,7 @@ export default function GiftProvider({children}){
     const OnlySideCategory = (side,sort)=>{
         setError("normal")
         setLoading(true)
-        (typeof(sort))
+
         fetch("http://" + ip + "/api/main_home_page/"+ side + ", " + sort).then(res=>res.json()).then(
             res=>{
             if(Array.isArray(res.gifts)){
@@ -108,7 +110,6 @@ export default function GiftProvider({children}){
          fetch("http://" + ip + "/api/search/search_gift_id/"+id).then(res=>res.json()
          ).then((res)=>{
              let tt = res
-             (tt)
              if(tt.message==="this gift id does not exist"){
                  setError("no gift")
                  setLoading(false)
