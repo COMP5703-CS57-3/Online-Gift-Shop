@@ -45,7 +45,6 @@ export default function LogIn(props) {
     }
     const navigate = useNavigate()
     const HandleClick = () => {
-        (remember)
         if (Password === "") {
             alert("please input password")
         } else if (checkEmail(Email) !== true) {
@@ -75,7 +74,6 @@ export default function LogIn(props) {
                     // console.log(_session.get("curr"))
                     navigate(from)
                 } else {
-                    ("Error!")
                 }
             })
                 .catch((response) => {

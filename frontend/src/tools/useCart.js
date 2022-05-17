@@ -1,4 +1,4 @@
-import React, {createContext, useState, useContext, useEffect} from "react";
+import React, {createContext, useContext, useEffect, useState} from "react";
 import giftdata from "../data/giftlist.json";
 // import {v4} from "uuid";
 
@@ -11,7 +11,7 @@ const saveJSON = (key,data)=>
 
 export default function CartProvider({children,login}){
     const [items,setItems] = useState(loadJSON("test"));
-    (giftdata)
+
     localStorage.clear()
     //
     useEffect(()=>{

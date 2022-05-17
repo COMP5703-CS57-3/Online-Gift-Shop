@@ -39,7 +39,6 @@ export default function AdminProvider({children}) {
             method: "POST"
         }).then(res => res.json()).then(
             res => {
-                (res)
                 setOrderList(res.orders_inf)
                 setShownOrder(res.orders_inf)
             }

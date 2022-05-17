@@ -6,7 +6,6 @@ const BeforeEach = ({children}) => {
     const role = sessionStorage.getItem("role")
     const location = useLocation()
     const {login, Role} = useApp();
-    (location.pathname)
     let obj = checkRouterAuth(location.pathname)
     // console.log(obj)
     if (location.from) {

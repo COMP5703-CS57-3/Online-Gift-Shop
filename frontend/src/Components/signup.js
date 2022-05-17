@@ -63,20 +63,17 @@ export default function SignUp() {
                 user_mobile: User.Phone,
                 user_password: User.Password
             }).then((response) => {
-                    (response)
-                    // console.log(response, 1)
+
+                // console.log(response, 1)
                     if (response.data.message === 'User successfully sign up') {
-                        ("Success!")
                         navigate("/login")
                     } else {
 
                         // if
-                        ("Error!")
                     }
                 }
             )
                 .catch((response) => {
-                    ("Error!")
                     if (response.response.data.message === "User already exits") {
                         HandleErrChange({
                             errNick: res_name,

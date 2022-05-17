@@ -1,19 +1,18 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useInput} from "../../tools/useInput";
 import Box from "@mui/material/Box";
-import {Button, CssBaseline, FormControl, Select, TextField} from "@mui/material";
+import {CssBaseline} from "@mui/material";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Background from "../../picture/background.png";
 import {useOrder} from "../../tools/useOrder";
 import {useParams} from "react-router-dom";
 import {Grid} from "@material-ui/core";
-import ProductForShow from "../Detail/ProductForShow";
 import Loading from "../normal/Loading";
 import cookie from "react-cookies";
 import Typography from "@mui/material/Typography";
 import ProductOnlyShow from "../Detail/ProductOnlyShow";
-import {ip} from "../../node_modules/ip";
+import {ip} from "../../../node_modules/ip";
 
 export default function OrderDetail() {
     const {number} = useParams();

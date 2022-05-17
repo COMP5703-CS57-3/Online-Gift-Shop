@@ -6,7 +6,6 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TreeView from '@mui/lab/TreeView';
 import TreeItem from '@mui/lab/TreeItem';
 import {useGift} from "../../tools/useGift";
-import {number} from "prop-types";
 
 export default function SideBar() {
   const [expanded, setExpanded] = React.useState([]);
@@ -93,14 +92,14 @@ export default function SideBar() {
             OnlySideCategory("Other, Youth",sort);
         }
         if(number ==="11"){
-            (topBar)
+
             SideCategory(topBar,"Other, Youth",sort);
         }
         if(number ==="12" &&  topBar === ""){
-            (selected)
+
             OnlySideCategory("Other, Elderly",sort);
         }else if(number ==="12"){
-            (topBar)
+
             SideCategory(topBar,"Other, Elderly",sort);
         }
     }

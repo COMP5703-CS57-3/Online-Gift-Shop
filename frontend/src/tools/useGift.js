@@ -23,10 +23,10 @@ export default function GiftProvider({children}){
             res => {
                 if (Array.isArray(res.gifts)) {
                     setGifts(res.gifts);
-                    (res)
+
                 } else {
                     setGifts([]);
-                    (res)
+
                 }
             }).then().then(()=>setLoading(false));
     }
@@ -39,7 +39,7 @@ export default function GiftProvider({children}){
                     setGifts(res.gifts);
                 } else {
                     setGifts([]);
-                    (res)
+
                 }
                 setLoading(false);
             }).then();
@@ -51,10 +51,10 @@ export default function GiftProvider({children}){
             res => {
             if(Array.isArray(res.gifts)){
                 setGifts(res.gifts);
-                (res)
+
             }else{
                 setGifts([]);
-                (res)
+
             }
                 setLoading(false)
             }).then();
@@ -69,7 +69,7 @@ export default function GiftProvider({children}){
                 setGifts(res.gifts);
             }else{
                 setGifts([]);
-                (res)
+
             }
             setLoading(false);
         }).then();
@@ -83,7 +83,7 @@ export default function GiftProvider({children}){
                 setGifts(res.gifts);
             }else{
                 setGifts([]);
-                (res)
+
             }
             setLoading(false)
         }).then();
