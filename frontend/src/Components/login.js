@@ -53,7 +53,7 @@ export default function LogIn(props) {
         } else {
 
             // console.log(this.state.Username,this.state.Password)
-            axios.post('http://'+ ip +':5000/api/login_signup/login', {
+            axios.post('http://'+ ip +'/api/login_signup/login', {
                 user_email: Email,
                 user_password: Password
             }).then((response) => {

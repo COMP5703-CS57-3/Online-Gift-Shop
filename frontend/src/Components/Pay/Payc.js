@@ -37,7 +37,7 @@ export default function Payc() {
     }, []);
     useEffect(() => {
         setLoading(true);
-        fetch("http://" + ip +":5000/api/order/search_an_order/" + currentOrder, {
+        fetch("http://" + ip +"/api/order/search_an_order/" + currentOrder, {
             method: 'POST',
         }).then(res => res.json()).then(res => {
             setDetail(res)
@@ -77,7 +77,7 @@ export default function Payc() {
                              <h2 style={{marginLeft:0,marginRight:0,textAlign:"center"}}>Order Information</h2>
                              </Grid>
                         <Grid item xs={3}>
-                            <form action={"http://" + ip + ":5000/api/order/create_checkout_session"} method="post">
+                            <form action={"http://" + ip + "/api/order/create_checkout_session"} method="post">
                                 <div>
                                     <label>
                                         Order ID:

@@ -14,6 +14,7 @@ import ProductForShow from "../Detail/ProductForShow";
 import Loading from "../normal/Loading";
 import cookie from "react-cookies";
 import Typography from "@mui/material/Typography";
+import {ip} from "../../node_modules/ip"
 
 export default function CreateOrder() {
     const {id} = useParams();
@@ -48,7 +49,7 @@ export default function CreateOrder() {
     }
     useEffect(()=>{
         setLoading(true);
-        fetch("http://127.0.0.1:5000/api/wishlist/search", {
+        fetch("http://"+ ip +"/api/wishlist/search", {
             method: 'POST',
             body: JSON.stringify({
                     wishlist_id : id

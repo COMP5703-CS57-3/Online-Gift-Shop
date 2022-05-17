@@ -65,7 +65,7 @@ export default function AdminSignUp() {
         const res_password = checkPassword(User.Password, User.ConfirmedPwd)
 
         if (res_name === true && res_email === true && res_phone === true && res_password["Pwd"] === true && res_password["CPwd"] === true) {
-            axios.post('http://'+ ip +':5000/api/admin/admin_sign_up', {
+            axios.post('http://'+ ip +'/api/admin/admin_sign_up', {
                 admin_name: User.Username,
                 admin_email: User.Username + "@giftshop.com",
                 admin_mobile: User.Phone,

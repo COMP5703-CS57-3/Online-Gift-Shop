@@ -26,7 +26,7 @@ export default class AccountProfile extends React.Component {
 
 
         const that = this
-        axios.get(`http://`+ ip +`:5000/api/user_information/user_profile/${this.state.id}`)
+        axios.get(`http://`+ ip +`/api/user_information/user_profile/${this.state.id}`)
             .then(r => {
                 // console.log(r.data)
                 that.setState({"user": r.data, "isLoad": true})

@@ -1,7 +1,7 @@
 import React, {createContext, useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import cookie from "react-cookies";
-
+import {ip} from "../../node_modules/ip";
 
 const WishContext = createContext();
 export const useWish = () => useContext(WishContext);
@@ -45,7 +45,7 @@ export default function WishProvider({children}) {
             return;
         }
         if (wish && wish.owner_id === login) return;
-        fetch("http://127.0.0.1:5000/api/wishlist/show", {
+        fetch("http://"+ ip +"/api/wishlist/show", {
             method: 'POST',
             body: JSON.stringify({owner_id: id})
         }).then(res => res.json()).then(res => {
@@ -58,7 +58,7 @@ export default function WishProvider({children}) {
         setError2("normal")
         setShowLoading(true)
         setLoading2(true)
-        fetch("http://127.0.0.1:5000/api/wishlist/send_email", {
+        fetch("http://"+ ip +"/api/wishlist/send_email", {
             method: 'POST',
             body: JSON.stringify({
                 wishlist_id: wishlist,
@@ -78,7 +78,7 @@ export default function WishProvider({children}) {
     }
     const deleteWish = (ownerId, wishId) => {
         const nav = () => navi("/wish");
-        fetch("http://127.0.0.1:5000/api/wishlist/delete", {
+        fetch("http://"+ ip +"/api/wishlist/delete", {
             method: 'POST',
             body: JSON.stringify(
                 {
@@ -97,7 +97,7 @@ export default function WishProvider({children}) {
     }
     const createWish = (id, firstname, lastname, wishlistnameP, descriptionP, addressP, phoneP, postcodeP, timeP) => {
         const nav = () => navi("/wish");
-        fetch("http://127.0.0.1:5000/api/wishlist/create", {
+        fetch("http://"+ ip +"/api/wishlist/create", {
             method: 'POST',
             body: JSON.stringify(
                 {
@@ -118,7 +118,7 @@ export default function WishProvider({children}) {
 
     const addProduct = (ownerId, wishlistId, productId, sizeA, count) => {
         const nav = () => navi("/wish/wishlist/" + wishlistId);
-        fetch("http://127.0.0.1:5000/api/wishlist/add", {
+        fetch("http://"+ ip +"/api/wishlist/add", {
             method: 'POST',
             body: JSON.stringify(
                 {
@@ -136,7 +136,7 @@ export default function WishProvider({children}) {
 
     const changeCount = (wishlistId, proId, sizeA, countA) => {
         setShowLoading(true)
-        fetch("http://127.0.0.1:5000/api/wishlist/changeCount", {
+        fetch("http://"+ ip +"/api/wishlist/changeCount", {
             method: 'put',
             body: JSON.stringify(
                 {
@@ -153,7 +153,7 @@ export default function WishProvider({children}) {
     const getDetail = (id) => {
         setCurrId(id)
         const nave = () => navi("/")
-        fetch("http://127.0.0.1:5000/api/wishlist/search", {
+        fetch("http://"+ ip +"/api/wishlist/search", {
             method: 'POST',
             body: JSON.stringify({
                 wishlist_id: id
@@ -170,7 +170,7 @@ export default function WishProvider({children}) {
     }
     const removeProduct = (ownerId, wishlistId, proId) => {
         setShowLoading(true)
-        fetch("http://127.0.0.1:5000/api/wishlist/remove", {
+        fetch("http://"+ ip +"/api/wishlist/remove", {
             method: 'POST',
             body: JSON.stringify(
                 {

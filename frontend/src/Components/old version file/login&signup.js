@@ -2,6 +2,7 @@
 import axios from 'axios'
 import React from 'react'
 import Button from '@mui/material/Button';
+import {ip} from "../../node_modules/ip"
 
 function UserLogin(props) {
     return (
@@ -157,7 +158,7 @@ export default class Login extends React.Component {
                 }
                 else{
                     // console.log(this.state.Username,this.state.Password)
-                    axios.post('http://localhost:5000/login_signup/login', {
+                    axios.post('http://'+ ip +'/login_signup/login', {
                         user_email: this.state.Email,
                         user_password: this.state.Password
                     }).then((response) => {

@@ -35,7 +35,7 @@ export default function AdminProvider({children}) {
             // setShownOrder(orderList)
         }
 
-        fetch("http://"+ ip +":5000/api/admin/admin_return_all_orders", {
+        fetch("http://"+ ip +"/api/admin/admin_return_all_orders", {
             method: "POST"
         }).then(res => res.json()).then(
             res => {
@@ -50,25 +50,25 @@ export default function AdminProvider({children}) {
     }
 
     const getTotalWishlist = () => {
-        axios.post("http://"+ ip +":5000/api/dashboard/show_wishlist_number")
+        axios.post("http://"+ ip +"/api/dashboard/show_wishlist_number")
             .then(r => setTotalWishlistNumber(r.data.message.split(" ")[2]))
             .catch(() => setTotalWishlistNumber("4"))
 
     }
     const getTotalAccount = () => {
-        axios.post("http://"+ ip +":5000/api/dashboard/show_users_number")
+        axios.post("http://"+ ip +"/api/dashboard/show_users_number")
             .then(r => setTotalAccountNumber(r.data.message.split(" ")[2]))
             .catch(() => setTotalAccountNumber("12"))
 
     }
     const getTotalOrders = () => {
-        axios.post("http://"+ ip +":5000/api/dashboard/show_all_order_number")
+        axios.post("http://"+ ip +"/api/dashboard/show_all_order_number")
             .then(r => setTotalOrderNumber(r.data.message.split(" ")[2]))
             .catch(() => setTotalOrderNumber("22"))
 
     }
     const getCompleteOrders = () => {
-        axios.post("http://"+ ip +":5000/api/dashboard/show_completed_order_number")
+        axios.post("http://"+ ip +"/api/dashboard/show_completed_order_number")
             .then(r => setCompleteOrderNumber(r.data.message.split(" ")[2]))
             .catch(() => setCompleteOrderNumber("11"))
 
@@ -84,7 +84,7 @@ export default function AdminProvider({children}) {
             setShowLoading(true)
             // setShownOrder(orderList)
         }
-        fetch("http://"+ ip +":5000/api/admin/admin_return_all_users", {
+        fetch("http://"+ ip +"/api/admin/admin_return_all_users", {
             method: "POST"
         }).then(res => res.json()).then(
             res => {
@@ -130,7 +130,7 @@ export default function AdminProvider({children}) {
             gift_show_url4: showUrl4
 
         })
-        fetch("http://"+ ip +":5000/api/admin/admin_edit_items", {
+        fetch("http://"+ ip +"/api/admin/admin_edit_items", {
             method: 'put',
             body: JSON.stringify(
                 {
@@ -170,7 +170,7 @@ export default function AdminProvider({children}) {
             gift_show_url3: showUrl3,
             gift_show_url4: showUrl4
         })
-        fetch("http://"+ ip +":5000/api/admin/admin_add_items", {
+        fetch("http://"+ ip +"/api/admin/admin_add_items", {
             method: 'POST',
             body: JSON.stringify(
                 {
@@ -194,7 +194,7 @@ export default function AdminProvider({children}) {
 
     const removeItems = (id) => {
         const ids = id.join()
-        fetch(`http://"+ ${ip} +":5000/api/admin/admin_manage_items/delete/${ids}`, {
+        fetch(`http://"+ ${ip} +"/api/admin/admin_manage_items/delete/${ids}`, {
             method: 'DELETE'
         }).then(r => getAllGifts());
     }
@@ -206,7 +206,7 @@ export default function AdminProvider({children}) {
             setShowLoading(true)
             // setShownOrder(orderList)
         }
-        fetch("http://"+ ip +":5000/api/admin/admin_return_all_gifts",
+        fetch("http://"+ ip +"/api/admin/admin_return_all_gifts",
             {method: 'POST'}
         ).then(res => res.json()).then(
             res => {
@@ -223,7 +223,7 @@ export default function AdminProvider({children}) {
     }
     const orderCompleted = (id) => {
         setLoading(true);
-        fetch("http://"+ ip +":5000/api/order/set_an_order_as_completed/" + id,
+        fetch("http://"+ ip +"/api/order/set_an_order_as_completed/" + id,
             {method: 'POST'}
         ).then(console.log).then(() => {
             setLoading(false)
@@ -231,7 +231,7 @@ export default function AdminProvider({children}) {
     }
     const orderDelivery = (id) => {
         setLoading(true);
-        fetch("http://"+ ip +":5000/api/order/set_an_order_as_delivery/" + id,
+        fetch("http://"+ ip +"/api/order/set_an_order_as_delivery/" + id,
             {method: 'POST'}
         ).then(console.log).then(() => {
             setLoading(false)
@@ -243,14 +243,14 @@ export default function AdminProvider({children}) {
         const currOrder = orderList.find((item) => item.order_number === currOpen)
         const currStatus = currOrder.order_state
         if (states.indexOf(currStatus) === 1) {
-            axios.post(`http://`+ ip +`:5000/api/order/set_an_order_as_completed/${currOpen}`).then(r => getOrderList()).catch(r => console.log(r))
+            axios.post(`http://`+ ip +`/api/order/set_an_order_as_completed/${currOpen}`).then(r => getOrderList()).catch(r => console.log(r))
         } else if (states.indexOf(currStatus) === 0) {
-            axios.post(`http://`+ ip +`:5000/api/order/set_an_order_as_delivery/${currOpen}`).then(r => getOrderList()).catch(r => console.log(r))
+            axios.post(`http://`+ ip +`/api/order/set_an_order_as_delivery/${currOpen}`).then(r => getOrderList()).catch(r => console.log(r))
         }
     }
     const getLastOrderList = () => {
         setLoading(true);
-        axios.post("http://"+ ip +":5000/api/dashboard/return_new_orders").then(r => {
+        axios.post("http://"+ ip +"/api/dashboard/return_new_orders").then(r => {
                 // console.log(r.data.orders_inf)
                 setLastOrderList(r.data.orders_inf)
 

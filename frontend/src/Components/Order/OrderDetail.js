@@ -13,6 +13,7 @@ import Loading from "../normal/Loading";
 import cookie from "react-cookies";
 import Typography from "@mui/material/Typography";
 import ProductOnlyShow from "../Detail/ProductOnlyShow";
+import {ip} from "../../node_modules/ip";
 
 export default function OrderDetail() {
     const {number} = useParams();
@@ -38,7 +39,7 @@ export default function OrderDetail() {
     }
     useEffect(()=>{
         setLoading(true);
-        fetch("http://127.0.0.1:5000/api/order/search_an_order/"+number, {
+        fetch("http://"+ ip +"/api/order/search_an_order/"+number, {
             method: 'POST',
         }).then(res=>res.json()).then(res=>{
             setDetail(res)

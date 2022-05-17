@@ -72,7 +72,7 @@ export default class AccountProfileDetails extends React.Component {
 
     UNSAFE_componentWillMount() {
         const that = this
-        axios.get(`http://`+ ip + `:5000/api/user_information/user_profile/${this.state.id}`)
+        axios.get(`http://`+ ip + `/api/user_information/user_profile/${this.state.id}`)
             .then(r => {
                 // console.log(r.data)
                 const address = r.data.user_address ? r.data.user_address.split(",") : ['', '', '']
@@ -378,7 +378,7 @@ export default class AccountProfileDetails extends React.Component {
             const res_phone = checkPhone(data.user_mobile)
             console.log(res_name === true, res_phone === true)
             if (res_name === true && res_phone === true) {
-                axios.put("http://" + ip +":5000/api/user_information/user_profile/update_user_information", {
+                axios.put("http://" + ip +"/api/user_information/user_profile/update_user_information", {
 
                         "id": load("login"),
                         "user_name": data.user_name,
