@@ -184,29 +184,7 @@ export default function WishProvider({children}) {
             }
         );
     }
-    // const newWish = (title)=>{
-    //     const newWishlist = [
-    //         ...wish,
-    //         {
-    //             "id": 1,
-    //               "wishlist_id": "122323124",
-    //               "owner_id": 1234,
-    //               "wishlist_name": title,
-    //               "wishlist_description": "wishlist description 2",
-    //               "first_name": "first_name2",
-    //               "last_name": "last_name2",
-    //               "address": "address2",
-    //               "phone": "phone2",
-    //               "postcode": "1234",
-    //               "state": "processing",
-    //               "payer_fname": "none"
-    //         }
-    //     ]
-    //     setWish(newWishlist);
-    // }
-    // const createWish =(owner_id,owner_first_name,owner_last_name,wishlist_name,description,address,phone,postcode)=>{
-    //
-    // }、、
+
     return (
         <WishContext.Provider value={{
             wish,

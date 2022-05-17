@@ -2,6 +2,7 @@ import React, {createContext, useContext, useState} from "react";
 import cookie from "react-cookies";
 import axios from "axios";
 import {checkPassword} from "../logic/ValCheck";
+import {ip} from "../../node_modules/ip"
 
 
 const AccountContext = createContext();
@@ -31,7 +32,7 @@ export default function AccountProvider({children}) {
         if (res["Pwd"] !== true || res["CPwd"] !== true) {
             setErrInfo({errOld: true, errNew: res["Pwd"], errCon: res["CPwd"]})
         } else {
-            axios.put("http://localhost:5000/api/login_signup/change_password", {
+            axios.put("http://"+ ip +":5000/api/login_signup/change_password", {
                 id: cookie.load("login"),
                 user_old_password: oldPwd,
                 user_new_password: newPwd
@@ -47,7 +48,7 @@ export default function AccountProvider({children}) {
         }
     }
     const getUserProfile = () => {
-        axios.get(`http://localhost:5000/api/user_information/user_profile/${cookie.load("login")}`)
+        axios.get(`http://`+ ip +`:5000/api/user_information/user_profile/${cookie.load("login")}`)
             .then(r => {
                 // console.log(r.data)
                 const user = r.data
@@ -73,7 +74,7 @@ export default function AccountProvider({children}) {
         data["user_address"] = [data["user_country"], data["user_state"], data["user_detail_street"]].join(", ")
         // this.setState({new_user: userProfile})
         // console.log(sessionStorage.getItem("id"))
-        axios.put("http://localhost:5000/api/user_information/user_profile/update_user_information", {
+        axios.put("http://"+ ip +":5000/api/user_information/user_profile/update_user_information", {
 
                 "id": cookie.load("user"),
                 "user_name": data.user_name,

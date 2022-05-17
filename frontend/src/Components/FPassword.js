@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import {checkEmail, checkPassword} from "../logic/ValCheck";
 import {useNavigate} from "react-router-dom";
+import {ip} from "../../node_modules/ip"
 
 const steps = ['Please input your email', 'Please input validation code', 'Please input your new password', 'Finish'];
 
@@ -28,7 +29,7 @@ export default function FPassword() {
 
             if (email !== "") {
                 if (checkEmail(email) === true) {
-                    axios.post('http://localhost:5000/api/login_signup/get_validation', {
+                    axios.post('http://' + ip +':5000/api/login_signup/get_validation', {
                         user_email: email,
                     }).then((response) => {
 
@@ -62,7 +63,7 @@ export default function FPassword() {
                 const valPwd = checkPassword(password)
 
                 if (valPwd["Pwd"] === true) {
-                    axios.put('http://localhost:5000/api/login_signup/forget_password', {
+                    axios.put('http://' + ip +':5000/api/login_signup/forget_password', {
                         "user_email": email,
                         "validation_code": validation,
                         "user_new_password": password

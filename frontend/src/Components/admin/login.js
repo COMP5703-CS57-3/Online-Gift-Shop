@@ -17,6 +17,7 @@ import {checkEmail} from "../../logic/ValCheck";
 import cookie from 'react-cookies'
 import {useApp} from "../../tools/useApp";
 import {checkRouterAuth} from "../../router/GenRouter";
+import {ip} from "../../node_modules/ip"
 
 const theme = createTheme();
 
@@ -39,7 +40,7 @@ export default function AdminLogIn(props) {
         } else if (checkEmail(Email) !== true) {
             alert("please input valid Email")
         } else {
-            axios.post('http://localhost:5000/api/admin/admin_login', {
+            axios.post('http://'+ ip +':5000/api/admin/admin_login', {
                 admin_email: Email,
                 admin_password: Password
             }).then((response) => {

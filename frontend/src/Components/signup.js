@@ -16,6 +16,7 @@ import {checkEmail, checkNickName, checkPassword, checkPhone} from "../logic/Val
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import FastDial from "./FastDial";
+import {ip} from "../../node_modules/ip"
 
 const theme = createTheme();
 
@@ -56,7 +57,7 @@ export default function SignUp() {
         const res_password = checkPassword(User.Password, User.ConfirmedPwd)
 
         if (res_name === true && res_email === true && res_phone === true && res_password["Pwd"] === true && res_password["CPwd"] === true) {
-            axios.post('http://localhost:5000/api/login_signup/sign_up', {
+            axios.post('http://'+ ip +':5000/api/login_signup/sign_up', {
                 user_name: User.Username,
                 user_email: User.Email,
                 user_mobile: User.Phone,

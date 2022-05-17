@@ -3,6 +3,7 @@ import axios from "axios";
 import * as React from 'react';
 import {Skeleton} from "@mui/lab";
 import ChangePassword from "./changepwd";
+import {ip} from "../../node_modules/ip"
 
 
 const sample = {
@@ -25,7 +26,7 @@ export default class AccountProfile extends React.Component {
 
 
         const that = this
-        axios.get(`http://localhost:5000/api/user_information/user_profile/${this.state.id}`)
+        axios.get(`http://`+ ip +`:5000/api/user_information/user_profile/${this.state.id}`)
             .then(r => {
                 // console.log(r.data)
                 that.setState({"user": r.data, "isLoad": true})

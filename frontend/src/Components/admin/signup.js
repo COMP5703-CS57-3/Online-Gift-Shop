@@ -16,6 +16,7 @@ import {checkNickName, checkPassword, checkPhone} from "../../logic/ValCheck";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {InputAdornment} from "@material-ui/core";
+import {ip} from "../../node_modules/ip"
 
 
 const theme = createTheme();
@@ -64,7 +65,7 @@ export default function AdminSignUp() {
         const res_password = checkPassword(User.Password, User.ConfirmedPwd)
 
         if (res_name === true && res_email === true && res_phone === true && res_password["Pwd"] === true && res_password["CPwd"] === true) {
-            axios.post('http://localhost:5000/api/admin/admin_sign_up', {
+            axios.post('http://'+ ip +':5000/api/admin/admin_sign_up', {
                 admin_name: User.Username,
                 admin_email: User.Username + "@giftshop.com",
                 admin_mobile: User.Phone,
