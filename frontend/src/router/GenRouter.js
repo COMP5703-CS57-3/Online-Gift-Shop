@@ -232,6 +232,7 @@ const routes = [
 const checkAuth = (routers, path) => {
     for (const data of routers) {
         if (data.path === path) return data
+        if (data.path.split("/")[0] === path.split("/")[0]) return data
         if (data.children) {
             const res = checkAuth(data.children, path)
             if (res) return res
