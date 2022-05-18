@@ -1,41 +1,41 @@
 import json
 
 
-def test_create_order_with_invalid_wishlist_id(client):
-    response = client.post('/order/create', data=json.dumps({
-        "wishlist_id": "test wishlist_id",
-        "first_name": "zheng",
-        "last_name": "li",
-        "phone": "123456789",
-        "address": "test address",
-        "postcode": "12345",
-        "total_price": 100
-    }))
-    assert response.status_code == 404
-    assert response.json['message'] == 'user\'s Wishlist is empty, please add product to Wishlist first'
-
-
-def test_create_order_with_valid_wishlist_id(client):
-    response = client.post('/order/create', data=json.dumps({
-        "wishlist_id": "fjNlbY",
-        "first_name": "zheng",
-        "last_name": "li",
-        "phone": "123456789",
-        "address": "test address",
-        "postcode": "12345",
-        "total_price": 100,
-        "product_list": [{
-            "product_id": 1,
-            "product_name": "Utvaer Men's Windbreaker Vest",
-            "size": "M",
-            "count": 3,
-            "cover_url": "https://cdn11.bigcommerce.com/s-i8agbb7iol/images/stencil/1280x1280/products/10178/23186/55031_C00__94643.1647178830.jpg?c=2",
-            "price": 325
-        }]
-    }))
-    assert response.status_code == 200
-    assert response.json['message'] == 'the order is generated successfully'
-
+# def test_create_order_with_invalid_wishlist_id(client):
+#     response = client.post('/order/create', data=json.dumps({
+#         "wishlist_id": "test wishlist_id",
+#         "first_name": "zheng",
+#         "last_name": "li",
+#         "phone": "123456789",
+#         "address": "test address",
+#         "postcode": "12345",
+#         "total_price": 100
+#     }))
+#     assert response.status_code == 404
+#     assert response.json['message'] == 'user\'s Wishlist is empty, please add product to Wishlist first'
+#
+#
+# def test_create_order_with_valid_wishlist_id(client):
+#     response = client.post('/order/create', data=json.dumps({
+#         "wishlist_id": "fjNlbY",
+#         "first_name": "zheng",
+#         "last_name": "li",
+#         "phone": "123456789",
+#         "address": "test address",
+#         "postcode": "12345",
+#         "total_price": 100,
+#         "product_list": [{
+#             "product_id": 1,
+#             "product_name": "Utvaer Men's Windbreaker Vest",
+#             "size": "M",
+#             "count": 3,
+#             "cover_url": "https://cdn11.bigcommerce.com/s-i8agbb7iol/images/stencil/1280x1280/products/10178/23186/55031_C00__94643.1647178830.jpg?c=2",
+#             "price": 325
+#         }]
+#     }))
+#     assert response.status_code == 200
+#     assert response.json['message'] == 'the order is generated successfully'
+#
 
 def test_delete_order_with_invalid_user_id_or_order_id(client):
     response = client.post('/order/delete/99/99')

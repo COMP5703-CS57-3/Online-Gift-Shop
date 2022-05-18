@@ -69,9 +69,10 @@ def test_add_wishlist_item_with_wishlist_has_been_partial_paid_by_friends(client
         "product_id": 20,
         'wishlist_id': 'fjNlbY',
         'size': 'M',
+        'count': 0,
     }))
     assert response.status_code == 200
-    assert response.json['message'] == 'add one gift in this wishlist successfully.'
+    assert response.json['message'] == 'successfully changed'
 
 
 def test_add_wishlist_item_with_user_has_no_wishlst(client):
@@ -102,9 +103,10 @@ def test_add_wishlist_item_with_valid_info(client):
         "product_id": 19,
         'wishlist_id': 'wk7ovz',
         'size': 'M',
+        'count': 0,
     }))
     assert response.status_code == 200
-    assert response.json['message'] == 'success'
+    assert response.json['message'] == 'successfully added'
 
 
 def test_remove_wishlist_item_with_not_exist_owner_id(client):
@@ -260,6 +262,15 @@ def test_pay_wishlist_item_with_not_exist_id(client):
     }))
     assert response.status_code == 404
     assert response.json['message'] == 'This owner or wishlist does not exist.'
+
+
+def test_send_email(client):
+    response = client.post('/wishlist/send_email', data=json.dumps({
+        "wishlist_id": "z8xKWd",
+        "receiver_email": '2910842215@qq.com'
+    }))
+    assert response.status_code == 200
+    assert response.json['message'] == 'the email sent successfully'
 
 
 # def test_pay_wishlist_item_with_valid_params(client):
