@@ -12,6 +12,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import IconButton from "@mui/material/IconButton";
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import {Autocomplete, InputAdornment} from "@material-ui/core";
+import {useNavigate} from "react-router-dom";
 
 const style = {
     position: 'absolute',
@@ -48,6 +49,7 @@ export default function AddGift() {
     const [stockError, setStockError] = useState('')
     const [error, setError] = useState(false)
     const {addItems} = useAdmin();
+    let navi = useNavigate();
     const TopSelections = [{'label': 'Clothing', 'id': 0},
         {'label': 'Birthday', 'id': 1},
         {'label': 'Christmas', 'id': 2},
@@ -90,9 +92,12 @@ export default function AddGift() {
                 show4Props.value,
                 sizeList);
             // console.log(coverProps.value);
+            const nav = () => navi("/")
+            nav()
             setTimeout("setOpen(false)", 1000)
-        }
 
+
+        }
 
     }
 //------------------------------------table style---------------------------------
