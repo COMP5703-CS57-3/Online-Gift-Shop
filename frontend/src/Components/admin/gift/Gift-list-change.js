@@ -9,6 +9,7 @@ import {useAdmin} from "../../../tools/useAdmin";
 import Grid from "@mui/material/Grid";
 import SizeCard from "./SizeCard";
 import {Autocomplete, InputAdornment} from "@material-ui/core";
+import {useNavigate} from "react-router-dom";
 
 const style = {
     position: 'absolute',
@@ -46,6 +47,7 @@ export default function ChangeGift() {
     const [sizes, setSizes] = useState([]);
     let {gifts} = useAdmin();
     let loop = 0;
+    let navi = useNavigate();
     const TopSelections = [{'label': 'Clothing', 'id': 0},
         {'label': 'Birthday', 'id': 1},
         {'label': 'Christmas', 'id': 2},
@@ -108,6 +110,8 @@ export default function ChangeGift() {
             show3Props.value,
             show4Props.value,
             sizes.length === 0 ? size : sizes);
+        // const nav = () => navi("/")
+        //     nav()
         setTimeout("setOpen(false)", 1000)
     }
 //------------------------------------table style---------------------------------

@@ -92,8 +92,8 @@ export default function AddGift() {
                 show4Props.value,
                 sizeList);
             // console.log(coverProps.value);
-            const nav = () => navi("/")
-            nav()
+            // const nav = () => navi("/")
+            // nav()
             setTimeout("setOpen(false)", 1000)
 
 
