@@ -33,7 +33,7 @@ the_test_blueprint_page = Blueprint("gift_shop", __name__, url_prefix='/api')
 # set the gift shop api's information
 # the flask_restplus's Api is about swagger
 gift_shop = Api(the_test_blueprint_page, title="Online gift shop",
-                description='this test blueprint page is for Online Gift Shop backend test')
+                description='this test blueprint page is for Online Gift Shop backend test', doc=False)
 
 
 # @the_test_blueprint_page.route('/test')
