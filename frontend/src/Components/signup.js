@@ -58,7 +58,7 @@ export default function SignUp() {
 
         if (res_name === true && res_email === true && res_phone === true && res_password["Pwd"] === true && res_password["CPwd"] === true) {
             axios.post('http://'+ ip +'/api/login_signup/sign_up', {
-                user_name: User.Username,
+                user_name: User.Username.trim(),
                 user_email: User.Email,
                 user_mobile: User.Phone,
                 user_password: User.Password

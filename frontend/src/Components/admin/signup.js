@@ -66,7 +66,7 @@ export default function AdminSignUp() {
 
         if (res_name === true && res_email === true && res_phone === true && res_password["Pwd"] === true && res_password["CPwd"] === true) {
             axios.post('http://'+ ip +'/api/admin/admin_sign_up', {
-                admin_name: User.Username,
+                admin_name: User.Username.trim(),
                 admin_email: User.Username + "@giftshop.com",
                 admin_mobile: User.Phone,
                 admin_password: User.Password
