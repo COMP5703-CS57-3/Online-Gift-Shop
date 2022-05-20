@@ -4,7 +4,7 @@ export function checkNickName(val) {
         return "* Nick name is limited to 12 characters"
     } else if (val.length === 0 || val.trim().length === 0) {
         return "* Nick name is empty"
-    } else if (val.length < 4) {
+    } else if (val.trim().length < 4) {
         return "* Nick name should be at least 4 characters"
     } else if (val.match(reg) === null || val.match(reg)[0].length !== val.length) {
         return "* Nick name should only allow uppercase and lowercase letters, numbers, underlines, and spaces"

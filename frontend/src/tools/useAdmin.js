@@ -193,7 +193,7 @@ export default function AdminProvider({children}) {
 
     const removeItems = (id) => {
         const ids = id.join()
-        fetch(`http://"+ ${ip} +"/api/admin/admin_manage_items/delete/${ids}`, {
+        fetch(`http://${ip}/api/admin/admin_manage_items/delete/${ids}`, {
             method: 'DELETE'
         }).then(r => getAllGifts());
     }
