@@ -9,7 +9,7 @@ from ..connect_to_aws import database
 # TODO replace with config
 stripe.api_key = 'sk_test_4eC39HqLyjWDarjtT1zdp7dc'
 stripe.verify_ssl_certs = False
-DOMAIN = 'http://http://34.203.190.170/api/order/pay_result'
+DOMAIN = 'http://34.203.190.170/api/order/pay_result'
 
 
 def create_checkout_session(an_order):
