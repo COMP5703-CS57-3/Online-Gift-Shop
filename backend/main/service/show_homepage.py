@@ -300,11 +300,11 @@ def show_side_category_method(category, side_category1, side_category2, sort):
     side_categories1 = ['Male', 'Female']
     other_side_categories = ['Other']
     side_categories2 = ['Juvenile', 'Youth', 'Elderly']
-    # 主要种类在除了other的主列表中
+    # top main and side main
     if category in top_categories:
-        # side1在列表中（除开other）
+        # side1 in the main， not in the other
         if side_category1 in side_categories1:
-            # side2在列表中
+            # side2 in the main category
             if side_category2 in side_categories2:
                 if sort not in all_type_sort:
                     gifts = Gifts.query.filter_by(gift_category=category, gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(Gifts.id.asc()).all()
@@ -320,7 +320,7 @@ def show_side_category_method(category, side_category1, side_category2, sort):
                     gifts = Gifts.query.filter_by(gift_category=category, gift_side_category1=side_category1,
                                                   gift_side_category2=side_category2).order_by(
                         Gifts.gift_discount_price.asc()).all()
-            # side2没在列表中
+            # side2 not in the mian
             else:
                 response_data["message"] = "Do not have this side 2 category"
                 status_code = 404
@@ -328,9 +328,9 @@ def show_side_category_method(category, side_category1, side_category2, sort):
                 output_message.status_code = status_code
                 database.session.close()
                 return output_message
-        # side1在other中
+        # side1 in other
         elif side_category1 in other_side_categories:
-            # side2在列表中
+            # side2 in the main
             if side_category2 in side_categories2:
                 if sort not in all_type_sort:
                     # gifts = Gifts.query.filter(Gifts.gift_side_category1 not in side_categories1).filter_by(gift_category=category, gift_side_category2=side_category2).order_by(Gifts.id.desc()).all()
@@ -346,7 +346,7 @@ def show_side_category_method(category, side_category1, side_category2, sort):
                     gifts = Gifts.query.filter(Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(gift_category=category, gift_side_category2=side_category2).order_by(Gifts.gift_discount_price.desc()).all()
                 elif sort == 'discountprice-low-to-high':
                     gifts = Gifts.query.filter(Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(gift_category=category, gift_side_category2=side_category2).order_by(Gifts.gift_discount_price.asc()).all()
-            # side2没在列表中
+            # side2 not in the main
             else:
                 response_data["message"] = "Do not have this side 2 category"
                 status_code = 404
@@ -354,7 +354,7 @@ def show_side_category_method(category, side_category1, side_category2, sort):
                 output_message.status_code = status_code
                 database.session.close()
                 return output_message
-        # side1没有side1列表中，也没在other中
+        # side1 not in main and other
         else:
             response_data["message"] = "Do not have this side 1 category"
             status_code = 404
@@ -362,11 +362,11 @@ def show_side_category_method(category, side_category1, side_category2, sort):
             output_message.status_code = status_code
             database.session.close()
             return output_message
-    # 主要种类在other中
+    # top in other
     elif category in other_categories:
-        # side1 在side1中
+        # side1 in main
         if side_category1 in side_categories1:
-            # side2在side2中
+            # side2 in main
             if side_category2 in side_categories2:
                 if sort not in all_type_sort:
                     #gifts = Gifts.query.filter(Gifts.gift_category not in top_categories).filter_by(gift_side_category1=side_category1, gift_side_category2=side_category2).order_by(Gifts.id.desc()).all()
@@ -408,9 +408,9 @@ def show_side_category_method(category, side_category1, side_category2, sort):
                 return output_message
 
 
-        # side1 在other中
+        # side1 in other
         elif side_category1 in other_side_categories:
-            # side2在side2中
+            # side2 in main
             if side_category2 in side_categories2:
                 if sort not in all_type_sort:
                     # gifts = Gifts.query.filter(Gifts.gift_category not in top_categories, Gifts.gift_side_category1 not in side_categories1,).filter_by(gift_side_category2=side_category2).order_by(Gifts.id.desc()).all()
@@ -444,7 +444,7 @@ def show_side_category_method(category, side_category1, side_category2, sort):
                                                Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(gift_side_category2=side_category2).order_by(
                         Gifts.gift_discount_price.asc()).all()
 
-            # side2 没在side2中
+            # side2 not in main
             else:
                 response_data["message"] = "Do not have this side 2 category"
                 status_code = 404
@@ -452,7 +452,7 @@ def show_side_category_method(category, side_category1, side_category2, sort):
                 output_message.status_code = status_code
                 database.session.close()
                 return output_message
-        # side1不在side1中也不在other中
+        # side1 not in main and other
         else:
             response_data["message"] = "Do not have this side 1 category"
             status_code = 404
@@ -460,7 +460,7 @@ def show_side_category_method(category, side_category1, side_category2, sort):
             output_message.status_code = status_code
             database.session.close()
             return output_message
-    # 主要种类不在顶类中，也不在other中，没这个东西
+    # top not in main and other
     else:
         response_data["message"] = "Do not have this main category"
         status_code = 404
@@ -545,9 +545,9 @@ def just_search_side_category_method(side_category1, side_category2, sort):
     side_categories1 = ['Male', 'Female']
     other_side_categories = ['Other']
     side_categories2 = ['Juvenile', 'Youth', 'Elderly']
-    # 在主side1里
+    # side1 in main
     if side_category1 in side_categories1:
-        # 在side2里
+        # side2 in main
         if side_category2 in side_categories2:
             if side_category2 in side_categories2:
                 if sort not in all_type_sort:
@@ -564,7 +564,7 @@ def just_search_side_category_method(side_category1, side_category2, sort):
                     gifts = Gifts.query.filter_by(gift_side_category1=side_category1,
                                                   gift_side_category2=side_category2).order_by(
                         Gifts.gift_discount_price.desc()).all()
-        # 没在side2里
+        # side2 not in main
         else:
             response_data["message"] = "Do not have this side 2 category"
             status_code = 404
@@ -572,9 +572,9 @@ def just_search_side_category_method(side_category1, side_category2, sort):
             output_message.status_code = status_code
             database.session.close()
             return output_message
-   # 在side1的other里
+   # side1 in other
     elif side_category1 in other_side_categories:
-        # 在side2里
+        # side2 in main
         if side_category2 in side_categories2:
             if side_category2 in side_categories2:
                 if sort not in all_type_sort:
@@ -607,7 +607,7 @@ def just_search_side_category_method(side_category1, side_category2, sort):
                         Gifts.gift_side_category1.notin_(['Male', 'Female'])).filter_by(
                         gift_side_category2=side_category2).order_by(
                         Gifts.gift_discount_price.desc()).all()
-        # 没在side2里
+        # side2 not in main
         else:
             response_data["message"] = "Do not have this side 2 category"
             status_code = 404
@@ -615,7 +615,7 @@ def just_search_side_category_method(side_category1, side_category2, sort):
             output_message.status_code = status_code
             database.session.close()
             return output_message
-    # 跟side1没有关系
+    # side1 not in main and other
     else:
         response_data["message"] = "Do not have this side 1 category"
         status_code = 404
