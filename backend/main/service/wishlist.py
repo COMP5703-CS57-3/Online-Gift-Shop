@@ -152,7 +152,7 @@ def add_items(info):
         resp.status_code = status_code
         database.session.close()
         return resp
-    # 如果
+    # if
     if not check_size:
         response_data['message'] = 'This product does not have this size.'
         response_data['owner_id'] = info['owner_id']
@@ -485,7 +485,7 @@ def pay_wishlist(info):
             resp.status_code = status_code
             database.session.close()
             return resp
-        # list item里面有waiting的物品，开始选择支付
+        # list item have items in waiting, begin to pay
         else:
             order_time = datetime.datetime.now()
             order_state = 'waiting'
