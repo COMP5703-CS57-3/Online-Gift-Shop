@@ -25,6 +25,25 @@ export function checkEmail(val) {
 
 }
 
+export function checkNumber(val){
+    const reg = new RegExp(/^[A-Za-z0-9]+/)
+    if (val.length===0){
+        return false
+    }else if (val.match(reg) !== null && val.match(reg)[0].length === val.length){
+        return true
+    }else{
+        return false
+    }
+}
+
+export function checkEmpty(val){
+    if(val.length===0){
+        return false
+    }else{
+        return true
+    }
+}
+
 export function checkPhone(val) {
     const reg_aus = new RegExp(/^(\+?61|0)4\d{8}$/)// australian type
     const reg_chn = new RegExp(/^(13[0-9]|14[5|7]|15[0-9]|18[0-9])\d{8}$/) //chinese type

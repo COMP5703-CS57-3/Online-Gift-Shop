@@ -13,6 +13,10 @@ import IconButton from "@mui/material/IconButton";
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import {Autocomplete, InputAdornment} from "@material-ui/core";
 import {useNavigate} from "react-router-dom";
+import {
+    checkEmpty,
+    checkNumber
+} from "../../../logic/ValCheck"
 
 const style = {
     position: 'absolute',
@@ -63,42 +67,58 @@ export default function AddGift() {
     const SideSelections2 = [{'label': 'Juvenile', 'id': 0}, {'label': 'Young', 'id': 1}, {'label': 'Elderly', 'id': 2}]
     const submit = e => {
         e.preventDefault();
+        if(checkEmpty(giftNameProps.value)&&checkNumber(giftPriceProps)&&checkNumber(giftDiscountStateProps.toString())
+        &&checkEmpty(descriptionProps.value)
+        &&checkEmpty(coverProps.value)
+        &&checkEmpty(sizeList)){
+            const errorStock = sizeList.find(item => parseInt(item.size_stock).toString() === "NaN")
+            console.log(errorStock)
+            if (errorStock) {
+                setStockError("Please check the stock number")
+                setError(true)
+            } else {
+                console.log("2")
+                setError(false)
+            }
 
-        const errorStock = sizeList.find(item => parseInt(item.size_stock).toString() === "NaN")
-        console.log(errorStock)
-        if (errorStock) {
-            setStockError("Please check the stock number")
-            setError(true)
-        } else {
-            console.log("2")
-            setError(false)
-        }
+            if (!error) {
+                console.log("3")
+                addItems(
+                    giftNameProps.value,
+                    giftPriceProps,
+                    (giftDiscountStateProps * parseFloat(giftPriceProps) / 100).toString(),
+                    giftDiscountStateProps.toString() + "%",
+                    descriptionProps.value,
+                    categoryProps,
+                    sideCategory1Props,
+                    sideCategory2Props,
+                    coverProps.value,
+                    show1Props.value,
+                    show2Props.value,
+                    show3Props.value,
+                    show4Props.value,
+                    sizeList);
+                // console.log(coverProps.value);
+                // const nav = () => navi("/")
+                // nav()
+                setTimeout("setOpen(false)", 1000)
 
-        if (!error) {
-            console.log("3")
-            addItems(
-                giftNameProps.value,
-                giftPriceProps,
-                (giftDiscountStateProps * parseFloat(giftPriceProps) / 100).toString(),
-                giftDiscountStateProps.toString() + "%",
-                descriptionProps.value,
-                categoryProps,
-                sideCategory1Props,
-                sideCategory2Props,
-                coverProps.value,
-                show1Props.value,
-                show2Props.value,
-                show3Props.value,
-                show4Props.value,
-                sizeList);
-            // console.log(coverProps.value);
+
+            }
+        }else{
+            console.log(checkEmpty(giftNameProps.value))
+            console.log(checkNumber(giftPriceProps))
+            console.log(checkNumber(giftDiscountStateProps.toString()))
+            console.log(checkEmpty(descriptionProps.value))
+            console.log(checkEmpty(categoryProps))
+            console.log(checkEmpty(sideCategory1Props))
+            console.log(checkEmpty(sideCategory2Props))
+            console.log(checkEmpty(coverProps.value))
+            console.log(checkEmpty(sizeList))
+            // alert("wrong format")
             // const nav = () => navi("/")
             // nav()
-            setTimeout("setOpen(false)", 1000)
-
-
         }
-
     }
 //------------------------------------table style---------------------------------
 

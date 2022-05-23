@@ -10,6 +10,7 @@ import Grid from "@mui/material/Grid";
 import SizeCard from "./SizeCard";
 import {Autocomplete, InputAdornment} from "@material-ui/core";
 import {useNavigate} from "react-router-dom";
+import {checkEmpty, checkNumber} from "../../../logic/ValCheck";
 
 const style = {
     position: 'absolute',
@@ -93,26 +94,39 @@ export default function ChangeGift() {
 
     const submit = e => {
         e.preventDefault();
-        console.log(size)
-        console.log(sizes.length === 0)
-        changeItemCount(selectedGiftIds[0],
-            giftNameProps,
-            giftPriceProps,
-            (giftDiscountStateProps * parseFloat(giftPriceProps) / 100).toString(),
-            giftDiscountStateProps.toString() + "%",
-            descriptionProps.value ? descriptionProps.value : des,
-            categoryProps,
-            sideCategory1Props,
-            sideCategory2Props,
-            coverProps,
-            show1Props.value,
-            show2Props.value,
-            show3Props.value,
-            show4Props.value,
-            sizes.length === 0 ? size : sizes);
-        // const nav = () => navi("/")
-        //     nav()
-        setTimeout("setOpen(false)", 1000)
+        if(checkEmpty(giftNameProps)&&checkNumber(giftPriceProps)&&checkNumber(giftDiscountStateProps.toString())
+        &&checkEmpty(coverProps)
+        ) {
+
+            console.log(size)
+            console.log(sizes.length === 0)
+            changeItemCount(selectedGiftIds[0],
+                giftNameProps,
+                giftPriceProps,
+                (giftDiscountStateProps * parseFloat(giftPriceProps) / 100).toString(),
+                giftDiscountStateProps.toString() + "%",
+                descriptionProps.value ? descriptionProps.value : des,
+                categoryProps,
+                sideCategory1Props,
+                sideCategory2Props,
+                coverProps,
+                show1Props.value,
+                show2Props.value,
+                show3Props.value,
+                show4Props.value,
+                sizes.length === 0 ? size : sizes);
+            // const nav = () => navi("/")
+            // nav()
+            setTimeout("setOpen(false)", 1000)
+        }else{
+            console.log(checkEmpty(giftNameProps.value))
+            console.log(checkNumber(giftPriceProps))
+            console.log(checkNumber(giftDiscountStateProps.toString()))
+            console.log(checkEmpty(categoryProps))
+            console.log(checkEmpty(sideCategory1Props))
+            console.log(checkEmpty(sideCategory2Props))
+            console.log(checkEmpty(coverProps))
+        }
     }
 //------------------------------------table style---------------------------------
 //     console.log(size)
