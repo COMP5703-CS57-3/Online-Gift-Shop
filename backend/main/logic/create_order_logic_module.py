@@ -82,7 +82,8 @@ class PayResultCallback(Resource):
         if args.get('success'):
             resp = pay_order_success(order_id)
             if resp.status_code == 200:
-                return redirect("http://54.144.78.42/", code=303)
+                # return redirect("http://54.144.78.42/", code=303)
+                return redirect("http://localhost:3000/", code=303)
         else:
             resp = pay_order_fail(order_id)
             if resp.status_code == 200:
