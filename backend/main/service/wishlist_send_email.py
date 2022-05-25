@@ -49,7 +49,7 @@ def wishlist_send_email_method(user_input_dictionary):
                <p>Your friends have a wishlist. Could you help him/her?</p >
                <p>The Online Gift Shop's wishlist code is </p >
                 <div style="padding-left: 200px"><h2 >{code}</h2></div>
-               <p>Please have a look at our oline gift shop: 'http://34.203.190.170'</p >
+               <p>Please have a look at our online gift shop: 'http://54.144.78.42'</p >
                <p>Search '{code}' in our website and buy brilliant gifts for your friends!</p >
              </div>
            </div>
